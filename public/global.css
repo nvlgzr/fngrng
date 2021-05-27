@@ -114,23 +114,6 @@ h1 {
   letter-spacing: 1vw;
 }
 
-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-
-  width: 10vw;
-  height: 84vh;
-  margin-left: 4vmin;
-}
-
 #main {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -153,21 +136,6 @@ nav {
   flex: 2 1 1000px;
 }
 
-nav button {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 11vh;
-  flex: 1 1 11vh;
-  margin: 0.5vh auto;
-  width: 11vh;
-  font-size: 1.5vh;
-  color: var(--text-color);
-}
-
-nav button:hover {
-  font-weight: bold;
-  border-color: var(--accent-color);
-}
-
 button {
   letter-spacing: 3px;
 }
@@ -182,14 +150,6 @@ button {
 
 button:focus {
   outline: none;
-}
-
-.lvl8 {
-  display: none;
-  font-size: 1.1vh;
-
-  color: orange;
-  border-color: orange;
 }
 
 .typingArea {

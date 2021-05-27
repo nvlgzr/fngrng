@@ -1,19 +1,10 @@
 <script>
   import TopNav from "./TopNav.svelte";
+  import LevelSelect from "./LevelSelect.svelte";
 </script>
 
 <TopNav />
-
-<nav>
-  <button class="currentLevel lvl1">Level 1</button>
-  <button class="lvl2">Level 2</button>
-  <button class="lvl3">Level 3</button>
-  <button class="lvl4">Level 4</button>
-  <button class="lvl5">Level 5</button>
-  <button class="lvl6">Level 6</button>
-  <button class="lvl7">All Words</button>
-  <button class="lvl8">Full Sentences</button>
-</nav>
+<LevelSelect />
 
 <div class="customInput">
   <div class="buttonHolder">
