@@ -1,30 +1,159 @@
 <script>
-	export let name;
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<select autocomplete="off">
+  <option value="colemak">Colemak</option>
+  <option value="colemakdh">Colemak-DH</option>
+  <option disabled />
+  <option value="azerty">AZERTY</option>
+  <option value="dvorak">Dvorak</option>
+  <option value="lefthandeddvorak">Left-handed Dvorak</option>
+  <option value="qwerty">QWERTY</option>
+  <option value="tarmak">Tarmak</option>
+  <option value="workman">Workman</option>
+  <option disabled />
+  <option value="custom">Custom</option>
+</select>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<button class="preferenceButton" />
+<div class="preferenceMenu">
+  <button class="closePreferenceButton" />
+  <ul class="preferences">
+    <li>
+      Capital Letters Allowed<input
+        class="capitalLettersAllowed"
+        type="checkbox"
+        autocomplete="off"
+      />
+    </li>
+    <li>
+      Punctuation Allowed<input
+        class="punctuationModeButton"
+        type="checkbox"
+        autocomplete="off"
+      />
+    </li>
+    <li>
+      Full Sentence Mode<input
+        class="fullSentenceMode"
+        type="checkbox"
+        autocomplete="off"
+      />
+    </li>
+    <li>
+      Word Scrolling Mode
+      <input
+        class="wordScrollingModeButton"
+        type="checkbox"
+        autocomplete="off"
+        checked
+      />
+    </li>
+    <li>
+      <input
+        class="timeLimitModeInput noDisplay"
+        type="number"
+        value="60"
+        autocomplete="off"
+      />
+      Time Limit Mode<input
+        class="timeLimitModeButton"
+        type="checkbox"
+        autocomplete="off"
+      />
+    </li>
+    <li>
+      <input
+        class="wordLimitModeInput"
+        type="number"
+        value="50"
+        step="10"
+        autocomplete="off"
+      />
+      Word Limit Mode
+      <input
+        class="wordLimitModeButton"
+        type="checkbox"
+        autocomplete="off"
+        checked
+      />
+    </li>
+  </ul>
+</div>
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
+<nav>
+  <button class="currentLevel lvl1">Level 1</button>
+  <button class="lvl2">Level 2</button>
+  <button class="lvl3">Level 3</button>
+  <button class="lvl4">Level 4</button>
+  <button class="lvl5">Level 5</button>
+  <button class="lvl6">Level 6</button>
+  <button class="lvl7">All Words</button>
+  <button class="lvl8">Full Sentences</button>
+</nav>
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+<div class="customInput">
+  <div class="buttonHolder">
+    <button class="discardButton">Discard</button>
+    <button class="saveButton">Save</button>
+  </div>
+  <div id="inputKeyboard" />
+  <div id="inputShiftKeyboard" />
+  <input type="text" name="customKey" id="customUIKeyInput" />
+  <div id="customUILevelSelect">
+    <button class="customUILevelButton currentCustomUILevel">lvl1</button>
+    <button class="customUILevelButton">lvl2</button>
+    <button class="customUILevelButton">lvl3</button>
+    <button class="customUILevelButton">lvl4</button>
+    <button class="customUILevelButton">lvl5</button>
+    <button class="customUILevelButton">lvl6</button>
+  </div>
+</div>
+
+<section id="main">
+  <h1><span id="layoutName">Colemak</span> Club</h1>
+
+  <div class="typingArea">
+    <div class="fade" id="fadeElement">
+      <h2 class="noDisplay prompt" />
+    </div>
+    <button id="resetButton" class="noDisplay">Reset</button>
+    <input id="userInput" type="paragraph" spellcheck="false" />
+    <div id="scoreAndClock">
+      <span id="scoreText">0/50</span>
+      <span id="timeText">0m :0 s</span>
+    </div>
+    <div id="testResults" class="transparent">
+      <div id="accuracyText" />
+      <div id="wpmText" />
+    </div>
+  </div>
+  <div class="cheatsheetContainer">
+    <div class="cheatsheet" />
+    <div>
+      <button class="openUIButton" />
+    </div>
+  </div>
+  <div class="bottomText">
+    <h3>
+      Contribute on <a
+        href="https://github.com/gnusenpai/colemakclub"
+        target="_blank">GitHub</a
+      >.
+    </h3>
+    <h3>
+      Sign the <a
+        href="https://www.change.org/p/microsoft-add-colemak-as-a-pre-installed-keyboard-layout-to-windows"
+        target="_blank">Petition</a
+      > to add Colemak to Windows.
+    </h3>
+  </div>
+</section>
+
+<div id="mappingToggle">
+  <h6>Keyboard Mapping: <span>off</span></h6>
+  <label class="switch">
+    <input type="checkbox" autocomplete="off" />
+    <span class="slider" />
+  </label>
+</div>
