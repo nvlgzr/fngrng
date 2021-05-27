@@ -1,85 +1,8 @@
 <script>
+  import TopNav from "./TopNav.svelte";
 </script>
 
-<select autocomplete="off">
-  <option value="colemak">Colemak</option>
-  <option value="colemakdh">Colemak-DH</option>
-  <option disabled />
-  <option value="azerty">AZERTY</option>
-  <option value="dvorak">Dvorak</option>
-  <option value="lefthandeddvorak">Left-handed Dvorak</option>
-  <option value="qwerty">QWERTY</option>
-  <option value="tarmak">Tarmak</option>
-  <option value="workman">Workman</option>
-  <option disabled />
-  <option value="custom">Custom</option>
-</select>
-
-<button class="preferenceButton" />
-<div class="preferenceMenu">
-  <button class="closePreferenceButton" />
-  <ul class="preferences">
-    <li>
-      Capital Letters Allowed<input
-        class="capitalLettersAllowed"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
-    <li>
-      Punctuation Allowed<input
-        class="punctuationModeButton"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
-    <li>
-      Full Sentence Mode<input
-        class="fullSentenceMode"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
-    <li>
-      Word Scrolling Mode
-      <input
-        class="wordScrollingModeButton"
-        type="checkbox"
-        autocomplete="off"
-        checked
-      />
-    </li>
-    <li>
-      <input
-        class="timeLimitModeInput noDisplay"
-        type="number"
-        value="60"
-        autocomplete="off"
-      />
-      Time Limit Mode<input
-        class="timeLimitModeButton"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
-    <li>
-      <input
-        class="wordLimitModeInput"
-        type="number"
-        value="50"
-        step="10"
-        autocomplete="off"
-      />
-      Word Limit Mode
-      <input
-        class="wordLimitModeButton"
-        type="checkbox"
-        autocomplete="off"
-        checked
-      />
-    </li>
-  </ul>
-</div>
+<TopNav />
 
 <nav>
   <button class="currentLevel lvl1">Level 1</button>

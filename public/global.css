@@ -50,52 +50,6 @@ select {
   background-color: var(--menu-background-color);
 }
 
-.preferenceButton {
-  background-image: url("settingsIcon.webp");
-  background-size: cover;
-  -webkit-filter: invert(1);
-  filter: invert(1);
-  background-repeat: no-repeat;
-  border: none;
-
-  opacity: 0.8;
-  margin: 0;
-  position: absolute;
-  top: 2vmax;
-  right: 2vmax;
-
-  width: 3vmax;
-  height: 3vmax;
-}
-
-.preferenceButton:hover,
-.closePreferenceButton:hover {
-  opacity: 1;
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.closePreferenceButton {
-  margin: 0;
-  position: relative;
-  top: 1vh;
-  left: 1vh;
-
-  background-image: url("x.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  height: 2vh;
-  width: 2vh;
-
-  -webkit-filter: invert(1);
-
-  filter: invert(1);
-
-  border: none;
-}
-
 .preferenceMenu {
   position: absolute;
   right: -37vh;
