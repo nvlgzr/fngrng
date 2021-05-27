@@ -14,7 +14,6 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-
   background-color: var(--background-color);
   color: var(--text-color);
   height: 100vh;
@@ -45,7 +44,6 @@ select {
   position: absolute;
   top: 2vmax;
   right: 8vmax;
-
   color: var(--text-color);
   background-color: var(--menu-background-color);
 }
@@ -54,17 +52,12 @@ select {
   position: absolute;
   right: -37vh;
   z-index: 105;
-
   background: #111;
   height: 100vh;
   width: 33vh;
-
   border-left: 0.1vh solid var(--text-color);
-
   -webkit-transition: right 0.08s linear;
-
   -o-transition: right 0.08s linear;
-
   transition: right 0.08s linear;
 }
 
@@ -84,7 +77,6 @@ select {
   -ms-flex-align: end;
   align-items: flex-end;
   padding: 0 1vh 0 0;
-
   height: 55vh;
 }
 
@@ -104,7 +96,6 @@ li input {
   font-size: 1.7vh;
   width: 5vh;
   height: 1.7vh;
-
   margin: 0 1.5vh 0 auto;
 }
 
@@ -128,11 +119,8 @@ h1 {
   height: 90%;
   margin-right: 10vmax;
   margin-bottom: 3vh;
-
   -webkit-box-flex: 2;
-
   -ms-flex: 2 1 1000px;
-
   flex: 2 1 1000px;
 }
 
@@ -181,7 +169,6 @@ button:focus {
   /*width: 100%;*/
   /*color: white;*/
   margin: 10vh 0 0 0;
-
   letter-spacing: 0.1vmax;
 }
 
@@ -227,7 +214,6 @@ input {
   display: flex;
   -ms-flex-pack: distribute;
   justify-content: space-around;
-
   font-size: 5vmin;
 }
 
@@ -250,11 +236,8 @@ input {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-
   -webkit-box-flex: 1;
-
   -ms-flex: 1 1 8vh;
-
   flex: 0.8 1 7vh;
 }
 
@@ -270,7 +253,6 @@ a:link {
 }
 
 /*____________________Slider________________________*/
-
 #mappingToggle {
   position: absolute;
   bottom: 3vh;
@@ -341,7 +323,6 @@ input:checked + .slider:before {
 }
 
 /*___________cheatsheet___________*/
-
 .cheatsheetContainer {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -374,12 +355,9 @@ input:checked + .slider:before {
   border: 0.2vh solid var(--accent-color);
   height: 75%;
   width: 5%;
-
   opacity: 0.5;
-
   /*border-bottom-right-radius: 7%;
 	border-bottom-left-radius: 7%;*/
-
   vertical-align: top;
 }
 
@@ -387,7 +365,6 @@ input:checked + .slider:before {
   display: block;
   font-size: 2.2vh;
   font-weight: bold;
-
   text-transform: uppercase;
 }
 
@@ -463,16 +440,12 @@ input:checked + .slider:before {
   background-size: cover;
   -webkit-filter: invert(1);
   filter: invert(1);
-
   position: relative;
   top: -0.3vmax;
   margin: 0 0 0 1vmin;
-
   border: none;
-
   height: 2.5vmax;
   width: 2.5vmax;
-
   display: none;
 }
 
@@ -480,50 +453,6 @@ input:checked + .slider:before {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
-}
-
-/*__________________custom ui keyboard________________*/
-
-.customInput {
-  position: absolute;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  left: 23vw;
-  top: 23vh;
-  z-index: 100;
-
-  border: 0.2vmax solid var(--text-color);
-  background-color: var(--menu-background-color);
-  height: 37vmax;
-  width: 60vmax;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  display: none;
-
-  -webkit-transition: -webkit-transform 0.15s linear;
-
-  transition: -webkit-transform 0.15s linear;
-
-  -o-transition: transform 0.15s linear;
-
-  transition: transform 0.15s linear;
-
-  transition: transform 0.15s linear, -webkit-transform 0.15s linear;
-}
-
-#inputKeyboard {
-  display: block;
-  margin: 6.5vmax auto 0 auto;
-  width: 88%;
-  white-space: nowrap;
-}
-
-#inputKeyboard .row {
-  width: 95%;
-  margin: auto;
 }
 
 .cKey {
@@ -559,76 +488,6 @@ input:checked + .slider:before {
   background: var(--accent-color);
 }
 
-#customUIKeyInput {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  margin: 0;
-}
-
-.buttonHolder {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-
-  width: 90%;
-}
-
-.saveButton,
-.discardButton {
-  font-size: 2.3vmax;
-
-  height: 1vmax;
-  width: 1vmax;
-  padding: 1vmax;
-  border: none;
-}
-
-.saveButton:hover,
-.discardButton:hover {
-  -webkit-transform: scale(1.05);
-  -ms-transform: scale(1.05);
-  transform: scale(1.05);
-}
-
-/*__________________custom level select________________*/
-#customUILevelSelect {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 2vmax auto 2vmax auto;
-  background: red 0.2;
-
-  height: 8vmax;
-  width: 100%;
-}
-
-.customUILevelButton {
-  font-size: 2vmax;
-  margin: 2vmax auto;
-  opacity: 0.8;
-
-  background-color: #191919;
-}
-
-.customUILevelButton:hover {
-  opacity: 1;
-  -webkit-filter: brightness(1.5);
-  filter: brightness(1.5);
-}
-
-.currentCustomUILevel {
-  border-color: var(--tertiary-accent-color);
-  color: var(--tertiary-accent-color);
-  background-color: #2f3f2f;
-  opacity: 1;
-}
-
-/*____________________Toggle-able classes______________*/
-
 .noDisplay {
   display: none;
 }
@@ -659,9 +518,7 @@ input:checked + .slider:before {
   100% {
   }
 }*/
-
 /*___________________________ANIMATIONS________________________*/
-
 .slideLeft {
   position: relative;
   color: blue;

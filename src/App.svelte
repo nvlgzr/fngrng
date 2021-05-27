@@ -1,28 +1,12 @@
 <script>
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
+  import CustomInput from "./CustomInput.svelte";
 </script>
 
 <TopNav />
 <LevelSelect />
-
-<div class="customInput">
-  <div class="buttonHolder">
-    <button class="discardButton">Discard</button>
-    <button class="saveButton">Save</button>
-  </div>
-  <div id="inputKeyboard" />
-  <div id="inputShiftKeyboard" />
-  <input type="text" name="customKey" id="customUIKeyInput" />
-  <div id="customUILevelSelect">
-    <button class="customUILevelButton currentCustomUILevel">lvl1</button>
-    <button class="customUILevelButton">lvl2</button>
-    <button class="customUILevelButton">lvl3</button>
-    <button class="customUILevelButton">lvl4</button>
-    <button class="customUILevelButton">lvl5</button>
-    <button class="customUILevelButton">lvl6</button>
-  </div>
-</div>
+<CustomInput />
 
 <section id="main">
   <h1><span id="layoutName">Colemak</span> Club</h1>
