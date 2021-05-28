@@ -3,6 +3,7 @@
   import {
     currentLayout,
     currentLevel,
+    keyRemapping,
     prefsOpen,
     lowercaseOnly,
     fullSentenceModeEnabled,
@@ -10838,7 +10839,7 @@
       let char = e.code;
 
       // prevent default char from being typed and replace new char from keyboard map
-      if (localStorage.getItem("keyRemapping") === "true") {
+      if ($keyRemapping) {
         if (char in keyboardMap && gameOn) {
           if (!e.shiftKey) {
             input.value += keyboardMap[char];
