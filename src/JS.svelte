@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { currentLayout, prefsOpen } from "./store.js";
+  import { currentLayout, currentLevel, prefsOpen } from "./store.js";
 
   onMount(async () => {
     /* START layoutInfo.js inlined */
@@ -10145,7 +10145,6 @@
     var gameOn = false; // set to true when user starts typing in input field
     var correct = 0; // number of correct keystrokes during a game
     var errors = 0; // number of typing errors during a game
-    var currentLevel = localStorage.getItem("currentLevel") || 1; // int representation of the current level, which determines which letter set to test
     var correctAnswer; // string representation of the current correct word
     var letterIndex = 0; // Keeps track of where in a word the user is
     // Increment with every keystroke except ' ', return, and backspace
@@ -10180,7 +10179,7 @@
       27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
     ]; // list of all keycodes for keys we typically want to ignore
     var punctuation = localStorage.getItem("punctuation") || ""; // this contains punctuation to include in our test sets. Set to empty at first
-    var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+currentLevel]+punctuation;; // keeps track of letters that still need to be used in the current level
+    var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
 
@@ -10229,7 +10228,7 @@
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
 
-      switchLevel(currentLevel);
+      switchLevel($currentLevel);
 
       updateLayoutUI();
     }
@@ -10240,7 +10239,7 @@
     function init() {
       createTestSets();
       reset();
-      updateCheatsheetStyling(currentLevel);
+      updateCheatsheetStyling();
     }
 
     /*________________Timers and Listeners___________________*/
@@ -10438,7 +10437,7 @@
       localStorage.setItem("punctuation", punctuation);
 
       createTestSets();
-      updateCheatsheetStyling(currentLevel);
+      updateCheatsheetStyling();
       reset();
     });
 
@@ -10653,7 +10652,7 @@
         // associate the key element with the current selected level
 
         // this updates the main keyboard in real time. Could be ommited if performance needs a boost
-        updateCheatsheetStyling(currentLevel);
+        updateCheatsheetStyling();
 
         // switch to next input key
         switchSelectedInputKey("right");
@@ -11026,8 +11025,7 @@
 
     // switches to level
     function switchLevel(lev) {
-      localStorage.setItem("currentLevel", lev);
-      // console.log(lev);
+      currentLevel.set(lev);
       // stop timer
       gameOn = false;
 
@@ -11035,35 +11033,31 @@
       document.querySelector("#userInput").value = "";
 
       // clear highlighted buttons
-      clearCurrentLevelStyle();
+      clearlevelStyle();
       // console.log('.lvl'+lev);
       document.querySelector(".lvl" + lev).classList.add("currentLevel");
 
       // set full sentence mode to true
-      if (lev == 8) {
+      if ($currentLevel == 8) {
         fullSentenceMode = true;
       } else {
         fullSentenceMode = false;
       }
 
-      if (lev == 8) {
-        lev = 7;
+      if ($currentLevel == 8) {
+        switchLevel(7);
       }
-
-      // window[] here allows us to select the variable levelN, instead of
-      // setting currentLevelList to a string
-      currentLevel = lev;
 
       // reset everything
       reset();
 
       // take care of styling for the cheatsheet
-      updateCheatsheetStyling(lev);
+      updateCheatsheetStyling();
     }
 
     // updates all styling for the cheatsheet by first resetting all keys,
     // then styling those in active levels. takes the current level (int) as a parameter
-    function updateCheatsheetStyling(level) {
+    function updateCheatsheetStyling() {
       // loop through all buttons
       let allKeys = document.querySelectorAll(".key");
       for (let n of allKeys) {
@@ -11082,7 +11076,7 @@
         let objKeys = Object.keys(letterDictionary);
 
         // check active levels and apply styling
-        for (let i = 0; i < level; i++) {
+        for (let i = 0; i < $currentLevel; i++) {
           // the letter that will appear on the key
           let letter = keyboardMap[n.id];
 
@@ -11103,7 +11097,7 @@
               n.classList.add("homeRow");
             } else if (i == 6) {
               // all words selected
-            } else if (i == level - 1) {
+            } else if (i == $currentLevel - 1) {
               n.classList.remove("active");
               n.classList.add("newInThisLevel");
             } else {
@@ -11160,7 +11154,7 @@
       score = -1;
 
       requiredLetters = (
-        levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation
+        levelDictionaries[$currentLayout]["lvl" + $currentLevel] + punctuation
       ).split("");
 
       // reset clock
@@ -11329,9 +11323,10 @@
         return str;
       }
 
-      if (wordLists["lvl" + currentLevel].length > 0) {
+      if (wordLists["lvl" + $currentLevel].length > 0) {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation;
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+          punctuation;
 
         //requiredLetters = startingLetters.split('');
 
@@ -11347,15 +11342,15 @@
           }
 
           let rand = Math.floor(
-            Math.random() * wordLists["lvl" + currentLevel].length
+            Math.random() * wordLists["lvl" + $currentLevel].length
           );
-          let wordToAdd = wordLists["lvl" + currentLevel][rand];
+          let wordToAdd = wordLists["lvl" + $currentLevel][rand];
 
           //console.log('in circuit ' + circuitBreaker);
           if (circuitBreaker > 12000) {
             if (circuitBreaker > 30000) {
               str +=
-                levelDictionaries[$currentLayout]["lvl" + currentLevel] + " ";
+                levelDictionaries[$currentLayout]["lvl" + $currentLevel] + " ";
               i += wordToAdd.length;
               wordsCreated++;
               circuitBreaker = 0;
@@ -11399,12 +11394,13 @@
         }
       } else {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation;
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+          punctuation;
         // if there are no words with the required letters, all words should be set to the
         // current list of required letters
         let wordsCreated = 0;
         if (
-          levelDictionaries[$currentLayout]["lvl" + currentLevel].length == 0
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel].length == 0
         ) {
           str = "";
         } else {
@@ -11433,9 +11429,10 @@
       for (let i = 0; i < randWordLength; i++) {
         let rand = Math.floor(
           Math.random() *
-            levelDictionaries[$currentLayout]["lvl" + currentLevel].length
+            levelDictionaries[$currentLayout]["lvl" + $currentLevel].length
         );
-        jumble += levelDictionaries[$currentLayout]["lvl" + currentLevel][rand];
+        jumble +=
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel][rand];
       }
 
       return jumble;
@@ -11527,9 +11524,9 @@
       timeText.innerHTML = minutes + "m :" + seconds + " s";
     }
 
-    // removes currentLevel styles from all buttons. Use every time the
+    // removes level styles from all buttons. Use every time the
     // level is changed
-    function clearCurrentLevelStyle() {
+    function clearlevelStyle() {
       Array.from(buttons).forEach(function (button) {
         button.classList.remove("currentLevel");
       });

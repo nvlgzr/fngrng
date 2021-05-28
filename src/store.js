@@ -6,6 +6,12 @@ currentLayout.subscribe(value => {
   localStorage.setItem("currentLayout", value);
 });
 
+const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
+export const currentLevel = writable(storedCurrentLevel);
+currentLevel.subscribe(value => {
+  localStorage.setItem("currentLevel", value)
+})
+
 const storedKeyRemapping = localStorage.getItem("keyRemapping");
 export const keyRemapping = writable(storedKeyRemapping === "true")
 keyRemapping.subscribe(value => {
