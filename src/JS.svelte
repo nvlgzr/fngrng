@@ -10097,79 +10097,6 @@
     /* END wordList.js inlined */
 
     /* START keyboardDivs.js inlined */
-    var keyboardDivs = `
-	<div class=row>
-		<div class="key" id='Backquote'><span class="letter"></span></div>
-		<div class="key" id='Digit1'><span class="letter"></span></div>
-		<div class="key" id='Digit2'><span class="letter"></span></div>
-		<div class="key" id='Digit3'><span class="letter"></span></div>
-		<div class="key" id='Digit4'><span class="letter"></span></div>
-		<div class="key" id='Digit5'><span class="letter"></span></div>
-		<div class="key" id='Digit6'><span class="letter"></span></div>
-		<div class="key" id='Digit7'><span class="letter"></span></div>
-		<div class="key" id='Digit8'><span class="letter"></span></div>
-		<div class="key" id='Digit9'><span class="letter"></span></div>
-		<div class="key" id='Digit0'><span class="letter"></span></div>
-		<div class="key" id='Minus'><span class="letter"></span></div>
-		<div class="key" id='Equal'><span class="letter"></span></div>
-		<div class="key twou" id='BackSpace'><span class="letter"></span></div>
-	</div>
-	<div class=row>
-		<div class="key onepointfiveu"><span class="letter"></span></div>
-		<div class="key" id='KeyQ'><span class="letter"></span></div>
-		<div class="key" id='KeyW'><span class="letter"></span></div>
-		<div class="key" id='KeyE'><span class="letter"></span></div>
-		<div class="key lvl3" id='KeyR'><span class="letter"></span></div>
-		<div class="key lvl3" id='KeyT'><span class="letter"></span></div>
-		<div class="key lvl3" id='KeyY'><span class="letter"></span></div>
-		<div class="key lvl3" id='KeyU'><span class="letter"></span></div>
-		<div class="key lvl5" id='KeyI'><span class="letter"></span></div>
-		<div class="key lvl5" id='KeyO'><span class="letter"></span></div>
-		<div class="key lvl5" id='KeyP'><span class="letter"></span></div>
-		<div class="key" id='BracketLeft'><span class="letter"></span></div>
-		<div class="key" id='BracketRight'><span class="letter"></span></div>
-		<div class="key onepointfiveu" id='Backslash'><span class="letter"></span></div>
-	</div>
-	<div class=row>
-		<div class="key onepointsevenfiveu"><span class="letter"></span></div>
-		<div class="key lvl1" id='KeyA'><span class="letter"></span></div>
-		<div class="key lvl1" id='KeyS'><span class="letter"></span></div>
-		<div class="key lvl1" id='KeyD'><span class="letter"></span></div>
-		<div class="key lvl1 restingPosition" id='KeyF'><span class="letter"></span></div>
-		<div class="key lvl2" id='KeyG'><span class="letter"></span></div>
-		<div class="key lvl2" id='KeyH'><span class="letter"></span></div>
-		<div class="key lvl1 restingPosition" id='KeyJ'><span class="letter"></span></div>
-		<div class="key lvl1" id='KeyK'><span class="letter"></span></div>
-		<div class="key lvl1" id='KeyL'><span class="letter"></span></div>
-		<div class="key lvl1" id='Semicolon'><span class="letter"></span></div>
-		<div class="key" id='Quote'><span class="letter"></span></div>
-		<div class="key twopointtwofiveu"><span class="letter"></span></div>
-	</div>
-	<div class=row>
-		<div class="key twopointtwofiveu"><span class="letter"></span></div>
-		<div class="key" id='KeyZ'><span class="letter"></span></div>
-		<div class="key lvl6" id='KeyX'><span class="letter"></span></div>
-		<div class="key lvl6" id='KeyC'><span class="letter"></span></div>
-		<div class="key lvl4" id='KeyV'><span class="letter"></span></div>
-		<div class="key lvl4" id='KeyB'><span class="letter"></span></div>
-		<div class="key lvl4" id='KeyN'><span class="letter"></span></div>
-		<div class="key lvl4" id='KeyM'><span class="letter"></span></div>
-		<div class="key lvl5" id='Comma'><span class="letter"></span></div>
-		<div class="key lvl6" id='Period'><span class="letter"></span></div>
-		<div class="key lvl6" id='Slash'><span class="letter"></span></div>
-		<div class="key twopointsevenfiveu"><span class="letter"></span></div>
-	</div>
-	<div class=row>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key sixpointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-		<div class="key onepointtwofiveu"><span class="letter"></span></div>
-	</div>
-`;
 
     var customLayout = `
 	<div class=row>
@@ -10368,7 +10295,6 @@
     // this is the true init, which is only called once. Init will have to be renamed
     // Call to initialize
     function start() {
-      document.querySelector(".cheatsheet").innerHTML = keyboardDivs;
       inputKeyboard.innerHTML = customLayout;
       // scoreMax = wordLimitModeInput.value;
       customInput.style.display = "flex";

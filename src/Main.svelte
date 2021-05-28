@@ -1,5 +1,6 @@
 <script>
   import { currentLayout } from "./store.js";
+  import KeyboardDivs from "./KeyboardDivs.svelte";
 </script>
 
 <section id="main">
@@ -21,7 +22,7 @@
     </div>
   </div>
   <div class="cheatsheetContainer">
-    <div class="cheatsheet" />
+    <KeyboardDivs />
     <div>
       <button class="openUIButton" />
     </div>
