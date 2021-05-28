@@ -47,44 +47,6 @@ select {
   background-color: var(--menu-background-color);
 }
 
-.preferenceMenu {
-  position: absolute;
-  right: -37vh;
-  z-index: 105;
-  background: #111;
-  height: 100vh;
-  width: 33vh;
-  border-left: 0.1vh solid var(--text-color);
-  -webkit-transition: right 0.08s linear;
-  -o-transition: right 0.08s linear;
-  transition: right 0.08s linear;
-}
-
-.preferenceMenu ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
-  padding: 0 1vh 0 0;
-  height: 55vh;
-}
-
-.preferenceMenu ul li {
-  color: var(--accent-color);
-  font-size: 1.5vh;
-  list-style: none;
-}
-
 input[type="checkbox"] {
   width: 2vh;
   height: 2vh;
