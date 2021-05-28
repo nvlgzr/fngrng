@@ -1,7 +1,22 @@
+<script>
+  import { keyRemapping } from "./store.js";
+
+  let remap = $keyRemapping;
+
+  function toggleMapping(e) {
+    keyRemapping.set(remap);
+  }
+</script>
+
 <div id="mappingToggle">
-  <h6>Keyboard Mapping: <span>off</span></h6>
+  <h6>Keyboard Mapping: {remap ? "on" : "off"}</h6>
   <label class="switch">
-    <input type="checkbox" autocomplete="off" />
+    <input
+      bind:checked={remap}
+      on:change={toggleMapping}
+      type="checkbox"
+      autocomplete="off"
+    />
     <span class="slider" />
   </label>
 </div>

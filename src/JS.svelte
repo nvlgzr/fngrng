@@ -10128,12 +10128,6 @@
     var currentWord = document.querySelector("#currentWord");
     // layout select menu
     var select = document.querySelector("select");
-    //
-    var mappingStatusButton = document.querySelector(
-      "#mappingToggle label input"
-    );
-    //
-    var mappingStatusText = document.querySelector("#mappingToggle h6 span");
     // save button on the custom layout ui
     var saveButton = document.querySelector(".saveButton");
     // discard button on the custom layout ui
@@ -10227,12 +10221,6 @@
 
       if (timeLimitMode) {
         toggleTimeLimitModeUI();
-      }
-
-      // if true, user keyboard input will be mapped to the chosen layout. No mapping otherwise
-      if (localStorage.getItem("keyRemapping") === "true") {
-        mappingStatusButton.checked = "checked";
-        mappingStatusText.innerText = "on";
       }
 
       select.value = $currentLayout;
@@ -11154,22 +11142,6 @@
       }
     }
 
-    // listener for keyboard mapping toggle switch
-    mappingStatusButton.addEventListener("click", () => {
-      if (localStorage.getItem("keyRemapping") === "true") {
-        // change the status text
-        mappingStatusText.innerText = "off";
-        localStorage.setItem("keyRemapping", false);
-      } else {
-        // change the status text
-        mappingStatusText.innerText = "on";
-        localStorage.setItem("keyRemapping", true);
-      }
-
-      // change focus back to input
-      input.focus();
-    });
-
     // resetButton listener
     resetButton.addEventListener("click", () => {
       // console.log('reset button called');
@@ -11625,5 +11597,3 @@
     });
   });
 </script>
-
-Foo
