@@ -13,7 +13,7 @@
   } from "./store.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { masterList } from "./tenThousandWords.js";
-  import { sentence } from "./passageFromDorianGray.js";
+  import { passage } from "./passageFromDorianGray.js";
 
   onMount(async () => {
     var wordLists = {
@@ -1281,25 +1281,25 @@
         // let rand = Math.floor(Math.random()*35);
         let rand = 0;
         if (sentenceStartIndex == -1) {
-          sentenceStartIndex = getPosition(sentence, ".", rand) + 1;
+          sentenceStartIndex = getPosition(passage, ".", rand) + 1;
           sentenceEndIndex =
-            sentence
+            passage
               .substring(sentenceStartIndex + lineLength + 2)
               .indexOf(" ") +
             sentenceStartIndex +
             lineLength +
             1;
-          str = sentence.substring(sentenceStartIndex, sentenceEndIndex + 1);
+          str = passage.substring(sentenceStartIndex, sentenceEndIndex + 1);
         } else {
           sentenceStartIndex = sentenceEndIndex + 1;
           sentenceEndIndex =
-            sentence
+            passage
               .substring(sentenceStartIndex + lineLength + 2)
               .indexOf(" ") +
             sentenceStartIndex +
             lineLength +
             1;
-          str = sentence.substring(sentenceStartIndex, sentenceEndIndex + 1);
+          str = passage.substring(sentenceStartIndex, sentenceEndIndex + 1);
           // console.log(sentenceStartIndex);
           // console.log(sentenceEndIndex);
         }
