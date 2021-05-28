@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { currentLayout } from "./store.js";
 
   onMount(async () => {
     /* START layoutInfo.js inlined */
@@ -10320,7 +10321,6 @@
     // no words in answerString
     var keyboardMap = layoutMaps["colemak"];
     var letterDictionary = levelDictionaries["colemak"];
-    var currentLayout = localStorage.getItem("currentLayout") || "colemak";
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var fullSentenceModeEnabled =
@@ -10342,7 +10342,7 @@
       27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
     ]; // list of all keycodes for keys we typically want to ignore
     var punctuation = localStorage.getItem("punctuation") || ""; // this contains punctuation to include in our test sets. Set to empty at first
-    var requiredLetters = ""; //levelDictionaries[currentLayout]['lvl'+currentLevel]+punctuation;; // keeps track of letters that still need to be used in the current level
+    var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+currentLevel]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
 
@@ -10391,7 +10391,7 @@
         mappingStatusText.innerText = "on";
       }
 
-      select.value = currentLayout;
+      select.value = $currentLayout;
       capitalLettersAllowed.checked = !onlyLower;
       punctuationModeButton.checked = punctuation;
       fullSentenceModeToggle.checked = fullSentenceModeEnabled;
@@ -10646,7 +10646,7 @@
 
     function updateLayoutUI() {
       // if custom input is selected, show the ui for custom keyboards
-      if (currentLayout == "custom") {
+      if ($currentLayout == "custom") {
         openUIButton.style.display = "block";
         startCustomKeyboardEditing();
       } else {
@@ -10654,19 +10654,17 @@
         openUIButton.style.display = "none";
       }
       // change keyboard map and key dictionary
-      keyboardMap = layoutMaps[currentLayout];
-      letterDictionary = levelDictionaries[currentLayout];
+      keyboardMap = layoutMaps[$currentLayout];
+      letterDictionary = levelDictionaries[$currentLayout];
 
-      if (currentLayout == "custom") {
+      if ($currentLayout == "custom") {
         customUIKeyInput.focus();
       }
     }
 
     // listens for layout change
     select.addEventListener("change", (e) => {
-      // REMOVEME
-      currentLayout = select.value;
-      localStorage.setItem("currentLayout", currentLayout);
+			currentLayout.set(select.value)
       updateLayoutUI();
       // reset everything
       init();
@@ -11374,7 +11372,7 @@
       score = -1;
 
       requiredLetters = (
-        levelDictionaries[currentLayout]["lvl" + currentLevel] + punctuation
+        levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation
       ).split("");
 
       // reset clock
@@ -11545,7 +11543,7 @@
 
       if (wordLists["lvl" + currentLevel].length > 0) {
         let startingLetters =
-          levelDictionaries[currentLayout]["lvl" + currentLevel] + punctuation;
+          levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation;
 
         //requiredLetters = startingLetters.split('');
 
@@ -11569,7 +11567,7 @@
           if (circuitBreaker > 12000) {
             if (circuitBreaker > 30000) {
               str +=
-                levelDictionaries[currentLayout]["lvl" + currentLevel] + " ";
+                levelDictionaries[$currentLayout]["lvl" + currentLevel] + " ";
               i += wordToAdd.length;
               wordsCreated++;
               circuitBreaker = 0;
@@ -11613,12 +11611,12 @@
         }
       } else {
         let startingLetters =
-          levelDictionaries[currentLayout]["lvl" + currentLevel] + punctuation;
+          levelDictionaries[$currentLayout]["lvl" + currentLevel] + punctuation;
         // if there are no words with the required letters, all words should be set to the
         // current list of required letters
         let wordsCreated = 0;
         if (
-          levelDictionaries[currentLayout]["lvl" + currentLevel].length == 0
+          levelDictionaries[$currentLayout]["lvl" + currentLevel].length == 0
         ) {
           str = "";
         } else {
@@ -11647,9 +11645,9 @@
       for (let i = 0; i < randWordLength; i++) {
         let rand = Math.floor(
           Math.random() *
-            levelDictionaries[currentLayout]["lvl" + currentLevel].length
+            levelDictionaries[$currentLayout]["lvl" + currentLevel].length
         );
-        jumble += levelDictionaries[currentLayout]["lvl" + currentLevel][rand];
+        jumble += levelDictionaries[$currentLayout]["lvl" + currentLevel][rand];
       }
 
       return jumble;
@@ -11761,9 +11759,9 @@
         // if 'all words' on a custom layout, don't add letters from the dictionary, because
         // level 7 contains the whole alphabet, and the user might not have asigned every letter to
         // a key. Instead, this level should be the same as the previous, just with every letter required
-        if (currentLayout != "custom" || i != 6) {
+        if ($currentLayout != "custom" || i != 6) {
           requiredLetters =
-            levelDictionaries[currentLayout]["lvl" + (i + 1)] + punctuation;
+            levelDictionaries[$currentLayout]["lvl" + (i + 1)] + punctuation;
           includedLetters += letterDictionary[objKeys[i]];
         } else {
           requiredLetters = includedLetters;
