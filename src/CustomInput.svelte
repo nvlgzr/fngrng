@@ -8,7 +8,6 @@
     <button class="saveButton">Save</button>
   </div>
   <CustomLayout />
-  <div id="inputShiftKeyboard" />
   <input type="text" name="customKey" id="customUIKeyInput" />
   <div id="customUILevelSelect">
     <button class="customUILevelButton currentCustomUILevel">lvl1</button>
