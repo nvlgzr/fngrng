@@ -1666,7 +1666,7 @@ const app = () => {
 
 	// add event listeners to level buttons
 	console.log('🧧', buttons)
-	for (button of buttons) {
+	for (let button of buttons) {
 		let b = button;
 		b.addEventListener('click', () => {
 			let lev = b.innerHTML.replace(/ /, '').toLowerCase();
@@ -1724,7 +1724,7 @@ const app = () => {
 
 		// loop through all buttons
 		let allKeys = document.querySelectorAll('.key');
-		for (n of allKeys) {
+		for (let n of allKeys) {
 			//reset all keys to default
 			n.classList.add('inactive');
 			n.classList.remove('active');
@@ -1871,7 +1871,8 @@ const app = () => {
 			}
 		}
 
-		answerLetterArray = answerString.split('');
+		// answerLetterArray seems to be unused ¯\_(ツ)_/¯
+		// answerLetterArray = answerString.split('');
 		//reset prompt
 
 		// change the 0/50 text
@@ -1896,7 +1897,7 @@ const app = () => {
 
 		promptString = "<span class='line'><span class='word' id='id" + idCount + "'>";
 		// loop through all letters in prompt
-		for (i = 0; i <= letters.length; i++) {
+		for (let i = 0; i <= letters.length; i++) {
 			//console.log(letters[i]);
 
 			// if last word in the list, close out the final word span tag
@@ -2071,7 +2072,7 @@ const app = () => {
 				str = "";
 			} else {
 				for (let i = 0; i < lineLength; i = i) {
-					wordToAdd = randomLetterJumble();
+					const wordToAdd = randomLetterJumble();
 					str += wordToAdd + ' ';
 					i += wordToAdd.length;
 					console.log("i: " + i);
@@ -2189,11 +2190,9 @@ const app = () => {
 	// removes currentLevel styles from all buttons. Use every time the 
 	// level is changed
 	function clearCurrentLevelStyle() {
-		console.log('🧧', buttons)
-		for (button of buttons) {
-			console.log('🧧', button)
+		Array.from(buttons).forEach(function (button) {
 			button.classList.remove('currentLevel');
-		}
+		});
 	}
 
 	// set the word list for each level
