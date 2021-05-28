@@ -7,6 +7,7 @@
     lowercaseOnly,
     fullSentenceModeEnabled,
     timeLimitModeEnabled,
+    wordScrollingModeEnabled,
   } from "./store.js";
 
   onMount(async () => {
@@ -10167,9 +10168,7 @@
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var useFullSentences = $fullSentenceModeEnabled;
     var timeLimitMode = $timeLimitModeEnabled;
-    var wordScrollingMode =
-      !localStorage.getItem("wordScrollingMode") ||
-      localStorage.getItem("wordScrollingMode") === "true"; // true by default.
+    var wordScrollingMode = $wordScrollingModeEnabled;
     var deleteFirstLine = false; // make this true every time we finish typing a line
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var sentenceStartIndex = -1; // keeps track of where we are in full sentence mode
@@ -10422,7 +10421,7 @@
 
     wordScrollingModeButton.addEventListener("click", () => {
       wordScrollingMode = !wordScrollingMode;
-      localStorage.setItem("wordScrollingMode", wordScrollingMode);
+      wordScrollingModeEnabled.set(wordScrollingMode);
       toggleWordScrollingModeUI();
       reset();
     });

@@ -41,3 +41,9 @@ export const timeLimitModeEnabled = writable(storedTimeLimitMode === "true")
 timeLimitModeEnabled.subscribe(value => {
   localStorage.setItem("timeLimitMode", value)
 })
+
+const storedWordScrollingMode = localStorage.getItem("wordScrollingMode") || "true";
+export const wordScrollingModeEnabled = writable(storedWordScrollingMode === "true")
+wordScrollingModeEnabled.subscribe(value => {
+  localStorage.setItem("wordScrollingMode", value)
+})
