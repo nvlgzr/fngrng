@@ -1,9 +1,13 @@
+<script>
+  import CustomLayout from "./CustomLayout.svelte";
+</script>
+
 <div class="customInput">
   <div class="buttonHolder">
     <button class="discardButton">Discard</button>
     <button class="saveButton">Save</button>
   </div>
-  <div id="inputKeyboard" />
+  <CustomLayout />
   <div id="inputShiftKeyboard" />
   <input type="text" name="customKey" id="customUIKeyInput" />
   <div id="customUILevelSelect">
@@ -39,18 +43,6 @@
     -o-transition: transform 0.15s linear;
     transition: transform 0.15s linear;
     transition: transform 0.15s linear, -webkit-transform 0.15s linear;
-  }
-
-  #inputKeyboard {
-    display: block;
-    margin: 6.5vmax auto 0 auto;
-    width: 88%;
-    white-space: nowrap;
-  }
-
-  #inputKeyboard .row {
-    width: 95%;
-    margin: auto;
   }
 
   .buttonHolder {
