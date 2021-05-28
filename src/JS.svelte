@@ -1,6 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { currentLayout, currentLevel, prefsOpen } from "./store.js";
+  import {
+    currentLayout,
+    currentLevel,
+    prefsOpen,
+    lowercaseOnly,
+  } from "./store.js";
 
   onMount(async () => {
     /* START layoutInfo.js inlined */
@@ -10149,9 +10154,7 @@
     var letterIndex = 0; // Keeps track of where in a word the user is
     // Increment with every keystroke except ' ', return, and backspace
     // Decrement for backspace, and reset for the other 2
-    var onlyLower =
-      !localStorage.getItem("onlyLower") ||
-      localStorage.getItem("onlyLower") === "true"; // If only lower is true, include only words
+    var onlyLower = $lowercaseOnly; // Include only words
     // without capital letters
     var answerString = ""; // A string representation of the words for the current test. After a correct word is typed,
     // it is removed from the beginning of answerString. By the end of the test, there should be
@@ -10293,7 +10296,7 @@
     // capital letters allowed
     capitalLettersAllowed.addEventListener("click", () => {
       onlyLower = !onlyLower;
-      localStorage.setItem("onlyLower", onlyLower);
+      lowercaseOnly.set(onlyLower);
       reset();
     });
 
