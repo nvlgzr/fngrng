@@ -1254,7 +1254,7 @@ const app = () => {
 			// remove styling from all keys that don't correspond with selected level button
 			// add styling to keys that correspond with selected level button
 			let allCKeys = document.querySelectorAll('.cKey');
-			for (n of allCKeys) {
+			for (let n of allCKeys) {
 				if (n.children[0].innerHTML != 0 &&
 					levelDictionaries['custom'][currentSelectedLevel.innerHTML].includes(n.children[0].innerHTML)) {
 					n.classList.add('active');
@@ -1350,7 +1350,7 @@ const app = () => {
 	// given a key object, k, remove a value of the letter on k from all levels
 	function removeKeyFromLevels(k) {
 		let lvls = Object.keys(levelDictionaries['custom']);
-		for (lvl of lvls) {
+		for (let lvl of lvls) {
 			let keyCode = k.id.toString().replace('custom', '');
 			//console.log(levelDictionaries.custom.lvl[keyCode]);
 			// replace any instances of letter previously found on key
