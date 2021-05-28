@@ -1142,6 +1142,7 @@ const app = () => {
 
 	// listens for layout change
 	select.addEventListener('change', (e) => {
+		// REMOVEME
 		currentLayout = select.value;
 		localStorage.setItem('currentLayout', currentLayout);
 		updateLayoutUI();

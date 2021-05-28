@@ -1,4 +1,14 @@
-<select autocomplete="off">
+<script>
+  import { currentLayout } from "./store.js";
+
+  let layout = $currentLayout;
+
+  function setLayout() {
+    currentLayout.set(layout);
+  }
+</script>
+
+<select bind:value={layout} on:blur={setLayout} autocomplete="off">
   <option value="colemak">Colemak</option>
   <option value="colemakdh">Colemak-DH</option>
   <option disabled />
