@@ -1,5 +1,9 @@
 <script>
-  import { prefsOpen, lowercaseOnly, fullSentenceModeEnabled } from "./persistentStore";
+  import {
+    prefsOpen,
+    lowercaseOnly,
+    fullSentenceModeEnabled,
+  } from "./persistentStore";
 
   $: openPrefs = $prefsOpen;
 
@@ -17,17 +21,20 @@
     prefsOpen.set(false);
   }
 
-  $: allowUppercase = !$lowercaseOnly;
-
-  function toggleLowerCaseOnly(e) {
-    lowercaseOnly.set(!allowUppercase);
-  }
-  
   $: usePassage = $fullSentenceModeEnabled;
 
   function toggleUsePassage(e) {
     fullSentenceModeEnabled.set(usePassage);
   }
+
+  $: prefs = [
+    {
+      display: "Capital Letters Allowed",
+      value: !$lowercaseOnly,
+      handler: (e) => lowercaseOnly.set(e.target.checked),
+      class: "capitalLettersAllowed",
+    },
+  ];
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -37,15 +44,17 @@
 <div class:openPrefs class="preferenceMenu">
   <button on:click={closeMenu} class="closePreferenceButton" />
   <ul class="preferences">
-    <li>
-      Capital Letters Allowed<input
-        bind:checked={allowUppercase}
-        on:change={toggleLowerCaseOnly}
-        class="capitalLettersAllowed"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
+    {#each prefs as pref}
+      <li>
+        {pref.display}<input
+          bind:checked={pref.value}
+          on:change={pref.handler}
+          class={pref.class}
+          type="checkbox"
+          autocomplete="off"
+        />
+      </li>
+    {/each}
     <li>
       Punctuation Allowed<input
         class="punctuationModeButton"
