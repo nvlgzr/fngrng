@@ -1,5 +1,9 @@
+<script>
+  import { currentLayout } from "./store.js";
+</script>
+
 <section id="main">
-  <h1><span id="layoutName">Colemak</span> Club</h1>
+  <h1>{$currentLayout} Club</h1>
 
   <div class="typingArea">
     <div class="fade" id="fadeElement">
@@ -155,5 +159,4 @@
     bottom: 0;
     text-align: center;
   }
-
 </style>

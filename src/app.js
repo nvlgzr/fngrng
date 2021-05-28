@@ -87,8 +87,6 @@ const app = () => {
 
 	}
 
-
-
 	var layoutMaps = {
 		azerty: {
 			'Minus': ")",
@@ -520,8 +518,6 @@ const app = () => {
 
 	var alphabet = "abcdefghijklmnopqrstuvwxyz',.-";
 
-
-
 	// generate new list that includes certain letters and excludes others
 	var customList = [];
 
@@ -529,7 +525,6 @@ const app = () => {
 	function getPosition(target, subString, n) {
 		return target.split(subString, n).join(subString).length;
 	}
-
 
 	// returns true if target (a string) contains at least one letter from 
 	// pattern (an array of chars)
@@ -548,7 +543,6 @@ const app = () => {
 			value = value + target.includes(letter);
 		});
 		return (value >= pattern.length);
-
 	}
 
 	function clearLists() {
@@ -845,7 +839,6 @@ const app = () => {
 	// this is the true init, which is only called once. Init will have to be renamed
 	// Call to initialize
 	function start() {
-		document.querySelector('#layoutName').innerHTML = currentLayout;
 		document.querySelector('.cheatsheet').innerHTML = keyboardDivs;
 		inputKeyboard.innerHTML = customLayout;
 		// scoreMax = wordLimitModeInput.value;
