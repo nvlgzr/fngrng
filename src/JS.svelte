@@ -46,8 +46,6 @@
       return value >= pattern.length;
     }
 
-    function clearLists() {}
-
     // generates a list of words containing only the given letters
     function generateList(lettersToInclude, requiredLetters) {
       let excludes = [];
