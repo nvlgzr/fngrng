@@ -11,3 +11,9 @@ export const keyRemapping = writable(storedKeyRemapping === "true")
 keyRemapping.subscribe(value => {
   localStorage.setItem("keyRemapping", value)
 })
+
+const storedPrefsOpen = localStorage.getItem("preferenceMenuOpen")
+export const prefsOpen = writable(storedPrefsOpen === "true")
+prefsOpen.subscribe(value => {
+  localStorage.setItem("preferenceMenuOpen", value)
+})

@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { currentLayout } from "./store.js";
+  import { currentLayout, prefsOpen } from "./store.js";
 
   onMount(async () => {
     /* START layoutInfo.js inlined */
@@ -10186,7 +10186,6 @@
 
     // preference menu dom elements
     var preferenceButton = document.querySelector(".preferenceButton"),
-      preferenceMenu = document.querySelector(".preferenceMenu"),
       closePreferenceButton = document.querySelector(".closePreferenceButton"),
       capitalLettersAllowed = document.querySelector(".capitalLettersAllowed"),
       fullSentenceModeToggle = document.querySelector(".fullSentenceMode"),
@@ -10229,10 +10228,6 @@
       wordScrollingModeButton.checked = wordScrollingMode;
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
-
-      if (localStorage.getItem("preferenceMenu")) {
-        openMenu();
-      }
 
       switchLevel(currentLevel);
 
@@ -10282,22 +10277,10 @@
     /*___________________________________________________________*/
     /*____________________preference menu________________________*/
 
-    function openMenu() {
-      preferenceMenu.style.right = 0;
-      localStorage.setItem("preferenceMenu", "open");
-    }
-
-    function closeMenu() {
-      preferenceMenu.style.right = "-37vh";
-      localStorage.removeItem("preferenceMenu");
-    }
-
     // close preference menu on escape key. While we're at it, also close custom
     // ui menu
     document.addEventListener("keydown", (e) => {
       if (e.keyCode == 27) {
-        closeMenu();
-
         // close custom ui menu
         if (customInput.style.transform != "scaleX(0)") {
           customInput.style.transform = "scaleX(0)";
@@ -10306,16 +10289,6 @@
           init();
         }
       }
-    });
-
-    // listener for preference menu button
-    preferenceButton.addEventListener("click", () => {
-      openMenu();
-    });
-
-    // listener for preference menu close button
-    closePreferenceButton.addEventListener("click", () => {
-      closeMenu();
     });
 
     // capital letters allowed
@@ -10563,7 +10536,7 @@
           k = e.target.closest(".preferenceButton");
         }
         if (!k) {
-          closeMenu();
+          prefsOpen.set(false);
         }
 
         // add key listeners for each of the keys the custom input ui
