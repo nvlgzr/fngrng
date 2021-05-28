@@ -5,6 +5,7 @@
     currentLevel,
     prefsOpen,
     lowercaseOnly,
+    fullSentenceModeEnabled,
   } from "./store.js";
 
   onMount(async () => {
@@ -10163,9 +10164,8 @@
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
-    var fullSentenceModeEnabled =
-      localStorage.getItem("fullSentenceModeEnabled") === "true";
     var timeLimitMode = localStorage.getItem("timeLimitMode") === "true";
+    var useFullSentences = $fullSentenceModeEnabled;
     var wordScrollingMode =
       !localStorage.getItem("wordScrollingMode") ||
       localStorage.getItem("wordScrollingMode") === "true"; // true by default.
@@ -10216,7 +10216,7 @@
         toggleWordScrollingModeUI();
       }
 
-      if (fullSentenceModeEnabled) {
+      if (useFullSentences) {
         toggleFullSentenceModeUI();
       }
 
@@ -10226,7 +10226,7 @@
 
       capitalLettersAllowed.checked = !onlyLower;
       punctuationModeButton.checked = punctuation;
-      fullSentenceModeToggle.checked = fullSentenceModeEnabled;
+      fullSentenceModeToggle.checked = useFullSentences;
       wordScrollingModeButton.checked = wordScrollingMode;
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
@@ -10306,10 +10306,10 @@
     }
 
     fullSentenceModeToggle.addEventListener("click", () => {
-      fullSentenceModeEnabled = !fullSentenceModeEnabled;
-      localStorage.setItem("fullSentenceModeEnabled", fullSentenceModeEnabled);
+      useFullSentences = !useFullSentences;
+      fullSentenceModeEnabled.set(useFullSentences);
       toggleFullSentenceModeUI();
-      if (fullSentenceModeEnabled) {
+      if (useFullSentences) {
         switchLevel(8);
       } else {
         switchLevel(1);

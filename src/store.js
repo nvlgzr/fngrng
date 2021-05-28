@@ -29,3 +29,9 @@ export const lowercaseOnly = writable(storedLowercaseOnly === "true")
 lowercaseOnly.subscribe(value => {
   localStorage.setItem("onlyLower", value)
 })
+
+const storedFullSentenceMode = localStorage.getItem("fullSentenceModeEnabled");
+export const fullSentenceModeEnabled = writable(storedFullSentenceMode === "true")
+fullSentenceModeEnabled.subscribe(value => {
+  localStorage.setItem("fullSentenceModeEnabled", value)
+})
