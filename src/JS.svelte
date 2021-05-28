@@ -10223,7 +10223,6 @@
         toggleTimeLimitModeUI();
       }
 
-      select.value = $currentLayout;
       capitalLettersAllowed.checked = !onlyLower;
       punctuationModeButton.checked = punctuation;
       fullSentenceModeToggle.checked = fullSentenceModeEnabled;
