@@ -194,7 +194,7 @@ a:link {
   border-color: var(--accent-color);
 }
 
-.currentLevelKeys {
+.newInThisLevel {
   border-color: var(--tertiary-accent-color);
   color: var(--tertiary-accent-color);
   opacity: 1;

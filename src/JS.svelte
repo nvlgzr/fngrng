@@ -11071,7 +11071,7 @@
         n.classList.add("inactive");
         n.classList.remove("active");
         n.classList.remove("homeRow");
-        n.classList.remove("currentLevelKeys");
+        n.classList.remove("newInThisLevel");
         n.classList.remove("punctuation");
         n.innerHTML = `
 			<span class='letter'></span>
@@ -11105,7 +11105,7 @@
               // all words selected
             } else if (i == level - 1) {
               n.classList.remove("active");
-              n.classList.add("currentLevelKeys");
+              n.classList.add("newInThisLevel");
             } else {
               n.classList.add("active");
             }
