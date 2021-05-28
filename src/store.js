@@ -35,3 +35,9 @@ export const fullSentenceModeEnabled = writable(storedFullSentenceMode === "true
 fullSentenceModeEnabled.subscribe(value => {
   localStorage.setItem("fullSentenceModeEnabled", value)
 })
+
+const storedTimeLimitMode = localStorage.getItem("timeLimitMode");
+export const timeLimitModeEnabled = writable(storedTimeLimitMode === "true")
+timeLimitModeEnabled.subscribe(value => {
+  localStorage.setItem("timeLimitMode", value)
+})

@@ -6,6 +6,7 @@
     prefsOpen,
     lowercaseOnly,
     fullSentenceModeEnabled,
+    timeLimitModeEnabled,
   } from "./store.js";
 
   onMount(async () => {
@@ -10164,8 +10165,8 @@
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
-    var timeLimitMode = localStorage.getItem("timeLimitMode") === "true";
     var useFullSentences = $fullSentenceModeEnabled;
+    var timeLimitMode = $timeLimitModeEnabled;
     var wordScrollingMode =
       !localStorage.getItem("wordScrollingMode") ||
       localStorage.getItem("wordScrollingMode") === "true"; // true by default.
@@ -10342,7 +10343,7 @@
         // change mode logic here
         timeLimitMode = true;
         toggleTimeLimitModeUI();
-        localStorage.setItem("timeLimitMode", timeLimitMode);
+        timeLimitModeEnabled.set(timeLimitMode);
         reset();
       }
     });
@@ -10389,7 +10390,7 @@
         timeLimitModeInput.classList.toggle("noDisplay");
         wordLimitModeInput.classList.toggle("noDisplay");
 
-        localStorage.setItem("timeLimitMode", timeLimitMode);
+        timeLimitModeEnabled.set(timeLimitMode);
 
         reset();
       }
