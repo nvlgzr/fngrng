@@ -111,7 +111,6 @@
     var specialKeyCodes = [
       27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
     ]; // list of all keycodes for keys we typically want to ignore
-    var punctuation = $punctuationToInclude; // this contains punctuation to include in our test sets. Set to empty at first
     var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
@@ -125,8 +124,7 @@
       timeLimitModeInput = document.querySelector(".timeLimitModeInput"),
       wordScrollingModeButton = document.querySelector(
         ".wordScrollingModeButton"
-      ),
-      punctuationModeButton = document.querySelector(".punctuationModeButton");
+      );
 
     start();
     init();
@@ -149,7 +147,6 @@
         toggleTimeLimitModeUI();
       }
 
-      punctuationModeButton.checked = punctuation;
       wordScrollingModeButton.checked = wordScrollingMode;
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
@@ -217,7 +214,7 @@
     });
 
     // capital letters allowed
-    var capitalLettersAllowed = document
+    document
       .querySelector(".capitalLettersAllowed")
       .addEventListener("click", () => {
         reset();
@@ -348,21 +345,18 @@
       reset();
     });
 
-    punctuationModeButton.addEventListener("click", () => {
-      // if turning punctuation mode on
-      if (punctuation == "") {
-        punctuation = "'.-";
-      } else {
-        // if turning punctuation mode off
-        punctuation = "";
-      }
-
-      punctuationToInclude.set(punctuation);
-
-      createTestSets();
-      updateCheatsheetStyling();
-      reset();
-    });
+    document
+      .querySelector(".punctuationModeButton")
+      .addEventListener("click", () => {
+        // Temporary hack: wait till the next cycle to update the UI
+        // So that these functions have access to the updated
+        // value of $punctuationToInclude
+        setTimeout(() => {
+          createTestSets();
+          updateCheatsheetStyling();
+          reset();
+        }, 250);
+      });
 
     function updateLayoutUI() {
       // if custom input is selected, show the ui for custom keyboards
@@ -935,7 +929,8 @@
           // the letter that will appear on the key
           let letter = keyboardMap[n.id];
 
-          let lettersToCheck = letterDictionary[objKeys[i]] + punctuation;
+          let lettersToCheck =
+            letterDictionary[objKeys[i]] + $punctuationToInclude;
 
           if (lettersToCheck.includes(letter)) {
             n.innerHTML =
@@ -945,7 +940,7 @@
               `</span>
 				`;
             n.classList.remove("inactive");
-            if (punctuation.includes(letter)) {
+            if ($punctuationToInclude.includes(letter)) {
               n.classList.remove("active");
               n.classList.add("punctuation");
             } else if (i == 0) {
@@ -992,7 +987,8 @@
       score = -1;
 
       requiredLetters = (
-        levelDictionaries[$currentLayout]["lvl" + $currentLevel] + punctuation
+        levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+        $punctuationToInclude
       ).split("");
 
       // reset clock
@@ -1137,7 +1133,7 @@
       if ($wordLists["lvl" + $currentLevel].length > 0) {
         let startingLetters =
           levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
-          punctuation;
+          $punctuationToInclude;
 
         // if this counter hits a high enough number, there are likely no words matching the search
         // criteria. If that happens, reset required letters
@@ -1203,7 +1199,7 @@
       } else {
         let startingLetters =
           levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
-          punctuation;
+          $punctuationToInclude;
         // if there are no words with the required letters, all words should be set to the
         // current list of required letters
         let wordsCreated = 0;
@@ -1338,7 +1334,7 @@
     // set the word list for each level
     function createTestSets() {
       let objKeys = Object.keys($wordLists); // the level keys of each of the wordLists
-      let includedLetters = punctuation; // the list of letters to be included in each level
+      let includedLetters = $punctuationToInclude; // the list of letters to be included in each level
 
       // for each level, add new letters to the test set and create a new list
       for (let i = 0; i < objKeys.length; i++) {
@@ -1349,7 +1345,8 @@
         // a key. Instead, this level should be the same as the previous, just with every letter required
         if ($currentLayout != "custom" || i != 6) {
           requiredLetters =
-            levelDictionaries[$currentLayout]["lvl" + (i + 1)] + punctuation;
+            levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
+            $punctuationToInclude;
           includedLetters += letterDictionary[objKeys[i]];
         } else {
           requiredLetters = includedLetters;

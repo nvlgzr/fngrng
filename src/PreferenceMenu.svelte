@@ -3,6 +3,9 @@
     prefsOpen,
     lowercaseOnly,
     fullSentenceModeEnabled,
+    timeLimitModeEnabled,
+    wordScrollingModeEnabled,
+    punctuationToInclude,
   } from "./persistentStore";
 
   $: openPrefs = $prefsOpen;
@@ -34,6 +37,15 @@
       handler: (e) => lowercaseOnly.set(e.target.checked),
       class: "capitalLettersAllowed",
     },
+    {
+      display: "Punctuation Allowed",
+      value: $punctuationToInclude, // ⚠️ Uses falsiness of empty string
+      handler: (e) => {
+        const punct = e.target.checked ? "'.-" : "";
+        punctuationToInclude.set(punct);
+      },
+      class: "punctuationModeButton",
+    },
   ];
 </script>
 
@@ -55,13 +67,6 @@
         />
       </li>
     {/each}
-    <li>
-      Punctuation Allowed<input
-        class="punctuationModeButton"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
     <li>
       Full Sentence Mode<input
         bind:checked={usePassage}
