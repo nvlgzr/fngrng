@@ -47,3 +47,9 @@ export const wordScrollingModeEnabled = writable(storedWordScrollingMode === "tr
 wordScrollingModeEnabled.subscribe(value => {
   localStorage.setItem("wordScrollingMode", value)
 })
+
+const storedPunctuation = localStorage.getItem("punctuation");
+export const punctuationToInclude = writable(storedPunctuation || "")
+punctuationToInclude.subscribe(value => {
+  localStorage.setItem("punctuation", value)
+})

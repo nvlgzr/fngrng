@@ -9,6 +9,7 @@
     fullSentenceModeEnabled,
     timeLimitModeEnabled,
     wordScrollingModeEnabled,
+    punctuationToInclude,
   } from "./store.js";
 
   onMount(async () => {
@@ -10182,7 +10183,7 @@
     var specialKeyCodes = [
       27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
     ]; // list of all keycodes for keys we typically want to ignore
-    var punctuation = localStorage.getItem("punctuation") || ""; // this contains punctuation to include in our test sets. Set to empty at first
+    var punctuation = $punctuationToInclude; // this contains punctuation to include in our test sets. Set to empty at first
     var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
@@ -10438,7 +10439,7 @@
         punctuation = "";
       }
 
-      localStorage.setItem("punctuation", punctuation);
+      punctuationToInclude.set(punctuation);
 
       createTestSets();
       updateCheatsheetStyling();
