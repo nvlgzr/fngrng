@@ -1,5 +1,5 @@
 <script>
-  import { prefsOpen } from "./store";
+  import { prefsOpen } from "./persistentStore";
 
   $: openPrefs = $prefsOpen;
 

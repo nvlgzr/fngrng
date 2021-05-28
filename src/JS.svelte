@@ -10,22 +10,13 @@
     timeLimitModeEnabled,
     wordScrollingModeEnabled,
     punctuationToInclude,
-  } from "./store.js";
+  } from "./persistentStore.js";
+  import { wordLists } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { masterList } from "./tenThousandWords.js";
   import { passage } from "./passageFromDorianGray.js";
 
   onMount(async () => {
-    var wordLists = {
-      lvl1: [],
-      lvl2: [],
-      lvl3: [],
-      lvl4: [],
-      lvl5: [],
-      lvl6: [],
-      lvl7: [],
-    };
-
     const alphabet = "abcdefghijklmnopqrstuvwxyz',.-";
 
     // generate new list that includes certain letters and excludes others
@@ -1307,7 +1298,7 @@
         return str;
       }
 
-      if (wordLists["lvl" + $currentLevel].length > 0) {
+      if ($wordLists["lvl" + $currentLevel].length > 0) {
         let startingLetters =
           levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
           punctuation;
@@ -1326,9 +1317,9 @@
           }
 
           let rand = Math.floor(
-            Math.random() * wordLists["lvl" + $currentLevel].length
+            Math.random() * $wordLists["lvl" + $currentLevel].length
           );
-          let wordToAdd = wordLists["lvl" + $currentLevel][rand];
+          let wordToAdd = $wordLists["lvl" + $currentLevel][rand];
 
           //console.log('in circuit ' + circuitBreaker);
           if (circuitBreaker > 12000) {
@@ -1518,7 +1509,7 @@
 
     // set the word list for each level
     function createTestSets() {
-      let objKeys = Object.keys(wordLists); // the level keys of each of the wordLists
+      let objKeys = Object.keys($wordLists); // the level keys of each of the wordLists
       let includedLetters = punctuation; // the list of letters to be included in each level
 
       // for each level, add new letters to the test set and create a new list
@@ -1536,10 +1527,10 @@
           requiredLetters = includedLetters;
         }
 
-        wordLists[objKeys[i]] = [];
+        $wordLists[objKeys[i]] = [];
         //console.log('level ' +(i+1) + ": " + wordLists[objKeys[i]]);
-        wordLists[objKeys[i]] = generateList(includedLetters, requiredLetters);
-        // if(i == 6) console.log('level ' +(i+1) + ": " + wordLists[objKeys[i]]);
+        $wordLists[objKeys[i]] = generateList(includedLetters, requiredLetters);
+        // if(i == 6) console.log('level ' +(i+1) + ": " + $wordLists[objKeys[i]]);
       }
     }
 

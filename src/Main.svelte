@@ -1,6 +1,6 @@
 <script>
-  import { currentLayout } from "./store.js";
-  import CheatSheet from "./CheatSheet.svelte"
+  import { currentLayout } from "./persistentStore.js";
+  import CheatSheet from "./CheatSheet.svelte";
 </script>
 
 <section id="main">

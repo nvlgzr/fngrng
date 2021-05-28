@@ -1,5 +1,5 @@
 <script>
-  import { currentLayout } from "./store.js";
+  import { currentLayout } from "./persistentStore.js";
   import PreferenceMenu from "./PreferenceMenu.svelte";
 
   let layout = $currentLayout;

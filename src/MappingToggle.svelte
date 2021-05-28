@@ -1,5 +1,5 @@
 <script>
-  import { keyRemapping } from "./store.js";
+  import { keyRemapping } from "./persistentStore.js";
 
   let remap = $keyRemapping;
 
