@@ -786,7 +786,6 @@ const app = () => {
 	var correct = 0;  // number of correct keystrokes during a game
 	var errors = 0;  // number of typing errors during a game
 	var currentLevel = localStorage.getItem('currentLevel') || 1; // int representation of the current level, which determines which letter set to test
-	console.log('💙', currentLevel)
 	var correctAnswer;        // string representation of the current correct word
 	var letterIndex = 0;  // Keeps track of where in a word the user is
 	// Increment with every keystroke except ' ', return, and backspace
@@ -1096,7 +1095,7 @@ const app = () => {
 
 	// punctuation mode 
 	punctuationModeButton.addEventListener('click', () => {
-		console.log('punctuation mode toggled');
+		// console.log('punctuation mode toggled');
 		// if turning punctuation mode on
 		if (punctuation == "") {
 			punctuation = "'.-";
@@ -1133,7 +1132,6 @@ const app = () => {
 		}
 		// change keyboard map and key dictionary
 		keyboardMap = layoutMaps[currentLayout];
-		console.log(currentLayout);
 		letterDictionary = levelDictionaries[currentLayout];
 
 		if (currentLayout == 'custom') {
@@ -1199,7 +1197,7 @@ const app = () => {
 		loadCustomLayout(initialCustomKeyboardState);
 		loadCustomLevels(initialCustomLevelsState);
 
-		console.log(levelDictionaries.custom);
+		// console.log(levelDictionaries.custom);
 
 		init();
 	});
@@ -1335,13 +1333,13 @@ const app = () => {
 		} else if (e.keyCode == 37) {
 			switchSelectedInputKey('left');
 		} else if (e.keyCode == 39) {
-			console.log('right');
+			// console.log('right');
 			switchSelectedInputKey('right');
 		} else if (e.keyCode == 38) {
-			console.log('up');
+			// console.log('up');
 			switchSelectedInputKey('up');
 		} else if (e.keyCode == 40) {
-			console.log('down');
+			// console.log('down');
 			switchSelectedInputKey('down');
 		}
 
@@ -1364,7 +1362,7 @@ const app = () => {
 
 	// sets the custom keyboard layout to be equal to the json parameter passed in
 	function loadCustomLayout(newCustomLayout) {
-		console.log('new layout');
+		// console.log('new layout');
 		layoutMaps.custom = Object.assign({}, newCustomLayout);
 		keyboardMap = layoutMaps.custom;
 
@@ -1406,7 +1404,7 @@ const app = () => {
 			let currentKey = document.querySelector('.selectedInputKey');
 			for (let i = 0; i < currentKey.parentElement.children.length; i++) {
 				if (currentKey.parentElement.children[i] == currentKey) {
-					console.log('found! ' + i);
+					// console.log('found! ' + i);
 					keyPosition = i;
 					break;
 				}
@@ -1417,7 +1415,7 @@ const app = () => {
 			let currentKey = document.querySelector('.selectedInputKey');
 			for (let i = 0; i < currentKey.parentElement.children.length; i++) {
 				if (currentKey.parentElement.children[i] == currentKey) {
-					console.log('found! ' + i);
+					// console.log('found! ' + i);
 					keyPosition = i;
 					break;
 				}
@@ -1450,7 +1448,7 @@ const app = () => {
 		if (k) {
 			k.classList.remove('selectedInputKey');
 			k.children[0].classList.remove('pulse');
-			console.log(k.children[0].innerHTML);
+			// console.log(k.children[0].innerHTML);
 			if (k.children[0].innerHTML == "_") {
 				k.children[0].innerHTML = "";
 			}
@@ -1513,7 +1511,7 @@ const app = () => {
 			//console.log(specialKeyCodes.includes(e.keyCode));
 			// there is a bug on firefox that occassionally reads e.key as process, hence the boolean expression below
 			if (!specialKeyCodes.includes(e.keyCode) || e.keyCode > 48 && e.key != "Process") {
-				console.log('Key: ' + e.key);
+				// console.log('Key: ' + e.key);
 				if (e.key != "Process") {
 					input.value += e.key;
 				} else {
@@ -1540,7 +1538,7 @@ const app = () => {
 
 		// if on the last word, check every letter so we don't need a space to end the game
 		if (!timeLimitMode && score == scoreMax - 1 && checkAnswer() && gameOn) {
-			console.log('game over');
+			// console.log('game over');
 			endGame();
 		}
 
@@ -1570,7 +1568,7 @@ const app = () => {
 				letterIndex = 0;
 
 			} else {
-				console.log('error space');
+				// console.log('error space');
 				input.value += " ";
 				letterIndex++;
 			}
@@ -1619,7 +1617,7 @@ const app = () => {
 				}
 			}
 		} else {
-			console.log('error');
+			// console.log('error');
 			input.style.color = 'red';
 			// no points awarded for backspace
 			if (e.keyCode != 8) {
@@ -1658,7 +1656,6 @@ const app = () => {
 
 
 	// add event listeners to level buttons
-	console.log('🧧', buttons)
 	for (let button of buttons) {
 		let b = button;
 		b.addEventListener('click', () => {
@@ -1677,7 +1674,7 @@ const app = () => {
 	// switches to level 
 	function switchLevel(lev) {
 		localStorage.setItem('currentLevel', lev);
-		console.log(lev);
+		// console.log(lev);
 		// stop timer
 		gameOn = false;
 
@@ -1783,7 +1780,7 @@ const app = () => {
 
 	// resetButton listener
 	resetButton.addEventListener('click', () => {
-		console.log('reset button called');
+		// console.log('reset button called');
 		reset();
 	});
 
@@ -1813,7 +1810,7 @@ const app = () => {
 		gameOn = false;
 
 
-		console.log('reset called');
+		// console.log('reset called');
 		// set current letter index back to 0
 		letterIndex = 0;
 		wordIndex = 0;
@@ -1980,8 +1977,8 @@ const app = () => {
 				sentenceEndIndex = sentence.substring(sentenceStartIndex + lineLength + 2).indexOf(" ") +
 					sentenceStartIndex + lineLength + 1;
 				str = sentence.substring(sentenceStartIndex, sentenceEndIndex + 1);
-				console.log(sentenceStartIndex);
-				console.log(sentenceEndIndex);
+				// console.log(sentenceStartIndex);
+				// console.log(sentenceEndIndex);
 			}
 			str = str.substring(1);
 			return str;
@@ -2016,7 +2013,7 @@ const app = () => {
 						wordsCreated++;
 						circuitBreaker = 0;
 						requiredLetters = startingLetters.split('');
-						console.log('taking too long to find proper word');
+						// console.log('taking too long to find proper word');
 					} else {
 						requiredLetters = startingLetters.split('');
 					}
@@ -2068,7 +2065,7 @@ const app = () => {
 					const wordToAdd = randomLetterJumble();
 					str += wordToAdd + ' ';
 					i += wordToAdd.length;
-					console.log("i: " + i);
+					// console.log("i: " + i);
 					wordsCreated++;
 					if (wordsCreated >= maxWords) {
 						break;
@@ -2130,7 +2127,7 @@ const app = () => {
 		answerWordArray.shift();
 
 		if (prompt.children[0].children.length - 1 == 0 || wordIndex >= prompt.children[0].children.length - 1) {
-			console.log('new line ' + prompt);
+			// console.log('new line ' + prompt);
 			lineIndex++;
 
 			// when we reach the end of a line, generate a new one IF 
