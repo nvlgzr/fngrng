@@ -1,5 +1,5 @@
 <script>
-  import { prefsOpen, lowercaseOnly } from "./persistentStore";
+  import { prefsOpen, lowercaseOnly, fullSentenceModeEnabled } from "./persistentStore";
 
   $: openPrefs = $prefsOpen;
 
@@ -21,6 +21,12 @@
 
   function toggleLowerCaseOnly(e) {
     lowercaseOnly.set(!allowUppercase);
+  }
+  
+  $: usePassage = $fullSentenceModeEnabled;
+
+  function toggleUsePassage(e) {
+    fullSentenceModeEnabled.set(usePassage);
   }
 </script>
 
@@ -49,6 +55,8 @@
     </li>
     <li>
       Full Sentence Mode<input
+        bind:checked={usePassage}
+        on:change={toggleUsePassage}
         class="fullSentenceMode"
         type="checkbox"
         autocomplete="off"
