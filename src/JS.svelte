@@ -93,7 +93,6 @@
     var letterIndex = 0; // Keeps track of where in a word the user is
     // Increment with every keystroke except ' ', return, and backspace
     // Decrement for backspace, and reset for the other 2
-    var onlyLower = $lowercaseOnly; // Include only words without capital letters
     var keyboardMap = layoutMaps["colemak"];
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
@@ -119,10 +118,7 @@
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
 
     // preference menu dom elements
-    var capitalLettersAllowed = document.querySelector(
-        ".capitalLettersAllowed"
-      ),
-      fullSentenceModeToggle = document.querySelector(".fullSentenceMode"),
+    var fullSentenceModeToggle = document.querySelector(".fullSentenceMode"),
       fullSentenceModeLevelButton = document.querySelector(".lvl8"),
       wordLimitModeButton = document.querySelector(".wordLimitModeButton"),
       wordLimitModeInput = document.querySelector(".wordLimitModeInput"),
@@ -154,7 +150,6 @@
         toggleTimeLimitModeUI();
       }
 
-      capitalLettersAllowed.checked = !onlyLower;
       punctuationModeButton.checked = punctuation;
       fullSentenceModeToggle.checked = useFullSentences;
       wordScrollingModeButton.checked = wordScrollingMode;
@@ -224,11 +219,11 @@
     });
 
     // capital letters allowed
-    capitalLettersAllowed.addEventListener("click", () => {
-      onlyLower = !onlyLower;
-      lowercaseOnly.set(onlyLower);
-      reset();
-    });
+    var capitalLettersAllowed = document
+      .querySelector(".capitalLettersAllowed")
+      .addEventListener("click", () => {
+        reset();
+      });
 
     // full sentence mode
     function toggleFullSentenceModeUI() {
@@ -1179,7 +1174,7 @@
           // if the word does not contain any required letters, throw it out and choose again
           if (!contains(wordToAdd, requiredLetters)) {
             // console.log(wordToAdd + ' doesnt have any required letters from ' + requiredLetters);
-          } else if (onlyLower && containsUpperCase(wordToAdd)) {
+          } else if ($lowercaseOnly && containsUpperCase(wordToAdd)) {
             // if only lower case is allowed and the word to add contains an uppercase,
             // throw out the word and try again
           } else {

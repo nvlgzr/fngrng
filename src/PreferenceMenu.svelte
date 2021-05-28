@@ -1,5 +1,5 @@
 <script>
-  import { prefsOpen } from "./persistentStore";
+  import { prefsOpen, lowercaseOnly } from "./persistentStore";
 
   $: openPrefs = $prefsOpen;
 
@@ -16,6 +16,12 @@
   function closeMenu() {
     prefsOpen.set(false);
   }
+
+  $: allowUppercase = !$lowercaseOnly;
+
+  function toggleLowerCaseOnly(e) {
+    lowercaseOnly.set(!allowUppercase);
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -27,6 +33,8 @@
   <ul class="preferences">
     <li>
       Capital Letters Allowed<input
+        bind:checked={allowUppercase}
+        on:change={toggleLowerCaseOnly}
         class="capitalLettersAllowed"
         type="checkbox"
         autocomplete="off"
