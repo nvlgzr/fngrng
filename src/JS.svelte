@@ -13,51 +13,10 @@
   } from "./persistentStore.js";
   import { wordLists } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
-  import { masterList } from "./tenThousandWords.js";
   import { passage } from "./passageFromDorianGray.js";
-  import { getPosition } from "./pureFunctions";
+  import { getPosition, contains, generateList } from "./pureFunctions";
 
   onMount(async () => {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz',.-";
-
-    // returns true if target (a string) contains at least one letter from
-    // pattern (an array of chars)
-    function contains(target, pattern) {
-      let value = 0;
-      pattern.forEach(function (letter) {
-        value = value + target.includes(letter);
-      });
-      return value >= 1;
-    }
-
-    // generates a list of words containing only the given letters
-    function generateList(lettersToInclude, requiredLetters) {
-      let excludes = [];
-
-      // create the list of letters to exclude from final list so
-      // at the end you have only desired letters
-      alphabet.split("").forEach((l) => {
-        if (!lettersToInclude.includes(l)) {
-          excludes.push(l);
-        }
-      });
-
-      let wordList = [];
-
-      masterList.forEach((word) => {
-        if (
-          !contains(word.toLowerCase(), excludes) &&
-          contains(word, requiredLetters.split(""))
-        ) {
-          wordList.push(word);
-        }
-      });
-
-      return wordList;
-    }
-
-    /* END wordList.js inlined */
-
     /*_____________dom elements_________*/
 
     // the string of text that shows the words for the user to type
