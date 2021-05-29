@@ -52,6 +52,12 @@
       handler: (e) => fullSentenceModeEnabled.set(e.target.checked),
       class: "fullSentenceMode",
     },
+    {
+      display: "Word Scrolling Mode",
+      value: $wordScrollingModeEnabled,
+      handler: (e) => wordScrollingModeEnabled.set(e.target.checked),
+      class: "wordScrollingModeButton",
+    },
   ];
 </script>
 
@@ -73,15 +79,6 @@
         />
       </li>
     {/each}
-    <li>
-      Word Scrolling Mode
-      <input
-        class="wordScrollingModeButton"
-        type="checkbox"
-        autocomplete="off"
-        checked
-      />
-    </li>
     <li>
       <input
         class="timeLimitModeInput noDisplay"
