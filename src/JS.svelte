@@ -15,14 +15,10 @@
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { masterList } from "./tenThousandWords.js";
   import { passage } from "./passageFromDorianGray.js";
+  import { getPosition } from "./pureFunctions";
 
   onMount(async () => {
     const alphabet = "abcdefghijklmnopqrstuvwxyz',.-";
-
-    // returns the index of the nth occurance of a char or string
-    function getPosition(target, subString, n) {
-      return target.split(subString, n).join(subString).length;
-    }
 
     // returns true if target (a string) contains at least one letter from
     // pattern (an array of chars)

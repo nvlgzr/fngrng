@@ -24,12 +24,6 @@
     prefsOpen.set(false);
   }
 
-  $: usePassage = $fullSentenceModeEnabled;
-
-  function toggleUsePassage(e) {
-    fullSentenceModeEnabled.set(usePassage);
-  }
-
   $: prefs = [
     {
       display: "Capital Letters Allowed",
