@@ -46,6 +46,12 @@
       },
       class: "punctuationModeButton",
     },
+    {
+      display: "Full Sentence Mode",
+      value: $fullSentenceModeEnabled,
+      handler: (e) => fullSentenceModeEnabled.set(e.target.checked),
+      class: "fullSentenceMode",
+    },
   ];
 </script>
 
@@ -67,15 +73,6 @@
         />
       </li>
     {/each}
-    <li>
-      Full Sentence Mode<input
-        bind:checked={usePassage}
-        on:change={toggleUsePassage}
-        class="fullSentenceMode"
-        type="checkbox"
-        autocomplete="off"
-      />
-    </li>
     <li>
       Word Scrolling Mode
       <input
