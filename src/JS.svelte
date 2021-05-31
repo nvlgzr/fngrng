@@ -30,7 +30,6 @@
     var input = document.querySelector("#userInput");
     var customInput = document.querySelector(".customInput");
     var buttons = document.querySelector("nav").children;
-    var currentWord = document.querySelector("#currentWord");
     var select = document.querySelector("select");
     var saveButton = document.querySelector(".saveButton");
     var discardButton = document.querySelector(".discardButton");
@@ -55,7 +54,6 @@
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var timeLimitMode = $timeLimitModeEnabled;
     var wordScrollingMode = $wordScrollingModeEnabled;
-    var deleteFirstLine = false; // make this true every time we finish typing a line
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var sentenceStartIndex = -1; // keeps track of where we are in full sentence mode
     var sentenceEndIndex;
@@ -923,7 +921,6 @@
     // button is called or when a level is changed
     // Set a new prompt word and change variable text
     function reset() {
-      deleteFirstLine = false; // make this true every time we finish typing a line
       deleteLatestWord = false;
       prompt.innerHTML = "";
       input.value = "";
