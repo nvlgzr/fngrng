@@ -7,6 +7,7 @@
     wordScrollingModeEnabled,
     punctuationToInclude,
   } from "./persistentStore";
+  import { scoreMax } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 
@@ -90,7 +91,7 @@
       <input
         class="wordLimitModeInput"
         type="number"
-        value="50"
+        value={$scoreMax}
         step="10"
         autocomplete="off"
       />

@@ -1,6 +1,7 @@
 <script>
   import { currentLayout } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
+  import ScoreBoard from "./ScoreBoard.svelte";
 </script>
 
 <section id="main">
@@ -12,14 +13,7 @@
     </div>
     <button id="resetButton" class="noDisplay">Reset</button>
     <input id="userInput" type="paragraph" spellcheck="false" />
-    <div id="scoreAndClock">
-      <span id="scoreText">0/50</span>
-      <span id="timeText">0m :0 s</span>
-    </div>
-    <div id="testResults" class="transparent">
-      <div id="accuracyText" />
-      <div id="wpmText" />
-    </div>
+    <ScoreBoard />
   </div>
   <CheatSheet />
   <div class="bottomText">
@@ -88,39 +82,6 @@
     /*color: white;*/
     margin: 10vh 0 0 0;
     letter-spacing: 0.1vmax;
-  }
-
-  #scoreAndClock {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: distribute;
-    justify-content: space-around;
-    font-size: 5vmin;
-  }
-
-  #scoreText,
-  #timeText {
-    font-family: "Verdana", sans-serif;
-  }
-
-  #testResults {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 8vh;
-    flex: 0.8 1 7vh;
   }
 
   #resetButton {

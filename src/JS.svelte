@@ -11,7 +11,13 @@
     wordScrollingModeEnabled,
     punctuationToInclude,
   } from "./persistentStore.js";
-  import { wordLists } from "./volatileStore.js";
+  import {
+    wordLists,
+    score,
+    scoreMax,
+    clock,
+    results,
+  } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { passage } from "./passageFromDorianGray.js";
   import { getPosition, contains, generateList } from "./pureFunctions";
@@ -21,12 +27,7 @@
 
     // the string of text that shows the words for the user to type
     var prompt = document.querySelector(".prompt");
-    var scoreText = document.querySelector("#scoreText");
-    var timeText = document.querySelector("#timeText");
     var resetButton = document.querySelector("#resetButton");
-    var accuracyText = document.querySelector("#accuracyText");
-    var wpmText = document.querySelector("#wpmText");
-    var testResults = document.querySelector("#testResults");
     var input = document.querySelector("#userInput");
     var customInput = document.querySelector(".customInput");
     var buttons = document.querySelector("nav").children;
@@ -36,8 +37,6 @@
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
     var promptOffset = 0; // is this needed? May delete
-    var score; // tracks the current number of correct words the user has typed
-    var scoreMax = 50; // total number of words the user must type
     var seconds = 0; // tracks the number of seconds%minutes*60 the current test has been running for
     var minutes = 0; // tracks the number of minutes the current test has been running for
     var gameOn = false; // set to true when user starts typing in input field
@@ -86,7 +85,6 @@
     // this is the true init, which is only called once. Init will have to be renamed
     // Call to initialize
     function start() {
-      // scoreMax = wordLimitModeInput.value;
       customInput.style.display = "flex";
 
       if (!wordScrollingMode) {
@@ -141,7 +139,7 @@
             minutes--;
           }
         }
-        resetTimeText();
+        setClock();
       }
     }, 1000);
 
@@ -195,10 +193,9 @@
     function toggleTimeLimitModeUI() {
       seconds = timeLimitModeInput.value % 60;
       minutes = Math.floor(timeLimitModeInput.value / 60);
-      scoreText.style.display = "none";
 
       // make the word list long enough so that no human typer can reach the end
-      scoreMax = timeLimitModeInput.value * 4;
+      $scoreMax = timeLimitModeInput.value * 4;
 
       // toggle value of word limit mode button
       wordLimitModeButton.checked = !wordLimitModeButton.checked;
@@ -216,7 +213,9 @@
         // change mode logic here
         timeLimitMode = true;
         toggleTimeLimitModeUI();
-        timeLimitModeEnabled.set(timeLimitMode);
+
+        $timeLimitModeEnabled = timeLimitMode;
+
         reset();
       }
     });
@@ -225,7 +224,7 @@
     timeLimitModeInput.addEventListener("change", () => {
       let wholeSecond = Math.floor(timeLimitModeInput.value);
 
-      scoreMax = wholeSecond * 10;
+      $scoreMax = wholeSecond * 10;
 
       if (wholeSecond < 1 || wholeSecond > 10000) {
         wholeSecond = 60;
@@ -238,7 +237,7 @@
       minutes = Math.floor(wholeSecond / 60);
 
       gameOn = false;
-      resetTimeText();
+      setClock();
     });
 
     // word Limit mode butto; if this is checked, uncheck button for time limit and vice versa
@@ -251,10 +250,9 @@
         timeLimitMode = false;
         seconds = 0;
         minutes = 0;
-        scoreText.style.display = "flex";
 
         // set score max back to the chosen value
-        scoreMax = wordLimitModeInput.value;
+        $scoreMax = wordLimitModeInput.value;
 
         // toggle value of time limit mode button
         timeLimitModeButton.checked = !timeLimitModeButton.checked;
@@ -263,7 +261,7 @@
         timeLimitModeInput.classList.toggle("noDisplay");
         wordLimitModeInput.classList.toggle("noDisplay");
 
-        timeLimitModeEnabled.set(timeLimitMode);
+        $timeLimitModeEnabled = timeLimitMode;
 
         reset();
       }
@@ -274,12 +272,12 @@
       if (wordLimitModeInput.value > 10 && wordLimitModeInput.value <= 500) {
         wordLimitModeInput.value =
           Math.ceil(wordLimitModeInput.value / 10) * 10;
-        scoreMax = wordLimitModeInput.value;
+        $scoreMax = wordLimitModeInput.value;
       } else if (wordLimitModeInput.value > 500) {
-        scoreMax = 500;
+        $scoreMax = 500;
         wordLimitModeInput.value = 500;
       } else {
-        scoreMax = 10;
+        $scoreMax = 10;
         wordLimitModeInput.value = 10;
       }
 
@@ -711,7 +709,12 @@
       // correct word. If yes, generate new word. If no, give user
       // negative feedback
       // if on the last word, check every letter so we don't need a space to end the game
-      if (!timeLimitMode && score == scoreMax - 1 && checkAnswer() && gameOn) {
+      if (
+        !timeLimitMode &&
+        $score == $scoreMax - 1 &&
+        checkAnswer() &&
+        gameOn
+      ) {
         endGame();
       }
 
@@ -723,9 +726,9 @@
           e.preventDefault();
 
           handleCorrectWord();
-          updateScoreText();
+          incrementScore();
 
-          if (score >= scoreMax) {
+          if ($score >= $scoreMax) {
             endGame();
           }
 
@@ -937,8 +940,7 @@
       errors = 0;
 
       // set to -1 before each game because score is incremented every time we call
-      // updateScoreText(), including on first load
-      score = -1;
+      $score = -1;
 
       requiredLetters = (
         levelDictionaries[$currentLayout]["lvl" + currentLevel] +
@@ -954,8 +956,7 @@
         minutes = Math.floor(timeLimitModeInput.value / 60);
       }
 
-      resetTimeText();
-      testResults.classList.add("transparent");
+      setClock();
       resetButton.classList.add("noDisplay");
       prompt.classList.remove("noDisplay");
 
@@ -966,8 +967,7 @@
         }
       }
 
-      // change the 0/50 text
-      updateScoreText();
+      incrementScore();
 
       input.focus();
     }
@@ -975,7 +975,7 @@
     // generates a new line, adds it to prompt, and to answerWordArray
     function addLineToPrompt() {
       let lineToAdd = generateLine(
-        scoreMax - score - answerWordArray.length - 1
+        $scoreMax - $score - answerWordArray.length - 1
       );
       prompt.innerHTML += convertLineToHTML(lineToAdd);
       answerWordArray = answerWordArray.concat(lineToAdd.split(" "));
@@ -1033,17 +1033,18 @@
           (timeLimitModeInput.value / 60)
         ).toFixed(2);
       }
-      accuracyText.innerHTML =
-        "Accuracy: " + ((100 * correct) / (correct + errors)).toFixed(2) + "%";
-      wpmText.innerHTML = "WPM: " + wpm;
-      // make accuracy visible
-      testResults.classList.toggle("transparent");
+
+      $results = {
+        ready: true,
+        accuracy: `${((100 * correct) / (correct + errors)).toFixed(2)} %`,
+        wpm: wpm,
+      };
 
       correct = 0;
       errors = 0;
 
       resetButton.focus();
-      updateScoreText();
+      incrementScore();
       // clear input field
       document.querySelector("#userInput").value = "";
       // set letter index (where in the word the user currently is)
@@ -1245,7 +1246,7 @@
         }
       }
 
-      let cur = document.querySelector("#id" + (score + 1));
+      let cur = document.querySelector("#id" + ($score + 1));
 
       if (wordScrollingMode) {
         deleteLatestWord = true;
@@ -1266,14 +1267,15 @@
       correctAnswer = answerWordArray[0];
     }
 
-    // updates the numerator and denominator of the scoretext on
-    // the document
-    function updateScoreText() {
-      scoreText.innerHTML = ++score + "/" + scoreMax;
+    function incrementScore() {
+      $score = $score + 1;
     }
 
-    function resetTimeText() {
-      timeText.innerHTML = minutes + "m :" + seconds + " s";
+    function setClock() {
+      $clock = {
+        mins: minutes,
+        secs: seconds,
+      };
     }
 
     // removes level styles from all buttons. Use every time the
