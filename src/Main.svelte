@@ -123,6 +123,12 @@
     flex: 0.8 1 7vh;
   }
 
+  #resetButton {
+    margin: 6vmin auto 4vmin auto;
+    width: 30%;
+    font-size: 4.5vh;
+  }
+
   .bottomText {
     position: absolute;
     font-size: 1vmin;

@@ -105,12 +105,6 @@ button:focus {
   display: block;
 }
 
-#resetButton {
-  margin: 6vmin auto 4vmin auto;
-  width: 30%;
-  font-size: 4.5vh;
-}
-
 input {
   height: 6vmin;
   font-size: 4vmin;
