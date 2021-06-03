@@ -171,10 +171,9 @@
     }
 
     fullSentenceModeToggle.addEventListener("click", () => {
-      const useFullSentences = !$fullSentenceModeEnabled;
-      fullSentenceModeEnabled.set(useFullSentences);
+      $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
       toggleFullSentenceModeUI();
-      if (useFullSentences) {
+      if ($fullSentenceModeEnabled) {
         switchLevel(8);
       } else {
         switchLevel(1);
