@@ -282,7 +282,7 @@
     }
 
     wordScrollingModeButton.addEventListener("click", () => {
-      $wordScrollingModeEnabled = !$wordScrollingModeEnabled
+      $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
       toggleWordScrollingModeUI();
       reset();
     });
@@ -319,7 +319,7 @@
     }
 
     select.addEventListener("change", (e) => {
-      currentLayout.set(select.value);
+      $currentLayout = select.value;
       updateLayoutUI();
       // reset everything
       init();
@@ -382,7 +382,7 @@
           k = e.target.closest(".preferenceButton");
         }
         if (!k) {
-          prefsOpen.set(false);
+          $prefsOpen = false;
         }
 
         // add key listeners for each of the keys the custom input ui

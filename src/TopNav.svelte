@@ -5,7 +5,7 @@
   let layout = $currentLayout;
 
   function setLayout() {
-    currentLayout.set(layout);
+    $currentLayout = layout;
   }
 </script>
 

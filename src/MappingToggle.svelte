@@ -1,18 +1,16 @@
 <script>
   import { keyRemapping } from "./persistentStore.js";
 
-  let remap = $keyRemapping;
-
   function toggleMapping(e) {
-    keyRemapping.set(remap);
+    $keyRemapping = $keyRemapping
   }
 </script>
 
 <div id="mappingToggle">
-  <h6>Keyboard Mapping: {remap ? "on" : "off"}</h6>
+  <h6>Keyboard Mapping: {$keyRemapping ? "on" : "off"}</h6>
   <label class="switch">
     <input
-      bind:checked={remap}
+      bind:checked={$keyRemapping}
       on:change={toggleMapping}
       type="checkbox"
       autocomplete="off"

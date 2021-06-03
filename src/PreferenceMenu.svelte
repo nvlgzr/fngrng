@@ -18,18 +18,18 @@
   }
 
   function openMenu() {
-    prefsOpen.set(true);
+    $prefsOpen = true;
   }
 
   function closeMenu() {
-    prefsOpen.set(false);
+    $prefsOpen = false;
   }
 
   $: prefs = [
     {
       display: "Capital Letters Allowed",
       value: !$lowercaseOnly,
-      handler: (e) => lowercaseOnly.set(e.target.checked),
+      handler: (e) => $lowercaseOnly = e.target.checked,
       class: "capitalLettersAllowed",
     },
     {
@@ -37,20 +37,20 @@
       value: $punctuationToInclude, // ⚠️ Uses falsiness of empty string
       handler: (e) => {
         const punct = e.target.checked ? "'.-" : "";
-        punctuationToInclude.set(punct);
+        $punctuationToInclude = punct;
       },
       class: "punctuationModeButton",
     },
     {
       display: "Full Sentence Mode",
       value: $fullSentenceModeEnabled,
-      handler: (e) => fullSentenceModeEnabled.set(e.target.checked),
+      handler: (e) => $fullSentenceModeEnabled = e.target.checked,
       class: "fullSentenceMode",
     },
     {
       display: "Word Scrolling Mode",
       value: $wordScrollingModeEnabled,
-      handler: (e) => wordScrollingModeEnabled.set(e.target.checked),
+      handler: (e) => $wordScrollingModeEnabled = e.target.checked,
       class: "wordScrollingModeButton",
     },
   ];
