@@ -830,10 +830,6 @@
       // clear input field
       document.querySelector("#userInput").value = "";
 
-      // clear highlighted buttons
-      clearCurrentLevelStyle();
-      document.querySelector(".lvl" + lev).classList.add("currentLevel");
-
       if (lev == 8) {
         fullSentenceMode = true;
       } else {
@@ -1265,14 +1261,6 @@
         mins: $minutes,
         secs: $seconds,
       };
-    }
-
-    // removes level styles from all buttons. Use every time the
-    // level is changed
-    function clearCurrentLevelStyle() {
-      Array.from(buttons).forEach(function (button) {
-        button.classList.remove("currentLevel");
-      });
     }
 
     // set the word list for each level

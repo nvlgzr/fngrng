@@ -1,12 +1,22 @@
+<script>
+  import { currentLevel } from "./persistentStore.js";
+
+  $: selected = (lvl) => {
+    return $currentLevel == lvl
+      ? `selected lvl${$currentLevel}`
+      : `lvl${$currentLevel}`;
+  };
+</script>
+
 <nav>
-  <button class="currentLevel lvl1">Level 1</button>
-  <button class="lvl2">Level 2</button>
-  <button class="lvl3">Level 3</button>
-  <button class="lvl4">Level 4</button>
-  <button class="lvl5">Level 5</button>
-  <button class="lvl6">Level 6</button>
-  <button class="lvl7">All Words</button>
-  <button class="lvl8">Full Sentences</button>
+  <button class={selected(1)}>Level 1</button>
+  <button class={selected(2)}>Level 2</button>
+  <button class={selected(3)}>Level 3</button>
+  <button class={selected(4)}>Level 4</button>
+  <button class={selected(5)}>Level 5</button>
+  <button class={selected(6)}>Level 6</button>
+  <button class={selected(7)}>All Words</button>
+  <button class={`lvl8 ${selected(8)}`}>Full Sentences</button>
 </nav>
 
 <style>
@@ -48,5 +58,11 @@
 
     color: orange;
     border-color: orange;
+  }
+
+  .selected {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    font-weight: bold;
   }
 </style>

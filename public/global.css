@@ -267,12 +267,6 @@ a:link {
   opacity: 0;
 }
 
-.currentLevel {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-  font-weight: bold;
-}
-
 /*.hide-me {
 	z-index: -100;
   animation: hideme .5s linear forwards;
