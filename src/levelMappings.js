@@ -480,6 +480,6 @@ export const layoutMaps = {
     Comma: " ",
     Period: " ",
     Slash: " ",
-    shiftLayer: "default",
+    shiftLayer: {},
   },
 };
