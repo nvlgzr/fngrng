@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import {
     currentLayout,
-    levelStore,
+    currentLevel,
     keyRemapping,
     prefsOpen,
     lowercaseOnly,
@@ -44,7 +44,6 @@
     var discardButton = document.querySelector(".discardButton");
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
-    var currentLevel = $levelStore;
     var keyboardMap = layoutMaps["colemak"];
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
@@ -98,7 +97,7 @@
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
 
-      switchLevel(currentLevel);
+      switchLevel($currentLevel);
 
       updateLayoutUI();
     }
@@ -824,7 +823,7 @@
 
     // switches to level
     function switchLevel(lev) {
-      $levelStore = lev;
+      $currentLevel = lev;
       // stop timer
       $gameOn = false;
 
@@ -844,7 +843,7 @@
       if (lev == 8) {
         lev = 7;
       }
-      currentLevel = lev;
+      $currentLevel = lev;
 
       reset();
       updateCheatsheetStyling();
@@ -871,7 +870,7 @@
         let objKeys = Object.keys(letterDictionary);
 
         // check active levels and apply styling
-        for (let i = 0; i < currentLevel; i++) {
+        for (let i = 0; i < $currentLevel; i++) {
           // the letter that will appear on the key
           let letter = keyboardMap[n.id];
 
@@ -893,7 +892,7 @@
               n.classList.add("homeRow");
             } else if (i == 6) {
               // all words selected
-            } else if (i == currentLevel - 1) {
+            } else if (i == $currentLevel - 1) {
               n.classList.remove("active");
               n.classList.add("newInThisLevel");
             } else {
@@ -931,7 +930,7 @@
       $score = -1;
 
       requiredLetters = (
-        levelDictionaries[$currentLayout]["lvl" + currentLevel] +
+        levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
         $punctuationToInclude
       ).split("");
 
@@ -1074,9 +1073,9 @@
         return str;
       }
 
-      if ($wordLists["lvl" + currentLevel].length > 0) {
+      if ($wordLists["lvl" + $currentLevel].length > 0) {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + currentLevel] +
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
           $punctuationToInclude;
 
         // if this counter hits a high enough number, there are likely no words matching the search
@@ -1090,15 +1089,15 @@
           }
 
           let rand = Math.floor(
-            Math.random() * $wordLists["lvl" + currentLevel].length
+            Math.random() * $wordLists["lvl" + $currentLevel].length
           );
-          let wordToAdd = $wordLists["lvl" + currentLevel][rand];
+          let wordToAdd = $wordLists["lvl" + $currentLevel][rand];
 
           //console.log('in circuit ' + circuitBreaker);
           if (circuitBreaker > 12000) {
             if (circuitBreaker > 30000) {
               str +=
-                levelDictionaries[$currentLayout]["lvl" + currentLevel] + " ";
+                levelDictionaries[$currentLayout]["lvl" + $currentLevel] + " ";
               i += wordToAdd.length;
               wordsCreated++;
               circuitBreaker = 0;
@@ -1142,13 +1141,13 @@
         }
       } else {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + currentLevel] +
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
           $punctuationToInclude;
         // if there are no words with the required letters, all words should be set to the
         // current list of required letters
         let wordsCreated = 0;
         if (
-          levelDictionaries[$currentLayout]["lvl" + currentLevel].length == 0
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel].length == 0
         ) {
           str = "";
         } else {
@@ -1176,9 +1175,10 @@
       for (let i = 0; i < randWordLength; i++) {
         let rand = Math.floor(
           Math.random() *
-            levelDictionaries[$currentLayout]["lvl" + currentLevel].length
+            levelDictionaries[$currentLayout]["lvl" + $currentLevel].length
         );
-        jumble += levelDictionaries[$currentLayout]["lvl" + currentLevel][rand];
+        jumble +=
+          levelDictionaries[$currentLayout]["lvl" + $currentLevel][rand];
       }
 
       return jumble;
