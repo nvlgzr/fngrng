@@ -12,6 +12,7 @@
     punctuationToInclude,
   } from "./persistentStore.js";
   import {
+    gameOn,
     wordLists,
     score,
     scoreMax,
@@ -39,7 +40,6 @@
     var promptOffset = 0; // is this needed? May delete
     var seconds = 0; // tracks the number of seconds%minutes*60 the current test has been running for
     var minutes = 0; // tracks the number of minutes the current test has been running for
-    var gameOn = false; // set to true when user starts typing in input field
     var correct = 0; // number of correct keystrokes during a game
     var errors = 0; // number of typing errors during a game
     var currentLevel = $levelStore;
@@ -118,50 +118,45 @@
     /*________________Timers and Listeners___________________*/
 
     // makes the clock tic
-      setInterval(() => {
-        if (gameOn) {
-          if (!timeLimitMode) {
-            seconds++;
-            if (seconds >= 60) {
-              seconds = 0;
-              minutes++;
-            }
-          } else {
-            // clock counting down
-            seconds--;
-            if (seconds <= 0 && minutes <= 0) {
-              endGame();
-            }
-            if (seconds < 0) {
-              seconds = 59;
-              minutes--;
-            }
+    setInterval(() => {
+      if ($gameOn) {
+        if (!timeLimitMode) {
+          seconds++;
+          if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
           }
-          setClock();
+        } else {
+          // clock counting down
+          seconds--;
+          if (seconds <= 0 && minutes <= 0) {
+            endGame();
+          }
+          if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+          }
         }
-      }, 1000);
-
-    // starts the timer when there is any change to the input field
-    input.addEventListener("keydown", (e) => {
-      gameOn = true;
-    });
+        setClock();
+      }
+    }, 1000);
 
     /*___________________________________________________________*/
     /*____________________preference menu________________________*/
 
     // close preference menu on escape key. While we're at it, also close custom
     // ui menu
-      document.addEventListener("keydown", (e) => {
-        if (e.keyCode == 27) {
-          // close custom ui menu
-          if (customInput.style.transform != "scaleX(0)") {
-            customInput.style.transform = "scaleX(0)";
-            // remove active class from current key
-            clearSelectedInput();
-            init();
-          }
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode == 27) {
+        // close custom ui menu
+        if (customInput.style.transform != "scaleX(0)") {
+          customInput.style.transform = "scaleX(0)";
+          // remove active class from current key
+          clearSelectedInput();
+          init();
         }
-      });
+      }
+    });
 
     // capital letters allowed
     document
@@ -234,7 +229,7 @@
       seconds = wholeSecond % 60;
       minutes = Math.floor(wholeSecond / 60);
 
-      gameOn = false;
+      $gameOn = false;
       setClock();
     });
 
@@ -669,7 +664,7 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in keyboardMap && gameOn) {
+        if (char in keyboardMap && $gameOn) {
           if (!e.shiftKey) {
             input.value += keyboardMap[char];
           } else {
@@ -711,13 +706,13 @@
         !timeLimitMode &&
         $score == $scoreMax - 1 &&
         checkAnswer() &&
-        gameOn
+        $gameOn
       ) {
         endGame();
       }
 
       if (e.keyCode === 13 || e.keyCode === 32) {
-        if (checkAnswer() && gameOn) {
+        if (checkAnswer() && $gameOn) {
           // stops a ' ' character from being put in the input bar
           // it wouldn't appear until after this function, and would
           // still be there when the user goes to type the next word
@@ -834,9 +829,9 @@
 
     // switches to level
     function switchLevel(lev) {
-      levelStore.set(lev);
+      $levelStore = lev;
       // stop timer
-      gameOn = false;
+      $gameOn = false;
 
       // clear input field
       document.querySelector("#userInput").value = "";
@@ -928,7 +923,7 @@
       answerWordArray = [];
       idCount = 0;
       sentenceStartIndex = -1;
-      gameOn = false;
+      $gameOn = false;
       letterIndex = 0;
       wordIndex = 0;
       lineIndex = 0;
@@ -1018,7 +1013,7 @@
       resetButton.classList.remove("noDisplay");
 
       // pause timer
-      gameOn = false;
+      $gameOn = false;
 
       // calculate wpm
       let wpm;

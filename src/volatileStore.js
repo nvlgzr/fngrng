@@ -1,6 +1,9 @@
 import { derived, writable } from "svelte/store";
 import { timeLimitModeEnabled } from "./persistentStore.js"
 
+// Game begins when user starts typing in input
+export const gameOn = writable(false)
+
 export const wordLists = writable({
   lvl1: [],
   lvl2: [],

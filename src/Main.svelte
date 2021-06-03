@@ -2,6 +2,9 @@
   import { currentLayout } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
+  import { gameOn } from "./volatileStore.js";
+
+  $: startTrial = () => ($gameOn = true);
 </script>
 
 <section id="main">
@@ -12,7 +15,12 @@
       <h2 class="noDisplay prompt" />
     </div>
     <button id="resetButton" class="noDisplay">Reset</button>
-    <input id="userInput" type="paragraph" spellcheck="false" />
+    <input
+      on:keydown={startTrial}
+      id="userInput"
+      type="paragraph"
+      spellcheck="false"
+    />
     <ScoreBoard />
   </div>
   <CheatSheet />
