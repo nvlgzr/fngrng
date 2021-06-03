@@ -14,6 +14,7 @@
   import {
     gameOn,
     wordLists,
+    correctAnswer,
     score,
     scoreMax,
     clock,
@@ -43,7 +44,6 @@
     var correct = 0; // number of correct keystrokes during a game
     var errors = 0; // number of typing errors during a game
     var currentLevel = $levelStore;
-    var correctAnswer; // string representation of the current correct word
     var letterIndex = 0; // Keeps track of where in a word the user is
     // Increment with every keystroke except ' ', return, and backspace
     // Decrement for backspace, and reset for the other 2
@@ -804,7 +804,7 @@
       let inputVal = input.value;
 
       return (
-        inputVal.slice(0, letterIndex) == correctAnswer.slice(0, letterIndex)
+        inputVal.slice(0, letterIndex) == $correctAnswer.slice(0, letterIndex)
       );
     }
 
@@ -953,7 +953,7 @@
       for (let i = 1; i <= 3; i++) {
         addLineToPrompt();
         if (i == 1) {
-          correctAnswer = answerWordArray[0];
+          $correctAnswer = answerWordArray[0];
         }
       }
 
@@ -998,8 +998,7 @@
 
     function checkAnswer() {
       // user input
-      let inputVal = input.value;
-      return inputVal == correctAnswer;
+      return input.value == $correctAnswer;
     }
 
     function endGame() {
@@ -1254,7 +1253,7 @@
 
       // save the correct answer to a variable before removing it
       // from the answer string
-      correctAnswer = answerWordArray[0];
+      $correctAnswer = answerWordArray[0];
     }
 
     function incrementScore() {

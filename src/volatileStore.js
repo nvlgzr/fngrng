@@ -14,6 +14,8 @@ export const wordLists = writable({
   lvl7: [],
 });
 
+export const correctAnswer = writable("")
+
 export const score = writable(0)
 export const errors = writable(0)
 export const scoreMax = writable(50)
