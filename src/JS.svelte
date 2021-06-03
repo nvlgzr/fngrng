@@ -15,10 +15,16 @@
     gameOn,
     wordLists,
     correctAnswer,
+    seconds,
+    minutes,
     score,
+    correct,
+    errors,
     scoreMax,
     clock,
     results,
+    promptOffset,
+    letterIndex,
   } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { passage } from "./passageFromDorianGray.js";
@@ -38,15 +44,7 @@
     var discardButton = document.querySelector(".discardButton");
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
-    var promptOffset = 0; // is this needed? May delete
-    var seconds = 0; // tracks the number of seconds%minutes*60 the current test has been running for
-    var minutes = 0; // tracks the number of minutes the current test has been running for
-    var correct = 0; // number of correct keystrokes during a game
-    var errors = 0; // number of typing errors during a game
     var currentLevel = $levelStore;
-    var letterIndex = 0; // Keeps track of where in a word the user is
-    // Increment with every keystroke except ' ', return, and backspace
-    // Decrement for backspace, and reset for the other 2
     var keyboardMap = layoutMaps["colemak"];
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
@@ -120,20 +118,20 @@
     setInterval(() => {
       if ($gameOn) {
         if (!timeLimitMode) {
-          seconds++;
-          if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
+          $seconds++;
+          if ($seconds >= 60) {
+            $seconds = 0;
+            $minutes++;
           }
         } else {
           // clock counting down
-          seconds--;
-          if (seconds <= 0 && minutes <= 0) {
+          $seconds = $seconds - 1;
+          if ($seconds <= 0 && $minutes <= 0) {
             endGame();
           }
-          if (seconds < 0) {
-            seconds = 59;
-            minutes--;
+          if ($seconds < 0) {
+            $seconds = 59;
+            $minutes--;
           }
         }
         setClock();
@@ -182,8 +180,8 @@
 
     // Toggle display of time limit mode input field
     function toggleTimeLimitModeUI() {
-      seconds = timeLimitModeInput.value % 60;
-      minutes = Math.floor(timeLimitModeInput.value / 60);
+      $seconds = timeLimitModeInput.value % 60;
+      $minutes = Math.floor(timeLimitModeInput.value / 60);
 
       // make the word list long enough so that no human typer can reach the end
       $scoreMax = timeLimitModeInput.value * 4;
@@ -224,8 +222,8 @@
       // set the dom element to a whole number (in case the user puts in a decimal)
       timeLimitModeInput.value = wholeSecond;
 
-      seconds = wholeSecond % 60;
-      minutes = Math.floor(wholeSecond / 60);
+      $seconds = wholeSecond % 60;
+      $minutes = Math.floor(wholeSecond / 60);
 
       $gameOn = false;
       setClock();
@@ -239,8 +237,8 @@
       } else {
         // change mode logic here
         timeLimitMode = false;
-        seconds = 0;
-        minutes = 0;
+        $seconds = 0;
+        $minutes = 0;
 
         // set score max back to the chosen value
         $scoreMax = wordLimitModeInput.value;
@@ -648,8 +646,8 @@
         if (prompt.firstChild.children.length == 0) {
           prompt.removeChild(prompt.firstChild);
         }
-        promptOffset = 0;
-        prompt.style.left = "-" + promptOffset + "px";
+        $promptOffset = 0;
+        prompt.style.left = "-" + $promptOffset + "px";
         deleteLatestWord = false;
       }
 
@@ -685,7 +683,7 @@
           if (e.key != "Process") {
             input.value += e.key;
           } else {
-            letterIndex--;
+            $letterIndex--;
           }
         } else {
           // console.log('special Key');
@@ -727,10 +725,10 @@
 
           // set letter index (where in the word the user currently is)
           // to the beginning of the word
-          letterIndex = 0;
+          $letterIndex = 0;
         } else {
           input.value += " ";
-          letterIndex++;
+          $letterIndex++;
         }
       }
 
@@ -739,17 +737,17 @@
       // if we have a backspace, decrement letter index and role back the input value
       if (e.keyCode == 8) {
         input.value = input.value.substr(0, input.value.length - 1);
-        letterIndex--;
+        $letterIndex--;
         // letter index cannot be < 0
-        if (letterIndex < 0) {
-          letterIndex = 0;
+        if ($letterIndex < 0) {
+          $letterIndex = 0;
         }
       }
 
       // if key produces a character, (ie not shift, backspace, or another
       // utility key) increment letter index
       if (!specialKeyCodes.includes(e.keyCode) || e.keyCode > 48) {
-        letterIndex++;
+        $letterIndex++;
       }
 
       // check if answer is correct and apply the correct styling.
@@ -758,20 +756,20 @@
         input.style.color = "black";
         // no points awarded for backspace
         if (e.keyCode != 8) {
-          correct++;
+          $correct++;
           // if letter (in the promp) exists, color it green
           if (
-            prompt.children[0].children[wordIndex].children[letterIndex - 1]
+            prompt.children[0].children[wordIndex].children[$letterIndex - 1]
           ) {
             prompt.children[0].children[wordIndex].children[
-              letterIndex - 1
+              $letterIndex - 1
             ].style.color = "green";
           }
         } else {
           // if backspace, color it grey again
-          if (prompt.children[0].children[wordIndex].children[letterIndex]) {
+          if (prompt.children[0].children[wordIndex].children[$letterIndex]) {
             prompt.children[0].children[wordIndex].children[
-              letterIndex
+              $letterIndex
             ].style.color = "gray";
           }
         }
@@ -779,19 +777,19 @@
         input.style.color = "red";
         // no points awarded for backspace
         if (e.keyCode != 8) {
-          errors++;
+          $errors++;
           if (
-            prompt.children[0].children[wordIndex].children[letterIndex - 1]
+            prompt.children[0].children[wordIndex].children[$letterIndex - 1]
           ) {
             prompt.children[0].children[wordIndex].children[
-              letterIndex - 1
+              $letterIndex - 1
             ].style.color = "red";
           }
         } else {
           // if backspace, color it grey again
-          if (prompt.children[0].children[wordIndex].children[letterIndex]) {
+          if (prompt.children[0].children[wordIndex].children[$letterIndex]) {
             prompt.children[0].children[wordIndex].children[
-              letterIndex
+              $letterIndex
             ].style.color = "gray";
           }
         }
@@ -804,7 +802,7 @@
       let inputVal = input.value;
 
       return (
-        inputVal.slice(0, letterIndex) == $correctAnswer.slice(0, letterIndex)
+        inputVal.slice(0, $letterIndex) == $correctAnswer.slice(0, $letterIndex)
       );
     }
 
@@ -921,13 +919,13 @@
       idCount = 0;
       sentenceStartIndex = -1;
       $gameOn = false;
-      letterIndex = 0;
+      $letterIndex = 0;
       wordIndex = 0;
       lineIndex = 0;
-      promptOffset = 0;
+      $promptOffset = 0;
       prompt.style.left = 0;
-      correct = 0;
-      errors = 0;
+      $correct = 0;
+      $errors = 0;
 
       // set to -1 before each game because score is incremented every time we call
       $score = -1;
@@ -939,11 +937,11 @@
 
       // reset clock
       if (!timeLimitMode) {
-        minutes = 0;
-        seconds = 0;
+        $minutes = 0;
+        $seconds = 0;
       } else {
-        seconds = timeLimitModeInput.value % 60;
-        minutes = Math.floor(timeLimitModeInput.value / 60);
+        $seconds = timeLimitModeInput.value % 60;
+        $minutes = Math.floor(timeLimitModeInput.value / 60);
       }
 
       setClock();
@@ -1014,10 +1012,12 @@
       // calculate wpm
       let wpm;
       if (!timeLimitMode) {
-        wpm = ((correct + errors) / 5 / (minutes + seconds / 60)).toFixed(2);
+        wpm = (($correct + $errors) / 5 / ($minutes + $seconds / 60)).toFixed(
+          2
+        );
       } else {
         wpm = (
-          (correct + errors) /
+          ($correct + $errors) /
           5 /
           (timeLimitModeInput.value / 60)
         ).toFixed(2);
@@ -1025,12 +1025,12 @@
 
       $results = {
         ready: true,
-        accuracy: `${((100 * correct) / (correct + errors)).toFixed(2)} %`,
+        accuracy: `${((100 * $correct) / ($correct + $errors)).toFixed(2)} %`,
         wpm: wpm,
       };
 
-      correct = 0;
-      errors = 0;
+      $correct = 0;
+      $errors = 0;
 
       resetButton.focus();
       incrementScore();
@@ -1038,7 +1038,7 @@
       document.querySelector("#userInput").value = "";
       // set letter index (where in the word the user currently is)
       // to the beginning of the word
-      letterIndex = 0;
+      $letterIndex = 0;
     }
 
     // generates a single line to be appended to the answer array
@@ -1241,9 +1241,9 @@
         deleteLatestWord = true;
         prompt.classList.add("smoothScroll");
         // set the offset value of the next word
-        promptOffset += prompt.children[0].children[0].offsetWidth;
+        $promptOffset += prompt.children[0].children[0].offsetWidth;
         // move prompt left
-        prompt.style.left = "-" + promptOffset + "px";
+        prompt.style.left = "-" + $promptOffset + "px";
         // make already typed words transparent
         prompt.children[0].firstChild.style.opacity = 0;
       } else {
@@ -1262,8 +1262,8 @@
 
     function setClock() {
       $clock = {
-        mins: minutes,
-        secs: seconds,
+        mins: $minutes,
+        secs: $seconds,
       };
     }
 
