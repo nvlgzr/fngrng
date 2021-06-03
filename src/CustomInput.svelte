@@ -36,7 +36,7 @@
     -webkit-transform: scaleX(0);
     -ms-transform: scaleX(0);
     transform: scaleX(0);
-    display: none;
+    display: flex;
     -webkit-transition: -webkit-transform 0.15s linear;
     transition: -webkit-transform 0.15s linear;
     -o-transition: transform 0.15s linear;

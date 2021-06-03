@@ -85,8 +85,6 @@
     // this is the true init, which is only called once. Init will have to be renamed
     // Call to initialize
     function start() {
-      customInput.style.display = "flex";
-
       if (!wordScrollingMode) {
         toggleWordScrollingModeUI();
       }
@@ -120,28 +118,28 @@
     /*________________Timers and Listeners___________________*/
 
     // makes the clock tic
-    setInterval(() => {
-      if (gameOn) {
-        if (!timeLimitMode) {
-          seconds++;
-          if (seconds >= 60) {
-            seconds = 0;
-            minutes++;
+      setInterval(() => {
+        if (gameOn) {
+          if (!timeLimitMode) {
+            seconds++;
+            if (seconds >= 60) {
+              seconds = 0;
+              minutes++;
+            }
+          } else {
+            // clock counting down
+            seconds--;
+            if (seconds <= 0 && minutes <= 0) {
+              endGame();
+            }
+            if (seconds < 0) {
+              seconds = 59;
+              minutes--;
+            }
           }
-        } else {
-          // clock counting down
-          seconds--;
-          if (seconds <= 0 && minutes <= 0) {
-            endGame();
-          }
-          if (seconds < 0) {
-            seconds = 59;
-            minutes--;
-          }
+          setClock();
         }
-        setClock();
-      }
-    }, 1000);
+      }, 1000);
 
     // starts the timer when there is any change to the input field
     input.addEventListener("keydown", (e) => {
@@ -153,17 +151,17 @@
 
     // close preference menu on escape key. While we're at it, also close custom
     // ui menu
-    document.addEventListener("keydown", (e) => {
-      if (e.keyCode == 27) {
-        // close custom ui menu
-        if (customInput.style.transform != "scaleX(0)") {
-          customInput.style.transform = "scaleX(0)";
-          // remove active class from current key
-          clearSelectedInput();
-          init();
+      document.addEventListener("keydown", (e) => {
+        if (e.keyCode == 27) {
+          // close custom ui menu
+          if (customInput.style.transform != "scaleX(0)") {
+            customInput.style.transform = "scaleX(0)";
+            // remove active class from current key
+            clearSelectedInput();
+            init();
+          }
         }
-      }
-    });
+      });
 
     // capital letters allowed
     document
