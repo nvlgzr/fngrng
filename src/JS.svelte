@@ -52,7 +52,6 @@
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var timeLimitMode = $timeLimitModeEnabled;
-    var wordScrollingMode = $wordScrollingModeEnabled;
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var sentenceStartIndex = -1; // keeps track of where we are in full sentence mode
     var sentenceEndIndex;
@@ -85,7 +84,7 @@
     // this is the true init, which is only called once. Init will have to be renamed
     // Call to initialize
     function start() {
-      if (!wordScrollingMode) {
+      if (!$wordScrollingModeEnabled) {
         toggleWordScrollingModeUI();
       }
 
@@ -97,7 +96,7 @@
         toggleTimeLimitModeUI();
       }
 
-      wordScrollingModeButton.checked = wordScrollingMode;
+      wordScrollingModeButton.checked = $wordScrollingModeEnabled;
       timeLimitModeButton.checked = timeLimitMode;
       wordLimitModeButton.checked = !timeLimitMode;
 
@@ -283,8 +282,7 @@
     }
 
     wordScrollingModeButton.addEventListener("click", () => {
-      wordScrollingMode = !wordScrollingMode;
-      wordScrollingModeEnabled.set(wordScrollingMode);
+      $wordScrollingModeEnabled = !$wordScrollingModeEnabled
       toggleWordScrollingModeUI();
       reset();
     });
@@ -1232,7 +1230,7 @@
         addLineToPrompt();
 
         //make the first line of the prompt transparent
-        if (!wordScrollingMode) {
+        if (!$wordScrollingModeEnabled) {
           prompt.removeChild(prompt.children[0]);
           wordIndex = -1;
         }
@@ -1240,7 +1238,7 @@
 
       let cur = document.querySelector("#id" + ($score + 1));
 
-      if (wordScrollingMode) {
+      if ($wordScrollingModeEnabled) {
         deleteLatestWord = true;
         prompt.classList.add("smoothScroll");
         // set the offset value of the next word
