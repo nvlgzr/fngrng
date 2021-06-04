@@ -26,6 +26,7 @@ export const configuredRows = derived(
 
     // "arstneiodhpgjl"
     const activeLetters = $activeLevels.reduce((acc, curr) => acc + curr, "")
+    const activeCharacters = activeLetters + $punctuationToInclude;
 
     function letterLevelIndex(letter) {
       const levels = $activeLevels;
@@ -38,7 +39,7 @@ export const configuredRows = derived(
     }
 
     function activeClassFor(letter) {
-      if (!letter || !activeLetters.includes(letter)) return "inactive";
+      if (!letter || !activeCharacters.includes(letter)) return "inactive";
 
       if (isIncludedPunctuation(letter)) return "punctuation";
 
@@ -60,10 +61,14 @@ export const configuredRows = derived(
     // ]
     const mapped = rowData.map(row => {
       // https://stackoverflow.com/a/37616104
-      const activeMap = Object.fromEntries(Object.entries($keyboardMap).filter(keyConfig => {
-        const letter = keyConfig[1]
-        return letter && activeLetters.includes(letter)
-      }))
+      const activeMap = Object.fromEntries(
+        Object.entries($keyboardMap).filter(
+          keyConfig => {
+            const letter = keyConfig[1]
+            return letter && activeCharacters.includes(letter)
+          }
+        )
+      )
 
       return row.map(letterConfig => {
 
