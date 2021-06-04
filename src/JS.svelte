@@ -108,7 +108,6 @@
     function init() {
       createTestSets();
       reset();
-      updateCheatsheetStyling();
     }
 
     /*________________Timers and Listeners___________________*/
@@ -292,7 +291,6 @@
         // value of $punctuationToInclude
         setTimeout(() => {
           createTestSets();
-          updateCheatsheetStyling();
           reset();
         }, 250);
       });
@@ -491,9 +489,6 @@
         //new levels data
         levelDictionaries["custom"][currentUILev] += e.key;
         levelDictionaries["custom"]["lvl7"] += e.key;
-
-        // this updates the main keyboard in real time. Could be ommited if performance needs a boost
-        updateCheatsheetStyling();
 
         switchSelectedInputKey("right");
       } else if (e.keyCode == 8 || e.keyCode == 46) {
@@ -842,56 +837,6 @@
       $currentLevel = lev;
 
       reset();
-      updateCheatsheetStyling();
-    }
-
-    // updates all styling for the cheatsheet by first resetting all keys,
-    // then styling those in active levels. takes the current level (int) as a parameter
-    function updateCheatsheetStyling() {
-      return;
-      let allKeys = document.querySelectorAll(".key");
-      for (let n of allKeys) {
-        // n → <div class="key letter onepointtwofiveu"></div>
-
-        // set of keys to loop through the letter dictionary, which
-        // contains info about which levels each key appears at
-        let lvlKeys = Object.keys($letterDictionary);
-        // ['lvl1', 'lvl2', …]
-
-        // check active levels and apply styling
-        for (let i = 0; i < $currentLevel; i++) {
-          // the letter that will appear on the key
-          let letter = $keyboardMap[n.id];
-          // Either undefined or one of 'n' | 'm' | 'v' | ','
-
-          let lettersToCheck =
-            $letterDictionary[lvlKeys[i]] + $punctuationToInclude;
-          // How to build this for th echeck?
-
-          if (lettersToCheck.includes(letter)) {
-            n.innerHTML =
-              `
-					<span class='letter'>` +
-              letter +
-              `</span>
-				`;
-            n.classList.remove("inactive");
-            if ($punctuationToInclude.includes(letter)) {
-              n.classList.remove("active");
-              n.classList.add("punctuation");
-            } else if (i == 0) {
-              n.classList.add("homeRow");
-            } else if (i == 6) {
-              // all words selected
-            } else if (i == $currentLevel - 1) {
-              n.classList.remove("active");
-              n.classList.add("newInThisLevel");
-            } else {
-              n.classList.add("active");
-            }
-          }
-        }
-      }
     }
 
     resetButton.addEventListener("click", () => {
