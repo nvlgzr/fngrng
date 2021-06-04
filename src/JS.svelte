@@ -25,6 +25,7 @@
     results,
     promptOffset,
     letterIndex,
+    keyboardMap,
   } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { passage } from "./passageFromDorianGray.js";
@@ -44,7 +45,6 @@
     var discardButton = document.querySelector(".discardButton");
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
-    var keyboardMap = layoutMaps["colemak"];
     var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
@@ -307,7 +307,7 @@
         openUIButton.style.display = "none";
       }
       // change keyboard map and key dictionary
-      keyboardMap = layoutMaps[$currentLayout];
+      $keyboardMap = layoutMaps[$currentLayout];
       letterDictionary = levelDictionaries[$currentLayout];
 
       if ($currentLayout == "custom") {
@@ -538,7 +538,7 @@
     function loadCustomLayout(newCustomLayout) {
       // console.log('new layout');
       layoutMaps.custom = Object.assign({}, newCustomLayout);
-      keyboardMap = layoutMaps.custom;
+      $keyboardMap = layoutMaps.custom;
 
       let customKeys = document.querySelectorAll(".cKey");
       // load letters onto the custom ui input keyboard
@@ -546,15 +546,15 @@
         let currentKeyName = cKey.id.substring(6);
 
         // if the value of the new layout key is not undefined, set it to the corresponding dom element
-        if (keyboardMap[currentKeyName]) {
+        if ($keyboardMap[currentKeyName]) {
           // if key is blank, remove active styling
-          if (keyboardMap[currentKeyName] == " ") {
+          if ($keyboardMap[currentKeyName] == " ") {
             cKey.classList.remove("active");
           }
           cKey.innerHTML =
             `
 				<span class='letter'>` +
-            keyboardMap[currentKeyName] +
+            $keyboardMap[currentKeyName] +
             `</span>
 			`;
         }
@@ -658,18 +658,18 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in keyboardMap && $gameOn) {
+        if (char in $keyboardMap && $gameOn) {
           if (!e.shiftKey) {
-            input.value += keyboardMap[char];
+            input.value += $keyboardMap[char];
           } else {
             // if shift key is pressed, get final input from
             // keymap shift layer. If shiftlayer doesn't exist
             // use a simple toUpperCase
-            if (keyboardMap.shiftLayer == "default") {
-              input.value += keyboardMap[char].toUpperCase();
+            if ($keyboardMap.shiftLayer == "default") {
+              input.value += $keyboardMap[char].toUpperCase();
             } else {
               // get char from shiftLayer
-              input.value += keyboardMap.shiftLayer[char];
+              input.value += $keyboardMap.shiftLayer[char];
             }
           }
         }
@@ -848,6 +848,7 @@
     // updates all styling for the cheatsheet by first resetting all keys,
     // then styling those in active levels. takes the current level (int) as a parameter
     function updateCheatsheetStyling() {
+      return;
       // loop through all buttons
       let allKeys = document.querySelectorAll(".key");
       for (let n of allKeys) {
@@ -868,7 +869,7 @@
         // check active levels and apply styling
         for (let i = 0; i < $currentLevel; i++) {
           // the letter that will appear on the key
-          let letter = keyboardMap[n.id];
+          let letter = $keyboardMap[n.id];
 
           let lettersToCheck =
             letterDictionary[objKeys[i]] + $punctuationToInclude;

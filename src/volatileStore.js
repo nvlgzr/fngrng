@@ -1,5 +1,8 @@
 import { derived, writable } from "svelte/store";
+import { layoutMaps } from "./levelMappings.js"
 import { timeLimitModeEnabled } from "./persistentStore.js"
+
+export const keyboardMap = writable(layoutMaps["colemak"])
 
 // Game begins when user starts typing in input
 export const gameOn = writable(false)
