@@ -1261,7 +1261,6 @@
     // set the word list for each level
     function createTestSets() {
       let objKeys = Object.keys($wordLists); // the level keys of each of the wordLists
-      console.log("📭", objKeys);
       let includedLetters = $punctuationToInclude; // the list of letters to be included in each level
 
       // for each level, add new letters to the test set and create a new list

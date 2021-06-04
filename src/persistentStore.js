@@ -7,7 +7,7 @@ currentLayout.subscribe(value => {
 });
 
 const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
-export const currentLevel = writable(storedCurrentLevel);
+export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
 currentLevel.subscribe(value => {
   localStorage.setItem("currentLevel", value)
 })
