@@ -12,6 +12,8 @@
     punctuationToInclude,
   } from "./persistentStore.js";
   import {
+    letterDictionary,
+    keyboardMap,
     gameOn,
     wordLists,
     correctAnswer,
@@ -25,7 +27,6 @@
     results,
     promptOffset,
     letterIndex,
-    keyboardMap,
   } from "./volatileStore.js";
   import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { passage } from "./passageFromDorianGray.js";
@@ -45,7 +46,6 @@
     var discardButton = document.querySelector(".discardButton");
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
-    var letterDictionary = levelDictionaries["colemak"];
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var timeLimitMode = $timeLimitModeEnabled;
@@ -308,7 +308,7 @@
       }
       // change keyboard map and key dictionary
       $keyboardMap = layoutMaps[$currentLayout];
-      letterDictionary = levelDictionaries[$currentLayout];
+      $letterDictionary = levelDictionaries[$currentLayout];
 
       if ($currentLayout == "custom") {
         customUIKeyInput.focus();
@@ -564,7 +564,7 @@
     // sets the custom levels to be equal to the json parameter passed in
     function loadCustomLevels(newCustomLevels) {
       levelDictionaries.custom = Object.assign({}, newCustomLevels);
-      letterDictionary = levelDictionaries["custom"];
+      $letterDictionary = levelDictionaries["custom"];
     }
 
     // switches the focus to the next input key, determined by the direction parameter
@@ -849,30 +849,24 @@
     // then styling those in active levels. takes the current level (int) as a parameter
     function updateCheatsheetStyling() {
       return;
-      // loop through all buttons
       let allKeys = document.querySelectorAll(".key");
       for (let n of allKeys) {
-        //reset all keys to default
-        n.classList.add("inactive");
-        n.classList.remove("active");
-        n.classList.remove("homeRow");
-        n.classList.remove("newInThisLevel");
-        n.classList.remove("punctuation");
-        n.innerHTML = `
-			<span class='letter'></span>
-		`;
+        // n → <div class="key letter onepointtwofiveu"></div>
 
         // set of keys to loop through the letter dictionary, which
         // contains info about which levels each key appears at
-        let objKeys = Object.keys(letterDictionary);
+        let lvlKeys = Object.keys($letterDictionary);
+        // ['lvl1', 'lvl2', …]
 
         // check active levels and apply styling
         for (let i = 0; i < $currentLevel; i++) {
           // the letter that will appear on the key
           let letter = $keyboardMap[n.id];
+          // Either undefined or one of 'n' | 'm' | 'v' | ','
 
           let lettersToCheck =
-            letterDictionary[objKeys[i]] + $punctuationToInclude;
+            $letterDictionary[lvlKeys[i]] + $punctuationToInclude;
+          // How to build this for th echeck?
 
           if (lettersToCheck.includes(letter)) {
             n.innerHTML =
@@ -1267,6 +1261,7 @@
     // set the word list for each level
     function createTestSets() {
       let objKeys = Object.keys($wordLists); // the level keys of each of the wordLists
+      console.log("📭", objKeys);
       let includedLetters = $punctuationToInclude; // the list of letters to be included in each level
 
       // for each level, add new letters to the test set and create a new list
@@ -1280,7 +1275,7 @@
           requiredLetters =
             levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
             $punctuationToInclude;
-          includedLetters += letterDictionary[objKeys[i]];
+          includedLetters += $letterDictionary[objKeys[i]];
         } else {
           requiredLetters = includedLetters;
         }

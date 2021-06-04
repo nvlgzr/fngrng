@@ -1,6 +1,40 @@
 <script>
-  import { keyboardMap } from "./volatileStore.js";
+  import { keyboardMap, activeLevels } from "./volatileStore.js";
+  import { currentLevel, punctuationToInclude } from "./persistentStore.js";
 
+  function letterLevelIndex(letter) {
+    const levels = $activeLevels;
+    console.log("⁉️", levels);
+    const foundIndex = levels.findIndex((letters) => letters.includes(letter));
+    return foundIndex;
+  }
+
+  const lettersToCheck = $activeLevels.reduce((acc, curr) => acc + curr, "");
+  // const lettersToCheck = "abcdefghij"
+
+  function isIncludedPunctuation(letter) {
+    return $punctuationToInclude.includes(letter);
+  }
+
+  function letter(keyId) {
+    const letter = $keyboardMap[keyId];
+    return lettersToCheck.includes(letter) ? letter : "";
+  }
+
+  function activeClasses(keyId) {
+    const letter = $keyboardMap[keyId];
+    if (!lettersToCheck.includes(letter)) return "inactive";
+
+    if (isIncludedPunctuation(letter)) return "punctuation";
+
+    const levelIndex = letterLevelIndex(letter);
+    console.log("👻levelIndex", levelIndex);
+    if (levelIndex == 0) return "homeRow";
+    if (levelIndex == $currentLevel - 1) return "newInThisLevel";
+    return "active";
+  }
+
+  // Working tip: fold this out of the way ↓
   let rows = [
     [
       { class: "", id: "Backquote" },
@@ -80,14 +114,26 @@
   {#each rows as row}
     <div class="row">
       {#each row as key}
-        <div class={`key letter ${key.class}`} id={key.id}>
-          {#if $keyboardMap[key.id]}
-            <span class="letter">{$keyboardMap[key.id]}</span>
-          {:else}
-            <span class="letter">{""}</span>
-          {/if}
+        <div class={`key ${key.class} ${activeClasses(key.id)}`} id={key.id}>
+          <span class="letter">{letter(key.id)}</span>
         </div>
       {/each}
     </div>
   {/each}
 </div>
+
+<!-- <div>
+  {#each rows as row}
+    <div class="row">
+      {#each row as key}
+        <div class={`key ${key.class} ${activeClasses(key.id)}`} id={key.id}>
+          {#if $keyboardMap[key.id]}
+            <span class="letter">{letter(key.id)}</span>
+          {:else}
+            <span class="inactive letter" />
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/each}
+</div> -->

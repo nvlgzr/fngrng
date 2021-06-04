@@ -1,8 +1,23 @@
 import { derived, writable } from "svelte/store";
+import { levelDictionaries } from "./levelMappings.js";
 import { layoutMaps } from "./levelMappings.js"
-import { timeLimitModeEnabled } from "./persistentStore.js"
+import { currentLevel, timeLimitModeEnabled } from "./persistentStore.js"
 
 export const keyboardMap = writable(layoutMaps["colemak"])
+export const letterDictionary = writable(levelDictionaries["colemak"])
+
+export const activeLevels = derived([letterDictionary, currentLevel], ([$letterDictionary, $currentLevel]) => {
+  const allLevels = Object.entries($letterDictionary);
+  console.log("🧧levels ", allLevels);
+  return allLevels
+    .filter(([level, _]) => Number.parseInt(level.slice(-1)) <= $currentLevel)
+    .map(([_, letters]) => {
+      // We don't really need these labels;
+      // The index will suffice.
+      return letters;
+    });
+
+});
 
 // Game begins when user starts typing in input
 export const gameOn = writable(false)
