@@ -13,7 +13,7 @@
   } from "./persistentStore.js";
   import {
     letterDictionary,
-    keyboardMap,
+    layoutMap,
     gameOn,
     wordLists,
     correctAnswer,
@@ -305,7 +305,7 @@
         openUIButton.style.display = "none";
       }
       // change keyboard map and key dictionary
-      $keyboardMap = layoutMaps[$currentLayout];
+      $layoutMap = layoutMaps[$currentLayout];
       $letterDictionary = levelDictionaries[$currentLayout];
 
       if ($currentLayout == "custom") {
@@ -533,7 +533,7 @@
     function loadCustomLayout(newCustomLayout) {
       // console.log('new layout');
       layoutMaps.custom = Object.assign({}, newCustomLayout);
-      $keyboardMap = layoutMaps.custom;
+      $layoutMap = layoutMaps.custom;
 
       let customKeys = document.querySelectorAll(".cKey");
       // load letters onto the custom ui input keyboard
@@ -541,15 +541,15 @@
         let currentKeyName = cKey.id.substring(6);
 
         // if the value of the new layout key is not undefined, set it to the corresponding dom element
-        if ($keyboardMap[currentKeyName]) {
+        if ($layoutMap[currentKeyName]) {
           // if key is blank, remove active styling
-          if ($keyboardMap[currentKeyName] == " ") {
+          if ($layoutMap[currentKeyName] == " ") {
             cKey.classList.remove("active");
           }
           cKey.innerHTML =
             `
 				<span class='letter'>` +
-            $keyboardMap[currentKeyName] +
+            $layoutMap[currentKeyName] +
             `</span>
 			`;
         }
@@ -653,18 +653,18 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in $keyboardMap && $gameOn) {
+        if (char in $layoutMap && $gameOn) {
           if (!e.shiftKey) {
-            input.value += $keyboardMap[char];
+            input.value += $layoutMap[char];
           } else {
             // if shift key is pressed, get final input from
             // keymap shift layer. If shiftlayer doesn't exist
             // use a simple toUpperCase
-            if ($keyboardMap.shiftLayer == "default") {
-              input.value += $keyboardMap[char].toUpperCase();
+            if ($layoutMap.shiftLayer == "default") {
+              input.value += $layoutMap[char].toUpperCase();
             } else {
               // get char from shiftLayer
-              input.value += $keyboardMap.shiftLayer[char];
+              input.value += $layoutMap.shiftLayer[char];
             }
           }
         }
