@@ -15,12 +15,12 @@
   <span class="timeText">{$clock.mins}m :{$clock.secs}s</span>
 </div>
 
-{#if $results.ready > 0}
-  <div class="testResults">
+<div class="testResults">
+  {#if $results.ready > 0}
     <div>Accuracy: {$results.accuracy}</div>
     <div>WPM: {$results.wpm}</div>
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style>
   .scoreAndClock {

@@ -861,6 +861,7 @@
       prompt.style.left = 0;
       $correct = 0;
       $errors = 0;
+      $results = { ready: false, accuracy: "", wpm: 0 };
 
       // set to -1 before each game because score is incremented every time we call
       $score = -1;
@@ -960,7 +961,7 @@
 
       $results = {
         ready: true,
-        accuracy: `${((100 * $correct) / ($correct + $errors)).toFixed(2)} %`,
+        accuracy: `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`,
         wpm: wpm,
       };
 
