@@ -1,4 +1,5 @@
-import { writable } from "svelte/store";
+import { derived, writable } from "svelte/store";
+import { defaultLevelDictionaries, allLayoutMaps } from "./levelMappings.js";
 
 const storedCurrentLayout = localStorage.getItem("currentLayout") || "colemak";
 export const currentLayout = writable(storedCurrentLayout);
@@ -6,11 +7,35 @@ currentLayout.subscribe(value => {
   localStorage.setItem("currentLayout", value);
 });
 
+const storedLevelDictionaries = JSON.parse(localStorage.getItem("levelDictionaries")) || defaultLevelDictionaries;
+export const levelDictionaries = writable(storedLevelDictionaries);
+levelDictionaries.subscribe(value => {
+  localStorage.setItem("levelDictionaries", JSON.stringify(value));
+});
+
+export const letterDictionary = derived(
+  [levelDictionaries, currentLayout],
+  ([$levelDictionaries, $currentLayout]) => $levelDictionaries[$currentLayout]
+)
+
+const storedLayoutMaps = JSON.parse(localStorage.getItem("layoutMaps")) || allLayoutMaps;
+export const layoutMaps = writable(storedLayoutMaps);
+layoutMaps.subscribe(value => {
+  localStorage.setItem("layoutMaps", JSON.stringify(value));
+});
+
 const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
 export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
 currentLevel.subscribe(value => {
   localStorage.setItem("currentLevel", value)
 })
+
+export const layoutMap = derived(
+  [layoutMaps, currentLayout],
+  ([$layoutMaps, $currentLayout]) => {
+    return $layoutMaps[$currentLayout]
+  }
+);
 
 const storedKeyRemapping = localStorage.getItem("keyRemapping");
 export const keyRemapping = writable(storedKeyRemapping === "true")

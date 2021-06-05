@@ -1,9 +1,7 @@
 import { derived, writable } from "svelte/store";
-import { levelDictionaries, layoutMaps, rowData } from "./levelMappings.js";
-import { currentLevel, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
+import { rowData } from "./levelMappings.js";
+import { letterDictionary, currentLevel, currentLayout, layoutMap, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
 
-export const layoutMap = writable(layoutMaps["colemak"])
-export const letterDictionary = writable(levelDictionaries["colemak"])
 
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
@@ -23,8 +21,6 @@ const activeLevels = derived([letterDictionary, currentLevel], ([$letterDictiona
 export const configuredRows = derived(
   [currentLevel, layoutMap, punctuationToInclude, activeLevels],
   ([$currentLevel, $layoutMap, $punctuationToInclude, $activeLevels]) => {
-
-    console.log($layoutMap)
 
     // "arstneiodhpgjl"
     const activeLetters = $activeLevels.reduce((acc, curr) => acc + curr, "")
@@ -62,6 +58,9 @@ export const configuredRows = derived(
     //   …
     // ]
     const mapped = rowData.map(row => {
+      // Ignore initial undefined state
+      if (!$layoutMap) return row
+
       // https://stackoverflow.com/a/37616104
       const activeMap = Object.fromEntries(
         Object.entries($layoutMap).filter(

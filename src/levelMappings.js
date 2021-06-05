@@ -1,5 +1,5 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
-export const levelDictionaries = {
+export const defaultLevelDictionaries = {
   azerty: {
     lvl1: "qsdfjklm",
     lvl2: "gh",
@@ -83,7 +83,7 @@ export const levelDictionaries = {
   },
 };
 
-export const layoutMaps = {
+export const allLayoutMaps = {
   azerty: {
     Minus: ")",
     Equal: "=",

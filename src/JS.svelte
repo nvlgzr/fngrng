@@ -2,7 +2,11 @@
   import { onMount } from "svelte";
   import {
     currentLayout,
+    layoutMaps,
     currentLevel,
+    layoutMap,
+    levelDictionaries,
+    letterDictionary,
     keyRemapping,
     prefsOpen,
     lowercaseOnly,
@@ -12,8 +16,6 @@
     punctuationToInclude,
   } from "./persistentStore.js";
   import {
-    letterDictionary,
-    layoutMap,
     gameOn,
     wordLists,
     correctAnswer,
@@ -28,7 +30,6 @@
     promptOffset,
     letterIndex,
   } from "./volatileStore.js";
-  import { levelDictionaries, layoutMaps } from "./levelMappings";
   import { passage } from "./passageFromDorianGray.js";
   import { getPosition, contains, generateList } from "./pureFunctions";
 
@@ -60,7 +61,7 @@
     var specialKeyCodes = [
       27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
     ]; // list of all keycodes for keys we typically want to ignore
-    var requiredLetters = ""; //levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
+    var requiredLetters = ""; //$levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
 
@@ -304,9 +305,6 @@
         customInput.style.transform = "scaleX(0)";
         openUIButton.style.display = "none";
       }
-      // change keyboard map and key dictionary
-      $layoutMap = layoutMaps[$currentLayout];
-      $letterDictionary = levelDictionaries[$currentLayout];
 
       if ($currentLayout == "custom") {
         customUIKeyInput.focus();
@@ -327,8 +325,11 @@
     // called whenever a user opens the custom editor. Sets correct displays and saves an initial state
     // of the keyboard to refer back to if the user wants to discard changes
     function startCustomKeyboardEditing() {
-      initialCustomKeyboardState = Object.assign({}, layoutMaps["custom"]);
-      initialCustomLevelsState = Object.assign({}, levelDictionaries["custom"]);
+      initialCustomKeyboardState = Object.assign({}, $layoutMap);
+      initialCustomLevelsState = Object.assign(
+        {},
+        $levelDictionaries["custom"]
+      );
       // customInput.style.display = 'flex';
       customInput.style.transform = "scaleX(1)";
       let k = document.querySelector(".defaultSelectedKey");
@@ -424,7 +425,7 @@
           for (let n of allCKeys) {
             if (
               n.children[0].innerHTML != 0 &&
-              levelDictionaries["custom"][
+              $levelDictionaries["custom"][
                 currentSelectedLevel.innerHTML
               ].includes(n.children[0].innerHTML)
             ) {
@@ -479,27 +480,28 @@
         if (k.id) {
           let keyCode = k.id.toString().replace("custom", "");
           keyCode = keyCode.toString().replace("shift", "");
+
           if (!shiftDown) {
-            layoutMaps.custom[keyCode] = e.key;
+            $layoutMaps[$currentLayout][keyCode] = e.key;
           }
 
-          layoutMaps.custom.shiftLayer[keyCode] = e.key.toUpperCase();
+          $layoutMaps[$currentLayout].shiftLayer[keyCode] = e.key.toUpperCase();
         }
 
         //new levels data
-        levelDictionaries["custom"][currentUILev] += e.key;
-        levelDictionaries["custom"]["lvl7"] += e.key;
+        $levelDictionaries["custom"][currentUILev] += e.key;
+        $levelDictionaries["custom"]["lvl7"] += e.key;
 
         switchSelectedInputKey("right");
       } else if (e.keyCode == 8 || e.keyCode == 46) {
         // if backspace, remove letter from the ui element and the keyboard map
         k.children[0].innerHTML = "_";
         k.classList.remove("active");
-        layoutMaps.custom.shiftLayer[k.id] = " ";
+        $layoutMap.shiftLayer[k.id] = " ";
 
         // remove deleted letter from keymapping and levels
         if (k.id) {
-          layoutMaps.custom[k.id] = " ";
+          $layoutMaps[$currentLayout][k.id] = " ";
           removeKeyFromLevels(k);
         }
       } else if (e.keyCode == 37) {
@@ -513,28 +515,26 @@
       }
 
       customUIKeyInput.value = "";
+
+      $layoutMaps = $layoutMaps;
     });
 
     // given a key object, k, remove a value of the letter on k from all levels
     function removeKeyFromLevels(k) {
-      let lvls = Object.keys(levelDictionaries["custom"]);
+      let lvls = Object.keys($levelDictionaries["custom"]);
       for (let lvl of lvls) {
         let keyCode = k.id.toString().replace("custom", "");
         // replace any instances of letter previously found on key
-        levelDictionaries["custom"][lvl] = levelDictionaries["custom"][
+        $levelDictionaries["custom"][lvl] = $levelDictionaries["custom"][
           lvl
         ].replace(k.children[0].innerHTML, "");
         // replace mapping for letter previously found on key
-        layoutMaps["custom"][keyCode] = " ";
+        $layoutMaps[$currentLayout][keyCode] = " ";
       }
     }
 
     // sets the custom keyboard layout to be equal to the json parameter passed in
-    function loadCustomLayout(newCustomLayout) {
-      // console.log('new layout');
-      layoutMaps.custom = Object.assign({}, newCustomLayout);
-      $layoutMap = layoutMaps.custom;
-
+    function loadCustomLayout() {
       let customKeys = document.querySelectorAll(".cKey");
       // load letters onto the custom ui input keyboard
       customKeys.forEach((cKey) => {
@@ -558,8 +558,8 @@
 
     // sets the custom levels to be equal to the json parameter passed in
     function loadCustomLevels(newCustomLevels) {
-      levelDictionaries.custom = Object.assign({}, newCustomLevels);
-      $letterDictionary = levelDictionaries["custom"];
+      $levelDictionaries.custom = Object.assign({}, newCustomLevels);
+      $letterDictionary = $levelDictionaries["custom"];
     }
 
     // switches the focus to the next input key, determined by the direction parameter
@@ -866,7 +866,7 @@
       $score = -1;
 
       requiredLetters = (
-        levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+        $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
         $punctuationToInclude
       ).split("");
 
@@ -1011,7 +1011,7 @@
 
       if ($wordLists["lvl" + $currentLevel].length > 0) {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+          $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
           $punctuationToInclude;
 
         // if this counter hits a high enough number, there are likely no words matching the search
@@ -1033,7 +1033,7 @@
           if (circuitBreaker > 12000) {
             if (circuitBreaker > 30000) {
               str +=
-                levelDictionaries[$currentLayout]["lvl" + $currentLevel] + " ";
+                $levelDictionaries[$currentLayout]["lvl" + $currentLevel] + " ";
               i += wordToAdd.length;
               wordsCreated++;
               circuitBreaker = 0;
@@ -1077,13 +1077,13 @@
         }
       } else {
         let startingLetters =
-          levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
+          $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
           $punctuationToInclude;
         // if there are no words with the required letters, all words should be set to the
         // current list of required letters
         let wordsCreated = 0;
         if (
-          levelDictionaries[$currentLayout]["lvl" + $currentLevel].length == 0
+          $levelDictionaries[$currentLayout]["lvl" + $currentLevel].length == 0
         ) {
           str = "";
         } else {
@@ -1111,10 +1111,10 @@
       for (let i = 0; i < randWordLength; i++) {
         let rand = Math.floor(
           Math.random() *
-            levelDictionaries[$currentLayout]["lvl" + $currentLevel].length
+            $levelDictionaries[$currentLayout]["lvl" + $currentLevel].length
         );
         jumble +=
-          levelDictionaries[$currentLayout]["lvl" + $currentLevel][rand];
+          $levelDictionaries[$currentLayout]["lvl" + $currentLevel][rand];
       }
 
       return jumble;
@@ -1217,7 +1217,7 @@
         // a key. Instead, this level should be the same as the previous, just with every letter required
         if ($currentLayout != "custom" || i != 6) {
           requiredLetters =
-            levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
+            $levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
             $punctuationToInclude;
           includedLetters += $letterDictionary[objKeys[i]];
         } else {
