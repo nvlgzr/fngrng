@@ -13,7 +13,7 @@ levelDictionaries.subscribe(value => {
   localStorage.setItem("levelDictionaries", JSON.stringify(value));
 });
 
-export const letterDictionary = derived(
+export const levelDictionary = derived(
   [levelDictionaries, currentLayout],
   ([$levelDictionaries, $currentLayout]) => $levelDictionaries[$currentLayout]
 )

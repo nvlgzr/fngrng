@@ -6,7 +6,7 @@
     currentLevel,
     layoutMap,
     levelDictionaries,
-    letterDictionary,
+    levelDictionary,
     keyRemapping,
     prefsOpen,
     lowercaseOnly,
@@ -559,7 +559,7 @@
     // sets the custom levels to be equal to the json parameter passed in
     function loadCustomLevels(newCustomLevels) {
       $levelDictionaries.custom = Object.assign({}, newCustomLevels);
-      $letterDictionary = $levelDictionaries["custom"];
+      $levelDictionary = $levelDictionaries["custom"];
     }
 
     // switches the focus to the next input key, determined by the direction parameter
@@ -1220,7 +1220,7 @@
           requiredLetters =
             $levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
             $punctuationToInclude;
-          includedLetters += $letterDictionary[objKeys[i]];
+          includedLetters += $levelDictionary[objKeys[i]];
         } else {
           requiredLetters = includedLetters;
         }

@@ -1,13 +1,13 @@
 import { derived, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
-import { letterDictionary, currentLevel, currentLayout, layoutMap, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
+import { levelDictionary, currentLevel, currentLayout, layoutMap, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
 
 
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
 // Level 3 → ["arstneio", "dh", "pgjl"]
-const activeLevels = derived([letterDictionary, currentLevel], ([$letterDictionary, $currentLevel]) => {
-  const allLevels = Object.entries($letterDictionary);
+const activeLevels = derived([levelDictionary, currentLevel], ([$levelDictionary, $currentLevel]) => {
+  const allLevels = Object.entries($levelDictionary);
   const foo = allLevels
     .filter(([level, _]) => Number.parseInt(level.slice(-1)) <= $currentLevel)
     .map(([_, letters]) => {
