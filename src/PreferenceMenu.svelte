@@ -29,7 +29,7 @@
     {
       display: "Capital Letters Allowed",
       value: !$lowercaseOnly,
-      handler: (e) => $lowercaseOnly = e.target.checked,
+      handler: (e) => ($lowercaseOnly = e.target.checked),
       class: "capitalLettersAllowed",
     },
     {
@@ -44,13 +44,13 @@
     {
       display: "Full Sentence Mode",
       value: $fullSentenceModeEnabled,
-      handler: (e) => $fullSentenceModeEnabled = e.target.checked,
+      handler: (e) => ($fullSentenceModeEnabled = e.target.checked),
       class: "fullSentenceMode",
     },
     {
       display: "Word Scrolling Mode",
       value: $wordScrollingModeEnabled,
-      handler: (e) => $wordScrollingModeEnabled = e.target.checked,
+      handler: (e) => ($wordScrollingModeEnabled = e.target.checked),
       class: "wordScrollingModeButton",
     },
   ];
