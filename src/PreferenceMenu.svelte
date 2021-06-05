@@ -28,7 +28,7 @@
   $: prefs = [
     {
       display: "Capital Letters Allowed",
-      value: !$lowercaseOnly,
+      value: $lowercaseOnly,
       handler: (e) => ($lowercaseOnly = e.target.checked),
       class: "capitalLettersAllowed",
     },
