@@ -32,6 +32,9 @@
   import JS2 from "./JS2.svelte";
 
   let js2;
+  let endGame;
+
+  $: if ($gameState === "over") endGame();
 
   onMount(async () => {
     /*_____________dom elements_________*/
@@ -145,7 +148,7 @@
           // clock counting down
           $seconds = $seconds - 1;
           if ($seconds <= 0 && $minutes <= 0) {
-            endGame();
+            $gameState = "over";
           }
           if ($seconds < 0) {
             $seconds = 59;
@@ -710,7 +713,7 @@
         checkAnswer() &&
         $gameState === "on"
       ) {
-        endGame();
+        $gameState = "over";
       }
 
       if (e.keyCode === 13 || e.keyCode === 32) {
@@ -724,7 +727,7 @@
           incrementScore();
 
           if ($score >= $scoreMax) {
-            endGame();
+            $gameState = "over";
           }
 
           // clear input field
@@ -951,15 +954,12 @@
       return input.value == $correctAnswer;
     }
 
-    function endGame() {
+    endGame = function () {
       // erase prompt
       prompt.classList.toggle("noDisplay");
 
       // make resetButton visible
       resetButton.classList.remove("noDisplay");
-
-      // pause timer
-      $gameState = "over";
 
       // calculate wpm
       let wpm;
@@ -991,7 +991,7 @@
       // set letter index (where in the word the user currently is)
       // to the beginning of the word
       $letterIndex = 0;
-    }
+    };
 
     // updates the correct answer and manipulates the dom
     // called every time a correct word is typed
