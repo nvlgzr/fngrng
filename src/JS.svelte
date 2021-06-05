@@ -59,8 +59,31 @@
     var idCount = 0;
     var answerWordArray = [];
     var specialKeyCodes = [
-      27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13, 8,
+      27, 9, 20, 17, 18, 93, 36, 37, 38, 39, 40, 144, 36, 8, 16, 30, 32, 13,
+      224,
     ]; // list of all keycodes for keys we typically want to ignore
+    /*
+    27  - esc
+    9   - tab
+    20  - capslock
+    17  - ctrl
+    18  - alt
+    93  - ]
+    36  - home
+    37  - ←
+    38  - ↑
+    39  - →
+    40  - ↓
+    144 - numlock
+    36  - $
+    8   - backspace
+    16  - shift
+    30  - <can't find a reference for this!>
+    32  - space
+    13  - return/enter
+    8   - backspace
+    224 - meta (e.g.,)
+    */
     var requiredLetters = ""; //$levelDictionaries[$currentLayout]['lvl'+level]+punctuation;; // keeps track of letters that still need to be used in the current level
     var initialCustomKeyboardState = ""; // saves a temporary copy of a keyboard layout that a user can return to by discarding changes
     var initialCustomLevelsState = ""; // saves a temporary copy of custom levels that a user can return to by discarding changes
@@ -672,7 +695,7 @@
         // there is a bug on firefox that occassionally reads e.key as process, hence the boolean expression below
         if (
           !specialKeyCodes.includes(e.keyCode) ||
-          (e.keyCode > 48 && e.key != "Process")
+          (e.keyCode > 48 && e.keyCode < 91 && e.key != "Process")
         ) {
           if (e.key != "Process") {
             input.value += e.key;
@@ -740,7 +763,10 @@
 
       // if key produces a character, (ie not shift, backspace, or another
       // utility key) increment letter index
-      if (!specialKeyCodes.includes(e.keyCode) || e.keyCode > 48) {
+      if (
+        !specialKeyCodes.includes(e.keyCode) ||
+        (e.keyCode > 48 && e.keyCode < 91)
+      ) {
         $letterIndex++;
       }
 
