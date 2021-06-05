@@ -109,7 +109,7 @@ export const configuredRows = derived(
   });
 
 // Game begins when user starts typing in input
-export const gameOn = writable(false)
+export const gameOn = writable('ready') // 'ready' → 'on' → 'over' ↵
 
 export const wordLists = writable({
   lvl1: [],

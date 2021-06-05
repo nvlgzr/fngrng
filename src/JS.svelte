@@ -135,7 +135,7 @@
 
     // makes the clock tic
     setInterval(() => {
-      if ($gameOn) {
+      if ($gameOn == "on") {
         if (!timeLimitMode) {
           $seconds++;
           if ($seconds >= 60) {
@@ -244,7 +244,7 @@
       $seconds = wholeSecond % 60;
       $minutes = Math.floor(wholeSecond / 60);
 
-      $gameOn = false;
+      $gameOn = "ready";
       setClock();
     });
 
@@ -673,7 +673,7 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in $layoutMap && $gameOn) {
+        if (char in $layoutMap && $gameOn === "on") {
           if (!e.shiftKey) {
             input.value += $layoutMap[char];
           } else {
@@ -715,7 +715,7 @@
         !timeLimitMode &&
         $score == $scoreMax - 1 &&
         checkAnswer() &&
-        $gameOn
+        $gameOn === "on"
       ) {
         endGame();
       }
@@ -843,7 +843,7 @@
     function switchLevel(lev) {
       $currentLevel = lev;
       // stop timer
-      $gameOn = false;
+      $gameOn = "ready";
 
       if (lev == 8) {
         fullSentenceMode = true;
@@ -873,7 +873,7 @@
       answerWordArray = [];
       idCount = 0;
       $sentenceStartIndex = -1;
-      $gameOn = false;
+      $gameOn = "ready";
       $letterIndex = 0;
       wordIndex = 0;
       lineIndex = 0;
@@ -966,7 +966,7 @@
       resetButton.classList.remove("noDisplay");
 
       // pause timer
-      $gameOn = false;
+      $gameOn = "over";
 
       // calculate wpm
       let wpm;

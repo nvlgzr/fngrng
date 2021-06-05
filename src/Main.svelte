@@ -4,7 +4,7 @@
   import ScoreBoard from "./ScoreBoard.svelte";
   import { gameOn } from "./volatileStore.js";
 
-  $: startTrial = () => ($gameOn = true);
+  $: startTrial = () => ($gameOn = "on");
 </script>
 
 <section id="main">
