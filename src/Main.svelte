@@ -2,9 +2,9 @@
   import { currentLayout } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import { gameOn } from "./volatileStore.js";
+  import { gameState } from "./volatileStore.js";
 
-  $: startTrial = () => ($gameOn = "on");
+  $: startTrial = () => ($gameState = "on");
 </script>
 
 <section id="main">

@@ -15,7 +15,7 @@
     punctuationToInclude,
   } from "./persistentStore.js";
   import {
-    gameOn,
+    gameState,
     correctAnswer,
     seconds,
     minutes,
@@ -135,8 +135,8 @@
 
     // makes the clock tic
     setInterval(() => {
-      if ($gameOn == "on") {
         if (!timeLimitMode) {
+      if ($gameState == "on") {
           $seconds++;
           if ($seconds >= 60) {
             $seconds = 0;
@@ -244,7 +244,7 @@
       $seconds = wholeSecond % 60;
       $minutes = Math.floor(wholeSecond / 60);
 
-      $gameOn = "ready";
+      $gameState = "ready";
       setClock();
     });
 
@@ -673,7 +673,7 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in $layoutMap && $gameOn === "on") {
+        if (char in $layoutMap && $gameState === "on") {
           if (!e.shiftKey) {
             input.value += $layoutMap[char];
           } else {
@@ -715,13 +715,13 @@
         !timeLimitMode &&
         $score == $scoreMax - 1 &&
         checkAnswer() &&
-        $gameOn === "on"
+        $gameState === "on"
       ) {
         endGame();
       }
 
       if (e.keyCode === 13 || e.keyCode === 32) {
-        if (checkAnswer() && $gameOn) {
+        if (checkAnswer() && $gameState) {
           // stops a ' ' character from being put in the input bar
           // it wouldn't appear until after this function, and would
           // still be there when the user goes to type the next word
@@ -843,7 +843,7 @@
     function switchLevel(lev) {
       $currentLevel = lev;
       // stop timer
-      $gameOn = "ready";
+      $gameState = "ready";
 
       if (lev == 8) {
         fullSentenceMode = true;
@@ -873,7 +873,7 @@
       answerWordArray = [];
       idCount = 0;
       $sentenceStartIndex = -1;
-      $gameOn = "ready";
+      $gameState = "ready";
       $letterIndex = 0;
       wordIndex = 0;
       lineIndex = 0;
@@ -966,7 +966,7 @@
       resetButton.classList.remove("noDisplay");
 
       // pause timer
-      $gameOn = "over";
+      $gameState = "over";
 
       // calculate wpm
       let wpm;
