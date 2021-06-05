@@ -139,6 +139,7 @@ export const showScore = derived(
 )
 
 export const promptOffset = writable(0)
+export const sentenceStartIndex = writable(-1) // keeps track of where we are in full sentence mode
 // Keeps track of where in a word the user is
 // Increment with every keystroke except ' ', return, and backspace
 // Decrement for backspace, and reset for the other 2

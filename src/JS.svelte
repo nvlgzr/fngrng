@@ -9,7 +9,6 @@
     levelDictionary,
     keyRemapping,
     prefsOpen,
-    lowercaseOnly,
     fullSentenceModeEnabled,
     timeLimitModeEnabled,
     wordScrollingModeEnabled,
@@ -17,7 +16,6 @@
   } from "./persistentStore.js";
   import {
     gameOn,
-    wordLists,
     correctAnswer,
     seconds,
     minutes,
@@ -29,9 +27,11 @@
     results,
     promptOffset,
     letterIndex,
+    sentenceStartIndex,
   } from "./volatileStore.js";
-  import { passage } from "./passageFromDorianGray.js";
-  import { getPosition, contains, generateList } from "./pureFunctions";
+  import JS2 from "./JS2.svelte";
+
+  let js2;
 
   onMount(async () => {
     /*_____________dom elements_________*/
@@ -51,9 +51,6 @@
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var timeLimitMode = $timeLimitModeEnabled;
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
-    var sentenceStartIndex = -1; // keeps track of where we are in full sentence mode
-    var sentenceEndIndex;
-    var lineLength = 33;
     var lineIndex = 0; // tracks which line of the prompt we are currently on
     var wordIndex = 0; // tracks which word you are on (ONLY IN PARAGRAPH MODE)
     var idCount = 0;
@@ -130,7 +127,7 @@
     // the rest should be in start(), which works like an actual init function should
     // RENAME AND REFACTOR THIS PLEASE
     function init() {
-      createTestSets();
+      js2.createTestSets();
       reset();
     }
 
@@ -314,7 +311,7 @@
         // So that these functions have access to the updated
         // value of $punctuationToInclude
         setTimeout(() => {
-          createTestSets();
+          js2.createTestSets();
           reset();
         }, 250);
       });
@@ -878,7 +875,7 @@
       input.value = "";
       answerWordArray = [];
       idCount = 0;
-      sentenceStartIndex = -1;
+      $sentenceStartIndex = -1;
       $gameOn = false;
       $letterIndex = 0;
       wordIndex = 0;
@@ -924,8 +921,11 @@
 
     // generates a new line, adds it to prompt, and to answerWordArray
     function addLineToPrompt() {
-      let lineToAdd = generateLine(
-        $scoreMax - $score - answerWordArray.length - 1
+      const lineToGenerate = $scoreMax - $score - answerWordArray.length - 1;
+      let lineToAdd = js2.generateLine(
+        lineToGenerate,
+        fullSentenceMode,
+        requiredLetters
       );
       prompt.innerHTML += convertLineToHTML(lineToAdd);
       answerWordArray = answerWordArray.concat(lineToAdd.split(" "));
@@ -1003,173 +1003,6 @@
       $letterIndex = 0;
     }
 
-    // generates a single line to be appended to the answer array
-    // if a line with a maximum number of words is desired, pass it in as a parameter
-    function generateLine(maxWords) {
-      let str = "";
-
-      if (fullSentenceMode) {
-        // let rand = Math.floor(Math.random()*35);
-        let rand = 0;
-        if (sentenceStartIndex == -1) {
-          sentenceStartIndex = getPosition(passage, ".", rand) + 1;
-          sentenceEndIndex =
-            passage
-              .substring(sentenceStartIndex + lineLength + 2)
-              .indexOf(" ") +
-            sentenceStartIndex +
-            lineLength +
-            1;
-          str = passage.substring(sentenceStartIndex, sentenceEndIndex + 1);
-        } else {
-          sentenceStartIndex = sentenceEndIndex + 1;
-          sentenceEndIndex =
-            passage
-              .substring(sentenceStartIndex + lineLength + 2)
-              .indexOf(" ") +
-            sentenceStartIndex +
-            lineLength +
-            1;
-          str = passage.substring(sentenceStartIndex, sentenceEndIndex + 1);
-        }
-        str = str.substring(1);
-        return str;
-      }
-
-      if ($wordLists["lvl" + $currentLevel].length > 0) {
-        let startingLetters =
-          $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
-          $punctuationToInclude;
-
-        // if this counter hits a high enough number, there are likely no words matching the search
-        // criteria. If that happens, reset required letters
-        let circuitBreaker = 0;
-        let wordsCreated = 0;
-
-        for (let i = 0; i < lineLength; i = i) {
-          if (wordsCreated >= maxWords) {
-            break;
-          }
-
-          let rand = Math.floor(
-            Math.random() * $wordLists["lvl" + $currentLevel].length
-          );
-          let wordToAdd = $wordLists["lvl" + $currentLevel][rand];
-
-          //console.log('in circuit ' + circuitBreaker);
-          if (circuitBreaker > 12000) {
-            if (circuitBreaker > 30000) {
-              str +=
-                $levelDictionaries[$currentLayout]["lvl" + $currentLevel] + " ";
-              i += wordToAdd.length;
-              wordsCreated++;
-              circuitBreaker = 0;
-              requiredLetters = startingLetters.split("");
-              // console.log('taking too long to find proper word');
-            } else {
-              requiredLetters = startingLetters.split("");
-            }
-          }
-
-          // if the word does not contain any required letters, throw it out and choose again
-          if (!contains(wordToAdd, requiredLetters)) {
-            // console.log(wordToAdd + ' doesnt have any required letters from ' + requiredLetters);
-          } else if ($lowercaseOnly && containsUpperCase(wordToAdd)) {
-            // if only lower case is allowed and the word to add contains an uppercase,
-            // throw out the word and try again
-          } else {
-            // if last word of the line, don't add a space
-            str += wordToAdd + " ";
-            i += wordToAdd.length;
-            wordsCreated++;
-
-            // remove any new key letters from our required list
-            removeIncludedLetters(requiredLetters, wordToAdd);
-            // if we have used all required letters, reset it
-            if (requiredLetters.length == 0) {
-              requiredLetters = startingLetters.split("");
-            }
-          }
-
-          circuitBreaker++;
-          // if we're having trouble finding a word with a require letter, reset 'required letters'
-          if (circuitBreaker > 7000) {
-            // console.log('couldnt find word with ' + requiredLetters);
-            wordToAdd = randomLetterJumble();
-            str += wordToAdd + " ";
-            i += wordToAdd.length;
-            wordsCreated++;
-            requiredLetters = startingLetters.split("");
-          }
-        }
-      } else {
-        let startingLetters =
-          $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
-          $punctuationToInclude;
-        // if there are no words with the required letters, all words should be set to the
-        // current list of required letters
-        let wordsCreated = 0;
-        if (
-          $levelDictionaries[$currentLayout]["lvl" + $currentLevel].length == 0
-        ) {
-          str = "";
-        } else {
-          for (let i = 0; i < lineLength; i = i) {
-            const wordToAdd = randomLetterJumble();
-            str += wordToAdd + " ";
-            i += wordToAdd.length;
-            wordsCreated++;
-            if (wordsCreated >= maxWords) {
-              break;
-            }
-          }
-        }
-      }
-
-      // line should not end in a space. Remove the final space char
-      str = str.substring(0, str.length - 1);
-      return str;
-    }
-
-    // creates a random jumble of letters to be used when no words are found for a target letter
-    function randomLetterJumble() {
-      let randWordLength = Math.floor(Math.random() * 5) + 1;
-      let jumble = "";
-      for (let i = 0; i < randWordLength; i++) {
-        let rand = Math.floor(
-          Math.random() *
-            $levelDictionaries[$currentLayout]["lvl" + $currentLevel].length
-        );
-        jumble +=
-          $levelDictionaries[$currentLayout]["lvl" + $currentLevel][rand];
-      }
-
-      return jumble;
-    }
-
-    // takes an array and removes any required letters that are found in 'word'
-    // for example, if required letters == ['a', 'b', 'c', 'd'] and word=='cat', this
-    // function will turn requiredLetters into ['b', 'd']
-    function removeIncludedLetters(requiredLetters, word) {
-      word.split("").forEach((l) => {
-        if (requiredLetters.includes(l)) {
-          requiredLetters.splice(requiredLetters.indexOf(l), 1);
-        }
-      });
-    }
-
-    function containsUpperCase(word) {
-      let upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      let result = false;
-      word.split("").forEach((letter) => {
-        if (upperCase.includes(letter)) {
-          // console.log('upperCase ' + letter);
-          result = true;
-        }
-      });
-      return result;
-    }
-
     // updates the correct answer and manipulates the dom
     // called every time a correct word is typed
     function handleCorrectWord() {
@@ -1230,37 +1063,11 @@
       };
     }
 
-    // set the word list for each level
-    function createTestSets() {
-      let objKeys = Object.keys($wordLists); // the level keys of each of the wordLists
-      let includedLetters = $punctuationToInclude; // the list of letters to be included in each level
-
-      // for each level, add new letters to the test set and create a new list
-      for (let i = 0; i < objKeys.length; i++) {
-        let requiredLetters;
-
-        // if 'all words' on a custom layout, don't add letters from the dictionary, because
-        // level 7 contains the whole alphabet, and the user might not have asigned every letter to
-        // a key. Instead, this level should be the same as the previous, just with every letter required
-        if ($currentLayout != "custom" || i != 6) {
-          requiredLetters =
-            $levelDictionaries[$currentLayout]["lvl" + (i + 1)] +
-            $punctuationToInclude;
-          includedLetters += $levelDictionary[objKeys[i]];
-        } else {
-          requiredLetters = includedLetters;
-        }
-
-        $wordLists[objKeys[i]] = [];
-        //console.log('level ' +(i+1) + ": " + wordLists[objKeys[i]]);
-        $wordLists[objKeys[i]] = generateList(includedLetters, requiredLetters);
-        // if(i == 6) console.log('level ' +(i+1) + ": " + $wordLists[objKeys[i]]);
-      }
-    }
-
     // fixes a small bug in mozilla
     document.addEventListener("keyup", (e) => {
       e.preventDefault();
     });
   });
 </script>
+
+<JS2 bind:this={js2} />
