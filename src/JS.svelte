@@ -845,9 +845,6 @@
       // stop timer
       $gameOn = false;
 
-      // clear input field
-      document.querySelector("#userInput").value = "";
-
       if (lev == 8) {
         fullSentenceMode = true;
       } else {
