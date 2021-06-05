@@ -49,7 +49,6 @@
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
     var shiftDown = false; // tracks whether the shift key is currently being pushed
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
-    var timeLimitMode = $timeLimitModeEnabled;
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var lineIndex = 0; // tracks which line of the prompt we are currently on
     var wordIndex = 0; // tracks which word you are on (ONLY IN PARAGRAPH MODE)
@@ -110,13 +109,13 @@
         toggleFullSentenceModeUI();
       }
 
-      if (timeLimitMode) {
+      if ($timeLimitModeEnabled) {
         toggleTimeLimitModeUI();
       }
 
       wordScrollingModeButton.checked = $wordScrollingModeEnabled;
-      timeLimitModeButton.checked = timeLimitMode;
-      wordLimitModeButton.checked = !timeLimitMode;
+      timeLimitModeButton.checked = $timeLimitModeEnabled;
+      wordLimitModeButton.checked = !$timeLimitModeEnabled;
 
       switchLevel($currentLevel);
 
@@ -135,8 +134,8 @@
 
     // makes the clock tic
     setInterval(() => {
-        if (!timeLimitMode) {
       if ($gameState == "on") {
+        if (!$timeLimitModeEnabled) {
           $seconds++;
           if ($seconds >= 60) {
             $seconds = 0;
@@ -215,14 +214,11 @@
 
     // time limit mode button; if this is checked, uncheck button for word limit and vice versa
     timeLimitModeButton.addEventListener("click", () => {
-      if (timeLimitMode == true) {
+      if ($timeLimitModeEnabled) {
         timeLimitModeButton.checked = true;
       } else {
-        // change mode logic here
-        timeLimitMode = true;
         toggleTimeLimitModeUI();
-
-        $timeLimitModeEnabled = timeLimitMode;
+        $timeLimitModeEnabled = true;
 
         reset();
       }
@@ -251,11 +247,10 @@
     // word Limit mode butto; if this is checked, uncheck button for time limit and vice versa
     // Toggle display of word limit mode input field
     wordLimitModeButton.addEventListener("click", () => {
-      if (timeLimitMode == false) {
+      if (!$timeLimitModeEnabled) {
         wordLimitModeButton.checked = true;
       } else {
-        // change mode logic here
-        timeLimitMode = false;
+        $timeLimitModeEnabled = false;
         $seconds = 0;
         $minutes = 0;
 
@@ -268,8 +263,6 @@
         // toggle display of input fields
         timeLimitModeInput.classList.toggle("noDisplay");
         wordLimitModeInput.classList.toggle("noDisplay");
-
-        $timeLimitModeEnabled = timeLimitMode;
 
         reset();
       }
@@ -712,7 +705,7 @@
       // negative feedback
       // if on the last word, check every letter so we don't need a space to end the game
       if (
-        !timeLimitMode &&
+        !$timeLimitModeEnabled &&
         $score == $scoreMax - 1 &&
         checkAnswer() &&
         $gameState === "on"
@@ -892,7 +885,7 @@
       ).split("");
 
       // reset clock
-      if (!timeLimitMode) {
+      if (!$timeLimitModeEnabled) {
         $minutes = 0;
         $seconds = 0;
       } else {
@@ -970,7 +963,7 @@
 
       // calculate wpm
       let wpm;
-      if (!timeLimitMode) {
+      if (!$timeLimitModeEnabled) {
         wpm = (($correct + $errors) / 5 / ($minutes + $seconds / 60)).toFixed(
           2
         );
