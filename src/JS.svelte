@@ -16,6 +16,7 @@
   } from "./persistentStore.js";
   import {
     gameState,
+    thresholdExceeded,
     correctAnswer,
     seconds,
     minutes,
@@ -139,22 +140,8 @@
     setInterval(() => {
       if ($gameState == "on") {
         $secondsSinceStart++;
-        if (!$timeLimitModeEnabled) {
-          $seconds++;
-          if ($seconds >= 60) {
-            $seconds = 0;
-            $minutes++;
-          }
-        } else {
-          // clock counting down
-          $seconds = $seconds - 1;
-          if ($seconds <= 0 && $minutes <= 0) {
-            $gameState = "over";
-          }
-          if ($seconds < 0) {
-            $seconds = 59;
-            $minutes--;
-          }
+        if ($thresholdExceeded) {
+          $gameState = "over";
         }
       }
     }, 1000);
@@ -699,6 +686,7 @@
       // correct word. If yes, generate new word. If no, give user
       // negative feedback
       // if on the last word, check every letter so we don't need a space to end the game
+      // [ed. This feels hacky. Guessing the correct/incorrect logic is over-specified…maybe replaceable by some simple regex magic?]
       if (
         !$timeLimitModeEnabled &&
         $score == $scoreMax - 1 &&

@@ -108,7 +108,7 @@ export const configuredRows = derived(
   });
 
 // Game begins when user starts typing in input
-export const gameState = writable('ready') // 'ready' → 'on' → 'over' ↵
+export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
 
 export const wordLists = writable({
   lvl1: [],
@@ -135,6 +135,16 @@ export const errors = writable(0)
 export const scoreMax = writable(50)
 
 export const results = writable({ ready: false, accuracy: "", wpm: 0 })
+
+export const thresholdExceeded = derived(
+  [timeLimitModeEnabled, secondsSinceStart, maxSeconds, score, maxWords],
+  ([$timeLimitModeEnabled, $secondsSinceStart, $maxSeconds, $score, $maxWords]) => {
+    return $timeLimitModeEnabled
+      ? $secondsSinceStart >= $maxSeconds
+      : $score >= $maxWords
+  }
+)
+
 export const scoreBoard = derived(
   [score, secondsSinceStart, maxSeconds, maxWords, seconds, minutes, timeLimitModeEnabled, scoreMax, correct, errors, results],
   ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $correct, $errors, $results]) => {
