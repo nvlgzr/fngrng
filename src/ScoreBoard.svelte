@@ -1,24 +1,20 @@
 <script>
-  import {
-    score,
-    scoreMax,
-    clock,
-    results,
-    showScore,
-  } from "./volatileStore.js";
+  import { scoreBoard } from "./volatileStore.js";
 </script>
 
 <div class="scoreAndClock">
-  {#if $showScore}
-    <span class="scoreText">{$score}/{$scoreMax}</span>
+  {#if $scoreBoard.showScore}
+    <span class="scoreText"
+      >{$scoreBoard.currentScore}/{$scoreBoard.maxScore}</span
+    >
   {/if}
-  <span class="timeText">{$clock.mins}m :{$clock.secs}s</span>
+  <span class="timeText">{$scoreBoard.mins}m :{$scoreBoard.secs}s</span>
 </div>
 
 <div class="testResults">
-  {#if $results.ready > 0}
-    <div>Accuracy: {$results.accuracy}</div>
-    <div>WPM: {$results.wpm}</div>
+  {#if $scoreBoard.results.ready > 0}
+    <div>Accuracy: {$scoreBoard.results.accuracy}</div>
+    <div>WPM: {$scoreBoard.results.wpm}</div>
   {/if}
 </div>
 

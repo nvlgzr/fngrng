@@ -23,7 +23,6 @@
     correct,
     errors,
     scoreMax,
-    clock,
     results,
     promptOffset,
     letterIndex,
@@ -155,7 +154,6 @@
             $minutes--;
           }
         }
-        setClock();
       }
     }, 1000);
 
@@ -244,7 +242,6 @@
       $minutes = Math.floor(wholeSecond / 60);
 
       $gameState = "ready";
-      setClock();
     });
 
     // word Limit mode butto; if this is checked, uncheck button for time limit and vice versa
@@ -896,7 +893,6 @@
         $minutes = Math.floor(timeLimitModeInput.value / 60);
       }
 
-      setClock();
       resetButton.classList.add("noDisplay");
       prompt.classList.remove("noDisplay");
 
@@ -1044,13 +1040,6 @@
 
     function incrementScore() {
       $score = $score + 1;
-    }
-
-    function setClock() {
-      $clock = {
-        mins: $minutes,
-        secs: $seconds,
-      };
     }
 
     // fixes a small bug in mozilla
