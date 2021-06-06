@@ -3,11 +3,15 @@
     prefsOpen,
     lowercaseOnly,
     fullSentenceModeEnabled,
-    timeLimitModeEnabled,
     wordScrollingModeEnabled,
     punctuationToInclude,
   } from "./persistentStore";
-  import { scoreMax } from "./volatileStore.js";
+  import {
+    scoreMax,
+    maxSeconds,
+    maxWords,
+    secondsSinceStart,
+  } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 
@@ -54,6 +58,13 @@
       class: "wordScrollingModeButton",
     },
   ];
+
+  $: {
+    // When either 'max' pref changes, reset the clock
+    console.log("maxSeconds", $maxSeconds);
+    console.log("maxWords", $maxWords);
+    $secondsSinceStart = 0;
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -76,9 +87,9 @@
     {/each}
     <li>
       <input
+        bind:value={$maxSeconds}
         class="timeLimitModeInput noDisplay"
         type="number"
-        value="60"
         autocomplete="off"
       />
       Time Limit Mode<input
@@ -89,9 +100,9 @@
     </li>
     <li>
       <input
+        bind:value={$maxWords}
         class="wordLimitModeInput"
         type="number"
-        value={$scoreMax}
         step="10"
         autocomplete="off"
       />

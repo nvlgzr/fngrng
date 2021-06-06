@@ -124,6 +124,10 @@ export const correctAnswer = writable("")
 
 export const seconds = writable(0)
 export const minutes = writable(0)
+export const secondsSinceStart = writable(0)
+
+export const maxSeconds = writable(60)
+export const maxWords = writable(50)
 
 export const score = writable(0)
 export const correct = writable(0)
@@ -132,9 +136,24 @@ export const scoreMax = writable(50)
 
 export const results = writable({ ready: false, accuracy: "", wpm: 0 })
 export const scoreBoard = derived(
-  [score, seconds, minutes, timeLimitModeEnabled, scoreMax, results],
-  ([$score, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $results]) => {
-    return { mins: $minutes, secs: $seconds, currentScore: $score, maxScore: $scoreMax, showScore: !$timeLimitModeEnabled, results: $results }
+  [score, secondsSinceStart, maxSeconds, maxWords, seconds, minutes, timeLimitModeEnabled, scoreMax, results],
+  ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $results]) => {
+    console.log('secsSince', $secondsSinceStart, 'maxSecs', $maxSeconds, 'maxWords', $maxWords)
+
+    const totalSeconds = $timeLimitModeEnabled ? $maxSeconds - $secondsSinceStart : $secondsSinceStart
+
+    return {
+      minutes: Math.floor(totalSeconds / 60),
+      seconds: totalSeconds % 60,
+      mins: $minutes,
+      secs: $seconds,
+      score: $score,
+      maxScore: $maxWords,
+      currentScore: $score,
+      scoreMax: $scoreMax,
+      showScore: !$timeLimitModeEnabled,
+      results: $results
+    }
   }
 )
 

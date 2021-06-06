@@ -19,6 +19,7 @@
     correctAnswer,
     seconds,
     minutes,
+    secondsSinceStart,
     score,
     correct,
     errors,
@@ -137,6 +138,7 @@
     // makes the clock tic
     setInterval(() => {
       if ($gameState == "on") {
+        $secondsSinceStart++;
         if (!$timeLimitModeEnabled) {
           $seconds++;
           if ($seconds >= 60) {
@@ -199,6 +201,8 @@
 
     // Toggle display of time limit mode input field
     function toggleTimeLimitModeUI() {
+      $secondsSinceStart = 0;
+
       $seconds = timeLimitModeInput.value % 60;
       $minutes = Math.floor(timeLimitModeInput.value / 60);
 
@@ -241,6 +245,7 @@
       $seconds = wholeSecond % 60;
       $minutes = Math.floor(wholeSecond / 60);
 
+      $secondsSinceStart = 0;
       $gameState = "ready";
     });
 
@@ -860,6 +865,7 @@
     // button is called or when a level is changed
     // Set a new prompt word and change variable text
     function reset() {
+      $secondsSinceStart = 0;
       deleteLatestWord = false;
       prompt.innerHTML = "";
       input.value = "";
