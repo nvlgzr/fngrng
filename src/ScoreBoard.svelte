@@ -18,6 +18,10 @@
     <div>Accuracy: {$scoreBoard.results.accuracy}</div>
     <div>WPM: {$scoreBoard.results.wpm}</div>
   {/if}
+  {#if $scoreBoard.results_old.ready > 0}
+    <div>Accuracy: {$scoreBoard.results_old.accuracy}</div>
+    <div>WPM: {$scoreBoard.results_old.wpm}</div>
+  {/if}
 </div>
 
 <style>
