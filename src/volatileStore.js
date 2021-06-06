@@ -148,7 +148,7 @@ export const thresholdExceeded = derived(
 export const scoreBoard = derived(
   [score, secondsSinceStart, maxSeconds, maxWords, seconds, minutes, timeLimitModeEnabled, scoreMax, correct, errors, results],
   ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $correct, $errors, $results]) => {
-    console.log('secsSince', $secondsSinceStart, 'maxSecs', $maxSeconds, 'maxWords', $maxWords)
+    console.log('secsSince', $secondsSinceStart, 'maxSecs', $maxSeconds, 'maxWords', $maxWords, 'seconds', $seconds, 'score', $score, 'correct', $correct, 'errors', $errors)
 
     const totalSeconds = $timeLimitModeEnabled ? $maxSeconds - $secondsSinceStart : $secondsSinceStart
 
@@ -173,7 +173,7 @@ export const scoreBoard = derived(
       currentScore: $score,
       scoreMax: $scoreMax,
       showScore: !$timeLimitModeEnabled,
-      results: $results,
+      results: r,
       results_old: $results
     }
   }
