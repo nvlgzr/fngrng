@@ -2,7 +2,6 @@ import { derived, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
 import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
 
-
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
 // Level 3 → ["arstneio", "dh", "pgjl"]
@@ -132,14 +131,10 @@ export const errors = writable(0)
 export const scoreMax = writable(50)
 
 export const results = writable({ ready: false, accuracy: "", wpm: 0 })
-export const showScore = derived(
-  timeLimitModeEnabled,
-  $timeLimitModeEnabled => !$timeLimitModeEnabled
-)
 export const scoreBoard = derived(
-  [score, seconds, minutes, timeLimitModeEnabled, scoreMax, showScore, results],
-  ([$score, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $showScore, $results]) => {
-    return { mins: $minutes, secs: $seconds, currentScore: $score, maxScore: $scoreMax, showScore: $showScore, results: $results }
+  [score, seconds, minutes, timeLimitModeEnabled, scoreMax, results],
+  ([$score, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $results]) => {
+    return { mins: $minutes, secs: $seconds, currentScore: $score, maxScore: $scoreMax, showScore: !$timeLimitModeEnabled, results: $results }
   }
 )
 
