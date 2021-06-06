@@ -275,17 +275,7 @@
 
     // word Limit input field
     wordLimitModeInput.addEventListener("change", () => {
-      if (wordLimitModeInput.value > 10 && wordLimitModeInput.value <= 500) {
-        wordLimitModeInput.value =
-          Math.ceil(wordLimitModeInput.value / 10) * 10;
-        $scoreMax = wordLimitModeInput.value;
-      } else if (wordLimitModeInput.value > 500) {
-        $scoreMax = 500;
-        wordLimitModeInput.value = 500;
-      } else {
-        $scoreMax = 10;
-        wordLimitModeInput.value = 10;
-      }
+      $scoreMax = Math.round(wordLimitModeInput.value);
 
       reset();
     });

@@ -15,6 +15,24 @@
 
   $: openPrefs = $prefsOpen;
 
+  $: {
+    // • Disallow fractional thresholds
+    // • Clamp values
+    // • Prevent NaN
+    const TEN_MINUTES_MAX = 600;
+    const THOUSAND_WORD_MAX = 1000;
+
+    $maxSeconds = Math.min(
+      Math.max(parseInt($maxSeconds || 0, 10), 0),
+      TEN_MINUTES_MAX
+    );
+
+    $maxWords = Math.min(
+      Math.max(parseInt($maxWords || 0, 10), 0),
+      THOUSAND_WORD_MAX
+    );
+  }
+
   function handleKeydown(event) {
     if (event.keyCode === 27) {
       closeMenu();
