@@ -12,7 +12,14 @@
 <div class="testResults">
   {#if $scoreBoard.results.ready > 0}
     <div>Accuracy: {$scoreBoard.results.accuracy}</div>
-    <div>WPM: {$scoreBoard.results.wpm}</div>
+    <!-- If Word Limit is set to 1, it's possible to complete a game -->
+    <!-- in under 1 second, resulting in x/0 → Infinity for WPM, -->
+    <!-- hence "Not enough data"-->
+    <div>
+      WPM: {isFinite($scoreBoard.results.wpm)
+        ? $scoreBoard.results.wpm
+        : "Not enough data"}
+    </div>
   {/if}
 </div>
 
