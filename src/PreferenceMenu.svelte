@@ -4,9 +4,15 @@
     lowercaseOnly,
     fullSentenceModeEnabled,
     wordScrollingModeEnabled,
+    timeLimitModeEnabled,
     punctuationToInclude,
   } from "./persistentStore";
-  import { maxSeconds, maxWords, secondsSinceStart } from "./volatileStore.js";
+  import {
+    gameState,
+    maxSeconds,
+    maxWords,
+    secondsSinceStart,
+  } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 
@@ -72,12 +78,28 @@
     },
   ];
 
+  $: reset = () => {
+    $gameState = "get set";
+    $gameState = "ready";
+    $secondsSinceStart = 0;
+  };
+
   $: {
     // When either 'max' pref changes, reset the clock
     $maxSeconds;
     $maxWords;
-    $secondsSinceStart = 0;
+    reset();
   }
+
+  $: timeLimitModeButtonClicked = (e) => {
+    $timeLimitModeEnabled = true;
+    reset();
+  };
+
+  $: wordLimitModeButtonClicked = (e) => {
+    $timeLimitModeEnabled = false;
+    reset();
+  };
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -99,32 +121,33 @@
       </li>
     {/each}
     <li>
-      <input
-        bind:value={$maxSeconds}
-        class="timeLimitModeInput noDisplay"
-        type="number"
-        autocomplete="off"
-      />
+      {#if $timeLimitModeEnabled}
+        <input bind:value={$maxSeconds} type="number" autocomplete="off" />
+      {/if}
       Time Limit Mode<input
-        class="timeLimitModeButton"
+        on:click={timeLimitModeButtonClicked}
+        checked={$timeLimitModeEnabled}
         type="checkbox"
         autocomplete="off"
+        disabled={$timeLimitModeEnabled}
       />
     </li>
     <li>
-      <input
-        bind:value={$maxWords}
-        class="wordLimitModeInput"
-        type="number"
-        step="10"
-        autocomplete="off"
-      />
+      {#if !$timeLimitModeEnabled}
+        <input
+          bind:value={$maxWords}
+          type="number"
+          step="10"
+          autocomplete="off"
+        />
+      {/if}
       Word Limit Mode
       <input
-        class="wordLimitModeButton"
+        on:click={wordLimitModeButtonClicked}
+        checked={!$timeLimitModeEnabled}
         type="checkbox"
         autocomplete="off"
-        checked
+        disabled={!$timeLimitModeEnabled}
       />
     </li>
   </ul>

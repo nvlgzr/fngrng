@@ -147,12 +147,10 @@ export const scoreBoard = derived(
     const wpm = (($correct + $errors) / 5 / ($secondsSinceStart / 60)).toFixed(2)
     const accuracy = `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`;
 
-    // In time limit mode, we need to have a word list long enough to
-    // last well past even the fastest of typists. 4 w/s should do it!
-    const adjustedMaxWords = $timeLimitModeEnabled ? $maxWords * 4 : $maxWords
-
     const results = {
-      ready: $timeLimitModeEnabled ? $secondsSinceStart >= $maxSeconds : $score >= $maxWords,
+      ready: $timeLimitModeEnabled
+        ? $secondsSinceStart >= $maxSeconds
+        : $score >= $maxWords,
       accuracy: accuracy,
       wpm: wpm,
     }

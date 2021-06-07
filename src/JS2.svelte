@@ -10,6 +10,7 @@
     levelDictionary,
     lowercaseOnly,
     punctuationToInclude,
+    timeLimitModeEnabled,
   } from "./persistentStore.js";
   import { wordLists, sentenceStartIndex } from "./volatileStore.js";
 
@@ -20,6 +21,10 @@
   export function generateLine(maxWords, fullSentenceMode, requiredLetters) {
     let str = "";
     const lineLength = 33;
+
+    // In time limit mode, we need to have a word list long enough to
+    // last well past even the fastest of typists. 5 w/s should do it!
+    const adjustedMaxWords = $timeLimitModeEnabled ? maxWords * 5 : maxWords;
 
     if (fullSentenceMode) {
       // let rand = Math.floor(Math.random()*35);
@@ -56,7 +61,7 @@
       let wordsCreated = 0;
 
       for (let i = 0; i < lineLength; i = i) {
-        if (wordsCreated >= maxWords) {
+        if (wordsCreated >= adjustedMaxWords) {
           break;
         }
 
@@ -128,7 +133,7 @@
           str += wordToAdd + " ";
           i += wordToAdd.length;
           wordsCreated++;
-          if (wordsCreated >= maxWords) {
+          if (wordsCreated >= adjustedMaxWords) {
             break;
           }
         }

@@ -31,8 +31,12 @@
 
   let js2;
   let endGame;
+  let reset;
 
   $: if ($gameState === "over") endGame();
+  $: if (reset && $gameState === "ready") {
+    reset();
+  }
 
   onMount(async () => {
     /*_____________dom elements_________*/
@@ -88,10 +92,6 @@
     // preference menu dom elements
     var fullSentenceModeToggle = document.querySelector(".fullSentenceMode"),
       fullSentenceModeLevelButton = document.querySelector(".lvl8"),
-      wordLimitModeButton = document.querySelector(".wordLimitModeButton"),
-      wordLimitModeInput = document.querySelector(".wordLimitModeInput"),
-      timeLimitModeButton = document.querySelector(".timeLimitModeButton"),
-      timeLimitModeInput = document.querySelector(".timeLimitModeInput"),
       wordScrollingModeButton = document.querySelector(
         ".wordScrollingModeButton"
       );
@@ -110,13 +110,7 @@
         toggleFullSentenceModeUI();
       }
 
-      if ($timeLimitModeEnabled) {
-        toggleTimeLimitModeUI();
-      }
-
       wordScrollingModeButton.checked = $wordScrollingModeEnabled;
-      timeLimitModeButton.checked = $timeLimitModeEnabled;
-      wordLimitModeButton.checked = !$timeLimitModeEnabled;
 
       switchLevel($currentLevel);
 
@@ -128,7 +122,7 @@
     // RENAME AND REFACTOR THIS PLEASE
     function init() {
       js2.createTestSets();
-      reset();
+      reset && reset();
     }
 
     /*________________Timers and Listeners___________________*/
@@ -180,60 +174,6 @@
       } else {
         switchLevel(1);
       }
-      reset();
-    });
-
-    // Toggle display of time limit mode input field
-    function toggleTimeLimitModeUI() {
-      $secondsSinceStart = 0;
-
-      // toggle value of word limit mode button
-      wordLimitModeButton.checked = !wordLimitModeButton.checked;
-
-      // toggle display of input fields
-      timeLimitModeInput.classList.toggle("noDisplay");
-      wordLimitModeInput.classList.toggle("noDisplay");
-    }
-
-    // time limit mode button; if this is checked, uncheck button for word limit and vice versa
-    timeLimitModeButton.addEventListener("click", () => {
-      if ($timeLimitModeEnabled) {
-        timeLimitModeButton.checked = true;
-      } else {
-        toggleTimeLimitModeUI();
-        $timeLimitModeEnabled = true;
-
-        reset();
-      }
-    });
-
-    // time limit mode field
-    timeLimitModeInput.addEventListener("change", () => {
-      $secondsSinceStart = 0;
-      $gameState = "ready";
-    });
-
-    // word Limit mode butto; if this is checked, uncheck button for time limit and vice versa
-    // Toggle display of word limit mode input field
-    wordLimitModeButton.addEventListener("click", () => {
-      if (!$timeLimitModeEnabled) {
-        wordLimitModeButton.checked = true;
-      } else {
-        $timeLimitModeEnabled = false;
-
-        // toggle value of time limit mode button
-        timeLimitModeButton.checked = !timeLimitModeButton.checked;
-
-        // toggle display of input fields
-        timeLimitModeInput.classList.toggle("noDisplay");
-        wordLimitModeInput.classList.toggle("noDisplay");
-
-        reset();
-      }
-    });
-
-    // word Limit input field
-    wordLimitModeInput.addEventListener("change", () => {
       reset();
     });
 
@@ -672,10 +612,6 @@
           handleCorrectWord();
           incrementScore();
 
-          if ($score >= $maxWords) {
-            $gameState = "over";
-          }
-
           // clear input field
           document.querySelector("#userInput").value = "";
 
@@ -798,7 +734,7 @@
       }
       $currentLevel = lev;
 
-      reset();
+      reset && reset();
     }
 
     resetButton.addEventListener("click", () => {
@@ -808,7 +744,7 @@
     // resets everything to the beginning of game state. Run when the reset
     // button is called or when a level is changed
     // Set a new prompt word and change variable text
-    function reset() {
+    reset = function () {
       $secondsSinceStart = 0;
       deleteLatestWord = false;
       prompt.innerHTML = "";
@@ -846,7 +782,7 @@
       incrementScore();
 
       input.focus();
-    }
+    };
 
     // generates a new line, adds it to prompt, and to answerWordArray
     function addLineToPrompt() {
