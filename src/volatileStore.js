@@ -131,8 +131,6 @@ export const score = writable(0)
 export const correct = writable(0)
 export const errors = writable(0)
 
-export const results = writable({ ready: false, accuracy: "", wpm: 0 })
-
 export const thresholdExceeded = derived(
   [timeLimitModeEnabled, secondsSinceStart, maxSeconds, score, maxWords],
   ([$timeLimitModeEnabled, $secondsSinceStart, $maxSeconds, $score, $maxWords]) => {

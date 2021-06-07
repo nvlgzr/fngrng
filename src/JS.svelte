@@ -209,15 +209,6 @@
 
     // time limit mode field
     timeLimitModeInput.addEventListener("change", () => {
-      // let wholeSecond = Math.floor(timeLimitModeInput.value);
-
-      // if (wholeSecond < 1 || wholeSecond > 10000) {
-      //   wholeSecond = 60;
-      // }
-
-      // // set the dom element to a whole number (in case the user puts in a decimal)
-      // timeLimitModeInput.value = wholeSecond;
-
       $secondsSinceStart = 0;
       $gameState = "ready";
     });
@@ -444,10 +435,6 @@
         ).innerHTML;
         k.children[0].innerHTML = e.key;
 
-        // // if we are not already on shift layer, add to dom element shift layer
-        // if(!shiftDown) {
-        // 	// document.querySelector('#shift' + k.id).children[0].innerHTML = e.key.toUpperCase();
-        // }
         k.classList.add("active");
 
         // new keyMapping Data
