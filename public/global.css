@@ -259,6 +259,10 @@ a:link {
   display: none;
 }
 
+.oldnoDisplay {
+  display: none;
+}
+
 .visible {
   display: block;
 }

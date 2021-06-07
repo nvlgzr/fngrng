@@ -1,25 +1,78 @@
 <script>
-  import { currentLayout } from "./persistentStore.js";
+  import {
+    currentLayout,
+    wordScrollingModeEnabled,
+  } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import { gameState } from "./volatileStore.js";
+  import { gameState, deleteLatestWord, promptLines } from "./volatileStore.js";
+
+  let userText = "";
+
+  const handleInputChange = (input, promptArray) => {
+    if ($wordScrollingModeEnabled) {
+      return processForWordScrollingMode(input, promptArray[0]);
+    } else {
+      return processForLineByLineMode(input, promptArray[0]);
+    }
+  };
+
+  const processForWordScrollingMode = (input, currentLine) => {
+    return input;
+  };
+  const processForLineByLineMode = (input, currentLine) => {
+    return input;
+  };
 
   $: startTrial = (e) => {
     $gameState = "on";
+
+    // e.preventDefault();
+    userText = handleInputChange(e.target.value, $promptLines);
   };
 </script>
 
 <section id="main">
   <h1>{$currentLayout} Club</h1>
+  {userText}
 
   <div class="typingArea">
-    <div class="fade" id="fadeElement">
-      <h2 class="noDisplay prompt" />
+    <div class={$wordScrollingModeEnabled ? "fade" : ""} id="fadeElement">
+      <h2
+        class="prompt {$wordScrollingModeEnabled
+          ? ''
+          : 'paragraph'} {$deleteLatestWord ? '' : 'smoothScroll'}"
+      >
+        {#each $promptLines as line, i}
+          <span class="line">
+            {#each line as word, j}
+              <span id={`id${i + j}`} class="word">
+                {#each word as char, k}
+                  {char}
+                {/each}
+              </span>&nbsp;
+            {/each}
+          </span>
+        {/each}
+      </h2>
     </div>
     <button id="resetButton" class="noDisplay">Reset</button>
     <input
-      on:keydown={startTrial}
+      on:input={startTrial}
+      value={userText}
       id="userInput"
+      type="paragraph"
+      spellcheck="false"
+    />
+  </div>
+  <div class="oldtypingArea">
+    <div class="oldfade" id="oldfadeElement">
+      <h2 class="oldnoDisplay oldprompt" />
+    </div>
+    <button id="oldresetButton" class="oldnoDisplay">Reset</button>
+    <input
+      on:keydown={startTrial}
+      id="olduserInput"
       type="paragraph"
       spellcheck="false"
     />
@@ -75,7 +128,29 @@
     /*height: 30vmin;*/
   }
 
+  .oldtypingArea {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    /*justify-content: center;*/
+    width: 67vmin;
+    /*height: 30vmin;*/
+  }
+
   .fade {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 0)
+    );
+    /*height: 20%;*/
+  }
+
+  .oldfade {
     -webkit-mask-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 1) 75%,
@@ -94,7 +169,46 @@
     letter-spacing: 0.1vmax;
   }
 
+  .oldprompt {
+    position: relative;
+    font-size: 2vmax;
+    /*padding: 0 20vh 0 0;*/
+    /*width: 100%;*/
+    /*color: white;*/
+    margin: 10vh 0 0 0;
+    letter-spacing: 0.1vmax;
+  }
+
+  .smoothScroll {
+    -webkit-transition: left 0.1s linear;
+    -o-transition: left 0.1s linear;
+    transition: left 0.1s linear;
+  }
+
+  .paragraph {
+    color: grey;
+    word-wrap: break-word;
+    width: 103%;
+    font-size: 2.4vmin;
+    margin: 6.5vmin auto 0 auto;
+  }
+
+  .line {
+    white-space: nowrap;
+  }
+
+  .paragraph .line {
+    margin-left: 1.6vmin;
+    display: block;
+  }
+
   #resetButton {
+    margin: 6vmin auto 4vmin auto;
+    width: 30%;
+    font-size: 4.5vh;
+  }
+
+  #oldresetButton {
     margin: 6vmin auto 4vmin auto;
     width: 30%;
     font-size: 4.5vh;

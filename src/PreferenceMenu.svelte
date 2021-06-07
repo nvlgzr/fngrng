@@ -9,7 +9,11 @@
     maxWords,
     punctuationToInclude,
   } from "./persistentStore";
-  import { gameState, secondsSinceStart } from "./volatileStore.js";
+  import {
+    gameState,
+    promptLines,
+    secondsSinceStart,
+  } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 

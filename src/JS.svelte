@@ -17,6 +17,8 @@
   } from "./persistentStore.js";
   import {
     gameState,
+    deleteLatestWord,
+    promptLines,
     thresholdExceeded,
     correctAnswer,
     secondsSinceStart,
@@ -42,9 +44,9 @@
     /*_____________dom elements_________*/
 
     // the string of text that shows the words for the user to type
-    var prompt = document.querySelector(".prompt");
-    var resetButton = document.querySelector("#resetButton");
-    var input = document.querySelector("#userInput");
+    var prompt = document.querySelector(".oldprompt");
+    var resetButton = document.querySelector("#oldresetButton");
+    var input = document.querySelector("#olduserInput");
     var customInput = document.querySelector(".customInput");
     var buttons = document.querySelector("nav").children;
     var select = document.querySelector("select");
@@ -54,7 +56,6 @@
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
     // What happens when we push these into stores? Any movement then???
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
-    var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var lineIndex = 0; // tracks which line of the prompt we are currently on
     var wordIndex = 0; // tracks which word you are on (ONLY IN PARAGRAPH MODE)
     var idCount = 0;
@@ -180,7 +181,7 @@
     function toggleWordScrollingModeUI() {
       prompt.classList.toggle("paragraph");
       // remove fade from parent
-      document.querySelector("#fadeElement").classList.toggle("fade");
+      document.querySelector("#oldfadeElement").classList.toggle("oldfade");
     }
 
     wordScrollingModeButton.addEventListener("click", () => {
@@ -529,7 +530,7 @@
 
     input.addEventListener("keydown", (e) => {
       // removes first line on the first letter of the first word of a new line
-      if (deleteLatestWord) {
+      if ($deleteLatestWord) {
         prompt.classList.remove("smoothScroll");
         // delete last line fromt prompt and set the offset back to 0
         prompt.firstChild.removeChild(prompt.firstChild.firstChild);
@@ -538,7 +539,7 @@
         }
         $promptOffset = 0;
         prompt.style.left = "-" + $promptOffset + "px";
-        deleteLatestWord = false;
+        $deleteLatestWord = false;
       }
 
       // get rid of default key press. We'll handle it ourselves
@@ -608,7 +609,7 @@
           incrementScore();
 
           // clear input field
-          document.querySelector("#userInput").value = "";
+          document.querySelector("#olduserInput").value = "";
 
           // set letter index (where in the word the user currently is)
           // to the beginning of the word
@@ -738,7 +739,7 @@
     // Set a new prompt word and change variable text
     reset = function () {
       $secondsSinceStart = 0;
-      deleteLatestWord = false;
+      $deleteLatestWord = false;
       prompt.innerHTML = "";
       input.value = "";
       answerWordArray = [];
@@ -761,11 +762,14 @@
         $punctuationToInclude
       ).split("");
 
-      resetButton.classList.add("noDisplay");
-      prompt.classList.remove("noDisplay");
+      resetButton.classList.add("oldnoDisplay");
+      prompt.classList.remove("oldnoDisplay");
 
+      $promptLines = [];
       for (let i = 1; i <= 3; i++) {
-        addLineToPrompt();
+        const newLine = addLineToPrompt();
+        $promptLines = [...$promptLines, newLine.split(" ")];
+
         if (i == 1) {
           $correctAnswer = answerWordArray[0];
         }
@@ -786,6 +790,7 @@
       );
       prompt.innerHTML += convertLineToHTML(lineToAdd);
       answerWordArray = answerWordArray.concat(lineToAdd.split(" "));
+      return lineToAdd;
     }
 
     // takes an array of letter and turns them into html elements representing lines
@@ -820,15 +825,15 @@
 
     endGame = function () {
       // erase prompt
-      prompt.classList.toggle("noDisplay");
+      prompt.classList.toggle("oldnoDisplay");
 
       // make resetButton visible
-      resetButton.classList.remove("noDisplay");
+      resetButton.classList.remove("oldnoDisplay");
       resetButton.focus();
 
       incrementScore();
       // clear input field
-      document.querySelector("#userInput").value = "";
+      document.querySelector("#olduserInput").value = "";
       // set letter index (where in the word the user currently is)
       // to the beginning of the word
       $letterIndex = 0;
@@ -852,8 +857,8 @@
         // when we reach the end of a line, generate a new one IF
         // we are more than  2 lines from from the end. This ensures that
         // no extra words are generated when we near the end of the test
-
-        addLineToPrompt();
+        const newLine = addLineToPrompt();
+        $promptLines = [...$promptLines, newLine.split(" ")];
 
         //make the first line of the prompt transparent
         if (!$wordScrollingModeEnabled) {
@@ -865,7 +870,7 @@
       let cur = document.querySelector("#id" + ($score + 1));
 
       if ($wordScrollingModeEnabled) {
-        deleteLatestWord = true;
+        $deleteLatestWord = true;
         prompt.classList.add("smoothScroll");
         // set the offset value of the next word
         $promptOffset += prompt.children[0].children[0].offsetWidth;

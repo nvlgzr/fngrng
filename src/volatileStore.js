@@ -120,6 +120,9 @@ export const wordLists = writable({
   lvl7: [],
 });
 
+export const deleteLatestWord = writable(0) // Set to true whenever a word is finished
+export const promptLines = writable([])
+
 export const correctAnswer = writable("")
 
 export const secondsSinceStart = writable(0)
