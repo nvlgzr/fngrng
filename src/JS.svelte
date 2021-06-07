@@ -18,14 +18,11 @@
     gameState,
     thresholdExceeded,
     correctAnswer,
-    seconds,
-    minutes,
     secondsSinceStart,
     score,
+    maxWords,
     correct,
     errors,
-    scoreMax,
-    results,
     promptOffset,
     letterIndex,
     sentenceStartIndex,
@@ -190,12 +187,6 @@
     function toggleTimeLimitModeUI() {
       $secondsSinceStart = 0;
 
-      $seconds = timeLimitModeInput.value % 60;
-      $minutes = Math.floor(timeLimitModeInput.value / 60);
-
-      // make the word list long enough so that no human typer can reach the end
-      $scoreMax = timeLimitModeInput.value * 4;
-
       // toggle value of word limit mode button
       wordLimitModeButton.checked = !wordLimitModeButton.checked;
 
@@ -218,19 +209,14 @@
 
     // time limit mode field
     timeLimitModeInput.addEventListener("change", () => {
-      let wholeSecond = Math.floor(timeLimitModeInput.value);
+      // let wholeSecond = Math.floor(timeLimitModeInput.value);
 
-      $scoreMax = wholeSecond * 10;
+      // if (wholeSecond < 1 || wholeSecond > 10000) {
+      //   wholeSecond = 60;
+      // }
 
-      if (wholeSecond < 1 || wholeSecond > 10000) {
-        wholeSecond = 60;
-      }
-
-      // set the dom element to a whole number (in case the user puts in a decimal)
-      timeLimitModeInput.value = wholeSecond;
-
-      $seconds = wholeSecond % 60;
-      $minutes = Math.floor(wholeSecond / 60);
+      // // set the dom element to a whole number (in case the user puts in a decimal)
+      // timeLimitModeInput.value = wholeSecond;
 
       $secondsSinceStart = 0;
       $gameState = "ready";
@@ -243,11 +229,6 @@
         wordLimitModeButton.checked = true;
       } else {
         $timeLimitModeEnabled = false;
-        $seconds = 0;
-        $minutes = 0;
-
-        // set score max back to the chosen value
-        $scoreMax = wordLimitModeInput.value;
 
         // toggle value of time limit mode button
         timeLimitModeButton.checked = !timeLimitModeButton.checked;
@@ -262,8 +243,6 @@
 
     // word Limit input field
     wordLimitModeInput.addEventListener("change", () => {
-      $scoreMax = Math.round(wordLimitModeInput.value);
-
       reset();
     });
 
@@ -689,7 +668,7 @@
       // [ed. This feels hacky. Guessing the correct/incorrect logic is over-specified…maybe replaceable by some simple regex magic?]
       if (
         !$timeLimitModeEnabled &&
-        $score == $scoreMax - 1 &&
+        $score == $maxWords - 1 &&
         checkAnswer() &&
         $gameState === "on"
       ) {
@@ -706,7 +685,7 @@
           handleCorrectWord();
           incrementScore();
 
-          if ($score >= $scoreMax) {
+          if ($score >= $maxWords) {
             $gameState = "over";
           }
 
@@ -858,7 +837,6 @@
       prompt.style.left = 0;
       $correct = 0;
       $errors = 0;
-      $results = { ready: false, accuracy: "", wpm: 0 };
 
       // set to -1 before each game because score is incremented every time we call
       $score = -1;
@@ -867,15 +845,6 @@
         $levelDictionaries[$currentLayout]["lvl" + $currentLevel] +
         $punctuationToInclude
       ).split("");
-
-      // reset clock
-      if (!$timeLimitModeEnabled) {
-        $minutes = 0;
-        $seconds = 0;
-      } else {
-        $seconds = timeLimitModeInput.value % 60;
-        $minutes = Math.floor(timeLimitModeInput.value / 60);
-      }
 
       resetButton.classList.add("noDisplay");
       prompt.classList.remove("noDisplay");
@@ -894,7 +863,7 @@
 
     // generates a new line, adds it to prompt, and to answerWordArray
     function addLineToPrompt() {
-      const lineToGenerate = $scoreMax - $score - answerWordArray.length - 1;
+      const lineToGenerate = $maxWords - $score - answerWordArray.length - 1;
       let lineToAdd = js2.generateLine(
         lineToGenerate,
         fullSentenceMode,
@@ -940,31 +909,8 @@
 
       // make resetButton visible
       resetButton.classList.remove("noDisplay");
-
-      // calculate wpm
-      let wpm;
-      if (!$timeLimitModeEnabled) {
-        wpm = (($correct + $errors) / 5 / ($minutes + $seconds / 60)).toFixed(
-          2
-        );
-      } else {
-        wpm = (
-          ($correct + $errors) /
-          5 /
-          (timeLimitModeInput.value / 60)
-        ).toFixed(2);
-      }
-
-      $results = {
-        ready: true,
-        accuracy: `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`,
-        wpm: wpm,
-      };
-
-      $correct = 0;
-      $errors = 0;
-
       resetButton.focus();
+
       incrementScore();
       // clear input field
       document.querySelector("#userInput").value = "";

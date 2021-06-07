@@ -122,8 +122,6 @@ export const wordLists = writable({
 
 export const correctAnswer = writable("")
 
-export const seconds = writable(0)
-export const minutes = writable(0)
 export const secondsSinceStart = writable(0)
 
 export const maxSeconds = writable(60)
@@ -132,7 +130,6 @@ export const maxWords = writable(50)
 export const score = writable(0)
 export const correct = writable(0)
 export const errors = writable(0)
-export const scoreMax = writable(50)
 
 export const results = writable({ ready: false, accuracy: "", wpm: 0 })
 
@@ -146,35 +143,32 @@ export const thresholdExceeded = derived(
 )
 
 export const scoreBoard = derived(
-  [score, secondsSinceStart, maxSeconds, maxWords, seconds, minutes, timeLimitModeEnabled, scoreMax, correct, errors, results],
-  ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $seconds, $minutes, $timeLimitModeEnabled, $scoreMax, $correct, $errors, $results]) => {
-    console.log('secsSince', $secondsSinceStart, 'maxSecs', $maxSeconds, 'maxWords', $maxWords, 'seconds', $seconds, 'score', $score, 'correct', $correct, 'errors', $errors)
+  [score, secondsSinceStart, maxSeconds, maxWords, timeLimitModeEnabled, correct, errors],
+  ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $timeLimitModeEnabled, $correct, $errors]) => {
 
-    const totalSeconds = $timeLimitModeEnabled ? $maxSeconds - $secondsSinceStart : $secondsSinceStart
+    const wpm = (($correct + $errors) / 5 / ($secondsSinceStart / 60)).toFixed(2)
+    const accuracy = `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`;
 
-    let wpm =
-      $timeLimitModeEnabled
-        ? (($correct + $errors) / 5 / ($maxSeconds / 60)).toFixed(2)
-        : (($correct + $errors) / 5 / ($minutes + $seconds / 60)).toFixed(2);
+    // In time limit mode, we need to have a word list long enough to
+    // last well past even the fastest of typists. 4 w/s should do it!
+    const adjustedMaxWords = $timeLimitModeEnabled ? $maxWords * 4 : $maxWords
 
-    const r = {
-      ready: $timeLimitModeEnabled ? $seconds >= $maxSeconds : $score >= $maxWords,
-      accuracy: `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`,
+    const results = {
+      ready: $timeLimitModeEnabled ? $secondsSinceStart >= $maxSeconds : $score >= $maxWords,
+      accuracy: accuracy,
       wpm: wpm,
     }
 
+    const secondsAdjustedForDirection = $timeLimitModeEnabled ? $maxSeconds - $secondsSinceStart : $secondsSinceStart
+
     return {
-      minutes: Math.floor(totalSeconds / 60),
-      seconds: totalSeconds % 60,
-      mins: $minutes,
-      secs: $seconds,
+      minutes: Math.floor(secondsAdjustedForDirection / 60),
+      seconds: secondsAdjustedForDirection % 60,
       score: $score,
       maxScore: $maxWords,
       currentScore: $score,
-      scoreMax: $scoreMax,
       showScore: !$timeLimitModeEnabled,
-      results: r,
-      results_old: $results
+      results: results
     }
   }
 )

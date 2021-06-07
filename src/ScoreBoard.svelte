@@ -4,23 +4,15 @@
 
 <div class="scoreAndClock">
   {#if $scoreBoard.showScore}
-    <span class="scoreText"
-      >{$scoreBoard.score}/{$scoreBoard.maxScore} | {$scoreBoard.currentScore}/{$scoreBoard.scoreMax}</span
-    >
+    <span class="scoreText">{$scoreBoard.score}/{$scoreBoard.maxScore}</span>
   {/if}
-  <span class="timeText"
-    >{$scoreBoard.minutes}:{$scoreBoard.seconds} | {$scoreBoard.mins}m :{$scoreBoard.secs}s</span
-  >
+  <span class="timeText">{$scoreBoard.minutes}m {$scoreBoard.seconds}s</span>
 </div>
 
 <div class="testResults">
   {#if $scoreBoard.results.ready > 0}
     <div>Accuracy: {$scoreBoard.results.accuracy}</div>
     <div>WPM: {$scoreBoard.results.wpm}</div>
-  {/if}
-  {#if $scoreBoard.results_old.ready > 0}
-    <div>Accuracy: {$scoreBoard.results_old.accuracy}</div>
-    <div>WPM: {$scoreBoard.results_old.wpm}</div>
   {/if}
 </div>
 

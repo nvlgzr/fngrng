@@ -6,12 +6,7 @@
     wordScrollingModeEnabled,
     punctuationToInclude,
   } from "./persistentStore";
-  import {
-    scoreMax,
-    maxSeconds,
-    maxWords,
-    secondsSinceStart,
-  } from "./volatileStore.js";
+  import { maxSeconds, maxWords, secondsSinceStart } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 
@@ -79,8 +74,8 @@
 
   $: {
     // When either 'max' pref changes, reset the clock
-    console.log("maxSeconds", $maxSeconds);
-    console.log("maxWords", $maxWords);
+    $maxSeconds;
+    $maxWords;
     $secondsSinceStart = 0;
   }
 </script>
