@@ -82,7 +82,8 @@
   };
 
   $: {
-    // When either 'max' pref changes, reset the clock
+    // Reset when any of these prefs change
+    $uppercaseAllowed;
     $maxSeconds;
     $maxWords;
     reset();
