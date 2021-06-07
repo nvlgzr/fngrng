@@ -67,6 +67,18 @@ timeLimitModeEnabled.subscribe(value => {
   localStorage.setItem("timeLimitMode", value)
 })
 
+const storedTimeLimit = localStorage.getItem('timeLimitInSeconds') || 60;
+export const maxSeconds = writable(storedTimeLimit)
+maxSeconds.subscribe(value => {
+  localStorage.setItem("timeLimitInSeconds", value)
+})
+
+const storedWordLimit = localStorage.getItem('wordLimit') || 60;
+export const maxWords = writable(storedWordLimit)
+maxWords.subscribe(value => {
+  localStorage.setItem("wordLimit", value)
+})
+
 const storedWordScrollingMode = localStorage.getItem("wordScrollingMode") || "true";
 export const wordScrollingModeEnabled = writable(storedWordScrollingMode === "true")
 wordScrollingModeEnabled.subscribe(value => {

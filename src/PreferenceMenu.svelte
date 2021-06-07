@@ -5,14 +5,11 @@
     fullSentenceModeEnabled,
     wordScrollingModeEnabled,
     timeLimitModeEnabled,
-    punctuationToInclude,
-  } from "./persistentStore";
-  import {
-    gameState,
     maxSeconds,
     maxWords,
-    secondsSinceStart,
-  } from "./volatileStore.js";
+    punctuationToInclude,
+  } from "./persistentStore";
+  import { gameState, secondsSinceStart } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 

@@ -11,6 +11,7 @@
     prefsOpen,
     fullSentenceModeEnabled,
     timeLimitModeEnabled,
+    maxWords,
     wordScrollingModeEnabled,
     punctuationToInclude,
   } from "./persistentStore.js";
@@ -20,7 +21,6 @@
     correctAnswer,
     secondsSinceStart,
     score,
-    maxWords,
     correct,
     errors,
     promptOffset,

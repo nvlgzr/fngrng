@@ -1,6 +1,6 @@
 import { derived, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
-import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, punctuationToInclude } from "./persistentStore.js"
+import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, maxSeconds, maxWords, punctuationToInclude } from "./persistentStore.js"
 
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
@@ -123,9 +123,6 @@ export const wordLists = writable({
 export const correctAnswer = writable("")
 
 export const secondsSinceStart = writable(0)
-
-export const maxSeconds = writable(60)
-export const maxWords = writable(50)
 
 export const score = writable(0)
 export const correct = writable(0)
