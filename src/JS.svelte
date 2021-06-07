@@ -52,7 +52,7 @@
     var discardButton = document.querySelector(".discardButton");
     var openUIButton = document.querySelector(".openUIButton");
     var customUIKeyInput = document.querySelector("#customUIKeyInput");
-    var shiftDown = false; // tracks whether the shift key is currently being pushed
+    // What happens when we push these into stores? Any movement then???
     var fullSentenceMode = false; // if true, all prompts will be replace with sentences
     var deleteLatestWord = false; // if true, delete last word typed. Set to true whenever a word is finished
     var lineIndex = 0; // tracks which line of the prompt we are currently on
@@ -184,7 +184,6 @@
     }
 
     wordScrollingModeButton.addEventListener("click", () => {
-      $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
       toggleWordScrollingModeUI();
       reset();
     });
@@ -381,10 +380,6 @@
         if (k.id) {
           let keyCode = k.id.toString().replace("custom", "");
           keyCode = keyCode.toString().replace("shift", "");
-
-          if (!shiftDown) {
-            $layoutMaps[$currentLayout][keyCode] = e.key;
-          }
 
           $layoutMaps[$currentLayout].shiftLayer[keyCode] = e.key.toUpperCase();
         }
