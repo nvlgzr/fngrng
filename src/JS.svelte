@@ -642,7 +642,7 @@
 
       // check if answer is correct and apply the correct styling.
       // Also increment 'errors' or 'correct'
-      if (checkAnswerToIndex()) {
+      if (checkAnswerToIndex(input.value, $correctAnswer)) {
         input.style.color = "black";
         // no points awarded for backspace
         if (e.keyCode != 8) {
@@ -687,12 +687,9 @@
     }); // end input key listner
 
     // returns true if the letters typed SO FAR are correct
-    function checkAnswerToIndex() {
-      // user input
-      let inputVal = input.value;
-
+    function checkAnswerToIndex(inputVal, correctAnswer) {
       return (
-        inputVal.slice(0, $letterIndex) == $correctAnswer.slice(0, $letterIndex)
+        inputVal.slice(0, $letterIndex) == correctAnswer.slice(0, $letterIndex)
       );
     }
 
