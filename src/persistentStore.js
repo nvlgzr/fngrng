@@ -49,10 +49,10 @@ prefsOpen.subscribe(value => {
   localStorage.setItem("preferenceMenuOpen", value)
 })
 
-const storedLowercaseOnly = localStorage.getItem("onlyLower") || "true";
-export const lowercaseOnly = writable(storedLowercaseOnly === "true")
-lowercaseOnly.subscribe(value => {
-  localStorage.setItem("onlyLower", value)
+const storedUppercaseAllowed = localStorage.getItem("uppercaseAllowed") || "false";
+export const uppercaseAllowed = writable(storedUppercaseAllowed === "true")
+uppercaseAllowed.subscribe(value => {
+  localStorage.setItem("uppercaseAllowed", value)
 })
 
 const storedFullSentenceMode = localStorage.getItem("fullSentenceModeEnabled");

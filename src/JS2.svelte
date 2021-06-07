@@ -8,7 +8,7 @@
     currentLevel,
     levelDictionaries,
     levelDictionary,
-    lowercaseOnly,
+    uppercaseAllowed,
     punctuationToInclude,
     timeLimitModeEnabled,
   } from "./persistentStore.js";
@@ -88,7 +88,7 @@
         // if the word does not contain any required letters, throw it out and choose again
         if (!contains(wordToAdd, requiredLetters)) {
           // console.log(wordToAdd + ' doesnt have any required letters from ' + requiredLetters);
-        } else if ($lowercaseOnly && containsUpperCase(wordToAdd)) {
+        } else if (!$uppercaseAllowed && containsUpperCase(wordToAdd)) {
           // if only lower case is allowed and the word to add contains an uppercase,
           // throw out the word and try again
         } else {

@@ -1,7 +1,7 @@
 <script>
   import {
     prefsOpen,
-    lowercaseOnly,
+    uppercaseAllowed,
     fullSentenceModeEnabled,
     wordScrollingModeEnabled,
     timeLimitModeEnabled,
@@ -48,8 +48,8 @@
   $: prefs = [
     {
       display: "Capital Letters Allowed",
-      value: $lowercaseOnly,
-      handler: (e) => ($lowercaseOnly = e.target.checked),
+      value: $uppercaseAllowed,
+      handler: (e) => ($uppercaseAllowed = e.target.checked),
       class: "capitalLettersAllowed",
     },
     {
