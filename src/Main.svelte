@@ -82,6 +82,10 @@
       promptWords = { ...promptWords, userText: userIn };
     }
   };
+
+  $: oldstartTrial = (e) => {
+    $gameState = "on";
+  };
 </script>
 
 <section id="main">
@@ -124,7 +128,7 @@
     </div>
     <button id="oldresetButton" class="oldnoDisplay">Reset</button>
     <input
-      on:input={startTrial}
+      on:keydown={oldstartTrial}
       id="olduserInput"
       type="paragraph"
       spellcheck="false"
