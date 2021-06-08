@@ -5,30 +5,30 @@
   } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
+  import { prepModel, prepView } from "./pureFunctions";
   import { gameState, deleteLatestWord, promptLines } from "./volatileStore.js";
 
   let userText = "";
 
-  const handleInputChange = (input, promptArray) => {
-    if ($wordScrollingModeEnabled) {
-      return processForWordScrollingMode(input, promptArray[0]);
-    } else {
-      return processForLineByLineMode(input, promptArray[0]);
+  let promptWords = {};
+  let viewSpec = {
+    errorDetected: false,
+    lines: [],
+  };
+
+  // $: console.log("🎑viewSpec", JSON.stringify(viewSpec));
+
+  $: if ($gameState === "ready") {
+    if ($promptLines.length) {
+      promptWords = prepModel($promptLines);
+      viewSpec = prepView("", promptWords);
     }
-  };
+  }
 
-  const processForWordScrollingMode = (input, currentLine) => {
-    return input;
-  };
-  const processForLineByLineMode = (input, currentLine) => {
-    return input;
-  };
-
-  $: startTrial = (e) => {
+  const startTrial = (e) => {
     $gameState = "on";
 
-    // e.preventDefault();
-    userText = handleInputChange(e.target.value, $promptLines);
+    viewSpec = prepView(e.target.value, promptWords);
   };
 </script>
 
@@ -43,14 +43,15 @@
           ? ''
           : 'paragraph'} {$deleteLatestWord ? '' : 'smoothScroll'}"
       >
-        {#each $promptLines as line, i}
+        {#each viewSpec.lines as line, i}
           <span class="line">
             {#each line as word, j}
-              <span id={`id${i + j}`} class="word">
-                {#each word as char, k}
-                  {char}
+              <span>
+                {#each word as comp, k}
+                  <span style="color:{comp.color}">{comp.char}</span>
                 {/each}
-              </span>&nbsp;
+                <span comment="ensures gap between words" />
+              </span>
             {/each}
           </span>
         {/each}
@@ -60,6 +61,7 @@
     <input
       on:input={startTrial}
       value={userText}
+      style={viewSpec.errorDetected ? "color: red" : ""}
       id="userInput"
       type="paragraph"
       spellcheck="false"
@@ -70,12 +72,7 @@
       <h2 class="oldnoDisplay oldprompt" />
     </div>
     <button id="oldresetButton" class="oldnoDisplay">Reset</button>
-    <input
-      on:keydown={startTrial}
-      id="olduserInput"
-      type="paragraph"
-      spellcheck="false"
-    />
+    <input id="olduserInput" type="paragraph" spellcheck="false" />
     <ScoreBoard />
   </div>
   <CheatSheet />

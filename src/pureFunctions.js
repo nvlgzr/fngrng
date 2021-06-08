@@ -40,3 +40,73 @@ export function generateList(lettersToInclude, requiredLetters) {
 
   return wordList;
 }
+
+const uniformColor = (word, color) => {
+  return [...word].map((char) => {
+    return {
+      char: char,
+      color: color,
+    };
+  });
+};
+
+const checkAttempt = (attempt, challenge) => {
+  return challenge.split("").reduce(
+    (acc, curr, i) => {
+      const userChar = attempt[i];
+      const match = userChar === curr;
+      const attempted = userChar !== undefined;
+      const errorDetected = acc.errorDetected || (attempted && !match);
+
+      let color;
+
+      if (!attempted) {
+        color = "";
+      } else {
+        color = match ? "green" : "red";
+      }
+
+      return {
+        errorDetected: errorDetected,
+        comps: [
+          ...acc.comps,
+          {
+            char: curr,
+            user: userChar,
+            color: color,
+          },
+        ],
+      };
+    },
+    { errorDetected: false, comps: [] }
+  );
+};
+
+export const prepModel = (promptLines) => {
+  const [firstLine, ...remainingLines] = promptLines;
+  const [firstWord, ...restOfLine] = firstLine;
+
+  return {
+    hidden: ['test', 'hidden'],
+    locked: ['test', 'green'],
+    challenge: firstWord,
+    restOfLine: restOfLine,
+    remainingLines: remainingLines,
+  };
+};
+
+export const prepView = (userInput, wordModel) => {
+  const locked = wordModel.locked.map(word => uniformColor(word, 'green'))
+  const { errorDetected, comps } = checkAttempt(userInput, wordModel.challenge)
+  const rest = wordModel.restOfLine.map(word => uniformColor(word, ""))
+  const otherLines = wordModel.remainingLines.map(line => line.map(word => uniformColor(word, "")))
+
+  let view = {
+    errorDetected: errorDetected,
+    lines: [
+      [...locked, [...comps], ...rest],
+      ...otherLines
+    ]
+  }
+  return view
+}
