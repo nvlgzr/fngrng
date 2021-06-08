@@ -8,8 +8,7 @@
   import { prepModel, prepView } from "./pureFunctions";
   import { gameState, deleteLatestWord, promptLines } from "./volatileStore.js";
 
-  let userText = "";
-
+  $: userText = promptWords.userText;
   let promptWords = {};
   let viewSpec = {
     errorDetected: false,
@@ -28,13 +27,65 @@
   const startTrial = (e) => {
     $gameState = "on";
 
-    viewSpec = prepView(e.target.value, promptWords);
+    let challenge = promptWords.challenge;
+    const userIn = e.target.value;
+
+    const isLastWord = !(
+      promptWords.restOfLine.length || promptWords.remainingLines.length
+    );
+
+    const isCorrect = isLastWord
+      ? challenge === userIn
+      : `${challenge} ` === userIn;
+
+    if (isCorrect) {
+      let hidden = promptWords.hidden;
+      let locked = promptWords.locked;
+      let [firstWord, ...restOfLine] = promptWords.restOfLine;
+      let remainingLines = promptWords.remainingLines;
+
+      if (firstWord) {
+        locked = [...locked, challenge];
+        challenge = firstWord;
+      } else {
+        // If there's no firstWord, then restOfLine is empty!
+        hidden = [...hidden, ...locked, challenge];
+        locked = [];
+        let [firstRemaining, restRemaining] = remainingLines;
+
+        if (!firstRemaining) {
+          // We've run out of words!
+          promptWords = {
+            hidden: [...hidden, ...locked, challenge],
+            userText: "",
+          };
+          viewSpec = { errorDetected: false, lines: [] };
+          $gameState = "over";
+          return;
+        }
+        [firstWord, ...restOfLine] = firstRemaining;
+        remainingLines = restRemaining || [];
+      }
+
+      promptWords = {
+        hidden: hidden,
+        locked: locked,
+        challenge: firstWord,
+        restOfLine: restOfLine,
+        remainingLines: remainingLines,
+        userText: "",
+      };
+
+      viewSpec = prepView("", promptWords);
+    } else {
+      viewSpec = prepView(userIn, promptWords);
+      promptWords = { ...promptWords, userText: userIn };
+    }
   };
 </script>
 
 <section id="main">
   <h1>{$currentLayout} Club</h1>
-  {userText}
 
   <div class="typingArea">
     <div class={$wordScrollingModeEnabled ? "fade" : ""} id="fadeElement">
@@ -72,7 +123,12 @@
       <h2 class="oldnoDisplay oldprompt" />
     </div>
     <button id="oldresetButton" class="oldnoDisplay">Reset</button>
-    <input id="olduserInput" type="paragraph" spellcheck="false" />
+    <input
+      on:input={startTrial}
+      id="olduserInput"
+      type="paragraph"
+      spellcheck="false"
+    />
     <ScoreBoard />
   </div>
   <CheatSheet />

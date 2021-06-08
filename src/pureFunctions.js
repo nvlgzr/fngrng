@@ -83,15 +83,24 @@ const checkAttempt = (attempt, challenge) => {
 };
 
 export const prepModel = (promptLines) => {
-  const [firstLine, ...remainingLines] = promptLines;
+  // Note: Sometimes $promptLines gets an empty string on its own line.
+  //       I'm not gonna track that down right now, and this is not
+  //       some massive array we're talking about here, so I'm using
+  //       the "code golf" solution from this StackOverflow answer
+  //
+  // https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
+  //
+  //       to filter out that little weird blip…for now. ¯\_(ツ)_/¯
+  const [firstLine, ...remainingLines] = promptLines.filter(arr => arr.join() != [""].join());
   const [firstWord, ...restOfLine] = firstLine;
 
   return {
-    hidden: ['test', 'hidden'],
-    locked: ['test', 'green'],
+    hidden: [],// ['test', 'hidden'],
+    locked: [],// ['test', 'green'],
     challenge: firstWord,
     restOfLine: restOfLine,
-    remainingLines: remainingLines,
+    remainingLines: remainingLines.filter(line => line !== [""]),
+    userText: ""
   };
 };
 
