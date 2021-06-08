@@ -6,7 +6,12 @@
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
   import { prepModel, prepView } from "./pureFunctions";
-  import { gameState, deleteLatestWord, promptLines } from "./volatileStore.js";
+  import {
+    gameState,
+    scoreBoard,
+    deleteLatestWord,
+    promptLines,
+  } from "./volatileStore.js";
 
   $: userText = promptWords.userText;
   let promptWords = {};
@@ -133,7 +138,7 @@
       type="paragraph"
       spellcheck="false"
     />
-    <ScoreBoard />
+    <ScoreBoard model={$scoreBoard} />
   </div>
   <CheatSheet />
   <div class="bottomText">

@@ -1,24 +1,22 @@
 <script>
-  import { score, scoreBoard } from "./volatileStore.js";
+  export let model;
 </script>
 
 <div class="scoreAndClock">
-  {#if $scoreBoard.showScore}
-    <span class="scoreText">{$scoreBoard.score}/{$scoreBoard.maxScore}</span>
+  {#if model.showScore}
+    <span class="scoreText">{model.score}/{model.maxScore}</span>
   {/if}
-  <span class="timeText">{$scoreBoard.minutes}m {$scoreBoard.seconds}s</span>
+  <span class="timeText">{model.minutes}m {model.seconds}s</span>
 </div>
 
 <div class="testResults">
-  {#if $scoreBoard.results.ready > 0}
-    <div>Accuracy: {$scoreBoard.results.accuracy}</div>
+  {#if model.results.ready > 0}
+    <div>Accuracy: {model.results.accuracy}</div>
     <!-- If Word Limit is set to 1, it's possible to complete a game -->
     <!-- in under 1 second, resulting in x/0 → Infinity for WPM, -->
     <!-- hence "Not enough data"-->
     <div>
-      WPM: {isFinite($scoreBoard.results.wpm)
-        ? $scoreBoard.results.wpm
-        : "Not enough data"}
+      WPM: {isFinite(model.results.wpm) ? model.results.wpm : "Not enough data"}
     </div>
   {/if}
 </div>
