@@ -5,7 +5,12 @@
   } from "./persistentStore.js";
   import CheatSheet from "./CheatSheet.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import { gameState, deleteLatestWord, promptLines } from "./volatileStore.js";
+  import {
+    gameState,
+    scoreBoard,
+    deleteLatestWord,
+    promptLines,
+  } from "./volatileStore.js";
 
   let userText = "";
 
@@ -67,7 +72,7 @@
       type="text"
       spellcheck="false"
     />
-    <ScoreBoard />
+    <ScoreBoard model={$scoreBoard} />
   </div>
   <div class="oldtypingArea">
     <div class="oldfade" id="oldfadeElement">
@@ -80,7 +85,7 @@
       type="text"
       spellcheck="false"
     />
-    <ScoreBoard />
+    <ScoreBoard model={$scoreBoard} />
   </div>
   <CheatSheet />
   <div class="bottomText">
