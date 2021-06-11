@@ -140,6 +140,8 @@ export const thresholdExceeded = derived(
   }
 )
 
+export const userText = writable("")
+
 export const scoreBoard = derived(
   [score, secondsSinceStart, maxSeconds, maxWords, timeLimitModeEnabled, correct, errors],
   ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $timeLimitModeEnabled, $correct, $errors]) => {
