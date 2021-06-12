@@ -1,5 +1,13 @@
 <script>
-  export let model;
+  export let model = {
+    showScore: false,
+    score: 0,
+    minutes: 0,
+    results: {
+      accuracy: 0,
+      wpm: 0,
+    },
+  };
 </script>
 
 <div class="scoreAndClock">

@@ -2,26 +2,10 @@
   import ResetButton from "./ResetButton.svelte";
   import ScrollingPrompt from "./ScrollingPrompt.svelte";
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
+  import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
   import { wordScrollingModeEnabled } from "./persistentStore.js";
-  import {
-    gameState,
-    promptLines,
-    userText,
-    scoreBoard,
-  } from "./volatileStore.js";
-
-  const handleInputChange = (input, promptArray) => {
-    // NYI
-    return input;
-  };
-
-  $: console.log(JSON.stringify($userText));
-
-  $: startTrial = (e) => {
-    $gameState = "on";
-    $userText = handleInputChange(e.target.value, $promptLines);
-  };
+  import { gameState } from "./volatileStore.js";
 </script>
 
 <div>
@@ -32,14 +16,8 @@
   {:else}
     <LineByLinePrompt />
   {/if}
-  <input
-    on:input={startTrial}
-    value={$userText}
-    id="userInput"
-    type="text"
-    spellcheck="false"
-  />
-  <ScoreBoard model={$scoreBoard} />
+  <UserInput />
+  <ScoreBoard />
 </div>
 
 <style>

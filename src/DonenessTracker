@@ -1,0 +1,16 @@
+App.svelte ✅
+  TopNav.svelte
+    PreferenceMenu.svelte
+  LevelSelect.svelte
+  CustomInput.svelte
+    CustomLayout.svelte
+  Main.svelte ✅
+    GameZone.svelte ✅
+      ResetButton.svelte
+      ScrollingPrompt.svelte
+      LineByLinePrompt.svelte
+      ScoreBoard.svelte
+    CheatSheet.svelte
+      KeyboardDivs.svelte
+    BottomText.svelte ✅
+  MappingToggle.svelte

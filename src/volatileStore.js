@@ -5,7 +5,7 @@ import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, maxSeco
 // Game begins when user starts typing in input
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
 
-///////////////// ↓ OLD STUFF TO IGNORE FOR NOW //////////////////////
+/// ↓ ///
 
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
@@ -112,9 +112,6 @@ export const configuredRows = derived(
     return levelled
   });
 
-// Game begins when user starts typing in input
-export const oldgameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
-
 export const wordLists = writable({
   lvl1: [],
   lvl2: [],
@@ -128,57 +125,11 @@ export const wordLists = writable({
 export const deleteLatestWord = writable(0) // Set to true whenever a word is finished
 export const promptLines = writable([])
 
-export const correctAnswer = writable("")
-
 export const secondsSinceStart = writable(0)
-
-export const score = writable(0)
-export const correct = writable(0)
-export const errors = writable(0)
-
-export const thresholdExceeded = derived(
-  [timeLimitModeEnabled, secondsSinceStart, maxSeconds, score, maxWords],
-  ([$timeLimitModeEnabled, $secondsSinceStart, $maxSeconds, $score, $maxWords]) => {
-    return $timeLimitModeEnabled
-      ? $secondsSinceStart >= $maxSeconds
-      : $score >= $maxWords
-  }
-)
 
 export const userText = writable("")
 
-export const scoreBoard = derived(
-  [score, secondsSinceStart, maxSeconds, maxWords, timeLimitModeEnabled, correct, errors],
-  ([$score, $secondsSinceStart, $maxSeconds, $maxWords, $timeLimitModeEnabled, $correct, $errors]) => {
-
-    const wpm = (($correct + $errors) / 5 / ($secondsSinceStart / 60)).toFixed(2)
-    const accuracy = `${((100 * $correct) / ($correct + $errors)).toFixed(2)}%`;
-
-    const results = {
-      ready: $timeLimitModeEnabled
-        ? $secondsSinceStart >= $maxSeconds
-        : $score >= $maxWords,
-      accuracy: accuracy,
-      wpm: wpm,
-    }
-
-    const secondsAdjustedForDirection = $timeLimitModeEnabled ? $maxSeconds - $secondsSinceStart : $secondsSinceStart
-
-    return {
-      minutes: Math.floor(secondsAdjustedForDirection / 60),
-      seconds: secondsAdjustedForDirection % 60,
-      score: $score,
-      maxScore: $maxWords,
-      currentScore: $score,
-      showScore: !$timeLimitModeEnabled,
-      results: results
-    }
-  }
-)
-
-export const promptOffset = writable(0)
-export const sentenceStartIndex = writable(-1) // keeps track of where we are in full sentence mode
+export const sentenceStartIndex = writable(-1) // keeps track of where we are in full sentence mod
 // Keeps track of where in a word the user is
 // Increment with every keystroke except ' ', return, and backspace
 // Decrement for backspace, and reset for the other 2
-export const letterIndex = writable(0)
