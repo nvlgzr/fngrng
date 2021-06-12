@@ -11,17 +11,6 @@
   let userText = "";
 
   const handleInputChange = (input, promptArray) => {
-    if ($wordScrollingModeEnabled) {
-      return processForWordScrollingMode(input, promptArray[0]);
-    } else {
-      return processForLineByLineMode(input, promptArray[0]);
-    }
-  };
-
-  const processForWordScrollingMode = (input, currentLine) => {
-    return input;
-  };
-  const processForLineByLineMode = (input, currentLine) => {
     return input;
   };
 
