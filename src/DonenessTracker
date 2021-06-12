@@ -6,10 +6,12 @@ App.svelte ☑️
     CustomLayout.svelte
   Main.svelte ☑️
     GameZone.svelte ☑️
-      ResetButton.svelte ✅
+      ResetButton.svelte ☑️
       ScrollingPrompt.svelte
       LineByLinePrompt.svelte
-      ScoreBoard.svelte 🔜
+      UserInput.svelte
+      ScoreBoard.svelte 🟡
+        Clock.svelte ✅
     CheatSheet.svelte
       KeyboardDivs.svelte
     BottomText.svelte ☑️

@@ -4,8 +4,18 @@
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
   import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import { wordScrollingModeEnabled } from "./persistentStore.js";
-  import { gameState } from "./volatileStore.js";
+  import {
+    wordScrollingModeEnabled,
+    timeLimitModeEnabled,
+    maxSeconds,
+  } from "./persistentStore.js";
+  import { gameState, secondsSinceStart } from "./volatileStore.js";
+
+  // $: console.log("$gameState", $gameState);
+
+  $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
+    $gameState = "over";
+  }
 </script>
 
 <div>

@@ -1,4 +1,6 @@
 <script>
+  import Clock from "./Clock.svelte";
+
   export let model = {
     showScore: false,
     score: 0,
@@ -14,7 +16,7 @@
   {#if model.showScore}
     <span class="scoreText">{model.score}/{model.maxScore}</span>
   {/if}
-  <span class="timeText">{model.minutes}m {model.seconds}s</span>
+  <Clock />
 </div>
 
 <div class="testResults">

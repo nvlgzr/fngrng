@@ -1,10 +1,35 @@
-import { derived, writable } from "svelte/store";
+import { derived, readable, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
-import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, maxSeconds, maxWords, punctuationToInclude } from "./persistentStore.js"
+import { levelDictionary, currentLevel, layoutMap, punctuationToInclude } from "./persistentStore.js"
 
 // Game begins when user starts typing in input
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
 
+const time = readable(new Date(), function start(set) {
+  const interval = setInterval(() => {
+    set(new Date());
+  }, 1000);
+
+  return function stop() {
+    clearInterval(interval);
+  };
+});
+
+let startTime = new Date();
+export const secondsSinceStart = derived(
+  [time, gameState],
+  ([$time, $gameState], set) => {
+    if ($gameState === "ready") {
+      startTime = $time;
+      set(0);
+    } else if ($gameState === "on") {
+      const milliSecsElapsed = $time - startTime;
+      set(Math.floor(milliSecsElapsed / 1000));
+    }
+    // Freeze, i.e. do nothing, on game over
+  },
+  0
+);
 /// ↓ ///
 
 // Level 1 → ["arstneio"]
@@ -124,8 +149,6 @@ export const wordLists = writable({
 
 export const deleteLatestWord = writable(0) // Set to true whenever a word is finished
 export const promptLines = writable([])
-
-export const secondsSinceStart = writable(0)
 
 export const userText = writable("")
 

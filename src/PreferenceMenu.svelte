@@ -9,11 +9,7 @@
     maxWords,
     punctuationToInclude,
   } from "./persistentStore";
-  import {
-    gameState,
-    promptLines,
-    secondsSinceStart,
-  } from "./volatileStore.js";
+  import { gameState } from "./volatileStore.js";
 
   $: openPrefs = $prefsOpen;
 
@@ -82,12 +78,15 @@
   $: reset = () => {
     $gameState = "get set";
     $gameState = "ready";
-    $secondsSinceStart = 0;
   };
 
   $: {
     // Reset when any of these prefs change
     $uppercaseAllowed;
+    $punctuationToInclude;
+    $wordScrollingModeEnabled;
+    $fullSentenceModeEnabled;
+    $timeLimitModeEnabled;
     $maxSeconds;
     $maxWords;
     reset();

@@ -1,0 +1,19 @@
+<script>
+  import { secondsSinceStart } from "./volatileStore.js";
+  import { timeLimitModeEnabled, maxSeconds } from "./persistentStore.js";
+
+  $: secondsAdjustedForDirection = $timeLimitModeEnabled
+    ? $maxSeconds - $secondsSinceStart
+    : $secondsSinceStart;
+
+  $: minutes = Math.floor(secondsAdjustedForDirection / 60);
+  $: seconds = secondsAdjustedForDirection % 60;
+</script>
+
+<span>{minutes}m {seconds}s</span>
+
+<style>
+  span {
+    font-family: "Verdana", sans-serif;
+  }
+</style>
