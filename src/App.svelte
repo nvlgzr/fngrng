@@ -4,8 +4,7 @@
   import CustomInput from "./CustomInput.svelte";
   import Main from "./Main.svelte";
   import MappingToggle from "./MappingToggle.svelte";
-  import Foo from "./JS.svelte";
-
+  import OldJS from "./JS.svelte";
 </script>
 
 <TopNav />
@@ -14,4 +13,4 @@
 <Main />
 <MappingToggle />
 
-<Foo />
+<OldJS />
