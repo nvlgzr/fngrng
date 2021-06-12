@@ -1,7 +1,8 @@
 <script>
+  import { gameState } from "./volatileStore";
 </script>
 
-<button class="noDisplay">Reset</button>
+<button on:click={() => ($gameState = "ready")}>Reset</button>
 
 <style>
   button {
