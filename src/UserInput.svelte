@@ -1,20 +1,18 @@
 <script>
-  import { gameState, promptLines, userText } from "./volatileStore.js";
+  import { gameState, userText } from "./volatileStore.js";
 
-  const handleInputChange = (input, promptArray) => {
-    // NYI
-    return input;
-  };
+  export let color = "black";
 
-  $: startTrial = (e) => {
+  $: startTrial = ({ target: { value } }) => {
     $gameState = "on";
-    $userText = handleInputChange(e.target.value, $promptLines);
+    $userText = value;
   };
 </script>
 
 <input
   on:input={startTrial}
   value={$userText}
+  style={`color:${color};`}
   id="userInput"
   type="text"
   spellcheck="false"

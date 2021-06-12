@@ -1,25 +1,24 @@
-App.svelte ☑️
+App.svelte ✅
   TopNav.svelte
     PreferenceMenu.svelte
   LevelSelect.svelte
   CustomInput.svelte
     CustomLayout.svelte
-  Main.svelte ☑️
-    GameZone.svelte ☑️
-      ResetButton.svelte ☑️
+  Main.svelte ✅
+    GameZone.svelte 🟡
+      ResetButton.svelte ✅
       ScrollingPrompt.svelte
       LineByLinePrompt.svelte
-      UserInput.svelte
-      ScoreBoard.svelte 🟡
+      UserInput.svelte ✅
+      ScoreBoard.svelte 🔜
         Clock.svelte ✅
     CheatSheet.svelte
       KeyboardDivs.svelte
-    BottomText.svelte ☑️
+    BottomText.svelte ✅
   MappingToggle.svelte
 
 
 LEGEND
-☑️ Done in previous commit
-✅ Done in this commit
+✅ Done
 🟡 Partially done this commit
 🔜 Plan to work on next
