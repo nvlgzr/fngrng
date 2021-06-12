@@ -16,7 +16,7 @@
     punctuationToInclude,
   } from "./persistentStore.js";
   import {
-    gameState,
+    oldgameState,
     deleteLatestWord,
     promptLines,
     thresholdExceeded,
@@ -35,8 +35,8 @@
   let endGame;
   let reset;
 
-  $: if ($gameState === "over") endGame();
-  $: if (reset && $gameState === "ready") {
+  $: if ($oldgameState === "over") endGame();
+  $: if (reset && $oldgameState === "ready") {
     reset();
   }
 
@@ -130,10 +130,10 @@
 
     // makes the clock tic
     setInterval(() => {
-      if ($gameState == "on") {
+      if ($oldgameState == "on") {
         $secondsSinceStart++;
         if ($thresholdExceeded) {
-          $gameState = "over";
+          $oldgameState = "over";
         }
       }
     }, 1000);
@@ -550,7 +550,7 @@
 
       // prevent default char from being typed and replace new char from keyboard map
       if ($keyRemapping) {
-        if (char in $layoutMap && $gameState === "on") {
+        if (char in $layoutMap && $oldgameState === "on") {
           if (!e.shiftKey) {
             input.value += $layoutMap[char];
           } else {
@@ -593,13 +593,13 @@
         !$timeLimitModeEnabled &&
         $score == $maxWords - 1 &&
         checkAnswer() &&
-        $gameState === "on"
+        $oldgameState === "on"
       ) {
-        $gameState = "over";
+        $oldgameState = "over";
       }
 
       if (e.keyCode === 13 || e.keyCode === 32) {
-        if (checkAnswer() && $gameState) {
+        if (checkAnswer() && $oldgameState) {
           // stops a ' ' character from being put in the input bar
           // it wouldn't appear until after this function, and would
           // still be there when the user goes to type the next word
@@ -717,7 +717,7 @@
     function switchLevel(lev) {
       $currentLevel = lev;
       // stop timer
-      $gameState = "ready";
+      $oldgameState = "ready";
 
       if (lev == 8) {
         fullSentenceMode = true;
@@ -748,7 +748,7 @@
       answerWordArray = [];
       idCount = 0;
       $sentenceStartIndex = -1;
-      $gameState = "ready";
+      $oldgameState = "ready";
       $letterIndex = 0;
       wordIndex = 0;
       lineIndex = 0;

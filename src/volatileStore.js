@@ -2,6 +2,11 @@ import { derived, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
 import { levelDictionary, currentLevel, layoutMap, timeLimitModeEnabled, maxSeconds, maxWords, punctuationToInclude } from "./persistentStore.js"
 
+// Game begins when user starts typing in input
+export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
+
+///////////////// ↓ OLD STUFF TO IGNORE FOR NOW //////////////////////
+
 // Level 1 → ["arstneio"]
 // Level 2 → ["arstneio", "pgjl"]
 // Level 3 → ["arstneio", "dh", "pgjl"]
@@ -108,7 +113,7 @@ export const configuredRows = derived(
   });
 
 // Game begins when user starts typing in input
-export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
+export const oldgameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
 
 export const wordLists = writable({
   lvl1: [],
