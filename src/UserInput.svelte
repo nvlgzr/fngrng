@@ -31,6 +31,10 @@
     $userText = value;
   };
 
+  $: if ($gameState !== "on") {
+    $userText = "";
+  }
+
   const maybeCountKeyPress = ({ keyCode }) => {
     if ($gameState === "ready") {
       $totalKeyPresses = 0;
