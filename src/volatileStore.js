@@ -19,14 +19,13 @@ let startTime = new Date();
 export const secondsSinceStart = derived(
   [time, gameState],
   ([$time, $gameState], set) => {
-    if ($gameState === "ready") {
-      startTime = $time;
-      set(0);
-    } else if ($gameState === "on") {
+    if ($gameState === "on") {
       const milliSecsElapsed = $time - startTime;
       set(Math.floor(milliSecsElapsed / 1000));
+    } else {
+      startTime = $time;
+      set(0);
     }
-    // Freeze, i.e. do nothing, on game over
   },
   0
 );
