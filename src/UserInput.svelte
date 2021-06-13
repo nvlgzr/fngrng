@@ -24,25 +24,75 @@
     224, // meta (e.g., ⌘)
   ];
 
-  export let color = "black";
+  $: color = "black"; // Will be overridden with red when wrong char typed
 
-  $: startTrial = ({ target: { value } }) => {
-    $gameState = "on";
-    $userText = value;
+  $: maybeCountKeyPress = ({ keyCode }) => {
+    switch ($gameState) {
+      case "ready":
+        $totalKeyPresses = 0;
+        $gameState = "on";
+        break;
+
+      case "on":
+        if (!specialKeyCodes.includes(keyCode)) {
+          $totalKeyPresses++;
+        }
+        break;
+
+      case "over":
+        if (keyCode === 13) {
+          // return/enter triggers reset
+          $gameState = "ready";
+        } else {
+          // Let the user's input pass for this runloop, but
+          // clobber it before they get a chance to see it.
+          setTimeout(() => {
+            // See ⚠️ #HackAlert below.
+            $userText = " ";
+            $userText = "";
+          }, 0);
+        }
+        break;
+
+      default:
+        throw new Error(`Impossible gameState: ${$gameState}`);
+    }
+  };
+
+  $: startTrial = (e) => {
+    const target = e.target;
+    const value = target.value;
+    switch ($gameState) {
+      case "ready":
+        break;
+
+      case "on":
+        $userText = value;
+        break;
+
+      case "over":
+        break;
+
+      default:
+        throw new Error(`Impossible gameState: ${$gameState}`);
+    }
   };
 
   $: if ($gameState !== "on") {
+    // ⚠️ #HackAlert
+    // Since we're in a reactive block, Svelte gets "smart" and
+    // ignores changes that _appear_ to be no-ops. What it's not
+    // recognizing is that the user might have typed some text
+    // into the input since $userText was last cleared. Sigh.
+    // So we dirty $userText in order to ensure the empty string
+    // gets set _every_ time. Pretty sure this is simply another
+    // variant of the issue described here:
+    // https://svelte.dev/tutorial/updating-arrays-and-objects
+    $userText = " ";
     $userText = "";
   }
 
-  const maybeCountKeyPress = ({ keyCode }) => {
-    if ($gameState === "ready") {
-      $totalKeyPresses = 0;
-    }
-    if (!specialKeyCodes.includes(keyCode)) {
-      $totalKeyPresses++;
-    }
-  };
+  $: placeholder = $gameState === "over" ? "Press enter to reset" : "";
 </script>
 
 <input
@@ -50,7 +100,6 @@
   on:keydown={maybeCountKeyPress}
   value={$userText}
   style={`color:${color};`}
-  id="userInput"
-  type="text"
+  {placeholder}
   spellcheck="false"
 />

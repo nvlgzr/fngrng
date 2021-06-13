@@ -26,7 +26,7 @@
   {:else}
     <LineByLinePrompt />
   {/if}
-  <UserInput color={$gameState === "on" ? "black" : "wheat"} />
+  <UserInput />
   <ScoreBoard />
 </div>
 
