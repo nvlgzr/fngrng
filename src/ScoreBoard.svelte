@@ -1,34 +1,19 @@
 <script>
   import Clock from "./Clock.svelte";
+  import WordScore from "./WordScore.svelte";
+  import Results from "./Results.svelte";
+  import { baseModel } from "./volatileStore.js";
 
-  export let model = {
-    showScore: false,
-    score: 0,
-    minutes: 0,
-    results: {
-      accuracy: 0,
-      wpm: 0,
-    },
-  };
+  $: acceptedWords = [...$baseModel.hidden, ...$baseModel.locked];
 </script>
 
 <div class="scoreAndClock">
-  {#if model.showScore}
-    <span class="scoreText">{model.score}/{model.maxScore}</span>
-  {/if}
+  <WordScore {acceptedWords} />
   <Clock />
 </div>
 
 <div class="testResults">
-  {#if model.results.ready > 0}
-    <div>Accuracy: {model.results.accuracy}</div>
-    <!-- If Word Limit is set to 1, it's possible to complete a game -->
-    <!-- in under 1 second, resulting in x/0 → Infinity for WPM, -->
-    <!-- hence "Not enough data"-->
-    <div>
-      WPM: {isFinite(model.results.wpm) ? model.results.wpm : "Not enough data"}
-    </div>
-  {/if}
+  <Results {acceptedWords} />
 </div>
 
 <style>
@@ -39,11 +24,6 @@
     -ms-flex-pack: distribute;
     justify-content: space-around;
     font-size: 5vmin;
-  }
-
-  .scoreText,
-  .timeText {
-    font-family: "Verdana", sans-serif;
   }
 
   .testResults {

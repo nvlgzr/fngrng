@@ -30,6 +30,19 @@ export const secondsSinceStart = derived(
   },
   0
 );
+
+const emptyBaseModel = {
+  hidden: [1, 2, 3],
+  locked: [4],
+  challenge: [],
+  restOfLine: [],
+  remainingLines: [],
+}
+
+export const baseModel = writable(emptyBaseModel)
+
+export const totalKeyPresses = writable(0)
+
 /// ↓ ///
 
 // Level 1 → ["arstneio"]
