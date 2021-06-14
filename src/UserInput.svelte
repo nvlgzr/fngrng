@@ -1,69 +1,9 @@
 <script>
-  import {
-    gameState,
-    userText,
-    totalKeyPresses,
-    baseModel,
-  } from "./volatileStore.js";
+  import { gameState, userText, baseModel } from "./volatileStore.js";
 
+  export let keydownHandler;
   export let failed = false;
   $: color = failed ? "red" : "black";
-
-  // All keycodes for keys we typically want to ignore
-  // (Note: The original list includes 32|space)
-  const specialKeyCodes = [
-    27, // esc
-    9, // tab
-    20, // capslock
-    17, // ctrl
-    18, // alt
-    93, // ]
-    36, // home
-    37, // ←
-    38, // ↑
-    39, // →
-    40, // ↓
-    144, // numlock
-    36, // $
-    8, // backspace
-    16, // shift
-    30, // <can't find a reference for this! 🥴>
-    13, // return/enter
-    224, // meta (e.g., ⌘)
-  ];
-
-  $: maybeCountKeyPress = ({ keyCode }) => {
-    switch ($gameState) {
-      case "ready":
-        $totalKeyPresses = 0;
-        $gameState = "on";
-        break;
-
-      case "on":
-        if (!specialKeyCodes.includes(keyCode)) {
-          $totalKeyPresses++;
-        }
-        break;
-
-      case "over":
-        if (keyCode === 13) {
-          // return/enter triggers reset
-          $gameState = "ready";
-        } else {
-          // Let the user's input pass for this runloop, but
-          // clobber it before they get a chance to see it.
-          setTimeout(() => {
-            // See ⚠️ #HackAlert below.
-            $userText = " ";
-            $userText = "";
-          }, 0);
-        }
-        break;
-
-      default:
-        throw new Error(`Impossible gameState: ${$gameState}`);
-    }
-  };
 
   $: startTrial = (e) => {
     const target = e.target;
@@ -108,7 +48,7 @@
 
 <input
   on:input={startTrial}
-  on:keydown={maybeCountKeyPress}
+  on:keydown={keydownHandler}
   value={$userText}
   style={`color:${color};`}
   {placeholder}

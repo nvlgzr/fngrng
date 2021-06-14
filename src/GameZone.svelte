@@ -4,6 +4,7 @@
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
   import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
+  import { specialKeyCodes } from "./specialKeyCodes.js";
   import {
     wordScrollingModeEnabled,
     timeLimitModeEnabled,
@@ -15,6 +16,7 @@
     emptyBaseModel,
     baseModel,
     userText,
+    totalKeyPresses,
   } from "./volatileStore.js";
 
   $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
@@ -36,6 +38,39 @@
   }
 
   let wrongCharacterTyped = false;
+
+  $: keydownHandler = ({ keyCode }) => {
+    switch ($gameState) {
+      case "ready":
+        $totalKeyPresses = 0;
+        $gameState = "on";
+        break;
+
+      case "on":
+        if (!specialKeyCodes.includes(keyCode)) {
+          $totalKeyPresses++;
+        }
+        break;
+
+      case "over":
+        if (keyCode === 13) {
+          // return/enter triggers reset
+          $gameState = "ready";
+        } else {
+          // Let the user's input pass for this runloop, but
+          // clobber it before they get a chance to see it.
+          setTimeout(() => {
+            // See ⚠️ #HackAlert below.
+            $userText = " ";
+            $userText = "";
+          }, 0);
+        }
+        break;
+
+      default:
+        throw new Error(`Impossible gameState: ${$gameState}`);
+    }
+  };
 
   $: if ($gameState === "on") {
     const goal = $baseModel.challenge;
@@ -75,7 +110,7 @@
   {:else}
     <LineByLinePrompt />
   {/if}
-  <UserInput failed={wrongCharacterTyped} />
+  <UserInput {keydownHandler} failed={wrongCharacterTyped} />
   <ScoreBoard />
 </div>
 
