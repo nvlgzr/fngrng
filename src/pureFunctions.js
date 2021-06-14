@@ -1,5 +1,43 @@
 import { masterList } from "./tenThousandWords.js";
 
+export const objectize = (words) => {
+  return words.map(w => {
+    return [...w].map((char) => {
+      return { char: char };
+    })
+  })
+}
+
+export const colorize = (attempt, challenge) => {
+  return challenge.split("").reduce(
+    (charSpecs, curr, i) => {
+      const userChar = attempt[i];
+      const match = userChar === curr || userChar === curr.char;
+      const attempted = userChar !== undefined;
+
+      let color;
+
+      if (!attempted) {
+        color = "";
+      } else {
+        color = match ? "green" : "red";
+      }
+
+      return [
+        ...charSpecs,
+        {
+          char: curr,
+          user: userChar,
+          color: color,
+        },
+      ]
+    },
+    []
+  )
+}
+
+///////////////////////////// ↓ /////////////////////////////////
+
 // returns the index of the nth occurance of a char or string
 export function getPosition(target, subString, n) {
   return target.split(subString, n).join(subString).length;

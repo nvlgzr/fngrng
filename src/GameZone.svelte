@@ -9,13 +9,62 @@
     timeLimitModeEnabled,
     maxSeconds,
   } from "./persistentStore.js";
-  import { gameState, secondsSinceStart } from "./volatileStore.js";
-
-  // $: console.log("$gameState", $gameState);
+  import {
+    gameState,
+    secondsSinceStart,
+    emptyBaseModel,
+    baseModel,
+    userText,
+  } from "./volatileStore.js";
 
   $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
     $gameState = "over";
+    wrongCharacterTyped = false;
   }
+
+  $: if ($gameState === "ready") {
+    // Temporary word list generator…keeps things simple for now.
+    const phrase = ["the", "shit", "hits", "the", "fan"];
+    const list = JSON.parse(JSON.stringify(Array(5).fill(phrase).flat(1)));
+    const [first, ...rest] = list;
+
+    $baseModel = {
+      ...emptyBaseModel,
+      challenge: first,
+      restOfLine: rest,
+    };
+  }
+
+  let wrongCharacterTyped = false;
+
+  $: if ($gameState === "on") {
+    const goal = $baseModel.challenge;
+    const attempt = $userText.split("");
+    const soFar = matchState(attempt, goal);
+
+    wrongCharacterTyped = soFar === "failed";
+
+    // Whichever prompt is currently live will do the actual advancing
+    if (soFar === "whole word match") {
+      $baseModel = {
+        ...$baseModel,
+        advancePrompt: true,
+        clearInput: true,
+      };
+    }
+  }
+
+  const matchState = (attempt, goal) => {
+    if (!attempt.length) return { prognosis: "attempt not yet made" };
+
+    return attempt.reduce((prognosis, curr, i) => {
+      if (curr === " ") {
+        return prognosis === "good so far" ? "whole word match" : "failed";
+      } else {
+        return goal[i] === curr ? "good so far" : "failed";
+      }
+    }, "unknown");
+  };
 </script>
 
 <div>
@@ -26,7 +75,7 @@
   {:else}
     <LineByLinePrompt />
   {/if}
-  <UserInput />
+  <UserInput failed={wrongCharacterTyped} />
   <ScoreBoard />
 </div>
 

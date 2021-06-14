@@ -1,9 +1,17 @@
 <script>
-  import { gameState, userText, totalKeyPresses } from "./volatileStore.js";
+  import {
+    gameState,
+    userText,
+    totalKeyPresses,
+    baseModel,
+  } from "./volatileStore.js";
+
+  export let failed = false;
+  $: color = failed ? "red" : "black";
 
   // All keycodes for keys we typically want to ignore
   // (Note: The original list includes 32|space)
-  export const specialKeyCodes = [
+  const specialKeyCodes = [
     27, // esc
     9, // tab
     20, // capslock
@@ -23,8 +31,6 @@
     13, // return/enter
     224, // meta (e.g., ⌘)
   ];
-
-  $: color = "black"; // Will be overridden with red when wrong char typed
 
   $: maybeCountKeyPress = ({ keyCode }) => {
     switch ($gameState) {
@@ -78,7 +84,11 @@
     }
   };
 
-  $: if ($gameState !== "on") {
+  $: if (
+    $gameState === "ready" ||
+    $gameState === "over" ||
+    $baseModel.clearInput
+  ) {
     // ⚠️ #HackAlert
     // Since we're in a reactive block, Svelte gets "smart" and
     // ignores changes that _appear_ to be no-ops. What it's not
@@ -90,6 +100,7 @@
     // https://svelte.dev/tutorial/updating-arrays-and-objects
     $userText = " ";
     $userText = "";
+    $baseModel.clearInput = false;
   }
 
   $: placeholder = $gameState === "over" ? "Press enter to reset" : "";

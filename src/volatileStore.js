@@ -30,15 +30,19 @@ export const secondsSinceStart = derived(
   0
 );
 
-const emptyBaseModel = {
-  hidden: [1, 2, 3],
-  locked: [4],
-  challenge: [],
+export const emptyBaseModel = {
+  advancePrompt: false,
+  clearInput: false,
+  hidden: [],
+  locked: [],
+  challenge: "",
   restOfLine: [],
   remainingLines: [],
 }
 
 export const baseModel = writable(emptyBaseModel)
+
+export const userText = writable("")
 
 export const totalKeyPresses = writable(0)
 
@@ -161,8 +165,6 @@ export const wordLists = writable({
 
 export const deleteLatestWord = writable(0) // Set to true whenever a word is finished
 export const promptLines = writable([])
-
-export const userText = writable("")
 
 export const sentenceStartIndex = writable(-1) // keeps track of where we are in full sentence mod
 // Keeps track of where in a word the user is

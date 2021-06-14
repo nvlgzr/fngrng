@@ -1,19 +1,70 @@
 <script>
-  import { deleteLatestWord, promptLines } from "./volatileStore.js";
+  import { gameState, baseModel, userText } from "./volatileStore.js";
+  import SingleWord from "./SingleWord.svelte";
+  import { colorize, objectize } from "./pureFunctions.js";
+
+  let words = [
+    colorize($userText, $baseModel.challenge),
+    ...objectize($baseModel.restOfLine),
+  ];
+
+  let transitioning = false;
+  let firstWordEl;
+  let firstWordOffset = 0;
+
+  $: {
+    if ($gameState === "on") {
+      if ($baseModel.advancePrompt) {
+        advance();
+      } else {
+        words = [
+          colorize($userText, $baseModel.challenge),
+          ...objectize($baseModel.restOfLine),
+        ];
+      }
+    }
+  }
+
+  const advance = () => {
+    const previousChallenge = $baseModel.challenge;
+    const [newChallenge, ...rest] = $baseModel.restOfLine;
+    const previouslyHidden = $baseModel.hidden;
+    if (!newChallenge) {
+      $gameState = "over";
+    }
+    const nextModel = {
+      ...$baseModel,
+      advancePrompt: false,
+      hidden: [...previouslyHidden, previousChallenge],
+      challenge: newChallenge,
+      restOfLine: rest,
+    };
+
+    transitioning = true;
+    firstWordOffset = (firstWordEl && firstWordEl.offsetWidth) || 0;
+    setTimeout(() => {
+      $baseModel = nextModel;
+      transitioning = false;
+      firstWordOffset = 0;
+    }, 120); // 120ms is just slightly longer than 0.1s transition time.
+  };
 </script>
 
 <div class="fade">
-  <h2 class="prompt {$deleteLatestWord ? '' : 'smoothScroll'}">
-    {#each $promptLines as line, i}
-      <span class="line">
-        {#each line as word, j}
-          <span id={`id${i + j}`} class="word">
-            {#each word as char, k}
-              {char}
-            {/each}
-          </span>&nbsp;
-        {/each}
-      </span>
+  <h2
+    class={`prompt ${transitioning ? "scroll" : ""}`}
+    style={`left: ${transitioning ? -firstWordOffset : 0}px`}
+  >
+    {#each words as word, i (word)}
+      {#if i === 0}
+        <span bind:this={firstWordEl} style={transitioning ? "opacity:0" : ""}>
+          <SingleWord {word} />
+        </span>
+      {:else}
+        <span>
+          <SingleWord {word} />
+        </span>
+      {/if}
     {/each}
   </h2>
 </div>
@@ -27,6 +78,10 @@
     );
   }
 
+  h2 {
+    white-space: nowrap;
+  }
+
   .prompt {
     position: relative;
     font-size: 2vmax;
@@ -34,26 +89,11 @@
     letter-spacing: 0.1vmax;
   }
 
-  .smoothScroll {
-    -webkit-transition: left 0.1s linear;
-    -o-transition: left 0.1s linear;
+  .scroll {
+    /*
+    ⚠️ Changing 0.1s? ↓
+    Make sure to also change 120ms in setTimeout! ↑
+    */
     transition: left 0.1s linear;
-  }
-
-  .paragraph {
-    color: grey;
-    word-wrap: break-word;
-    width: 103%;
-    font-size: 2.4vmin;
-    margin: 6.5vmin auto 0 auto;
-  }
-
-  .line {
-    white-space: nowrap;
-  }
-
-  .paragraph .line {
-    margin-left: 1.6vmin;
-    display: block;
   }
 </style>
