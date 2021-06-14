@@ -5,37 +5,13 @@
   import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
   import { specialKeyCodes } from "./specialKeyCodes.js";
-  import {
-    wordScrollingModeEnabled,
-    timeLimitModeEnabled,
-    maxSeconds,
-  } from "./persistentStore.js";
+  import { wordScrollingModeEnabled } from "./persistentStore.js";
   import {
     gameState,
-    secondsSinceStart,
-    emptyBaseModel,
     baseModel,
     userText,
     totalKeyPresses,
   } from "./volatileStore.js";
-
-  $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
-    $gameState = "over";
-    wrongCharacterTyped = false;
-  }
-
-  $: if ($gameState === "ready") {
-    // Temporary word list generator…keeps things simple for now.
-    const phrase = ["the", "shit", "hits", "the", "fan"];
-    const list = JSON.parse(JSON.stringify(Array(5).fill(phrase).flat(1)));
-    const [first, ...rest] = list;
-
-    $baseModel = {
-      ...emptyBaseModel,
-      challenge: first,
-      restOfLine: rest,
-    };
-  }
 
   let wrongCharacterTyped = false;
 
