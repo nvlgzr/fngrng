@@ -2,9 +2,11 @@
   import Clock from "./Clock.svelte";
   import WordScore from "./WordScore.svelte";
   import Results from "./Results.svelte";
-  import { baseModel } from "./volatileStore.js";
+  import { emptyBaseModel } from "./baseModel";
 
-  $: acceptedWords = [...$baseModel.hidden, ...$baseModel.locked];
+  export let baseModel = emptyBaseModel;
+
+  $: acceptedWords = [...baseModel.hidden, ...baseModel.locked];
 </script>
 
 <div class="scoreAndClock">

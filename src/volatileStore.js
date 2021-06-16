@@ -30,18 +30,6 @@ export const secondsSinceStart = derived(
   0
 );
 
-export const emptyBaseModel = {
-  advancePrompt: false,
-  clearInput: false,
-  hidden: [],
-  locked: [],
-  challenge: "",
-  restOfLine: [],
-  remainingLines: [],
-}
-
-export const baseModel = writable(emptyBaseModel)
-
 export const totalKeyPresses = writable(0)
 
 /// ↓ ///

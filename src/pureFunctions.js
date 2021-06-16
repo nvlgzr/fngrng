@@ -1,7 +1,13 @@
 import { masterList } from "./tenThousandWords.js";
 
-export const objectize = (words) => {
-  return words.map(w => {
+export const objectize = (wordOrWords) => {
+  if (typeof wordOrWords === "string")
+    return wordOrWords.split("").map((char => {
+      return { char: char }
+    })
+    )
+
+  return wordOrWords.map(w => {
     return [...w].map((char) => {
       return { char: char };
     })
@@ -9,6 +15,8 @@ export const objectize = (words) => {
 }
 
 export const evaluate = (challenge, attempt) => {
+  console.log(`challenge (${challenge}) attempt (${attempt})`)
+
   if (attempt === challenge + " ") {
     return { overallVerdict: "completed" }
   }

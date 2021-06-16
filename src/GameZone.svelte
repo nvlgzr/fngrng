@@ -12,20 +12,37 @@
   } from "./persistentStore.js";
   import {
     gameState,
-    baseModel,
     secondsSinceStart,
     totalKeyPresses,
   } from "./volatileStore.js";
-  import { evaluate } from "./pureFunctions.js";
+  import { evaluate, objectize } from "./pureFunctions.js";
+  import { emptyBaseModel } from "./baseModel.js";
 
   let userText = "";
   let wrongCharacterTyped = false;
+  let baseModel = emptyBaseModel;
+  let promptUpdater;
 
   $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
     $gameState = "over";
     wrongCharacterTyped = false;
   }
 
+  $: if ($gameState === "ready") {
+    // Temporary word list generator…keeps things simple for now.
+    const phrase = ["the", "shit", "hits", "the", "fan"];
+    const list = JSON.parse(JSON.stringify(Array(5).fill(phrase).flat(1)));
+    const [first, ...rest] = list;
+    const objectized = objectize(first);
+
+    baseModel = {
+      ...emptyBaseModel,
+      challenge: first,
+      coloredChallenge: objectize(first),
+      restOfLine: rest,
+    };
+    promptUpdater && promptUpdater(baseModel);
+  }
   const handleKeydown = ({ detail }) => {
     switch ($gameState) {
       case "ready":
@@ -73,20 +90,41 @@
   };
 
   const handleSymbol = (singleCharacter) => {
-    console.log("🏖", singleCharacter);
-
     const attempt = userText + singleCharacter;
-    const challenge = $baseModel.challenge;
+    const challenge = baseModel.challenge;
     const { overallVerdict, charSpecs } = evaluate(challenge, attempt);
-    console.log("overallVerdict", overallVerdict);
 
     if (overallVerdict === "completed") {
       userText = "";
       // advance()
+      const previousChallenge = baseModel.challenge;
+      const [newChallenge, ...rest] = baseModel.restOfLine;
+      const previouslyHidden = baseModel.hidden;
+      if (!newChallenge) {
+        $gameState = "over";
+      }
+      baseModel = {
+        ...baseModel,
+        hidden: [...previouslyHidden, previousChallenge],
+        challenge: newChallenge,
+        coloredChallenge: objectize(newChallenge),
+        restOfLine: rest,
+      };
     } else {
       wrongCharacterTyped = overallVerdict === "errors";
       userText = userText + singleCharacter;
+      baseModel = {
+        ...baseModel,
+        coloredChallenge: charSpecs,
+      };
     }
+    promptUpdater(baseModel);
+
+    // reduce to {
+    //   overallVerdict: "no errors" | "error" | "completed"
+    //   firstWord: {char: X, color: "green"}
+    //   longestAttempt: ""
+    // }
   };
 
   const handleNonSymbol = (keyPressed) => {
@@ -100,23 +138,6 @@
         break;
     }
   };
-
-  $: if ($gameState === "on") {
-    const goal = $baseModel.challenge;
-    const attempt = userText.split("");
-    const soFar = matchState(attempt, goal);
-
-    wrongCharacterTyped = soFar === "failed";
-
-    // Whichever prompt is currently live will do the actual advancing
-    if (soFar === "whole word match") {
-      $baseModel = {
-        ...$baseModel,
-        advancePrompt: true,
-        clearInput: true,
-      };
-    }
-  }
 
   const matchState = (attempt, goal) => {
     if (!attempt.length) return { prognosis: "attempt not yet made" };
@@ -137,7 +158,7 @@
   {#if $gameState === "over"}
     <ResetButton />
   {:else if $wordScrollingModeEnabled}
-    <ScrollingPrompt {userText} />
+    <ScrollingPrompt bind:updateModel={promptUpdater} />
   {:else}
     <LineByLinePrompt />
   {/if}

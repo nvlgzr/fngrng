@@ -1,55 +1,34 @@
 <script>
-  import { gameState, baseModel } from "./volatileStore.js";
+  import { objectize } from "./pureFunctions";
   import SingleWord from "./SingleWord.svelte";
-  import { colorize, objectize } from "./pureFunctions.js";
+  import { emptyBaseModel } from "./baseModel.js";
 
-  export let userText;
+  export const updateModel = (newModel) => {
+    const advance =
+      baseModel.hidden.length < newModel.hidden.length ||
+      baseModel.challenge !== newModel.challenge;
+    if (advance) {
+      transitioning = true;
+      firstWordOffset = (firstWordEl && firstWordEl.offsetWidth) || 0;
+      setTimeout(() => {
+        baseModel = newModel;
+        transitioning = false;
+        firstWordOffset = 0;
+      }, 120); // 120ms is just slightly longer than 0.1s transition time.
+    } else {
+      baseModel = newModel;
+    }
+  };
 
-  let words = [
-    colorize(userText, $baseModel.challenge),
-    ...objectize($baseModel.restOfLine),
-  ];
+  let baseModel = emptyBaseModel;
+
+  $: line = [baseModel.coloredChallenge, ...objectize(baseModel.restOfLine)];
 
   let transitioning = false;
   let firstWordEl;
   let firstWordOffset = 0;
 
-  $: {
-    if ($gameState === "on") {
-      if ($baseModel.advancePrompt) {
-        advance();
-      } else {
-        words = [
-          colorize(userText, $baseModel.challenge),
-          ...objectize($baseModel.restOfLine),
-        ];
-      }
-    }
-  }
-
-  const advance = () => {
-    const previousChallenge = $baseModel.challenge;
-    const [newChallenge, ...rest] = $baseModel.restOfLine;
-    const previouslyHidden = $baseModel.hidden;
-    if (!newChallenge) {
-      $gameState = "over";
-    }
-    const nextModel = {
-      ...$baseModel,
-      advancePrompt: false,
-      hidden: [...previouslyHidden, previousChallenge],
-      challenge: newChallenge,
-      restOfLine: rest,
-    };
-
-    transitioning = true;
-    firstWordOffset = (firstWordEl && firstWordEl.offsetWidth) || 0;
-    setTimeout(() => {
-      $baseModel = nextModel;
-      transitioning = false;
-      firstWordOffset = 0;
-    }, 120); // 120ms is just slightly longer than 0.1s transition time.
-  };
+  $: console.log("line", line);
 </script>
 
 <div class="fade">
@@ -57,7 +36,9 @@
     class={`prompt ${transitioning ? "scroll" : ""}`}
     style={`left: ${transitioning ? -firstWordOffset : 0}px`}
   >
-    {#each words as word, i (word)}
+    <p>{JSON.stringify(line)}</p>
+
+    {#each line as word, i (word)}
       {#if i === 0}
         <span bind:this={firstWordEl} style={transitioning ? "opacity:0" : ""}>
           <SingleWord {word} />
