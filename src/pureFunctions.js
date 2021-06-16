@@ -8,6 +8,40 @@ export const objectize = (words) => {
   })
 }
 
+export const evaluate = (attempt, challenge) => {
+  if (attempt === challenge + " ") {
+    return { overallVerdict: "completed" }
+  }
+
+  const result = challenge.split("").reduce(
+    ({ overallVerdict, charSpecs }, curr, i) => {
+      const userChar = attempt[i]
+      const match = userChar === curr
+      const attempted = userChar !== undefined
+      console.log('uc m a', userChar, match, attempted)
+
+      let color;
+      if (!attempted) {
+        color = ""
+      } else {
+        color = match ? "green" : "red"
+      }
+
+      let verdict = overallVerdict === "error" ? "error" : "no errors"
+
+      return {
+        overallVerdict: verdict,
+        charSpecs: [
+          ...charSpecs,
+          { char: curr, color: color }
+        ]
+      }
+    },
+    { overallVerdict: "not yet attempted", charSpecs: [] }
+  )
+  return result
+}
+
 export const colorize = (attempt, challenge) => {
   return challenge.split("").reduce(
     (charSpecs, curr, i) => {

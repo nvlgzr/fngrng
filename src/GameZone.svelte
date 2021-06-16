@@ -17,6 +17,7 @@
     secondsSinceStart,
     totalKeyPresses,
   } from "./volatileStore.js";
+  import { evaluate } from "./pureFunctions.js";
 
   let wrongCharacterTyped = false;
 
@@ -71,8 +72,21 @@
     }
   };
 
-  $: handleSymbol = (singleCharacter) => {
+  const handleSymbol = (singleCharacter) => {
     console.log("🏖", singleCharacter);
+
+    const attempt = $userText + singleCharacter;
+    const challenge = $baseModel.challenge;
+    const { overallVerdict, charSpecs } = evaluate(challenge, attempt);
+    console.log("overallVerdict", overallVerdict);
+
+    if (overallVerdict === "completed") {
+      $userText = "";
+      // advance()
+    } else {
+      wrongCharacterTyped = overallVerdict === "errors";
+      $userText = $userText + singleCharacter;
+    }
   };
 
   const handleNonSymbol = (keyPressed) => {
