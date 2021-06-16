@@ -1,4 +1,5 @@
 <script>
+  import Keydown from "svelte-keydown";
   import ResetButton from "./ResetButton.svelte";
   import ScrollingPrompt from "./ScrollingPrompt.svelte";
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
@@ -14,6 +15,10 @@
   } from "./volatileStore.js";
 
   let wrongCharacterTyped = false;
+
+  const handleKeydown = (event) => {
+    console.log(event);
+  };
 
   $: keydownHandler = ({ keyCode }) => {
     switch ($gameState) {
@@ -77,6 +82,8 @@
     }, "unknown");
   };
 </script>
+
+<Keydown on:key={handleKeydown} />
 
 <div>
   {#if $gameState === "over"}
