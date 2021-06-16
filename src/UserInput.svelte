@@ -1,7 +1,6 @@
 <script>
   import { gameState, userText, baseModel } from "./volatileStore.js";
 
-  export let keydownHandler;
   export let failed = false;
   $: color = failed ? "red" : "black";
 
@@ -48,7 +47,7 @@
 
 <input
   on:input={startTrial}
-  on:keydown={keydownHandler}
+  on:keydown={(e) => e.preventDefault()}
   value={$userText}
   style={`color:${color};`}
   {placeholder}

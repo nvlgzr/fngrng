@@ -16,11 +16,32 @@
 
   let wrongCharacterTyped = false;
 
-  const handleKeydown = (event) => {
-    console.log(event);
+  const handleKeydown = ({ detail }) => {
+    if (detail.length > 1) {
+      handleNonCharacter(detail);
+    }
+
+    handleCharacter(detail);
   };
 
-  $: keydownHandler = ({ keyCode }) => {
+  const handleNonCharacter = (keyPressed) => {
+    switch (keyPressed) {
+      case "Backspace":
+        console.log("handle backspace");
+        break;
+
+      case "Enter":
+        console.log("Maybe reset");
+
+      default:
+        // Mostly just let the browser handle it
+        break;
+    }
+  };
+
+  $: handleCharacter = (singleCharacter) => {
+    console.log("🏖", singleCharacter);
+    return;
     switch ($gameState) {
       case "ready":
         $totalKeyPresses = 0;
@@ -93,7 +114,7 @@
   {:else}
     <LineByLinePrompt />
   {/if}
-  <UserInput {keydownHandler} failed={wrongCharacterTyped} />
+  <UserInput failed={wrongCharacterTyped} />
   <ScoreBoard />
 </div>
 
