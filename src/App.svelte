@@ -4,18 +4,7 @@
   import CustomInput from "./CustomInput.svelte";
   import Main from "./Main.svelte";
   import MappingToggle from "./MappingToggle.svelte";
-  import { timeLimitModeEnabled, maxSeconds } from "./persistentStore.js";
-  import {
-    gameState,
-    secondsSinceStart,
-    emptyBaseModel,
-    baseModel,
-  } from "./volatileStore.js";
-
-  $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
-    $gameState = "over";
-    wrongCharacterTyped = false;
-  }
+  import { gameState, emptyBaseModel, baseModel } from "./volatileStore.js";
 
   $: if ($gameState === "ready") {
     // Temporary word list generator…keeps things simple for now.

@@ -5,57 +5,54 @@
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
   import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import { specialKeyCodes } from "./specialKeyCodes.js";
-  import { wordScrollingModeEnabled } from "./persistentStore.js";
+  import {
+    timeLimitModeEnabled,
+    maxSeconds,
+    wordScrollingModeEnabled,
+  } from "./persistentStore.js";
   import {
     gameState,
     baseModel,
     userText,
+    secondsSinceStart,
     totalKeyPresses,
   } from "./volatileStore.js";
 
   let wrongCharacterTyped = false;
 
+  $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
+    $gameState = "over";
+    wrongCharacterTyped = false;
+  }
+
   const handleKeydown = ({ detail }) => {
-    if (detail.length > 1) {
-      handleNonCharacter(detail);
-    }
-
-    handleCharacter(detail);
-  };
-
-  const handleNonCharacter = (keyPressed) => {
-    switch (keyPressed) {
-      case "Backspace":
-        console.log("handle backspace");
-        break;
-
-      case "Enter":
-        console.log("Maybe reset");
-
-      default:
-        // Mostly just let the browser handle it
-        break;
-    }
-  };
-
-  $: handleCharacter = (singleCharacter) => {
-    console.log("🏖", singleCharacter);
-    return;
     switch ($gameState) {
       case "ready":
-        $totalKeyPresses = 0;
-        $gameState = "on";
-        break;
-
-      case "on":
-        if (!specialKeyCodes.includes(keyCode)) {
-          $totalKeyPresses++;
+        if (detail.length === 1) {
+          $gameState = "on";
+          handleSymbol(detail);
         }
         break;
 
+      case "on":
+        $totalKeyPresses++;
+        // ↑ The original code has complex rules for this, but I
+        //   figure there's no "good" reason to press a key during
+        //   game-on other than to attempt a match, so if you get
+        //   this far, your count goes up…un point, c'est tout.
+
+        if (detail.length > 1) {
+          handleNonSymbol(detail);
+        } else {
+          handleSymbol(detail);
+        }
+
+        // if (!specialKeyCodes.includes(keyCode)) {
+        // }
+        break;
+
       case "over":
-        if (keyCode === 13) {
+        if (detail === "Enter") {
           // return/enter triggers reset
           $gameState = "ready";
         } else {
@@ -71,6 +68,22 @@
 
       default:
         throw new Error(`Impossible gameState: ${$gameState}`);
+    }
+  };
+
+  $: handleSymbol = (singleCharacter) => {
+    console.log("🏖", singleCharacter);
+  };
+
+  const handleNonSymbol = (keyPressed) => {
+    switch (keyPressed) {
+      case "Backspace":
+        console.log("handle backspace");
+        break;
+
+      default:
+        // Mostly just let the browser handle it
+        break;
     }
   };
 
