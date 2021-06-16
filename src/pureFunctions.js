@@ -8,7 +8,7 @@ export const objectize = (words) => {
   })
 }
 
-export const evaluate = (attempt, challenge) => {
+export const evaluate = (challenge, attempt) => {
   if (attempt === challenge + " ") {
     return { overallVerdict: "completed" }
   }
@@ -18,7 +18,7 @@ export const evaluate = (attempt, challenge) => {
       const userChar = attempt[i]
       const match = userChar === curr
       const attempted = userChar !== undefined
-      console.log('uc m a', userChar, match, attempted)
+      console.log(`userChar (${userChar} match:${match} attempted:${attempted})`)
 
       let color;
       if (!attempted) {

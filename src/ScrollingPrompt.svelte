@@ -1,10 +1,12 @@
 <script>
-  import { gameState, baseModel, userText } from "./volatileStore.js";
+  import { gameState, baseModel } from "./volatileStore.js";
   import SingleWord from "./SingleWord.svelte";
   import { colorize, objectize } from "./pureFunctions.js";
 
+  export let userText;
+
   let words = [
-    colorize($userText, $baseModel.challenge),
+    colorize(userText, $baseModel.challenge),
     ...objectize($baseModel.restOfLine),
   ];
 
@@ -18,7 +20,7 @@
         advance();
       } else {
         words = [
-          colorize($userText, $baseModel.challenge),
+          colorize(userText, $baseModel.challenge),
           ...objectize($baseModel.restOfLine),
         ];
       }

@@ -13,12 +13,12 @@
   import {
     gameState,
     baseModel,
-    userText,
     secondsSinceStart,
     totalKeyPresses,
   } from "./volatileStore.js";
   import { evaluate } from "./pureFunctions.js";
 
+  let userText = "";
   let wrongCharacterTyped = false;
 
   $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
@@ -61,8 +61,8 @@
           // clobber it before they get a chance to see it.
           setTimeout(() => {
             // See ⚠️ #HackAlert below.
-            $userText = " ";
-            $userText = "";
+            userText = " ";
+            userText = "";
           }, 0);
         }
         break;
@@ -75,17 +75,17 @@
   const handleSymbol = (singleCharacter) => {
     console.log("🏖", singleCharacter);
 
-    const attempt = $userText + singleCharacter;
+    const attempt = userText + singleCharacter;
     const challenge = $baseModel.challenge;
     const { overallVerdict, charSpecs } = evaluate(challenge, attempt);
     console.log("overallVerdict", overallVerdict);
 
     if (overallVerdict === "completed") {
-      $userText = "";
+      userText = "";
       // advance()
     } else {
       wrongCharacterTyped = overallVerdict === "errors";
-      $userText = $userText + singleCharacter;
+      userText = userText + singleCharacter;
     }
   };
 
@@ -103,7 +103,7 @@
 
   $: if ($gameState === "on") {
     const goal = $baseModel.challenge;
-    const attempt = $userText.split("");
+    const attempt = userText.split("");
     const soFar = matchState(attempt, goal);
 
     wrongCharacterTyped = soFar === "failed";
@@ -137,11 +137,11 @@
   {#if $gameState === "over"}
     <ResetButton />
   {:else if $wordScrollingModeEnabled}
-    <ScrollingPrompt />
+    <ScrollingPrompt {userText} />
   {:else}
     <LineByLinePrompt />
   {/if}
-  <UserInput failed={wrongCharacterTyped} />
+  <UserInput failed={wrongCharacterTyped} {userText} />
   <ScoreBoard />
 </div>
 

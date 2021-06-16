@@ -42,8 +42,6 @@ export const emptyBaseModel = {
 
 export const baseModel = writable(emptyBaseModel)
 
-export const userText = writable("")
-
 export const totalKeyPresses = writable(0)
 
 /// ↓ ///
