@@ -111,7 +111,7 @@
         restOfLine: rest,
       };
     } else {
-      wrongCharacterTyped = overallVerdict === "errors";
+      wrongCharacterTyped = overallVerdict === "error";
       userText = userText + singleCharacter;
       baseModel = {
         ...baseModel,

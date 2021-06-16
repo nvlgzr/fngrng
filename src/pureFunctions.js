@@ -15,8 +15,6 @@ export const objectize = (wordOrWords) => {
 }
 
 export const evaluate = (challenge, attempt) => {
-  console.log(`challenge (${challenge}) attempt (${attempt})`)
-
   if (attempt === challenge + " ") {
     return { overallVerdict: "completed" }
   }
@@ -26,16 +24,31 @@ export const evaluate = (challenge, attempt) => {
       const userChar = attempt[i]
       const match = userChar === curr
       const attempted = userChar !== undefined
-      console.log(`userChar (${userChar} match:${match} attempted:${attempted})`)
 
-      let color;
+      let verdict
+      let color
+
       if (!attempted) {
+        verdict = overallVerdict
         color = ""
       } else {
-        color = match ? "green" : "red"
-      }
 
-      let verdict = overallVerdict === "error" ? "error" : "no errors"
+        if (overallVerdict === "error") {
+          verdict = overallVerdict
+        } else {
+          verdict = match || !attempted ? "no errors" : "error"
+        }
+
+        if (!attempted) {
+          color = ""
+        } else if (verdict === "error") {
+          // Once one mistake's been made, color the rest
+          // of the word red
+          color = "red"
+        } else {
+          color = match ? "green" : "red"
+        }
+      }
 
       return {
         overallVerdict: verdict,

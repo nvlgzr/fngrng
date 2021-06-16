@@ -27,8 +27,6 @@
   let transitioning = false;
   let firstWordEl;
   let firstWordOffset = 0;
-
-  $: console.log("line", line);
 </script>
 
 <div class="fade">

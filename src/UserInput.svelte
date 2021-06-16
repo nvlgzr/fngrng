@@ -3,6 +3,7 @@
 
   export let userText = "";
   export let failed = false;
+
   $: color = failed ? "red" : "black";
 
   $: startTrial = (e) => {
