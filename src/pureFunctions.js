@@ -1,6 +1,8 @@
 import { masterList } from "./tenThousandWords.js";
 
 export const objectize = (wordOrWords) => {
+  if (!wordOrWords) return wordOrWords
+
   if (typeof wordOrWords === "string")
     return wordOrWords.split("").map((char => {
       return { char: char }

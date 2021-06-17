@@ -34,8 +34,6 @@
     class={`prompt ${transitioning ? "scroll" : ""}`}
     style={`left: ${transitioning ? -firstWordOffset : 0}px`}
   >
-    <p>{JSON.stringify(line)}</p>
-
     {#each line as word, i (word)}
       {#if i === 0}
         <span bind:this={firstWordEl} style={transitioning ? "opacity:0" : ""}>
@@ -52,7 +50,7 @@
 
 <style>
   .fade {
-    mask-image: linear-gradient(
+    -webkit-mask-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 1) 75%,
       rgba(0, 0, 0, 0)

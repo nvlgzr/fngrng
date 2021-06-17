@@ -58,6 +58,10 @@
         //   figure there's no "good" reason to press a key during
         //   game-on other than to attempt a match, so if you get
         //   this far, your count goes up…un point, c'est tout.
+        //   One thing I like about this is that it puts a little
+        //   bit more emphasis on accuracy which, imho, is more
+        //   important than speed. Aiming always for high speed
+        //   can develop a bad habit of leaning too hard on backspace.
 
         if (detail.length > 1) {
           handleNonSymbol(detail);
@@ -130,7 +134,8 @@
   const handleNonSymbol = (keyPressed) => {
     switch (keyPressed) {
       case "Backspace":
-        console.log("handle backspace");
+        userText = userText.slice(0, -1);
+        handleSymbol("");
         break;
 
       default:
