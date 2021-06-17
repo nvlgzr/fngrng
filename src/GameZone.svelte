@@ -168,7 +168,7 @@
     <LineByLinePrompt />
   {/if}
   <UserInput failed={wrongCharacterTyped} {userText} />
-  <ScoreBoard />
+  <ScoreBoard {baseModel} />
 </div>
 
 <style>
