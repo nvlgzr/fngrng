@@ -5,16 +5,26 @@
   import Main from "./Main.svelte";
   import MappingToggle from "./MappingToggle.svelte";
   import Playground from "./Playground.svelte";
+  import Tests from "./Tests.svelte";
 
   let test = true;
 </script>
 
 {#if test}
-  <Playground />
+  <div>
+    <Playground />
+    <Tests />
+  </div>
+{:else}
+  <TopNav />
+  <LevelSelect />
+  <CustomInput />
+  <Main />
+  <MappingToggle />
 {/if}
 
-<TopNav />
-<LevelSelect />
-<CustomInput />
-<Main />
-<MappingToggle />
+<style>
+  div {
+    display: grid;
+  }
+</style>

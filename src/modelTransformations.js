@@ -4,7 +4,7 @@ export const initForScrolling = (targetString, repeats = 1) => {
     hidden: [],
     // locked: [],
     challenge: "",
-    challengeView: [],
+    challengeView: {},
     restOfLine: [],
     // remainingLines: [],
   };
@@ -63,7 +63,7 @@ export const backspace = (model) => {
   let updatedVerdict = "no errors"
   for (let i = charSpecs.length - 1; i >= 0; i--) {
     const charSpec = charSpecs[i]
-    console.log(i, charSpec)
+    // console.log(i, charSpec)
     const color = i === userText.length ? 'gray' : charSpec.color
     updatedCharSpecs.unshift({ ...charSpec, color: color })
     if (color === 'red') {

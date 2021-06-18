@@ -8,8 +8,6 @@
 
   let model = initForScrolling(phrase);
 
-  $: console.log(model);
-
   model = addSymbol(model, "F");
   model = addSymbol(model, "o");
   model = addSymbol(model, "i");
