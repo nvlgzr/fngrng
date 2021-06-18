@@ -21,8 +21,23 @@ App ✅
     BottomText ✅
   MappingToggle
 
+modelTransformations
+  initForScrolling ✅
+  addSymbol ✅
+  backspace ✅
+  
 
 LEGEND
 ✅ Done-ish
 🟡 Work done this commit
 🔜 Plan to work on next
+
+
+# Known Bugs
+
+- 🐞 Fast typing can leave the prompt behind by one character (white n in "fan" issue)
+  Hypothesis: more pure functions can help here. Maybe aim for a bunch of functions that take and return baseModel w/userText built in so that the UI
+  is always 100% in-sync with the model??
+
+- Clicking outside of preferences should dismiss prefs (but doesn't)
+- Encapsulate reset so that prefs changes don't leave cruft in the UserInput
