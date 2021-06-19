@@ -5,22 +5,6 @@
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
 
-  function test(description, t) {
-    const result = t();
-    if (typeof result === "boolean") {
-      results.push(`${result ? "✅" : "❌"} ${description}`);
-    } else {
-      results.push(`📦 ${description}…`);
-      for (let asrtn of result) {
-        results.push(
-          `&nbsp;&nbsp;&nbsp;${asrtn[1] ? "✅" : "❌"} …${asrtn[0]}`
-        );
-        if (!asrtn[1] && asrtn.length === 3)
-          results.push(`&nbsp;&nbsp;&nbsp;--> ${JSON.stringify(asrtn[2])}`);
-      }
-    }
-  }
-
   test("When I initialize the model with 'Just three words.'", () => {
     const i = initForScrolling("Just three words.");
     return [
@@ -61,6 +45,22 @@
       ["the userText reflects the incorrect character", m.userText === "Foi"],
     ];
   });
+
+  function test(description, t) {
+    const result = t();
+    if (typeof result === "boolean") {
+      results.push(`${result ? "✅" : "❌"} ${description}`);
+    } else {
+      results.push(`📦 ${description}…`);
+      for (let asrtn of result) {
+        results.push(
+          `&nbsp;&nbsp;&nbsp;${asrtn[1] ? "✅" : "❌"} …${asrtn[0]}`
+        );
+        if (!asrtn[1] && asrtn.length === 3)
+          results.push(`&nbsp;&nbsp;&nbsp;--> ${JSON.stringify(asrtn[2])}`);
+      }
+    }
+  }
 
   $: markedTests = results.reduce(
     (acc, curr) => {
