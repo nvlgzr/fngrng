@@ -52,6 +52,10 @@
         m.challengeView.charSpecs[2].color === "red",
       ],
       ["the userText reflects the incorrect character", m.userText === "Foi"],
+      [
+        "and the overallVerdict is 'error'",
+        m.challengeView.overallVerdict === "error",
+      ],
     ];
   });
 
