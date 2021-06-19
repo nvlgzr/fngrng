@@ -1,6 +1,10 @@
 <script>
   import { onMount } from "svelte";
-  import { addSymbol, initForScrolling } from "./modelTransformations.js";
+  import {
+    addSymbol,
+    backspace,
+    initForScrolling,
+  } from "./modelTransformations.js";
 
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
@@ -46,6 +50,38 @@
     ];
   });
 
+  test("The user can correct mistakes with 'backspace'", () => {
+    let m = initForScrolling("Oops!");
+    m = addSymbol(m, "O");
+    m = addSymbol(m, "o");
+    m = addSymbol(m, "o");
+    const recap = [
+      [
+        "Before backspacing, the correct character is green",
+        m.challengeView.charSpecs[1].color === "green",
+      ],
+      [
+        "and the incorrect character is red",
+        m.challengeView.charSpecs[2].color === "red",
+      ],
+    ];
+    m = backspace(m);
+    m = backspace(m);
+    const tests = [
+      [
+        "After backspacing, the userText has been shortened",
+        m.userText === "O",
+      ],
+      [
+        "and both 'backspaced' characters are gray",
+        m.challengeView.charSpecs[1].color === "gray" &&
+          m.challengeView.charSpecs[2].color === "gray",
+      ],
+    ];
+    return [...recap, ...tests];
+  });
+
+  //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   function test(description, t) {
     const result = t();
     if (typeof result === "boolean") {
