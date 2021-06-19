@@ -115,6 +115,39 @@
     ];
     return [...before, ...after];
   });
+
+  test("The initial model starts with gameState: 'ready'", () => {
+    let m = initForScrolling("foo");
+    return m.gameState === "ready";
+  });
+
+  test("When the user starts typing", () => {
+    let m = initForScrolling("foo");
+    m = addSymbol(m, "f");
+    const gameStart = ["the gameState turns 'on'", m.gameState === "on"];
+    m = addSymbol(m, "o");
+    const gameContinue = ["and stays 'on'", m.gameState === "on"];
+    return [gameStart, gameContinue];
+  });
+
+  test("If we run out of words to match", () => {
+    const phrase = "very short game";
+    let m = initForScrolling(phrase);
+    for (const char of phrase) {
+      m = addSymbol(m, char);
+    }
+    m = addSymbol(m, " "); // Submits the last match
+    return [
+      ["the game's over", m.gameState === "over"],
+      ["the userText is empty", m.userText === ""],
+      ["the challengeView is blank", m.challengeView.charSpecs.length === 0],
+      [
+        "and all the matched words are in 'hidden'",
+        JSON.stringify(m.hidden) === JSON.stringify(["very", "short", "game"]),
+      ],
+    ];
+  });
+
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   function test(description, t) {
     const result = t();

@@ -1,5 +1,6 @@
 export const initForScrolling = (targetString, repeats = 1) => {
   const emptyBaseModel = {
+    gameState: "ready",
     userText: "",
     hidden: [],
     // locked: [],
@@ -29,9 +30,11 @@ export const addSymbol = (model, sym) => {
     if (model.userText === model.challenge) {
       const [next, ...rest] = model.restOfLine
       const newChallenge = next ?? ""
+      const gameState = rest.length ? model.gameState : "over"
 
       return {
         ...model,
+        gameState: gameState,
         userText: "",
         hidden: [...model.hidden, model.challenge],
         challenge: newChallenge,
@@ -44,6 +47,7 @@ export const addSymbol = (model, sym) => {
   const userText = model.userText + sym
   return {
     ...model,
+    gameState: "on",
     userText: userText,
     challengeView: evaluate(model.challenge, userText)
   }
