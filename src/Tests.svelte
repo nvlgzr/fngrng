@@ -3,6 +3,7 @@
   import {
     addSymbol,
     backspace,
+    handleReturn,
     initForScrolling,
   } from "./modelTransformations.js";
 
@@ -146,6 +147,31 @@
         JSON.stringify(m.hidden) === JSON.stringify(["very", "short", "game"]),
       ],
     ];
+  });
+
+  test("Pressing 'return/enter'", () => {
+    const phraseFunction = () => "even shorter";
+    let m = initForScrolling(phraseFunction);
+    const n = handleReturn(m);
+    const ready = [
+      "at game-ready is a no-op",
+      JSON.stringify(m) === JSON.stringify(n),
+    ];
+    for (const char of phraseFunction()) {
+      m = addSymbol(m, char);
+    }
+    const o = handleReturn(m);
+    const on = [
+      "and is also a no-op during game-on",
+      JSON.stringify(m) === JSON.stringify(o),
+    ];
+    m = addSymbol(m, " "); // Submits the last match
+    m = handleReturn(m);
+    const over = [
+      "but, if it's game-over, 'return/enter' resets the game",
+      JSON.stringify(m) === JSON.stringify(initForScrolling(phraseFunction)),
+    ];
+    return [ready, on, over];
   });
 
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑

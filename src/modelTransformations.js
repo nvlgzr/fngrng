@@ -1,5 +1,6 @@
-export const initForScrolling = (targetString, repeats = 1) => {
+export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
   const emptyBaseModel = {
+    target: "",
     gameState: "ready",
     userText: "",
     hidden: [],
@@ -10,6 +11,7 @@ export const initForScrolling = (targetString, repeats = 1) => {
     // remainingLines: [],
   };
 
+  const targetString = typeof targetStringOrFunction === 'string' ? targetStringOrFunction : targetStringOrFunction()
   const wordArray = targetString.split(" ");
   const list = JSON.parse(JSON.stringify(Array(repeats).fill(wordArray).flat(1)));
 
@@ -19,6 +21,7 @@ export const initForScrolling = (targetString, repeats = 1) => {
 
   return {
     ...emptyBaseModel,
+    target: targetStringOrFunction,
     challenge: first,
     challengeView: objectize(first),
     restOfLine: rest,
@@ -82,6 +85,10 @@ export const backspace = (model) => {
       charSpecs: updatedCharSpecs
     }
   }
+}
+
+export const handleReturn = (model) => {
+  return model.gameState !== "over" ? model : initForScrolling(model.target)
 }
 
 const objectize = (wordOrWords) => {
