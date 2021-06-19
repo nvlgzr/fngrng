@@ -174,6 +174,40 @@
     return [ready, on, over];
   });
 
+  test("The game tracks 'totalKeyPresses'", () => {
+    let m = initForScrolling("123");
+    const initial = ["which starts at 0", m.totalKeyPresses === 0];
+    m = addSymbol(m, " ");
+    const symbol = ["is incremented by spaces", m.totalKeyPresses === 1];
+    // *I decided to count backspaces in order to emphasize accuracy
+    //  over speed.
+    m = backspace(m);
+    const bckspc1 = ["as well as backspaces", m.totalKeyPresses === 2];
+    m = backspace(m);
+    const bckspc2 = [
+      "unless there's nothing left to delete",
+      m.totalKeyPresses === 2,
+    ];
+    m = addSymbol(m, "1");
+    m = addSymbol(m, "2");
+    m = addSymbol(m, "3");
+    const symbols = [
+      "and by every regular symbol typed",
+      m.totalKeyPresses === 5,
+    ];
+    m = addSymbol(m, " ");
+    const gameover = [
+      "except for the game-ending space",
+      m.totalKeyPresses === 5,
+    ];
+    m = handleReturn(m);
+    const reset = [
+      "and, finally, resets when the game resets",
+      m.totalKeyPresses === 0,
+    ];
+    return [initial, symbol, bckspc1, bckspc2, symbols, gameover, reset];
+  });
+
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   function test(description, t) {
     const result = t();

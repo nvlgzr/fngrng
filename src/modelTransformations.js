@@ -2,6 +2,7 @@ export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
   const emptyBaseModel = {
     target: "",
     gameState: "ready",
+    totalKeyPresses: 0,
     userText: "",
     hidden: [],
     // locked: [],
@@ -51,6 +52,7 @@ export const addSymbol = (model, sym) => {
   return {
     ...model,
     gameState: "on",
+    totalKeyPresses: model.totalKeyPresses + 1,
     userText: userText,
     challengeView: evaluate(model.challenge, userText)
   }
@@ -79,6 +81,7 @@ export const backspace = (model) => {
   }
   return {
     ...model,
+    totalKeyPresses: model.totalKeyPresses + 1,
     userText: userText,
     challengeView: {
       overallVerdict: updatedVerdict,
