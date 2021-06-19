@@ -1,10 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import {
+    initForScrolling,
     addSymbol,
     backspace,
     handleReturn,
-    initForScrolling,
+    gameover,
   } from "./modelTransformations.js";
 
   const results = [];
@@ -206,6 +207,40 @@
       m.totalKeyPresses === 0,
     ];
     return [initial, symbol, bckspc1, bckspc2, symbols, gameover, reset];
+  });
+
+  test("When the game is ended midstream (by, say, hitting the time limit)", () => {
+    let m = initForScrolling("finish on the letter s");
+    m = addSymbol(m, "f");
+    m = addSymbol(m, "i");
+    m = addSymbol(m, "n");
+    m = addSymbol(m, "i");
+    m = addSymbol(m, "s");
+    m = gameover(m);
+    return [
+      [
+        "the userText gets cleared without counting the word",
+        m.userText === "" && m.hidden.length === 0,
+      ],
+      ["and, of course, gameState goes to 'over'", m.gameState === "over"],
+    ];
+  });
+
+  test("When the game is ended midstream at the end of a fully-matched word", () => {
+    let m = initForScrolling("done on first e");
+    m = addSymbol(m, "d");
+    m = addSymbol(m, "o");
+    m = addSymbol(m, "n");
+    m = addSymbol(m, "e");
+    m = gameover(m);
+    return [
+      ["the userText gets cleared", m.userText === ""],
+      ["gameState goes to 'over'", m.gameState === "over"],
+      [
+        "and the word gets moved to hidden (so it counts toward the score)",
+        JSON.stringify(m.hidden) === JSON.stringify(["done"]),
+      ],
+    ];
   });
 
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑

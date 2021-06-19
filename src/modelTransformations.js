@@ -94,6 +94,21 @@ export const handleReturn = (model) => {
   return model.gameState !== "over" ? model : initForScrolling(model.target)
 }
 
+export const gameover = model => {
+  let hidden = model.hidden
+  let challenge = model.challenge
+  if (model.userText === challenge) {
+    hidden = [...hidden, challenge]
+  }
+
+  return {
+    ...model,
+    gameState: "over",
+    userText: "",
+    hidden: hidden
+  }
+}
+
 const objectize = (wordOrWords) => {
   if (!wordOrWords) return wordOrWords
 
