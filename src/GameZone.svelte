@@ -11,7 +11,7 @@
     maxSeconds,
     wordScrollingModeEnabled,
   } from "./persistentStore.js";
-  import { secondsSinceStart } from "./volatileStore.js";
+  import { gameState, secondsSinceStart } from "./volatileStore.js";
   import {
     initForScrolling,
     addSymbol,
@@ -21,6 +21,8 @@
   } from "./modelTransformations.js";
 
   let model = initForScrolling(phrase);
+
+  $: $gameState = model.gameState;
 
   $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
     model = gameover(model);
