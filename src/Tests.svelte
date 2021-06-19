@@ -1,5 +1,5 @@
 <script>
-  import { initForScrolling } from "./modelTransformations.js";
+  import { addSymbol, initForScrolling } from "./modelTransformations.js";
 
   const tests = [];
 
@@ -28,6 +28,22 @@
       ],
     ];
   });
+
+  test("When the user types a correct character", () => {
+    let m = initForScrolling("word");
+    m = addSymbol(m, "w");
+    return [
+      [
+        "the 'overallVerdict' is 'no errors'",
+        m.challengeView.overallVerdict === "no errors",
+      ],
+      [
+        "the first character is green",
+        m.challengeView.charSpecs[0].color === "green",
+      ],
+    ];
+  });
+
 </script>
 
 <div>
