@@ -1,18 +1,22 @@
 <script>
+  import { onMount } from "svelte";
   import { addSymbol, initForScrolling } from "./modelTransformations.js";
 
-  const tests = [];
+  const results = [];
+  let scrollTarget; // Binds to first failed test which will get auto-scrolled!
 
   function test(description, t) {
     const result = t();
     if (typeof result === "boolean") {
-      tests.push(`${result ? "✅" : "❌"} ${description}`);
+      results.push(`${result ? "✅" : "❌"} ${description}`);
     } else {
-      tests.push(`📦 ${description}…`);
+      results.push(`📦 ${description}…`);
       for (let asrtn of result) {
-        tests.push(`&nbsp;&nbsp;&nbsp;${asrtn[1] ? "✅" : "❌"} …${asrtn[0]}`);
+        results.push(
+          `&nbsp;&nbsp;&nbsp;${asrtn[1] ? "✅" : "❌"} …${asrtn[0]}`
+        );
         if (!asrtn[1] && asrtn.length === 3)
-          tests.push(`&nbsp;&nbsp;&nbsp;--> ${JSON.stringify(asrtn[2])}`);
+          results.push(`&nbsp;&nbsp;&nbsp;--> ${JSON.stringify(asrtn[2])}`);
       }
     }
   }
@@ -57,11 +61,31 @@
       ["the userText reflects the incorrect character", m.userText === "Foi"],
     ];
   });
+
+  $: markedTests = results.reduce(
+    (acc, curr) => {
+      const scrollHere = acc.scrollToSet ? false : curr.includes("❌");
+      const scrollToSet = acc.scrollToSet ? true : scrollHere;
+      return {
+        scrollToSet: scrollToSet,
+        tests: [...acc.tests, { scrollHere: scrollHere, test: curr }],
+      };
+    },
+    { scrollToSet: false, tests: [] }
+  );
+
+  onMount(() => {
+    scrollTarget?.scrollIntoView();
+  });
 </script>
 
 <div>
-  {#each tests as t}
-    {@html t}
+  {#each markedTests.tests as testObj}
+    {#if testObj.scrollHere}
+      <span bind:this={scrollTarget}>{@html testObj.test}</span>
+    {:else}
+      <span>{@html testObj.test}</span>
+    {/if}
     <br />
   {/each}
 </div>
