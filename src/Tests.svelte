@@ -7,10 +7,33 @@
     reset,
     gameover,
   } from "./modelTransformations.js";
+  import { cutOrFill } from "./pureFunctions.js";
 
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
 
+  test("The cutOrFill function", () => {
+    const thirteenWords =
+      "Give your hungry tongue the sweet crunch of a dozen stunned honey bees.";
+    const cut = cutOrFill(thirteenWords, 4);
+    const filled = cutOrFill(thirteenWords, 20);
+    return [
+      [
+        "shortens a phrase to the target length",
+        cut === "Give your hungry tongue",
+        cut,
+      ],
+      [
+        "or repeats it to reach the target length",
+        filled ===
+          "Give your hungry tongue the sweet crunch of a dozen stunned honey bees. Give your hungry tongue the sweet crunch",
+        filled,
+      ],
+    ];
+  });
+
+  // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
+  // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ modelTransformations ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
   test("When I initialize the model with 'Just three words.'", () => {
     const i = initForScrolling("Just three words.");
     return [

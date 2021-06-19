@@ -16,6 +16,13 @@ export const objectize = (wordOrWords) => {
   })
 }
 
+export const cutOrFill = (phrase, targetNumber) => {
+  let sliced = phrase.split(" ")
+  while (sliced.length < targetNumber)
+    sliced = [...sliced, ...sliced]
+  return sliced.slice(0, targetNumber).join(' ')
+}
+
 ///////////////////////////// ↓ /////////////////////////////////
 
 // returns the index of the nth occurance of a char or string

@@ -7,7 +7,7 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
 
-  let test = false;
+  let test = true;
 </script>
 
 {#if test}
