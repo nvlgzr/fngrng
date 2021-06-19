@@ -99,9 +99,13 @@
   }
 
   $: markedTests = results.reduce(
-    (acc, curr) => {
-      const scrollHere = acc.scrollToSet ? false : curr.includes("❌");
+    (acc, curr, i) => {
+      let scrollHere = acc.scrollToSet ? false : curr.includes("❌");
       const scrollToSet = acc.scrollToSet ? true : scrollHere;
+
+      // Scroll to the bottom if there are no errors
+      if (i === results.length - 1 && !scrollToSet) scrollHere = true;
+
       return {
         scrollToSet: scrollToSet,
         tests: [...acc.tests, { scrollHere: scrollHere, test: curr }],
@@ -111,7 +115,10 @@
   );
 
   onMount(() => {
-    scrollTarget?.scrollIntoView();
+    if (scrollTarget) {
+      scrollTarget.scrollIntoView();
+    } else {
+    }
   });
 </script>
 
@@ -124,6 +131,7 @@
     {/if}
     <br />
   {/each}
+  <hr />
 </div>
 
 <style>
