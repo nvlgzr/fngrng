@@ -1,28 +1,40 @@
 <script>
   import { objectize } from "./pureFunctions";
   import SingleWord from "./SingleWord.svelte";
-  import { emptyBaseModel } from "./baseModel.js";
 
-  export const updateModel = (newModel) => {
+  export let model;
+  let line = [];
+  let viewModel = {
+    hidden: [],
+    challenge: "",
+    challengeView: { charSpecs: [] },
+    restOfLine: [],
+  };
+
+  $: if (viewModel.challengeView?.charSpecs?.length) {
+    line = [
+      viewModel.challengeView.charSpecs,
+      ...objectize(viewModel.restOfLine),
+    ];
+  }
+
+  $: {
     const advance =
-      baseModel.hidden.length < newModel.hidden.length ||
-      baseModel.challenge !== newModel.challenge;
+      viewModel.hidden.length < model.hidden.length ||
+      viewModel.challenge !== model.challenge;
+
     if (advance) {
       transitioning = true;
       firstWordOffset = (firstWordEl && firstWordEl.offsetWidth) || 0;
       setTimeout(() => {
-        baseModel = newModel;
+        viewModel = model;
         transitioning = false;
         firstWordOffset = 0;
       }, 120); // 120ms is just slightly longer than 0.1s transition time.
     } else {
-      baseModel = newModel;
+      viewModel = model;
     }
-  };
-
-  let baseModel = emptyBaseModel;
-
-  $: line = [baseModel.coloredChallenge, ...objectize(baseModel.restOfLine)];
+  }
 
   let transitioning = false;
   let firstWordEl;

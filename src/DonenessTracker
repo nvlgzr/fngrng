@@ -4,28 +4,22 @@ App ✅
   LevelSelect
   CustomInput
     CustomLayout
-  Main ✅
+  Main
     GameZone 🟡
-      ResetButton ✅
+      ResetButton
       ScrollingPrompt ✅
         SingleCharacter ✅
         SingleWord ✅
-      LineByLinePrompt 🔜
+      LineByLinePrompt 
       UserInput ✅
-      ScoreBoard ✅
+      ScoreBoard 
         WordScore ✅
-        Clock ✅
-        Results 🟡
+        Clock 🔜
+        Results 
     CheatSheet
       KeyboardDivs
     BottomText ✅
   MappingToggle
-
-modelTransformations
-  initForScrolling ✅
-  addSymbol ✅
-  backspace ✅
-  
 
 LEGEND
 ✅ Done-ish
@@ -34,10 +28,7 @@ LEGEND
 
 
 # Known Bugs
-
-- 🐞 Fast typing can leave the prompt behind by one character (white n in "fan" issue)
-  Hypothesis: more pure functions can help here. Maybe aim for a bunch of functions that take and return baseModel w/userText built in so that the UI
-  is always 100% in-sync with the model??
-
+- Clock needs reconnecting
 - Clicking outside of preferences should dismiss prefs (but doesn't)
 - Encapsulate reset so that prefs changes don't leave cruft in the UserInput
+- Unused code needs removal
