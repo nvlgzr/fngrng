@@ -44,6 +44,19 @@
     ];
   });
 
+  test("When the user types an incorrect character", () => {
+    let m = initForScrolling("Four score and seven years");
+    m = addSymbol(m, "F");
+    m = addSymbol(m, "o");
+    m = addSymbol(m, "i");
+    return [
+      [
+        "the incorrect character is red",
+        m.challengeView.charSpecs[2].color === "red",
+      ],
+      ["the userText reflects the incorrect character", m.userText === "Foi"],
+    ];
+  });
 </script>
 
 <div>
