@@ -1,8 +1,10 @@
 <script>
-  import { gameState } from "./volatileStore";
+  import { reset } from "./modelTransformations.js";
+
+  export let model;
 </script>
 
-<button on:click={() => ($gameState = "ready")}>Reset</button>
+<button on:click={() => (model = reset(model))}>Reset</button>
 
 <style>
   button {

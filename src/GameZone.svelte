@@ -37,7 +37,7 @@
           model = backspace(model);
           break;
 
-        case "Return":
+        case "Enter":
           model = reset(model);
           break;
 
@@ -53,7 +53,7 @@
 
 <div>
   {#if model.gameState === "over"}
-    <ResetButton />
+    <ResetButton bind:model />
   {:else if $wordScrollingModeEnabled}
     <ScrollingPrompt {model} />
   {:else}
