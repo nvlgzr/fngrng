@@ -7,7 +7,7 @@ export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
     hidden: [],
     // locked: [],
     challenge: "",
-    challengeView: {},
+    challengeView: { overallVerdict: "not yet attempted", charSpecs: [] },
     restOfLine: [],
     // remainingLines: [],
   };
@@ -113,15 +113,19 @@ const objectize = (wordOrWords) => {
   if (!wordOrWords) return wordOrWords
 
   if (typeof wordOrWords === "string")
-    return wordOrWords.split("").map((char => {
-      return { char: char }
-    })
-    )
+    return {
+      overallVerdict: "not yet attempted", charSpecs: wordOrWords.split("").map((char => {
+        return { char: char }
+      })
+      )
+    }
 
   return wordOrWords.map(w => {
-    return [...w].map((char) => {
-      return { char: char };
-    })
+    return {
+      overallVerdict: "not yet attempted", charSpecs: [...w].map((char) => {
+        return { char: char };
+      })
+    }
   })
 }
 

@@ -15,7 +15,10 @@
     const i = initForScrolling("Just three words.");
     return [
       ["the first is 'Just'", i.challenge === "Just"],
-      ["the challengeView starts with 'J'", i.challengeView[0].char === "J"],
+      [
+        "the challengeView starts with 'J'",
+        i.challengeView.charSpecs[0].char === "J",
+      ],
       [
         "the remaining words are arrayed in 'restOfLine'",
         JSON.stringify(i.restOfLine) === JSON.stringify(["three", "words."]),
