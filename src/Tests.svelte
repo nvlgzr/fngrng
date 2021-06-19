@@ -81,6 +81,40 @@
     return [...recap, ...tests];
   });
 
+  test("When the user types a space", () => {
+    let m = initForScrolling("1 2 3");
+    m = addSymbol(m, " ");
+    const before = [
+      [
+        "it's treated like a normal character by default",
+        m.userText === " " &&
+          m.challengeView.charSpecs[0].color === "red" &&
+          JSON.stringify(m.hidden) === JSON.stringify([]),
+      ],
+    ];
+    m = backspace(m);
+    m = addSymbol(m, "1");
+    m = addSymbol(m, " ");
+    const after = [
+      [
+        "but if the whole word has been matched, the userText resets",
+        m.userText === "",
+      ],
+      [
+        "the matched word gets moved to the 'hidden' array",
+        JSON.stringify(m.hidden) === JSON.stringify(["1"]),
+      ],
+      [
+        "the next word moves to 'challenge",
+        m.challenge === "2" && m.challengeView.charSpecs[0].char === "2",
+      ],
+      [
+        "and the 'restOfLine' array gets shorter by one",
+        JSON.stringify(m.restOfLine) === JSON.stringify(["3"]),
+      ],
+    ];
+    return [...before, ...after];
+  });
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   function test(description, t) {
     const result = t();
