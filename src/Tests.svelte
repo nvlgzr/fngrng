@@ -136,7 +136,14 @@
     const gameStart = ["the gameState turns 'on'", m.gameState === "on"];
     m = addSymbol(m, "o");
     const gameContinue = ["and stays 'on'", m.gameState === "on"];
-    return [gameStart, gameContinue];
+    m = addSymbol(m, "o");
+    m = addSymbol(m, " ");
+    m = addSymbol(m, "a");
+    const gameOver = [
+      "when the game is over, then symbol entry's a no-op",
+      m.gameState === "over",
+    ];
+    return [gameStart, gameContinue, gameOver];
   });
 
   test("If we run out of words to match", () => {
@@ -149,7 +156,6 @@
     return [
       ["the game's over", m.gameState === "over"],
       ["the userText is empty", m.userText === ""],
-      ["the challengeView is blank", m.challengeView.charSpecs.length === 0],
       [
         "and all the matched words are in 'hidden'",
         JSON.stringify(m.hidden) === JSON.stringify(["very", "short", "game"]),

@@ -30,21 +30,23 @@ export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
 };
 
 export const addSymbol = (model, sym) => {
+  if (model.gameState === "over") return model
+
   if (sym === " ") {
     if (model.userText === model.challenge) {
       const [next, ...rest] = model.restOfLine
       const newChallenge = next ?? ""
-      const gameState = rest.length ? model.gameState : "over"
 
-      return {
+      const updated = {
         ...model,
-        gameState: gameState,
         userText: "",
         hidden: [...model.hidden, model.challenge],
         challenge: newChallenge,
         challengeView: evaluate(newChallenge, ""),
         restOfLine: rest
       }
+
+      return updated.challenge.length ? updated : gameover(model)
     }
   }
 
@@ -96,16 +98,16 @@ export const handleReturn = (model) => {
 
 export const gameover = model => {
   let hidden = model.hidden
-  let challenge = model.challenge
-  if (model.userText === challenge) {
-    hidden = [...hidden, challenge]
+  if (model.userText === model.challenge) {
+    hidden = [...hidden, model.challenge]
   }
 
   return {
     ...model,
     gameState: "over",
     userText: "",
-    hidden: hidden
+    hidden: hidden,
+    challenge: "",
   }
 }
 
