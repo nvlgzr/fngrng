@@ -10,8 +10,10 @@
     timeLimitModeEnabled,
     maxSeconds,
     wordScrollingModeEnabled,
+    maxWords,
   } from "./persistentStore.js";
   import { gameState, secondsSinceStart } from "./volatileStore.js";
+  import { cutOrFill } from "./pureFunctions.js";
   import {
     initForScrolling,
     addSymbol,
@@ -20,7 +22,9 @@
     gameover,
   } from "./modelTransformations.js";
 
-  let model = initForScrolling(phrase);
+  let model = $timeLimitModeEnabled
+    ? initForScrolling(cutOrFill(phrase, $maxSeconds * 4))
+    : initForScrolling(cutOrFill(phrase, $maxWords));
 
   $: $gameState = model.gameState;
 
