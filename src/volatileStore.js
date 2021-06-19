@@ -19,18 +19,23 @@ let startTime = new Date();
 export const secondsSinceStart = derived(
   [time, gameState],
   ([$time, $gameState], set) => {
-    if ($gameState === "on") {
-      const milliSecsElapsed = $time - startTime;
-      set(Math.floor(milliSecsElapsed / 1000));
-    } else {
-      startTime = $time;
-      set(0);
+    switch ($gameState) {
+      case 'ready':
+        startTime = $time;
+        set(0);
+        break;
+
+      case 'on':
+        const milliSecsElapsed = $time - startTime;
+        set(Math.floor(milliSecsElapsed / 1000));
+        break;
+
+      default: // over
+        break;
     }
   },
   0
 );
-
-export const totalKeyPresses = writable(0)
 
 /// ↓ ///
 

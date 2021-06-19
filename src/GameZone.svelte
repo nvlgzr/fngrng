@@ -24,7 +24,11 @@
 
   $: $gameState = model.gameState;
 
-  $: if ($timeLimitModeEnabled && $secondsSinceStart >= $maxSeconds) {
+  $: if (
+    $timeLimitModeEnabled &&
+    model.gameState === "on" &&
+    $secondsSinceStart >= $maxSeconds
+  ) {
     model = gameover(model);
   }
 

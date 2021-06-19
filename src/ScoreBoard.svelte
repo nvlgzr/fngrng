@@ -6,6 +6,7 @@
   export let model;
 
   $: acceptedWords = [...model.hidden];
+  $: totalKeyPresses = model.totalKeyPresses;
 </script>
 
 <div class="scoreAndClock">
@@ -14,7 +15,7 @@
 </div>
 
 <div class="testResults">
-  <Results {acceptedWords} />
+  <Results {acceptedWords} {totalKeyPresses} />
 </div>
 
 <style>

@@ -1,15 +1,12 @@
 <script>
-  import {
-    gameState,
-    secondsSinceStart,
-    totalKeyPresses,
-  } from "./volatileStore.js";
+  import { gameState, secondsSinceStart } from "./volatileStore.js";
 
   export let acceptedWords = [];
+  export let totalKeyPresses = 0;
 
   $: accurateKeyPresses = acceptedWords.join(" ").length;
-  $: rawAccuracy = (100 * accurateKeyPresses) / $totalKeyPresses;
-  $: rawWpm = ($totalKeyPresses / 5 / ($secondsSinceStart / 60)).toFixed(2);
+  $: rawAccuracy = (100 * accurateKeyPresses) / totalKeyPresses;
+  $: rawWpm = (totalKeyPresses / 5 / ($secondsSinceStart / 60)).toFixed(2);
 
   $: accuracy = `${rawAccuracy.toFixed(2)}%`;
 
