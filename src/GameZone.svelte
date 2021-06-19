@@ -16,7 +16,7 @@
     initForScrolling,
     addSymbol,
     backspace,
-    handleReturn,
+    reset,
     gameover,
   } from "./modelTransformations.js";
 
@@ -38,7 +38,7 @@
           break;
 
         case "Return":
-          model = handleReturn(model);
+          model = reset(model);
           break;
 
         default:

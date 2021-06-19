@@ -4,7 +4,7 @@
     initForScrolling,
     addSymbol,
     backspace,
-    handleReturn,
+    reset,
     gameover,
   } from "./modelTransformations.js";
 
@@ -166,7 +166,7 @@
   test("Pressing 'return/enter'", () => {
     const phraseFunction = () => "even shorter";
     let m = initForScrolling(phraseFunction);
-    const n = handleReturn(m);
+    const n = reset(m);
     const ready = [
       "at game-ready is a no-op",
       JSON.stringify(m) === JSON.stringify(n),
@@ -174,13 +174,13 @@
     for (const char of phraseFunction()) {
       m = addSymbol(m, char);
     }
-    const o = handleReturn(m);
+    const o = reset(m);
     const on = [
       "and is also a no-op during game-on",
       JSON.stringify(m) === JSON.stringify(o),
     ];
     m = addSymbol(m, " "); // Submits the last match
-    m = handleReturn(m);
+    m = reset(m);
     const over = [
       "but, if it's game-over, 'return/enter' resets the game",
       JSON.stringify(m) === JSON.stringify(initForScrolling(phraseFunction)),
@@ -214,12 +214,12 @@
       "except for the game-ending space",
       m.totalKeyPresses === 5,
     ];
-    m = handleReturn(m);
-    const reset = [
+    m = reset(m);
+    const resetted = [
       "and, finally, resets when the game resets",
       m.totalKeyPresses === 0,
     ];
-    return [initial, symbol, bckspc1, bckspc2, symbols, gameover, reset];
+    return [initial, symbol, bckspc1, bckspc2, symbols, gameover, resetted];
   });
 
   test("When the game is ended midstream (by, say, hitting the time limit)", () => {

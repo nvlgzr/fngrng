@@ -92,7 +92,7 @@ export const backspace = (model) => {
   }
 }
 
-export const handleReturn = (model) => {
+export const reset = (model) => {
   return model.gameState !== "over" ? model : initForScrolling(model.target)
 }
 
