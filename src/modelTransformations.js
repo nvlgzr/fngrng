@@ -1,16 +1,44 @@
-export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
-  const emptyBaseModel = {
+/**
+ * The text prompt has two mutually-exclusive modes that operate 
+ * differently enough that the slightly more complex mode --
+ * LineByLine -- has a slightly more complex model. The in-model
+ * comments in the emptyBaseModel (in implementation) demonstrate
+ * the difference.
+ * 
+ * The `locked` array holds words on the currently-live line that
+ * have been matched and can't be deleted, though they remain visible.
+ * 
+ * The `remainingLines` array is like `restOfLine`, but for lines
+ * instead of words. It's up to the view to determine how many of
+ * these to display in advance.
+ * 
+ * @param {boolean} isScrollingMode 
+ * @param {string | function} targetStringOrFunction 
+ * @param {number} repeats 
+ * @returns 
+ */
+export const initForScrolling = (isScrollingMode = true, targetStringOrFunction, repeats = 1) => {
+  let emptyBaseModel = {
+    isLineByLineMode: isScrollingMode ? false : true,
     target: "",
     gameState: "ready",
     totalKeyPresses: 0,
     userText: "",
     hidden: [],
-    // locked: [],
+    // locked: [], 👈 Added in line-by-line mode
     challenge: "",
     challengeView: { overallVerdict: "not yet attempted", charSpecs: [] },
     restOfLine: [],
-    // remainingLines: [],
+    // remainingLines: [], 👈 Added in line-by-line mode
   };
+
+  if (!isScrollingMode) {
+    emptyBaseModel = {
+      ...emptyBaseModel,
+      locked: [],
+      remainingLines: []
+    }
+  }
 
   const targetString = typeof targetStringOrFunction === 'string' ? targetStringOrFunction : targetStringOrFunction()
   const wordArray = targetString.split(" ");
@@ -93,7 +121,7 @@ export const backspace = (model) => {
 }
 
 export const reset = (model) => {
-  return model.gameState !== "over" ? model : initForScrolling(model.target)
+  return model.gameState !== "over" ? model : initForScrolling(true, model.target)
 }
 
 export const gameover = model => {

@@ -28,8 +28,8 @@
 
   const freshModel = () => {
     return $timeLimitModeEnabled
-      ? initForScrolling(cutOrFill(phrase, $maxSeconds * 4))
-      : initForScrolling(cutOrFill(phrase, $maxWords));
+      ? initForScrolling(true, cutOrFill(phrase, $maxSeconds * 4))
+      : initForScrolling(true, cutOrFill(phrase, $maxWords));
   };
 
   let model = freshModel();
