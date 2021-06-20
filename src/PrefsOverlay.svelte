@@ -3,7 +3,7 @@
 </script>
 
 {#if $prefsOpen}
-  <div>&nbsp;</div>
+  <div on:click={() => ($prefsOpen = false)}>&nbsp;</div>
 {/if}
 
 <style>

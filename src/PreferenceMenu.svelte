@@ -1,5 +1,4 @@
 <script>
-  import ClickOutside from "./ClickOutside.svelte";
   import {
     prefsOpen,
     uppercaseAllowed,
@@ -11,8 +10,6 @@
     punctuationToInclude,
   } from "./persistentStore";
   import { gameState } from "./volatileStore.js";
-
-  let prefsButton;
 
   $: openPrefs = $prefsOpen;
 
@@ -108,56 +105,54 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<button bind:this={prefsButton} on:click={openMenu} class="preferenceButton" />
+<button on:click={openMenu} class="preferenceButton" />
 
-<ClickOutside on:clickoutside={closeMenu} exclude={[prefsButton]}>
-  <div class:openPrefs class="preferenceMenu">
-    <button on:click={closeMenu} class="closePreferenceButton" />
-    <ul class="preferences">
-      {#each prefs as pref}
-        <li>
-          {pref.display}<input
-            bind:checked={pref.value}
-            on:change={pref.handler}
-            class={pref.class}
-            type="checkbox"
-            autocomplete="off"
-          />
-        </li>
-      {/each}
+<div class:openPrefs class="preferenceMenu">
+  <button on:click={closeMenu} class="closePreferenceButton" />
+  <ul class="preferences">
+    {#each prefs as pref}
       <li>
-        {#if $timeLimitModeEnabled}
-          <input bind:value={$maxSeconds} type="number" autocomplete="off" />
-        {/if}
-        Time Limit Mode<input
-          on:click={timeLimitModeButtonClicked}
-          checked={$timeLimitModeEnabled}
+        {pref.display}<input
+          bind:checked={pref.value}
+          on:change={pref.handler}
+          class={pref.class}
           type="checkbox"
           autocomplete="off"
-          disabled={$timeLimitModeEnabled}
         />
       </li>
-      <li>
-        {#if !$timeLimitModeEnabled}
-          <input
-            bind:value={$maxWords}
-            type="number"
-            step="10"
-            autocomplete="off"
-          />
-        {/if}
-        Word Limit Mode
+    {/each}
+    <li>
+      {#if $timeLimitModeEnabled}
+        <input bind:value={$maxSeconds} type="number" autocomplete="off" />
+      {/if}
+      Time Limit Mode<input
+        on:click={timeLimitModeButtonClicked}
+        checked={$timeLimitModeEnabled}
+        type="checkbox"
+        autocomplete="off"
+        disabled={$timeLimitModeEnabled}
+      />
+    </li>
+    <li>
+      {#if !$timeLimitModeEnabled}
         <input
-          on:click={wordLimitModeButtonClicked}
-          checked={!$timeLimitModeEnabled}
-          type="checkbox"
+          bind:value={$maxWords}
+          type="number"
+          step="10"
           autocomplete="off"
-          disabled={!$timeLimitModeEnabled}
         />
-      </li>
-    </ul>
-  </div>
-</ClickOutside>
+      {/if}
+      Word Limit Mode
+      <input
+        on:click={wordLimitModeButtonClicked}
+        checked={!$timeLimitModeEnabled}
+        type="checkbox"
+        autocomplete="off"
+        disabled={!$timeLimitModeEnabled}
+      />
+    </li>
+  </ul>
+</div>
 
 <style>
   .preferenceButton {
