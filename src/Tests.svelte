@@ -35,44 +35,6 @@
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ modelTransformations ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
-  group("Line-by-Line Mode", () => {
-    test("When I initialize the model with 'Just three words.'", () => {
-      const i = initForScrolling(false, "Just three words.");
-      return [
-        ["the first is 'Just'", i.challenge === "Just"],
-        [
-          "the challengeView starts with 'J'",
-          i.challengeView.charSpecs[0]?.char === "J",
-        ],
-        [
-          "the remaining words are arrayed in 'restOfLine'",
-          JSON.stringify(i.restOfLine) === JSON.stringify(["three", "words."]),
-        ],
-        ["the locked array is empty", i.locked.length === 0],
-        [
-          "and there are no remaining lines (because lines have max 35?) characters",
-          i.remainingLines.length === 0,
-        ],
-      ];
-    });
-
-    test("When the user types a correct character", () => {
-      let m = initForScrolling(false, "just one line to start");
-      m = addSymbol(m, "j");
-      const justLikeScrollingModeSoFar = [
-        [
-          "the 'overallVerdict' is 'no errors'",
-          m.challengeView.overallVerdict === "no errors",
-        ],
-        [
-          "the first character is green",
-          m.challengeView.charSpecs[0].color === "green",
-        ],
-      ];
-      return justLikeScrollingModeSoFar;
-    });
-  });
-
   group("Scrolling Mode", () => {
     test("When I initialize the model with 'Just three words.'", () => {
       const i = initForScrolling(true, "Just three words.");
@@ -323,6 +285,62 @@
         [
           "and the word gets moved to hidden (so it counts toward the score)",
           JSON.stringify(m.hidden) === JSON.stringify(["done"]),
+        ],
+      ];
+    });
+  });
+
+  group("Line-by-Line Mode", () => {
+    test("When I initialize the model with 'Just three words.'", () => {
+      const i = initForScrolling(false, "Just three words.");
+      return [
+        ["the first is 'Just'", i.challenge === "Just"],
+        [
+          "the challengeView starts with 'J'",
+          i.challengeView.charSpecs[0]?.char === "J",
+        ],
+        [
+          "the remaining words are arrayed in 'restOfLine'",
+          JSON.stringify(i.restOfLine) === JSON.stringify(["three", "words."]),
+        ],
+        ["the locked array is empty", i.locked.length === 0],
+        [
+          "and there are no remaining lines (because lines have max 35?) characters",
+          i.remainingLines.length === 0,
+        ],
+      ];
+    });
+
+    test("When the user types a correct character", () => {
+      let m = initForScrolling(false, "just one line to start");
+      m = addSymbol(m, "j");
+      const justLikeScrollingModeSoFar = [
+        [
+          "the 'overallVerdict' is 'no errors'",
+          m.challengeView.overallVerdict === "no errors",
+        ],
+        [
+          "the first character is green",
+          m.challengeView.charSpecs[0].color === "green",
+        ],
+      ];
+      return justLikeScrollingModeSoFar;
+    });
+
+    test("When the user types an incorrect character", () => {
+      let m = initForScrolling(false, "Four score and seven years");
+      m = addSymbol(m, "F");
+      m = addSymbol(m, "o");
+      m = addSymbol(m, "i");
+      return [
+        [
+          "the incorrect character is red",
+          m.challengeView.charSpecs[2].color === "red",
+        ],
+        ["the userText reflects the incorrect character", m.userText === "Foi"],
+        [
+          "and the overallVerdict is 'error'",
+          m.challengeView.overallVerdict === "error",
         ],
       ];
     });
