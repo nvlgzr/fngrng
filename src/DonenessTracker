@@ -28,6 +28,5 @@ LEGEND
 
 
 # Known Bugs
-- Clicking outside of preferences should dismiss prefs (but doesn't)
 - Encapsulate reset so that prefs changes don't leave cruft in the UserInput
 - Unused code needs removal

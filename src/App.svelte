@@ -1,4 +1,5 @@
 <script>
+  import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
   import CustomInput from "./CustomInput.svelte";
@@ -7,7 +8,7 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
 
-  let test = true;
+  let test = false;
 </script>
 
 {#if test}
@@ -16,6 +17,7 @@
     <Tests />
   </div>
 {:else}
+  <PrefsOverlay />
   <TopNav />
   <LevelSelect />
   <CustomInput />
