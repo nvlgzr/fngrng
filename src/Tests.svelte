@@ -55,6 +55,22 @@
         ],
       ];
     });
+
+    test("When the user types a correct character", () => {
+      let m = initForScrolling(false, "just one line to start");
+      m = addSymbol(m, "j");
+      const justLikeScrollingModeSoFar = [
+        [
+          "the 'overallVerdict' is 'no errors'",
+          m.challengeView.overallVerdict === "no errors",
+        ],
+        [
+          "the first character is green",
+          m.challengeView.charSpecs[0].color === "green",
+        ],
+      ];
+      return justLikeScrollingModeSoFar;
+    });
   });
 
   group("Scrolling Mode", () => {
