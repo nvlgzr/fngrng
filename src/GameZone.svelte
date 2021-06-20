@@ -7,10 +7,13 @@
   import ScoreBoard from "./ScoreBoard.svelte";
   import phrase from "./gettysburg.js";
   import {
+    uppercaseAllowed,
+    fullSentenceModeEnabled,
+    wordScrollingModeEnabled,
     timeLimitModeEnabled,
     maxSeconds,
-    wordScrollingModeEnabled,
     maxWords,
+    punctuationToInclude,
   } from "./persistentStore.js";
   import { gameState, secondsSinceStart } from "./volatileStore.js";
   import { cutOrFill } from "./pureFunctions.js";
@@ -22,9 +25,25 @@
     gameover,
   } from "./modelTransformations.js";
 
-  let model = $timeLimitModeEnabled
-    ? initForScrolling(cutOrFill(phrase, $maxSeconds * 4))
-    : initForScrolling(cutOrFill(phrase, $maxWords));
+  const freshModel = () => {
+    return $timeLimitModeEnabled
+      ? initForScrolling(cutOrFill(phrase, $maxSeconds * 4))
+      : initForScrolling(cutOrFill(phrase, $maxWords));
+  };
+
+  let model = freshModel();
+
+  $: {
+    // Reset when any of these prefs change
+    $uppercaseAllowed;
+    $punctuationToInclude;
+    $wordScrollingModeEnabled;
+    $fullSentenceModeEnabled;
+    $timeLimitModeEnabled;
+    $maxSeconds;
+    $maxWords;
+    model = freshModel();
+  }
 
   $: $gameState = model.gameState;
 

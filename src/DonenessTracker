@@ -28,5 +28,4 @@ LEGEND
 
 
 # Known Bugs
-- Encapsulate reset so that prefs changes don't leave cruft in the UserInput
 - Unused code needs removal

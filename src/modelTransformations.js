@@ -75,7 +75,6 @@ export const backspace = (model) => {
   let updatedVerdict = "no errors"
   for (let i = charSpecs.length - 1; i >= 0; i--) {
     const charSpec = charSpecs[i]
-    // console.log(i, charSpec)
     const color = i === userText.length ? 'gray' : charSpec.color
     updatedCharSpecs.unshift({ ...charSpec, color: color })
     if (color === 'red') {
