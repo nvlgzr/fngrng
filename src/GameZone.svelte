@@ -14,6 +14,7 @@
     maxSeconds,
     maxWords,
     punctuationToInclude,
+    prefsOpen,
   } from "./persistentStore.js";
   import { gameState, secondsSinceStart } from "./volatileStore.js";
   import { cutOrFill } from "./pureFunctions.js";
@@ -56,6 +57,8 @@
   }
 
   const handleKeydown = ({ detail }) => {
+    if ($prefsOpen) return;
+
     if (detail.length === 1) {
       model = addSymbol(model, detail);
     } else {
