@@ -27,7 +27,7 @@ export const secondsSinceStart = derived(
 
       case 'on':
         const milliSecsElapsed = $time - startTime;
-        set(Math.floor(milliSecsElapsed / 1000));
+        set(Math.round(milliSecsElapsed / 1000));
         break;
 
       default: // over

@@ -3,7 +3,7 @@
   import { timeLimitModeEnabled, maxSeconds } from "./persistentStore.js";
 
   $: secondsAdjustedForDirection = $timeLimitModeEnabled
-    ? $maxSeconds - $secondsSinceStart
+    ? Math.max($maxSeconds - $secondsSinceStart, 0)
     : $secondsSinceStart;
 
   $: minutes = Math.floor(secondsAdjustedForDirection / 60);
