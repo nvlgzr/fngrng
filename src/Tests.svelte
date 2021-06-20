@@ -344,6 +344,111 @@
         ],
       ];
     });
+
+    test("The user can correct mistakes with 'backspace'", () => {
+      let m = initForScrolling(false, "Oops!");
+      m = addSymbol(m, "O");
+      m = addSymbol(m, "o");
+      m = addSymbol(m, "o");
+      const recap = [
+        [
+          "Before backspacing, the correct character is green",
+          m.challengeView.charSpecs[1].color === "green",
+        ],
+        [
+          "and the incorrect character is red",
+          m.challengeView.charSpecs[2].color === "red",
+        ],
+      ];
+      m = backspace(m);
+      m = backspace(m);
+      const tests = [
+        [
+          "After backspacing, the userText has been shortened",
+          m.userText === "O",
+        ],
+        [
+          "and both 'backspaced' characters are gray",
+          m.challengeView.charSpecs[1].color === "gray" &&
+            m.challengeView.charSpecs[2].color === "gray",
+        ],
+      ];
+      return [...recap, ...tests];
+    });
+
+    test("When the user types a space", () => {
+      let m = initForScrolling(false, "1 2 3");
+      m = addSymbol(m, " ");
+      const before = [
+        [
+          "it's treated like a normal character by default",
+          m.userText === " " &&
+            m.challengeView.charSpecs[0].color === "red" &&
+            JSON.stringify(m.hidden) === JSON.stringify([]),
+        ],
+      ];
+      m = backspace(m);
+      m = addSymbol(m, "1");
+      m = addSymbol(m, " ");
+      const after = [
+        [
+          "but if the whole word has been matched, the userText resets",
+          m.userText === "",
+        ],
+        [
+          "the matched word gets moved to the 'hidden' array",
+          JSON.stringify(m.hidden) === JSON.stringify(["1"]),
+        ],
+        [
+          "the next word moves to 'challenge",
+          m.challenge === "2" && m.challengeView.charSpecs[0].char === "2",
+        ],
+        [
+          "and the 'restOfLine' array gets shorter by one",
+          JSON.stringify(m.restOfLine) === JSON.stringify(["3"]),
+        ],
+      ];
+      return [...before, ...after];
+    });
+
+    test("The initial model starts with gameState: 'ready'", () => {
+      let m = initForScrolling(false, "foo");
+      return m.gameState === "ready";
+    });
+
+    test("When the user starts typing", () => {
+      let m = initForScrolling(false, "foo");
+      m = addSymbol(m, "f");
+      const gameStart = ["the gameState turns 'on'", m.gameState === "on"];
+      m = addSymbol(m, "o");
+      const gameContinue = ["and stays 'on'", m.gameState === "on"];
+      m = addSymbol(m, "o");
+      m = addSymbol(m, " ");
+      m = addSymbol(m, "a");
+      const gameOver = [
+        "when the game is over, then symbol entry's a no-op",
+        m.gameState === "over",
+      ];
+      return [gameStart, gameContinue, gameOver];
+    });
+
+    test("If we run out of words to match", () => {
+      const phrase = "very short game";
+      let m = initForScrolling(false, phrase);
+      for (const char of phrase) {
+        m = addSymbol(m, char);
+      }
+      m = addSymbol(m, " "); // Submits the last match
+      return [
+        ["the game's over", m.gameState === "over"],
+        ["the userText is empty", m.userText === ""],
+        [
+          "and all the matched words are in 'hidden'",
+          JSON.stringify(m.hidden) ===
+            JSON.stringify(["very", "short", "game"]),
+        ],
+      ];
+    });
   });
 
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
