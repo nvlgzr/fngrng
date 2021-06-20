@@ -1,4 +1,5 @@
 <script>
+  import Keydown from "svelte-keydown";
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
@@ -7,11 +8,17 @@
   import MappingToggle from "./MappingToggle.svelte";
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
+  import { testModeEnabled } from "./persistentStore";
 
-  let test = false;
+  const toggleTests = ({ detail }) => {
+    // ⌥T ⇒ †
+    if (detail === "†") $testModeEnabled = !$testModeEnabled;
+  };
 </script>
 
-{#if test}
+<Keydown on:key={toggleTests} />
+
+{#if $testModeEnabled}
   <div>
     <Playground />
     <Tests />

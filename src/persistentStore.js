@@ -90,3 +90,9 @@ export const punctuationToInclude = writable(storedPunctuation || "")
 punctuationToInclude.subscribe(value => {
   localStorage.setItem("punctuation", value)
 })
+
+const storedTestMode = localStorage.getItem("testModeEnabled");
+export const testModeEnabled = writable(storedTestMode === "true")
+testModeEnabled.subscribe(value => {
+  localStorage.setItem("testModeEnabled", value)
+})
