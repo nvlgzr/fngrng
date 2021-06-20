@@ -39,6 +39,7 @@ export const addSymbol = (model, sym) => {
 
       const updated = {
         ...model,
+        totalKeyPresses: model.totalKeyPresses + 1,
         userText: "",
         hidden: [...model.hidden, model.challenge],
         challenge: newChallenge,

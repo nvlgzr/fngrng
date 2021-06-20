@@ -212,10 +212,10 @@
   });
 
   test("The game tracks 'totalKeyPresses'", () => {
-    let m = initForScrolling("123");
-    const initial = ["which starts at 0", m.totalKeyPresses === 0];
+    let m = initForScrolling("123 4");
+    const init = ["which starts at 0", m.totalKeyPresses === 0];
     m = addSymbol(m, " ");
-    const symbol = ["is incremented by spaces", m.totalKeyPresses === 1];
+    const sym = ["is incremented by spaces", m.totalKeyPresses === 1];
     // *I decided to count backspaces in order to emphasize accuracy
     //  over speed.
     m = backspace(m);
@@ -228,21 +228,27 @@
     m = addSymbol(m, "1");
     m = addSymbol(m, "2");
     m = addSymbol(m, "3");
-    const symbols = [
-      "and by every regular symbol typed",
+    const syms = [
+      "and by every regular symbol typed.",
       m.totalKeyPresses === 5,
     ];
     m = addSymbol(m, " ");
+    const matching = [
+      "Spaces that trigger a word match count toward the total",
+      m.totalKeyPresses === 6,
+    ];
+    m = addSymbol(m, "4");
+    m = addSymbol(m, " ");
     const gameover = [
-      "except for the game-ending space",
-      m.totalKeyPresses === 5,
+      "except for the game-ending space.",
+      m.totalKeyPresses === 7,
     ];
     m = reset(m);
     const resetted = [
-      "and, finally, resets when the game resets",
+      "Finally, 'totalKeyPresses' resets when the game resets",
       m.totalKeyPresses === 0,
     ];
-    return [initial, symbol, bckspc1, bckspc2, symbols, gameover, resetted];
+    return [init, sym, bckspc1, bckspc2, syms, matching, gameover, resetted];
   });
 
   test("When the game is ended midstream (by, say, hitting the time limit)", () => {

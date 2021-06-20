@@ -13,7 +13,7 @@ App ✅
       LineByLinePrompt 
       UserInput ✅
       ScoreBoard ✅
-        WordScore ❌
+        WordScore ✅
         Clock ✅
         Results ✅
     CheatSheet
@@ -28,7 +28,6 @@ LEGEND
 
 
 # Known Bugs
-- Accuracy should never be > 100!
 - Clicking outside of preferences should dismiss prefs (but doesn't)
 - Encapsulate reset so that prefs changes don't leave cruft in the UserInput
 - Unused code needs removal
