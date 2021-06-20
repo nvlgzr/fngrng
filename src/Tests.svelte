@@ -34,19 +34,23 @@
 
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ modelTransformations ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-  test("When I initialize the model with 'Just three words.'", () => {
-    const i = initForScrolling("Just three words.");
-    return [
-      ["the first is 'Just'", i.challenge === "Just"],
-      [
-        "the challengeView starts with 'J'",
-        i.challengeView.charSpecs[0].char === "J",
-      ],
-      [
-        "the remaining words are arrayed in 'restOfLine'",
-        JSON.stringify(i.restOfLine) === JSON.stringify(["three", "words."]),
-      ],
-    ];
+
+  x();
+  group("Scrolling Mode", () => {
+    test("When I initialize the model with 'Just three words.'", () => {
+      const i = initForScrolling("Just three words.");
+      return [
+        ["the first is 'Just'", i.challenge === "Just"],
+        [
+          "the challengeView starts with 'J'",
+          i.challengeView.charSpecs[0].char === "J",
+        ],
+        [
+          "the remaining words are arrayed in 'restOfLine'",
+          JSON.stringify(i.restOfLine) === JSON.stringify(["three", "words."]),
+        ],
+      ];
+    });
   });
 
   test("When the user types a correct character", () => {
@@ -286,6 +290,19 @@
   });
 
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
+
+  function x() {
+    test("", () => false);
+  }
+
+  function group(description, g) {
+    results.push("");
+    results.push(`🔻 🔻 ${description} 🔻 🔻`);
+    g();
+    results.push(`🔺 🔺 ${description} 🔺 🔺`);
+    results.push("");
+  }
+
   function test(description, t) {
     const result = t();
     if (typeof result === "boolean") {
