@@ -19,7 +19,7 @@
  */
 export const initForScrolling = (isScrollingMode = true, targetStringOrFunction, repeats = 1) => {
   let emptyBaseModel = {
-    isLineByLineMode: isScrollingMode ? false : true,
+    isLineByLineMode: !isScrollingMode,
     target: "",
     gameState: "ready",
     totalKeyPresses: 0,
