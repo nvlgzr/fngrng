@@ -60,32 +60,104 @@ export const initForScrolling = (isScrollingMode = true, targetStringOrFunction,
 export const addSymbol = (model, sym) => {
   if (model.gameState === "over") return model
 
-  if (sym === " ") {
-    if (model.userText === model.challenge) {
-      const [next, ...rest] = model.restOfLine
-      const newChallenge = next ?? ""
+  const challengeAchieved = sym === " " && model.userText === model.challenge
 
-      const updated = {
-        ...model,
-        totalKeyPresses: model.totalKeyPresses + 1,
-        userText: "",
-        hidden: [...model.hidden, model.challenge],
-        challenge: newChallenge,
-        challengeView: evaluate(newChallenge, ""),
-        restOfLine: rest
+  switch (model.isLineByLineMode) {
+    case true:
+      if (challengeAchieved) {
+        let updated = {
+          ...model,
+          totalKeyPresses: model.totalKeyPresses + 1,
+          userText: "",
+          locked: [...model.locked, model.challenge]
+        }
+
+        let remainingLines = model.remainingLines
+        let restOfLine = model.restOfLine
+        let challenge;
+
+        const endOfTheLine = restOfLine?.length === 0
+        const onLastWord = restOfLine?.length === 1
+        const twoOrMore = restOfLine?.length >= 2
+
+        if (endOfTheLine) {
+          const [nextLine, ...otherLines] = remainingLines
+          restOfLine = nextLine
+          remainingLines = otherLines
+
+          if (restOfLine?.length) {
+            const [nextWord, ...otherWords] = restOfLine
+            challenge = nextWord
+            restOfLine = otherWords
+          }
+        } else if (onLastWord) {
+          challenge = restOfLine[0]
+
+          const [nextLine, ...otherLines] = remainingLines
+          restOfLine = nextLine
+          remainingLines = otherLines
+        } else if (twoOrMore) {
+          const [nextWord, ...otherWords] = restOfLine
+          challenge = nextWord
+          restOfLine = otherWords
+        }
+
+        updated = {
+          ...updated,
+          remainingLines: remainingLines,
+          restOfLine: restOfLine,
+          challenge: challenge,
+          challengeView: evaluate(challenge ?? "", ""),
+        }
+
+        return updated.challenge?.length ? updated : gameover(model)
+      } else {
+        const userText = model.userText + sym
+        return {
+          ...model,
+          gameState: "on",
+          totalKeyPresses: model.totalKeyPresses + 1,
+          userText: userText,
+          challengeView: evaluate(model.challenge, userText)
+        }
       }
+      break;
 
-      return updated.challenge.length ? updated : gameover(model)
-    }
-  }
+    case false: // WordScrollingMode
+      if (challengeAchieved) {
+        const [next, ...rest] = model.restOfLine
+        const newChallenge = next ?? ""
 
-  const userText = model.userText + sym
-  return {
-    ...model,
-    gameState: "on",
-    totalKeyPresses: model.totalKeyPresses + 1,
-    userText: userText,
-    challengeView: evaluate(model.challenge, userText)
+        let updated = {
+          ...model,
+          totalKeyPresses: model.totalKeyPresses + 1,
+          userText: "",
+          challenge: newChallenge,
+          challengeView: evaluate(newChallenge, ""),
+          restOfLine: rest
+        }
+
+        updated = {
+          ...updated,
+          hidden: [...model.hidden, model.challenge]
+        }
+        return updated.challenge.length ? updated : gameover(model)
+
+      } else {
+        const userText = model.userText + sym
+        return {
+          ...model,
+          gameState: "on",
+          totalKeyPresses: model.totalKeyPresses + 1,
+          userText: userText,
+          challengeView: evaluate(model.challenge, userText)
+        }
+      }
+      break;
+
+    default:
+      throw new Error("Impossible state found in $wordScrollingModeEnabled")
+      break
   }
 }
 
@@ -125,7 +197,10 @@ export const reset = (model) => {
 }
 
 export const gameover = model => {
-  let hidden = model.hidden
+  let hidden = model.isLineByLineMode
+    ? [...model.hidden, ...model.locked]
+    : model.hidden
+
   if (model.userText === model.challenge) {
     hidden = [...hidden, model.challenge]
   }

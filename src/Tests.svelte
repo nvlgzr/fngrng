@@ -392,15 +392,15 @@
       m = addSymbol(m, " ");
       const after = [
         [
-          "but if the whole word has been matched, the userText resets",
+          "but if the whole word has been matched, the userText resets,",
           m.userText === "",
         ],
         [
-          "the matched word gets moved to the 'hidden' array",
-          JSON.stringify(m.hidden) === JSON.stringify(["1"]),
+          "the matched word gets moved to the 'locked' array,",
+          JSON.stringify(m.locked) === JSON.stringify(["1"]),
         ],
         [
-          "the next word moves to 'challenge",
+          "the next word moves to 'challenge,",
           m.challenge === "2" && m.challengeView.charSpecs[0].char === "2",
         ],
         [
@@ -431,6 +431,47 @@
       ];
       return [gameStart, gameContinue, gameOver];
     });
+
+    test("When the user matches a word", () => {
+      let m = initForScrolling(false, "a b c");
+      m = addSymbol(m, "a");
+      m = addSymbol(m, " ");
+      const firstMatch = [
+        "the matched word moves from 'challenge' to 'locked'",
+        JSON.stringify(m.locked) === JSON.stringify(["a"]) &&
+          m.challenge === "b",
+      ];
+      m = addSymbol(m, "b");
+      m = addSymbol(m, " ");
+      const secondMatch = [
+        "which is true, also, for the next matched word",
+        JSON.stringify(m.locked) === JSON.stringify(["a", "b"]) &&
+          m.challenge === "c",
+        m,
+      ];
+      m = addSymbol(m, "c");
+      m = addSymbol(m, " ");
+      const lastMatch = [
+        "but the last match on this line moves everything to 'hidden'",
+        JSON.stringify(m.hidden) === JSON.stringify(["a", "b", "c"]),
+      ];
+      return [firstMatch, secondMatch, lastMatch];
+    });
+
+    // // I'm going to say, for now, that linees are capped at 35
+    // // characters which, for some situations, will result in shorter
+    // // lines. Here's we'll cheat a bit to make it clear where the
+    // // line break should be.
+    // const firstLine = "12345 12345 12345 12345 12345 12345 12345";
+    // const nextLine = "next line";
+    // const phrase = firstLine + " " + nextLine;
+    // const wholeWordMatch = (model) => {
+    //   let m = model;
+    //   [("1", "2", "3", "4", "5", " ")].forEach((char) => {
+    //     m = addSymbol(m, char);
+    //   });
+    //   return m;
+    // };
 
     test("If we run out of words to match", () => {
       const phrase = "very short game";
