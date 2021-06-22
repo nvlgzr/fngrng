@@ -6,7 +6,7 @@
   } from "./modelTransformations.js";
   import phrase from "./gettysburg.js";
 
-  let model = initForScrolling(true, phrase);
+  let model = initForScrolling(phrase);
 
   model = addSymbol(model, "F");
   model = addSymbol(model, "o");

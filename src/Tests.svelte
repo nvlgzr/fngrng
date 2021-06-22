@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import {
     initForScrolling,
+    initForLineByLine,
     addSymbol,
     backspace,
     reset,
@@ -61,7 +62,7 @@
 
   group("Scrolling Mode", () => {
     test("When I initialize the model with 'Just three words.'", () => {
-      const i = initForScrolling(true, "Just three words.");
+      const i = initForScrolling("Just three words.");
       return [
         ["the first is 'Just'", i.challenge === "Just"],
         [
@@ -76,7 +77,7 @@
     });
 
     test("When the user types a correct character", () => {
-      let m = initForScrolling(true, "word");
+      let m = initForScrolling("word");
       m = addSymbol(m, "w");
       return [
         [
@@ -91,7 +92,7 @@
     });
 
     test("When the user types an incorrect character", () => {
-      let m = initForScrolling(true, "Four score and seven years");
+      let m = initForScrolling("Four score and seven years");
       m = addSymbol(m, "F");
       m = addSymbol(m, "o");
       m = addSymbol(m, "i");
@@ -109,7 +110,7 @@
     });
 
     test("The user can correct mistakes with 'backspace'", () => {
-      let m = initForScrolling(true, "Oops!");
+      let m = initForScrolling("Oops!");
       m = addSymbol(m, "O");
       m = addSymbol(m, "o");
       m = addSymbol(m, "o");
@@ -140,7 +141,7 @@
     });
 
     test("When the user types a space", () => {
-      let m = initForScrolling(true, "1 2 3");
+      let m = initForScrolling("1 2 3");
       m = addSymbol(m, " ");
       const before = [
         [
@@ -175,12 +176,12 @@
     });
 
     test("The initial model starts with gameState: 'ready'", () => {
-      let m = initForScrolling(true, "foo");
+      let m = initForScrolling("foo");
       return m.gameState === "ready";
     });
 
     test("When the user starts typing", () => {
-      let m = initForScrolling(true, "foo");
+      let m = initForScrolling("foo");
       m = addSymbol(m, "f");
       const gameStart = ["the gameState turns 'on'", m.gameState === "on"];
       m = addSymbol(m, "o");
@@ -197,7 +198,7 @@
 
     test("If we run out of words to match", () => {
       const phrase = "very short game";
-      let m = initForScrolling(true, phrase);
+      let m = initForScrolling(phrase);
       for (const char of phrase) {
         m = addSymbol(m, char);
       }
@@ -215,7 +216,7 @@
 
     test("Pressing 'return/enter'", () => {
       const phraseFunction = () => "even shorter";
-      let m = initForScrolling(true, phraseFunction);
+      let m = initForScrolling(phraseFunction);
       const n = reset(m);
       const ready = [
         "at game-ready is a no-op",
@@ -233,14 +234,13 @@
       m = reset(m);
       const over = [
         "but, if it's game-over, 'return/enter' resets the game",
-        JSON.stringify(m) ===
-          JSON.stringify(initForScrolling(true, phraseFunction)),
+        JSON.stringify(m) === JSON.stringify(initForScrolling(phraseFunction)),
       ];
       return [ready, on, over];
     });
 
     test("The game tracks 'totalKeyPresses'", () => {
-      let m = initForScrolling(true, "123 4");
+      let m = initForScrolling("123 4");
       const init = ["which starts at 0", m.totalKeyPresses === 0];
       m = addSymbol(m, " ");
       const sym = ["is incremented by spaces", m.totalKeyPresses === 1];
@@ -280,7 +280,7 @@
     });
 
     test("When the game is ended midstream (by, say, hitting the time limit)", () => {
-      let m = initForScrolling(true, "finish on the letter s");
+      let m = initForScrolling("finish on the letter s");
       m = addSymbol(m, "f");
       m = addSymbol(m, "i");
       m = addSymbol(m, "n");
@@ -297,7 +297,7 @@
     });
 
     test("When the game is ended midstream at the end of a fully-matched word", () => {
-      let m = initForScrolling(true, "done on first e");
+      let m = initForScrolling("done on first e");
       m = addSymbol(m, "d");
       m = addSymbol(m, "o");
       m = addSymbol(m, "n");
@@ -316,7 +316,7 @@
 
   group("Line-by-Line Mode", () => {
     test("When I initialize the model with 'Just three words.'", () => {
-      const i = initForScrolling(false, "Just three words.");
+      const i = initForLineByLine(["Just three words."]);
       return [
         ["the first is 'Just'", i.challenge === "Just"],
         [
@@ -335,8 +335,13 @@
       ];
     });
 
+    // test("When I initialize the model with a long passage", () => {
+    //   const long = initForLineByLine(gettysburg);
+    //   return [["", false]];
+    // });
+
     test("When the user types a correct character", () => {
-      let m = initForScrolling(false, "just one line to start");
+      let m = initForLineByLine(["just one line to start"]);
       m = addSymbol(m, "j");
       const justLikeScrollingModeSoFar = [
         [
@@ -352,7 +357,7 @@
     });
 
     test("When the user types an incorrect character", () => {
-      let m = initForScrolling(false, "Four score and seven years");
+      let m = initForLineByLine(["Four score and seven years"]);
       m = addSymbol(m, "F");
       m = addSymbol(m, "o");
       m = addSymbol(m, "i");
@@ -370,7 +375,7 @@
     });
 
     test("The user can correct mistakes with 'backspace'", () => {
-      let m = initForScrolling(false, "Oops!");
+      let m = initForLineByLine(["Oops!"]);
       m = addSymbol(m, "O");
       m = addSymbol(m, "o");
       m = addSymbol(m, "o");
@@ -401,7 +406,7 @@
     });
 
     test("When the user types a space", () => {
-      let m = initForScrolling(false, "1 2 3");
+      let m = initForLineByLine(["1 2 3"]);
       m = addSymbol(m, " ");
       const before = [
         [
@@ -436,12 +441,12 @@
     });
 
     test("The initial model starts with gameState: 'ready'", () => {
-      let m = initForScrolling(false, "foo");
+      let m = initForLineByLine(["foo"]);
       return m.gameState === "ready";
     });
 
     test("When the user starts typing", () => {
-      let m = initForScrolling(false, "foo");
+      let m = initForLineByLine(["foo"]);
       m = addSymbol(m, "f");
       const gameStart = ["the gameState turns 'on'", m.gameState === "on"];
       m = addSymbol(m, "o");
@@ -457,7 +462,7 @@
     });
 
     test("When the user matches a word", () => {
-      let m = initForScrolling(false, "a b c");
+      let m = initForLineByLine(["a b c"]);
       m = addSymbol(m, "a");
       m = addSymbol(m, " ");
       const firstMatch = [
@@ -483,7 +488,7 @@
 
     test("If we run out of words to match", () => {
       const phrase = "very short game";
-      let m = initForScrolling(false, phrase);
+      let m = initForLineByLine([phrase]);
       for (const char of phrase) {
         m = addSymbol(m, char);
       }

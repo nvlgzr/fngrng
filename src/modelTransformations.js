@@ -12,33 +12,27 @@
  * instead of words. It's up to the view to determine how many of
  * these to display in advance.
  * 
- * @param {boolean} isScrollingMode 
  * @param {string | function} targetStringOrFunction 
  * @param {number} repeats 
  * @returns 
  */
-export const initForScrolling = (isScrollingMode = true, targetStringOrFunction, repeats = 1) => {
+export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
   let emptyBaseModel = {
-    isLineByLineMode: !isScrollingMode,
+    isLineByLineMode: false,
     target: "",
     gameState: "ready",
     totalKeyPresses: 0,
     userText: "",
     hidden: [],
-    // locked: [], 👈 Added in line-by-line mode
+    // locked: [], 👈 Only used in line-by-line mode
     challenge: "",
-    challengeView: { overallVerdict: "not yet attempted", charSpecs: [] },
+    challengeView: {
+      overallVerdict: "not yet attempted",
+      charSpecs: []
+    },
     restOfLine: [],
-    // remainingLines: [], 👈 Added in line-by-line mode
+    // remainingLines: [], 👈 Only used in line-by-line mode
   };
-
-  if (!isScrollingMode) {
-    emptyBaseModel = {
-      ...emptyBaseModel,
-      locked: [],
-      remainingLines: []
-    }
-  }
 
   const targetString = typeof targetStringOrFunction === 'string' ? targetStringOrFunction : targetStringOrFunction()
   const wordArray = targetString.split(" ");
@@ -56,6 +50,42 @@ export const initForScrolling = (isScrollingMode = true, targetStringOrFunction,
     restOfLine: rest,
   };
 };
+
+export const initForLineByLine = (linesOrFunction = ["Check your code", "initForLineByLine got no params"]) => {
+  let emptyBaseModel = {
+    isLineByLineMode: true,
+    target: "",
+    gameState: "ready",
+    totalKeyPresses: 0,
+    userText: "",
+    hidden: [],
+    locked: [], // 👈 Only used in line-by-line mode
+    challenge: "",
+    challengeView: {
+      overallVerdict: "not yet attempted",
+      charSpecs: []
+    },
+    restOfLine: [],
+    remainingLines: [], // 👈 Only used in line-by-line mode
+  };
+
+  const lines = typeof linesOrFunction === 'function'
+    ? linesOrFunction()
+    : linesOrFunction
+
+  const [first, ...rest] = lines[0].split(" ");
+
+  if (!first) return emptyBaseModel;
+
+  return {
+    ...emptyBaseModel,
+    target: linesOrFunction,
+    challenge: first,
+    challengeView: objectize(first),
+    restOfLine: rest,
+    remainingLines: lines.slice(1)
+  };
+}
 
 export const addSymbol = (model, sym) => {
   if (model.gameState === "over") return model
@@ -113,12 +143,13 @@ export const addSymbol = (model, sym) => {
         return updated.challenge?.length ? updated : gameover(model)
       } else {
         const userText = model.userText + sym
+        const view = evaluate(model.challenge, userText)
         return {
           ...model,
           gameState: "on",
           totalKeyPresses: model.totalKeyPresses + 1,
           userText: userText,
-          challengeView: evaluate(model.challenge, userText)
+          challengeView: view
         }
       }
       break;
@@ -193,7 +224,7 @@ export const backspace = (model) => {
 }
 
 export const reset = (model) => {
-  return model.gameState !== "over" ? model : initForScrolling(true, model.target)
+  return model.gameState !== "over" ? model : initForScrolling(model.target)
 }
 
 export const gameover = model => {
