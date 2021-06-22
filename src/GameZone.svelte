@@ -17,25 +17,17 @@
     prefsOpen,
   } from "./persistentStore.js";
   import { gameState, secondsSinceStart } from "./volatileStore.js";
-  import { cutOrFill } from "./pureFunctions.js";
   import {
-    initForScrolling,
     addSymbol,
     backspace,
     reset,
     gameover,
+    initModel,
   } from "./modelTransformations.js";
 
   const freshModel = () => {
-    return $timeLimitModeEnabled
-      ? initForScrolling(
-          $wordScrollingModeEnabled,
-          cutOrFill(phrase, $maxSeconds * 4)
-        )
-      : initForScrolling(
-          $wordScrollingModeEnabled,
-          cutOrFill(phrase, $maxWords)
-        );
+    const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
+    return initModel(phrase, wordLimit, $wordScrollingModeEnabled);
   };
 
   let model = freshModel();

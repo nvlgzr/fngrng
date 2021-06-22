@@ -1,3 +1,13 @@
+import { cutOrFill, lineify } from "./pureFunctions";
+
+export const initModel = (sourceText, wordLimit, scrollingMode = true) => {
+  if (scrollingMode) {
+    return initForScrolling(cutOrFill(sourceText, wordLimit))
+  } else {
+    return initForLineByLine(lineify(sourceText, wordLimit))
+  }
+}
+
 /**
  * The text prompt has two mutually-exclusive modes that operate 
  * differently enough that the slightly more complex mode --
