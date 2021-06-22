@@ -481,21 +481,6 @@
       return [firstMatch, secondMatch, lastMatch];
     });
 
-    // // I'm going to say, for now, that linees are capped at 35
-    // // characters which, for some situations, will result in shorter
-    // // lines. Here's we'll cheat a bit to make it clear where the
-    // // line break should be.
-    // const firstLine = "12345 12345 12345 12345 12345 12345 12345";
-    // const nextLine = "next line";
-    // const phrase = firstLine + " " + nextLine;
-    // const wholeWordMatch = (model) => {
-    //   let m = model;
-    //   [("1", "2", "3", "4", "5", " ")].forEach((char) => {
-    //     m = addSymbol(m, char);
-    //   });
-    //   return m;
-    // };
-
     test("If we run out of words to match", () => {
       const phrase = "very short game";
       let m = initForScrolling(false, phrase);
@@ -544,16 +529,6 @@
       }
     }
   }
-
-  function xtest() {}
-
-  const addSymbols = (model, str) => {
-    let m = model;
-    str.split("").forEach((char) => {
-      m = addSymbol(m, char);
-    });
-    return m;
-  };
 
   $: markedTests = results.reduce(
     (acc, curr, i) => {
