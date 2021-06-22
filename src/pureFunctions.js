@@ -1,17 +1,17 @@
 import { masterList } from "./tenThousandWords.js";
 
-export const objectize = (wordOrWords) => {
+export const objectize = (wordOrWords, color = "") => {
   if (!wordOrWords) return wordOrWords
 
   if (typeof wordOrWords === "string")
     return wordOrWords.split("").map((char => {
-      return { char: char }
+      return color ? { char: char, color: color } : { char: char }
     })
     )
 
   return wordOrWords.map(w => {
     return [...w].map((char) => {
-      return { char: char };
+      return color ? { char: char, color: color } : { char: char }
     })
   })
 }
