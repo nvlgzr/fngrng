@@ -539,11 +539,21 @@
         results.push(
           `&nbsp;&nbsp;&nbsp;${asrtn[1] ? "✅" : "❌"} …${asrtn[0]}`
         );
-        if (!asrtn[1] && asrtn.length === 3)
-          results.push(`&nbsp;&nbsp;&nbsp;--> ${JSON.stringify(asrtn[2])}`);
+        if (asrtn.length === 3)
+          results.push(`&nbsp;&nbsp;&nbsp;⚠️→${JSON.stringify(asrtn[2])}`);
       }
     }
   }
+
+  function xtest() {}
+
+  const addSymbols = (model, str) => {
+    let m = model;
+    str.split("").forEach((char) => {
+      m = addSymbol(m, char);
+    });
+    return m;
+  };
 
   $: markedTests = results.reduce(
     (acc, curr, i) => {
