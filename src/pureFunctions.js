@@ -23,6 +23,35 @@ export const cutOrFill = (phrase, targetNumber) => {
   return sliced.slice(0, targetNumber).join(' ')
 }
 
+export const lineify = (phrase, maxWords = 70, maxLettersPerLine = 35) => {
+  const phraseWithTerminalSpace = phrase + " "
+  let i = 0
+  let j = i + maxLettersPerLine
+  let candidate = ""
+  let lines = []
+  let wordCount = 0
+
+  while ((candidate = phraseWithTerminalSpace.slice(i, j)) && wordCount <= maxWords) {
+    const lastSpaceInCandidate = candidate.lastIndexOf(" ")
+    j = i + lastSpaceInCandidate + 1 // 1 "eats" the space
+
+    let words = phrase.slice(i, j).split(" ").filter(w => w.length)
+
+    wordCount += words.length
+
+    if (wordCount > maxWords) {
+      const overage = wordCount - maxWords
+      words = words.slice(0, words.length - overage)
+    }
+
+    i = j
+    j = i + maxLettersPerLine
+
+    lines.push(words.join(" "))
+  }
+  return lines
+}
+
 ///////////////////////////// ↓ /////////////////////////////////
 
 // returns the index of the nth occurance of a char or string

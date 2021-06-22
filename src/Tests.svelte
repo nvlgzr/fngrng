@@ -7,7 +7,8 @@
     reset,
     gameover,
   } from "./modelTransformations.js";
-  import { cutOrFill } from "./pureFunctions.js";
+  import { cutOrFill, lineify } from "./pureFunctions.js";
+  import gettysburg from "./gettysburg.js";
 
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
@@ -21,15 +22,38 @@
       [
         "shortens a phrase to the target length",
         cut === "Give your hungry tongue",
-        cut,
       ],
       [
         "or repeats it to reach the target length",
         filled ===
           "Give your hungry tongue the sweet crunch of a dozen stunned honey bees. Give your hungry tongue the sweet crunch",
-        filled,
       ],
     ];
+  });
+
+  test("The 'lineify' function", () => {
+    const noParams = lineify(gettysburg);
+    const longestLine = noParams.reduce(
+      (longest, curr) => Math.max(longest, curr.length),
+      0
+    );
+    const wordCount = noParams.reduce((wordCount, line) => {
+      return (wordCount += line.split(" ").length);
+    }, 0);
+
+    const deefault = [
+      [
+        "limits line length to a default max of 35 characters",
+        longestLine <= 35,
+      ],
+      ["and limits results to 70 words by default", wordCount === 70],
+      [
+        "using (duh) the phrase provided.",
+        noParams[0] === "Four score and seven years ago our",
+      ],
+    ];
+
+    return [...deefault];
   });
 
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
@@ -447,7 +471,6 @@
         "which is true, also, for the next matched word",
         JSON.stringify(m.locked) === JSON.stringify(["a", "b"]) &&
           m.challenge === "c",
-        m,
       ];
       m = addSymbol(m, "c");
       m = addSymbol(m, " ");
