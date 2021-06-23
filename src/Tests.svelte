@@ -13,80 +13,82 @@
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
 
-  test("The cutOrFill function", () => {
-    const thirteenWords =
-      "Give your hungry tongue the sweet crunch of a dozen stunned honey bees.";
-    const cut = cutOrFill(thirteenWords, 4);
-    const filled = cutOrFill(thirteenWords, 20);
-    return [
-      [
-        "shortens a phrase to the target length",
-        cut === "Give your hungry tongue",
-      ],
-      [
-        "or repeats it to reach the target length",
-        filled ===
-          "Give your hungry tongue the sweet crunch of a dozen stunned honey bees. Give your hungry tongue the sweet crunch",
-      ],
-    ];
-  });
-
-  test("The 'lineify' function", () => {
-    const noParams = lineify(gettysburg);
-    const longestLine = noParams.reduce(
-      (longest, curr) => Math.max(longest, curr.length),
-      0
-    );
-    const wordCount = noParams.reduce((wordCount, line) => {
-      return (wordCount += line.split(" ").length);
-    }, 0);
-
-    const deefault = [
-      [
-        "limits line length to a default max of 35 characters",
-        longestLine <= 35,
-      ],
-      ["and limits results to 70 words by default", wordCount === 70],
-      [
-        "using (duh) the phrase provided.",
-        noParams[0] === "Four score and seven years ago our",
-      ],
-    ];
-
-    const line1 = "With 35 characters, here's line one";
-    const line2 = "Line 2 has 33 characters in total";
-    const line3 = "The last line's short";
-    const seventeenWords = `${line1} ${line2} ${line3}`;
-    const limited = [
-      [
-        "We can limit the lines to just three words (1 line)",
-        JSON.stringify(lineify(seventeenWords, 3)) ===
-          JSON.stringify(["With 35 characters,"]),
-      ],
-      [
-        "or, say, 10 words (2 lines).",
-        JSON.stringify(lineify(seventeenWords, 10)) ===
-          JSON.stringify([line1, "Line 2 has 33"]),
+  group("Utility functions in 'pureFunctions.js'", () => {
+    test("The cutOrFill function", () => {
+      const thirteenWords =
+        "Give your hungry tongue the sweet crunch of a dozen stunned honey bees.";
+      const cut = cutOrFill(thirteenWords, 4);
+      const filled = cutOrFill(thirteenWords, 20);
+      return [
         [
-          JSON.stringify(lineify(seventeenWords, 10)),
-          JSON.stringify([line1, "Line 2 has 33"]),
+          "shortens a phrase to the target length",
+          cut === "Give your hungry tongue",
         ],
-      ],
-      [
-        "And if the provided limit exceeds the word limit, the phrase repeats to close the gap",
-        lineify(seventeenWords, 34)[0] === line1 &&
-          lineify(seventeenWords, 34)[1] === line2 &&
-          lineify(seventeenWords, 34)[2] === "The last line's short With 35" &&
-          lineify(seventeenWords, 34)[3] ===
-            "characters, here's line one Line 2" &&
-          lineify(seventeenWords, 34)[4] ===
-            "has 33 characters in total The last" &&
-          lineify(seventeenWords, 34)[5] === "line's short",
-      ],
-    ];
-    return [...deefault, ...limited];
-  });
+        [
+          "or repeats it to reach the target length",
+          filled ===
+            "Give your hungry tongue the sweet crunch of a dozen stunned honey bees. Give your hungry tongue the sweet crunch",
+        ],
+      ];
+    });
 
+    test("The 'lineify' function", () => {
+      const noParams = lineify(gettysburg);
+      const longestLine = noParams.reduce(
+        (longest, curr) => Math.max(longest, curr.length),
+        0
+      );
+      const wordCount = noParams.reduce((wordCount, line) => {
+        return (wordCount += line.split(" ").length);
+      }, 0);
+
+      const deefault = [
+        [
+          "limits line length to a default max of 35 characters",
+          longestLine <= 35,
+        ],
+        ["and limits results to 70 words by default", wordCount === 70],
+        [
+          "using (duh) the phrase provided.",
+          noParams[0] === "Four score and seven years ago our",
+        ],
+      ];
+
+      const line1 = "With 35 characters, here's line one";
+      const line2 = "Line 2 has 33 characters in total";
+      const line3 = "The last line's short";
+      const seventeenWords = `${line1} ${line2} ${line3}`;
+      const limited = [
+        [
+          "We can limit the lines to just three words (1 line)",
+          JSON.stringify(lineify(seventeenWords, 3)) ===
+            JSON.stringify(["With 35 characters,"]),
+        ],
+        [
+          "or, say, 10 words (2 lines).",
+          JSON.stringify(lineify(seventeenWords, 10)) ===
+            JSON.stringify([line1, "Line 2 has 33"]),
+          [
+            JSON.stringify(lineify(seventeenWords, 10)),
+            JSON.stringify([line1, "Line 2 has 33"]),
+          ],
+        ],
+        [
+          "And if the provided limit exceeds the word limit, the phrase repeats to close the gap",
+          lineify(seventeenWords, 34)[0] === line1 &&
+            lineify(seventeenWords, 34)[1] === line2 &&
+            lineify(seventeenWords, 34)[2] ===
+              "The last line's short With 35" &&
+            lineify(seventeenWords, 34)[3] ===
+              "characters, here's line one Line 2" &&
+            lineify(seventeenWords, 34)[4] ===
+              "has 33 characters in total The last" &&
+            lineify(seventeenWords, 34)[5] === "line's short",
+        ],
+      ];
+      return [...deefault, ...limited];
+    });
+  });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ modelTransformations ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
