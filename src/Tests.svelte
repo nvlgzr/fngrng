@@ -68,10 +68,6 @@
           "or, say, 10 words (2 lines).",
           JSON.stringify(lineify(seventeenWords, 10)) ===
             JSON.stringify([line1, "Line 2 has 33"]),
-          [
-            JSON.stringify(lineify(seventeenWords, 10)),
-            JSON.stringify([line1, "Line 2 has 33"]),
-          ],
         ],
         [
           "And if the provided limit exceeds the word limit, the phrase repeats to close the gap",
@@ -383,18 +379,15 @@
         [
           "the next line's first word is now the 'challenge',",
           m.challenge === "Line",
-          m.challenge,
         ],
         [
           "'restOfLine' has the rest of the line,",
           m.restOfLine.join(" ") === "2 has 33 characters in total",
-          m.restOfLine,
         ],
         [
           "and 'remainingLines' loses the now-current line",
           m.remainingLines[0] === "Whereas line 3 takes up 32 chars" &&
             m.remainingLines.length === 1,
-          m.remainingLines,
         ],
       ];
       return [...twoLeft, ...oneLeft, ...endOfLine];
@@ -517,7 +510,6 @@
       const gameOver = [
         "when the game is over, then symbol entry's a no-op",
         m.gameState === "over",
-        m,
       ];
       return [gameStart, gameContinue, gameOver];
     });

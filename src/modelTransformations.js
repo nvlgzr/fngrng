@@ -120,10 +120,6 @@ export const addSymbol = (model, sym) => {
 
         const endOfTheLine = restOfLine?.length === 0
 
-        if (model.challenge === "foo") {
-          console.log('boy howdy')
-        }
-
         if (endOfTheLine) {
           const [nextLine, ...otherLines] = remainingLines
           restOfLine = nextLine
