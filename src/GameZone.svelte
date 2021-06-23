@@ -85,7 +85,7 @@
   {:else if $wordScrollingModeEnabled}
     <ScrollingPrompt {model} />
   {:else}
-    <LineByLinePrompt />
+    <LineByLinePrompt {model} />
   {/if}
   <UserInput
     failed={model.challengeView.overallVerdict === "error"}

@@ -1,20 +1,31 @@
 <script>
-  import { deleteLatestWord, promptLines } from "./volatileStore.js";
+  import { objectize } from "./pureFunctions";
+  import SingleLine from "./SingleLine.svelte";
+
+  export let model;
+
+  let deleteLatestWord = false;
+  let lines = [];
+
+  $: firstLine = model?.challenge.length
+    ? [
+        ...model.locked.map((w) => objectize(w, "green")),
+        model.challengeView.charSpecs,
+        ...model.restOfLine,
+      ]
+    : [];
+  $: lines = model?.remainingLines.length
+    ? [firstLine, ...model.remainingLines]
+    : [firstLine];
 </script>
 
 <div>
-  <h2 class="prompt paragraph {$deleteLatestWord ? '' : 'smoothScroll'}">
-    {#each $promptLines as line, i}
-      <span class="line">
-        {#each line as word, j}
-          <span id={`id${i + j}`} class="word">
-            {#each word as char, k}
-              {char}
-            {/each}
-          </span>&nbsp;
-        {/each}
-      </span>
-    {/each}
+  <h2 class="prompt paragraph {deleteLatestWord ? '' : 'smoothScroll'}">
+    {#if lines}
+      {#each lines.slice(0, 3) as line}
+        <SingleLine {line} />
+      {/each}
+    {/if}
   </h2>
 </div>
 
@@ -38,14 +49,5 @@
     width: 103%;
     font-size: 2.4vmin;
     margin: 6.5vmin auto 0 auto;
-  }
-
-  .line {
-    white-space: nowrap;
-  }
-
-  .paragraph .line {
-    margin-left: 1.6vmin;
-    display: block;
   }
 </style>

@@ -5,6 +5,10 @@
 </script>
 
 {#each word as charSpec}
-  <SingleCharacter {charSpec} />
+  {#if typeof charSpec === "string"}
+    {charSpec}
+  {:else}
+    <SingleCharacter {charSpec} />
+  {/if}
 {/each}
 <span comment="creates gap between words" />
