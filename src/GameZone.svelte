@@ -20,7 +20,6 @@
   import {
     addSymbol,
     backspace,
-    reset,
     gameover,
     initModel,
   } from "./modelTransformations.js";
@@ -66,7 +65,7 @@
           break;
 
         case "Enter":
-          model = reset(model);
+          model = freshModel();
           break;
 
         default:
@@ -81,7 +80,7 @@
 
 <div>
   {#if model.gameState === "over"}
-    <ResetButton bind:model />
+    <ResetButton on:reset={() => (model = freshModel())} />
   {:else if $wordScrollingModeEnabled}
     <ScrollingPrompt {model} />
   {:else}

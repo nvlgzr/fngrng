@@ -239,10 +239,6 @@ export const backspace = (model) => {
   }
 }
 
-export const reset = (model) => {
-  return model.gameState !== "over" ? model : initForScrolling(model.target)
-}
-
 export const gameover = model => {
   let hidden = model.isLineByLineMode
     ? [...model.hidden, ...model.locked]

@@ -1,10 +1,10 @@
 <script>
-  import { reset } from "./modelTransformations.js";
+  import { createEventDispatcher } from "svelte";
 
-  export let model;
+  const dispatch = createEventDispatcher();
 </script>
 
-<button on:click={() => (model = reset(model))}>Reset</button>
+<button on:click={() => dispatch("reset")}>Reset</button>
 
 <style>
   button {

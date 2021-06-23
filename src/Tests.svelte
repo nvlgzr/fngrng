@@ -5,7 +5,6 @@
     initForLineByLine,
     addSymbol,
     backspace,
-    reset,
     gameover,
   } from "./modelTransformations.js";
   import { cutOrFill, lineify } from "./pureFunctions.js";
@@ -245,31 +244,6 @@
       ];
     });
 
-    test("Pressing 'return/enter'", () => {
-      const phraseFunction = () => "even shorter";
-      let m = initForScrolling(phraseFunction);
-      const n = reset(m);
-      const ready = [
-        "at game-ready is a no-op",
-        JSON.stringify(m) === JSON.stringify(n),
-      ];
-      for (const char of phraseFunction()) {
-        m = addSymbol(m, char);
-      }
-      const o = reset(m);
-      const on = [
-        "and is also a no-op during game-on",
-        JSON.stringify(m) === JSON.stringify(o),
-      ];
-      m = addSymbol(m, " "); // Submits the last match
-      m = reset(m);
-      const over = [
-        "but, if it's game-over, 'return/enter' resets the game",
-        JSON.stringify(m) === JSON.stringify(initForScrolling(phraseFunction)),
-      ];
-      return [ready, on, over];
-    });
-
     test("The game tracks 'totalKeyPresses'", () => {
       let m = initForScrolling("123 4");
       const init = ["which starts at 0", m.totalKeyPresses === 0];
@@ -302,12 +276,7 @@
         "except for the game-ending space.",
         m.totalKeyPresses === 7,
       ];
-      m = reset(m);
-      const resetted = [
-        "Finally, 'totalKeyPresses' resets when the game resets",
-        m.totalKeyPresses === 0,
-      ];
-      return [init, sym, bckspc1, bckspc2, syms, matching, gameover, resetted];
+      return [init, sym, bckspc1, bckspc2, syms, matching, gameover];
     });
 
     test("When the game is ended midstream (by, say, hitting the time limit)", () => {
