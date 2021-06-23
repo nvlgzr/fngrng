@@ -57,21 +57,32 @@
     const line1 = "With 35 characters, here's line one";
     const line2 = "Line 2 has 33 characters in total";
     const line3 = "The last line's short";
-    const phrase = `${line1} ${line2} ${line3}`;
+    const seventeenWords = `${line1} ${line2} ${line3}`;
     const limited = [
       [
         "We can limit the lines to just three words (1 line)",
-        JSON.stringify(lineify(phrase, 3)) ===
+        JSON.stringify(lineify(seventeenWords, 3)) ===
           JSON.stringify(["With 35 characters,"]),
       ],
       [
         "or, say, 10 words (2 lines).",
-        JSON.stringify(lineify(phrase, 10)) ===
+        JSON.stringify(lineify(seventeenWords, 10)) ===
           JSON.stringify([line1, "Line 2 has 33"]),
         [
-          JSON.stringify(lineify(phrase, 10)),
+          JSON.stringify(lineify(seventeenWords, 10)),
           JSON.stringify([line1, "Line 2 has 33"]),
         ],
+      ],
+      [
+        "And if the provided limit exceeds the word limit, the phrase repeats to close the gap",
+        lineify(seventeenWords, 34)[0] === line1 &&
+          lineify(seventeenWords, 34)[1] === line2 &&
+          lineify(seventeenWords, 34)[2] === "The last line's short With 35" &&
+          lineify(seventeenWords, 34)[3] ===
+            "characters, here's line one Line 2" &&
+          lineify(seventeenWords, 34)[4] ===
+            "has 33 characters in total The last" &&
+          lineify(seventeenWords, 34)[5] === "line's short",
       ],
     ];
     return [...deefault, ...limited];
