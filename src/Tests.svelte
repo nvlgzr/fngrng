@@ -370,8 +370,8 @@
       const line1 = "With 35 characters, here's line one";
       const line2 = "Line 2 has 33 characters in total";
       const line3 = "Whereas line 3 takes up 32 chars";
-      const phrase = `${line1} ${line2} ${line3}`;
-      let m = initForLineByLine(lineify(phrase));
+      const twentyWords = `${line1} ${line2} ${line3}`;
+      let m = initForLineByLine(lineify(twentyWords, 20));
 
       for (const char of "With 35 characters, here's ") {
         m = addSymbol(m, char);
@@ -385,7 +385,6 @@
         [
           "and 'restOfLine' is just the last word.",
           m.restOfLine.join(" ") === "one",
-          m.restOfLine,
         ],
       ];
 
@@ -400,7 +399,34 @@
         ["the last word is in 'challenge',", m.challenge === "one"],
         ["and 'restOfLine' is empty.", m.restOfLine.length === 0],
       ];
-      return [...twoLeft, ...oneLeft];
+
+      for (const char of "one ") {
+        m = addSymbol(m, char);
+      }
+      const endOfLine = [
+        [
+          "Upon line completion, 'locked' and 'challenge' move to 'hidden',",
+          m.hidden.join(" ") === "With 35 characters, here's line one",
+        ],
+        ["(so 'locked' is empty),", m.locked.join(" ") === ""],
+        [
+          "the next line's first word is now the 'challenge',",
+          m.challenge === "Line",
+          m.challenge,
+        ],
+        [
+          "'restOfLine' has the rest of the line,",
+          m.restOfLine.join(" ") === "2 has 33 characters in total",
+          m.restOfLine,
+        ],
+        [
+          "and 'remainingLines' loses the now-current line",
+          m.remainingLines[0] === "Whereas line 3 takes up 32 chars" &&
+            m.remainingLines.length === 1,
+          m.remainingLines,
+        ],
+      ];
+      return [...twoLeft, ...oneLeft, ...endOfLine];
     });
 
     test("When the user types a correct character", () => {
@@ -520,6 +546,7 @@
       const gameOver = [
         "when the game is over, then symbol entry's a no-op",
         m.gameState === "over",
+        m,
       ];
       return [gameStart, gameContinue, gameOver];
     });

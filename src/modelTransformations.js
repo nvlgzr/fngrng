@@ -112,34 +112,48 @@ export const addSymbol = (model, sym) => {
           locked: [...model.locked, model.challenge]
         }
 
-        let remainingLines = model.remainingLines
+        let hidden = model.hidden;
+        let locked = model.locked
+        let challenge = model.challenge;
         let restOfLine = model.restOfLine
-        let challenge;
+        let remainingLines = model.remainingLines
 
         const endOfTheLine = restOfLine?.length === 0
+
+        if (model.challenge === "foo") {
+          console.log('boy howdy')
+        }
 
         if (endOfTheLine) {
           const [nextLine, ...otherLines] = remainingLines
           restOfLine = nextLine
           remainingLines = otherLines
+          hidden = [...hidden, ...locked, challenge]
+          locked = []
 
           if (restOfLine?.length) {
-            const [nextWord, ...otherWords] = restOfLine
+            const [nextWord, ...otherWords] = restOfLine.split(" ")
             challenge = nextWord
             restOfLine = otherWords
+          } else {
+            challenge = ""
           }
+
         } else {
           const [nextWord, ...otherWords] = restOfLine
+          locked = [...locked, challenge]
           challenge = nextWord
           restOfLine = otherWords
         }
 
         updated = {
           ...updated,
-          remainingLines: remainingLines,
-          restOfLine: restOfLine,
+          hidden: hidden,
+          locked: locked,
           challenge: challenge,
           challengeView: evaluate(challenge ?? "", ""),
+          restOfLine: restOfLine,
+          remainingLines: remainingLines,
         }
 
         return updated.challenge?.length ? updated : gameover(model)

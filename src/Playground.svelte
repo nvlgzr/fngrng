@@ -1,41 +1,15 @@
 <script>
-  import {
-    initForScrolling,
-    addSymbol,
-    backspace,
-  } from "./modelTransformations.js";
+  import { addSymbol, backspace, initModel } from "./modelTransformations.js";
   import phrase from "./gettysburg.js";
+  import LineByLinePrompt from "./LineByLinePrompt.svelte";
 
-  let model = initForScrolling(phrase);
+  let model = initModel(phrase, 15, false);
 
-  model = addSymbol(model, "F");
-  model = addSymbol(model, "o");
-  model = addSymbol(model, "i");
-  model = backspace(model);
-  model = addSymbol(model, "u");
-  model = addSymbol(model, "r");
+  for (let char of "Four score and seven years ago our") {
+    model = addSymbol(model, char);
+  }
   model = addSymbol(model, " ");
-  model = backspace(model);
-  model = backspace(model);
-  model = backspace(model);
-  model = addSymbol(model, "d");
-  model = addSymbol(model, "c");
-  model = addSymbol(model, "o");
-  model = backspace(model);
+  model = addSymbol(model, "f");
 </script>
 
-<div>
-  {JSON.stringify(model.challengeView)}
-  <hr />
-  <div>[{model.userText}]</div>
-  <hr />
-  {model.challenge}
-  {model.restOfLine.slice(0, 5).join(" ")}
-</div>
-
-<style>
-  div {
-    color: white;
-    max-width: 80vw;
-  }
-</style>
+<LineByLinePrompt {model} />
