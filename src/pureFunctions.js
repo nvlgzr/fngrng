@@ -24,16 +24,17 @@ export const cutOrFill = (phrase, targetNumber) => {
 }
 
 export const lineify = (phrase, maxWords = 70, maxLettersPerLine = 35) => {
+  const adjustedMax = maxLettersPerLine + 1 // + 1 grabs trailing " "
   const phraseWithTerminalSpace = phrase + " "
   let i = 0
-  let j = i + maxLettersPerLine
+  let j = i + adjustedMax
   let candidate = ""
   let lines = []
   let wordCount = 0
 
   while ((candidate = phraseWithTerminalSpace.slice(i, j)) && wordCount <= maxWords) {
     const lastSpaceInCandidate = candidate.lastIndexOf(" ")
-    j = i + lastSpaceInCandidate + 1 // 1 "eats" the space
+    j = i + lastSpaceInCandidate + 1 // + 1 discards trailing " "
 
     let words = phrase.slice(i, j).split(" ").filter(w => w.length)
 
@@ -45,7 +46,7 @@ export const lineify = (phrase, maxWords = 70, maxLettersPerLine = 35) => {
     }
 
     i = j
-    j = i + maxLettersPerLine
+    j = i + adjustedMax
 
     lines.push(words.join(" "))
   }

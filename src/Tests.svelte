@@ -54,7 +54,27 @@
       ],
     ];
 
-    return [...deefault];
+    const line1 = "With 35 characters, here's line one";
+    const line2 = "Line 2 has 33 characters in total";
+    const line3 = "The last line's short";
+    const phrase = `${line1} ${line2} ${line3}`;
+    const limited = [
+      [
+        "We can limit the lines to just three words (1 line)",
+        JSON.stringify(lineify(phrase, 3)) ===
+          JSON.stringify(["With 35 characters,"]),
+      ],
+      [
+        "or, say, 10 words (2 lines).",
+        JSON.stringify(lineify(phrase, 10)) ===
+          JSON.stringify([line1, "Line 2 has 33"]),
+        [
+          JSON.stringify(lineify(phrase, 10)),
+          JSON.stringify([line1, "Line 2 has 33"]),
+        ],
+      ],
+    ];
+    return [...deefault, ...limited];
   });
 
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
