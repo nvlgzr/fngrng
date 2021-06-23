@@ -117,8 +117,6 @@ export const addSymbol = (model, sym) => {
         let challenge;
 
         const endOfTheLine = restOfLine?.length === 0
-        const onLastWord = restOfLine?.length === 1
-        const twoOrMore = restOfLine?.length >= 2
 
         if (endOfTheLine) {
           const [nextLine, ...otherLines] = remainingLines
@@ -130,13 +128,7 @@ export const addSymbol = (model, sym) => {
             challenge = nextWord
             restOfLine = otherWords
           }
-        } else if (onLastWord) {
-          challenge = restOfLine[0]
-
-          const [nextLine, ...otherLines] = remainingLines
-          restOfLine = nextLine
-          remainingLines = otherLines
-        } else if (twoOrMore) {
+        } else {
           const [nextWord, ...otherWords] = restOfLine
           challenge = nextWord
           restOfLine = otherWords

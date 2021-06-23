@@ -366,10 +366,42 @@
       ];
     });
 
-    // test("When I initialize the model with a long passage", () => {
-    //   const long = initForLineByLine(gettysburg);
-    //   return [["", false]];
-    // });
+    test("When I initialize the model with a long passage", () => {
+      const line1 = "With 35 characters, here's line one";
+      const line2 = "Line 2 has 33 characters in total";
+      const line3 = "Whereas line 3 takes up 32 chars";
+      const phrase = `${line1} ${line2} ${line3}`;
+      let m = initForLineByLine(lineify(phrase));
+
+      for (const char of "With 35 characters, here's ") {
+        m = addSymbol(m, char);
+      }
+      const twoLeft = [
+        [
+          "With 2 words left on line1, the accepted words are locked,",
+          m.locked.join(" ") === "With 35 characters, here's",
+        ],
+        ["the penultimate word's in 'challenge',", m.challenge === "line"],
+        [
+          "and 'restOfLine' is just the last word.",
+          m.restOfLine.join(" ") === "one",
+          m.restOfLine,
+        ],
+      ];
+
+      for (const char of "line ") {
+        m = addSymbol(m, char);
+      }
+      const oneLeft = [
+        [
+          "With just 1 word left, all but 1 word are in 'locked',",
+          m.locked.join(" ") === "With 35 characters, here's line",
+        ],
+        ["the last word is in 'challenge',", m.challenge === "one"],
+        ["and 'restOfLine' is empty.", m.restOfLine.length === 0],
+      ];
+      return [...twoLeft, ...oneLeft];
+    });
 
     test("When the user types a correct character", () => {
       let m = initForLineByLine(["just one line to start"]);
