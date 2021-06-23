@@ -1,26 +1,26 @@
 <script>
+  import { setContext } from "svelte";
   import { currentLevel } from "./persistentStore.js";
+  import LevelButton, { LEVELS } from "./LevelButton.svelte";
 
-  $: selected = (lvl) => {
-    return $currentLevel == lvl
-      ? `selected lvl${$currentLevel}`
-      : `lvl${$currentLevel}`;
-  };
+  setContext(LEVELS, {
+    selectLevel: (level) => ($currentLevel = level),
+    currentLevel,
+  });
 </script>
 
-<nav>
-  <button class={selected(1)}>Level 1</button>
-  <button class={selected(2)}>Level 2</button>
-  <button class={selected(3)}>Level 3</button>
-  <button class={selected(4)}>Level 4</button>
-  <button class={selected(5)}>Level 5</button>
-  <button class={selected(6)}>Level 6</button>
-  <button class={selected(7)}>All Words</button>
-  <button class={`lvl8 ${selected(8)}`}>Full Sentences</button>
-</nav>
+<div>
+  {#each [1, 2, 3, 4, 5, 6, 7] as i}
+    {#if i < 7}
+      <LevelButton level={i}>{`Level ${i}`}</LevelButton>
+    {:else}
+      <LevelButton level={i}>{"All Words"}</LevelButton>
+    {/if}
+  {/each}
+</div>
 
 <style>
-  nav {
+  div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -35,34 +35,5 @@
     width: 10vw;
     height: 84vh;
     margin-left: 4vmin;
-  }
-
-  nav button {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 11vh;
-    flex: 1 1 11vh;
-    margin: 0.5vh auto;
-    width: 11vh;
-    font-size: 1.5vh;
-    color: var(--text-color);
-  }
-
-  nav button:hover {
-    font-weight: bold;
-    border-color: var(--accent-color);
-  }
-
-  .lvl8 {
-    display: none;
-    font-size: 1.1vh;
-
-    color: orange;
-    border-color: orange;
-  }
-
-  .selected {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-    font-weight: bold;
   }
 </style>
