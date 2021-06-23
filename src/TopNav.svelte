@@ -1,15 +1,9 @@
 <script>
   import { currentLayout } from "./persistentStore.js";
   import PreferenceMenu from "./PreferenceMenu.svelte";
-
-  let layout = $currentLayout;
-
-  function setLayout() {
-    $currentLayout = layout;
-  }
 </script>
 
-<select bind:value={layout} on:blur={setLayout} autocomplete="off">
+<select bind:value={$currentLayout} autocomplete="off">
   <option value="colemak">Colemak</option>
   <option value="colemakdh">Colemak-DH</option>
   <option disabled />
