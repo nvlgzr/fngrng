@@ -7,8 +7,9 @@
     backspace,
     gameover,
   } from "./modelTransformations.js";
-  import { cutOrFill, lineify } from "./pureFunctions.js";
+  import { cutOrFill, filterWordList, lineify } from "./pureFunctions.js";
   import gettysburg from "./gettysburg.js";
+  import { masterList } from "./tenThousandWords.js";
 
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
@@ -83,6 +84,42 @@
         ],
       ];
       return [...deefault, ...limited];
+    });
+
+    test("the 'filterWordList' function", () => {
+      const empty = [
+        [
+          "When passed an empty word list, returns same.",
+          filterWordList([], "asdf").length === 0,
+        ],
+      ];
+
+      const wordList = filterWordList(["cab", "dab", "ab"], "abc");
+      const wordSet = new Set(wordList);
+      const basic = [
+        [
+          "filters out words with non-included letters",
+          !wordSet.has("dab") && wordSet.has("cab") && wordSet.has("ab"),
+          wordSet,
+        ],
+      ];
+
+      const fromBigList = filterWordList(masterList, "arstoien");
+      const bigSet = new Set(fromBigList);
+      const bigList = [
+        [
+          "Using the 10k word list, Colemak's homerow 8 gives us 'transition',",
+          bigSet.has("transition"),
+        ],
+        ["'annotation',", bigSet.has("annotation")],
+        ["and 'start',", bigSet.has("start")],
+        ["but not 'heart',", !bigSet.has("heart")],
+        ["'bent',", !bigSet.has("bent")],
+        ["or 'annotated',", !bigSet.has("annotated")],
+        // ["whateves", false, generateList("abc", "abc")],
+      ];
+
+      return [...empty, ...basic, bigList];
     });
   });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑

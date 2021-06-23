@@ -28,7 +28,6 @@ LEGEND
 
 
 New Tests to Write
-- Replace gettysburg with word generator (preferably simpler than existing model)
 - Connect basic generator to GameZone in freshModel()
 - Connect levels to generator
 - Add translation layer for various layouts
@@ -36,4 +35,6 @@ New Tests to Write
 - Replace CustomInput UX with direct editing on CheatSheet
 
 # Known Bugs
+- In LineByLine mode, points are only awarded by line
+- Word Limit games should end without needing final spacebar
 - Unused code needs removal
