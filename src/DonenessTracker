@@ -27,5 +27,13 @@ LEGEND
 🔜 Plan to work on next
 
 
+New Tests to Write
+- Replace gettysburg with word generator (preferably simpler than existing model)
+- Connect basic generator to GameZone in freshModel()
+- Connect levels to generator
+- Add translation layer for various layouts
+- Enable keyboard mapping
+- Replace CustomInput UX with direct editing on CheatSheet
+
 # Known Bugs
 - Unused code needs removal

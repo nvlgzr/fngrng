@@ -65,7 +65,7 @@
           break;
 
         case "Enter":
-          model = freshModel();
+          if (model.gameState === "over") model = freshModel();
           break;
 
         default:
