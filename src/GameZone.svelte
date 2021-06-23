@@ -23,10 +23,18 @@
     gameover,
     initModel,
   } from "./modelTransformations.js";
+  import { filterWordList, shuffle } from "./pureFunctions";
+  import { masterList } from "./tenThousandWords";
 
   const freshModel = () => {
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
-    return initModel(phrase, wordLimit, $wordScrollingModeEnabled);
+
+    const colemakLevel1 = "arstneio";
+    const targetString = $fullSentenceModeEnabled
+      ? phrase
+      : shuffle(filterWordList(masterList, colemakLevel1)).join(" ");
+
+    return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
   };
 
   let model = freshModel();
