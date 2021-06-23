@@ -59,33 +59,14 @@ export const lettersInLevel = derived(
   }
 )
 
-/// ↓ ///
-
-// Level 1 → ["arstneio"]
-// Level 2 → ["arstneio", "pgjl"]
-// Level 3 → ["arstneio", "dh", "pgjl"]
-const activeLevels = derived([levelDictionary, currentLevel], ([$levelDictionary, $currentLevel]) => {
-  const allLevels = Object.entries($levelDictionary);
-  const foo = allLevels
-    .filter(([level, _]) => Number.parseInt(level.slice(-1)) <= $currentLevel)
-    .map(([_, letters]) => {
-      // We don't really need these labels;
-      // The index will suffice.
-      return letters;
-    });
-  return foo
-});
-
 export const configuredRows = derived(
-  [currentLevel, layoutMap, punctuationToInclude, activeLevels],
-  ([$currentLevel, $layoutMap, $punctuationToInclude, $activeLevels]) => {
+  [currentLevel, layoutMap, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel],
+  ([$currentLevel, $layoutMap, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel]) => {
 
-    // "arstneiodhpgjl"
-    const activeLetters = $activeLevels.reduce((acc, curr) => acc + curr, "")
-    const activeCharacters = activeLetters + $punctuationToInclude;
+    const activeCharacters = $lettersInLevel + $punctuationToInclude;
 
     function letterLevelIndex(letter) {
-      const levels = $activeLevels;
+      const levels = $letterSetsForCurrentLayout;
       const foundIndex = levels.findIndex((letters) => letters.includes(letter));
       return foundIndex;
     }
@@ -105,19 +86,10 @@ export const configuredRows = derived(
       return "active";
     }
 
-    // [
-    //   […],
-    //   [
-    //     {class: "onepointfiveu", letter: ""},
-    //     {class: "", id: "keyQ", letter: "q"},
-    //     …
-    //   ],
-    //   […],
-    //   …
-    // ]
     const mapped = rowData.map(row => {
       // Ignore initial undefined state
-      if (!$layoutMap) return row
+      if (!$layoutMap)
+        return row
 
       // https://stackoverflow.com/a/37616104
       const activeMap = Object.fromEntries(
@@ -130,56 +102,28 @@ export const configuredRows = derived(
       )
 
       return row.map(letterConfig => {
-
-        if (!letterConfig.id || !activeMap[letterConfig.id]) return {
-          ...letterConfig,
-          letter: ""
-        }
-
-        return {
-          ...letterConfig,
-          letter: activeMap[letterConfig.id]
-        }
+        if (!letterConfig.id || !activeMap[letterConfig.id])
+          return {
+            ...letterConfig,
+            letter: ""
+          }
+        else
+          return {
+            ...letterConfig,
+            letter: activeMap[letterConfig.id]
+          }
       })
     })
 
-    // [
-    //   […],
-    //   [
-    //     {class: "onepointfiveu inactive", letter: ""},
-    //     {class: "active", id: "keyQ", letter: "q"},
-    //     …
-    //   ],
-    //   […],
-    //   …
-    // ]
-    const levelled = mapped.map(row => {
-      const foo = row.map(letterConfig => {
+    const levelled = mapped.map(row =>
+      row.map(letterConfig => {
         return {
           ...letterConfig,
           class: `${letterConfig.class} ${activeClassFor(letterConfig.letter)}`
         }
       })
-      return foo
-    })
+    )
 
     return levelled
-  });
-
-export const wordLists = writable({
-  lvl1: [],
-  lvl2: [],
-  lvl3: [],
-  lvl4: [],
-  lvl5: [],
-  lvl6: [],
-  lvl7: [],
-});
-
-export const deleteLatestWord = writable(0) // Set to true whenever a word is finished
-export const promptLines = writable([])
-
-export const sentenceStartIndex = writable(-1) // keeps track of where we are in full sentence mod
-// Keeps track of where in a word the user is
-// Increment with every keystroke except ' ', return, and backspace
-// Decrement for backspace, and reset for the other 2
+  }
+);
