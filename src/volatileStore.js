@@ -1,6 +1,6 @@
 import { derived, readable, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
-import { levelDictionary, currentLevel, layoutMap, punctuationToInclude } from "./persistentStore.js"
+import { letterSetsForCurrentLayout, levelDictionary, currentLevel, layoutMap, punctuationToInclude } from "./persistentStore.js"
 
 // Game begins when user starts typing in input
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
@@ -36,6 +36,28 @@ export const secondsSinceStart = derived(
   },
   0
 );
+
+export const lettersInLevel = derived(
+  [letterSetsForCurrentLayout, currentLevel],
+  ([$letterSetsForCurrentLayout, $currentLevel]) => {
+    // If this is a bit crazy, it's just because I don't feel like
+    // doing an if/else just for Level 7, wherein suddenly the
+    // list of additional letters includes duplicates from previous
+    // levels (because Level 7's set is the entire alphabet)
+    // 
+    // All this does is combines all the letters into a single array,
+    // uses a set to remove duplicates, then sorts them back into
+    // a sorted string (via another array).
+    return Array.from(
+      new Set(
+        $letterSetsForCurrentLayout
+          .slice(0, $currentLevel)
+          .reduce((l, r) => l + r)
+          .split("")
+      )
+    ).sort().join("")
+  }
+)
 
 /// ↓ ///
 

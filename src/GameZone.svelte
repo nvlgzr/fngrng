@@ -16,7 +16,11 @@
     punctuationToInclude,
     prefsOpen,
   } from "./persistentStore.js";
-  import { gameState, secondsSinceStart } from "./volatileStore.js";
+  import {
+    gameState,
+    secondsSinceStart,
+    lettersInLevel,
+  } from "./volatileStore.js";
   import {
     addSymbol,
     backspace,
@@ -28,11 +32,9 @@
 
   const freshModel = () => {
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
-
-    const colemakLevel1 = "arstneio";
     const targetString = $fullSentenceModeEnabled
       ? phrase
-      : shuffle(filterWordList(masterList, colemakLevel1)).join(" ");
+      : shuffle(filterWordList(masterList, $lettersInLevel)).join(" ");
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
   };
@@ -48,6 +50,7 @@
     $timeLimitModeEnabled;
     $maxSeconds;
     $maxWords;
+    $lettersInLevel;
     model = freshModel();
   }
 

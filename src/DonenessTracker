@@ -28,8 +28,6 @@ LEGEND
 
 
 New Tests to Write
-- Connect basic generator to GameZone in freshModel()
-- Connect levels to generator
 - Add translation layer for various layouts
 - Enable keyboard mapping
 - Replace CustomInput UX with direct editing on CheatSheet
@@ -38,3 +36,5 @@ New Tests to Write
 - In LineByLine mode, points are only awarded by line
 - Word Limit games should end without needing final spacebar
 - Unused code needs removal
+- Reduce conversions between strings and arrays? (I just have a feeling
+  that there's some unnecessary back-and-forth going on here.)

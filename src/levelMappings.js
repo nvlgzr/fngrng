@@ -1,4 +1,17 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+export const levelLetterSets = {
+  azerty: ["qsdfjklm", "gh", "azer", "tycv", "uiop", "wxbn", alphabet,],
+  dvorak: ["aoeuhtns", "id", "pyfg", "kxbm", "crlw", "qjvz", alphabet,],
+  colemak: ["arstneio", "dh", "pgjl", "cvbk", "wfuy", "qzxm", alphabet,],
+  colemakdh: ["arstneio", "dh", "wfyu", "plgm", "bcvk", "qxjz", alphabet,],
+  lefthandeddvorak: ["dtheac", "yurso", "gvwni", "mljc", "qbkx", "pfz", alphabet,],
+  qwerty: ["asdfer", "jkliuo", "ghty", "qwzx", "nmp", "cvb", alphabet,],
+  tarmak: ["arstneio", "dh", "gjvb", "qwfp", "luyz", "cxkm", alphabet,],
+  workman: ["ashtneoi", "gy", "bjfu", "mcvk", "plzx", "qdrw", alphabet,],
+  custom: ["", "", "", "", "", "", alphabet,],
+};
+
 export const defaultLevelDictionaries = {
   azerty: {
     lvl1: "qsdfjklm",
