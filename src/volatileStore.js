@@ -86,7 +86,6 @@ export const configuredRows = derived(
       if (isIncludedPunctuation(letter)) return "punctuation";
 
       const levelIndex = letterLevelIndex(letter);
-      if (levelIndex == 0) return "homeRow";
       if (levelIndex == $currentLevel - 1) return "newInThisLevel";
       return "active";
     }

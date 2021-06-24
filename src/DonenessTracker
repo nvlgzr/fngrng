@@ -47,4 +47,3 @@ Big Picture Things to Finish
 - Word Limit games should end without needing final spacebar
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
-- (Also in original colemak.academy): Level 1 keys get "homeRow" class, even when they're not actually on the home row. Surely we can do better. Perhaps a permanent glow behind homerow keys, hard-coded in VisualKeyboard?

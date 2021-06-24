@@ -196,12 +196,6 @@ a:link {
   filter: brightness(1.2);
 }
 
-.homeRow {
-  border-color: var(--secondary-accent-color);
-  color: var(--secondary-accent-color);
-  opacity: 1;
-}
-
 .restingPosition {
   text-decoration: underline;
 }
