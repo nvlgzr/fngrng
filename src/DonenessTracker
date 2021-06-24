@@ -33,7 +33,6 @@ Big Picture Things to Finish
 - Randomize "Full Sentence Mode" inputs => gettysburg, dorian, maybe some Baldwin, Bronte, et al?
 
 # Known Bugs
-- Capital Letter prefs have no effect
 - In LineByLine mode, points are only awarded by line
 - Level change doesn't reset prompt until after next key pressed :(
 - Word Limit games should end without needing final spacebar

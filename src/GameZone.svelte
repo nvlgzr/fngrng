@@ -33,12 +33,14 @@
   import { masterList } from "./tenThousandWords";
 
   const freshModel = () => {
+    let allValidLetters = $lettersInLevel + $punctuationToInclude;
+    if ($uppercaseAllowed) {
+      allValidLetters += $lettersInLevel.toUpperCase();
+    }
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
     const targetString = $fullSentenceModeEnabled
       ? phrase
-      : shuffle(
-          filterWordList(masterList, $lettersInLevel + $punctuationToInclude)
-        ).join(" ");
+      : shuffle(filterWordList(masterList, allValidLetters)).join(" ");
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
   };
