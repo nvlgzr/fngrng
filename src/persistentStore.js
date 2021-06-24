@@ -18,8 +18,6 @@ export const letterSetsForCurrentLayout = derived(
   ([$levelMaps, $currentLayout]) => $levelMaps[$currentLayout]
 )
 
-/// ↑ ↑ ↑ ///
-
 const storedLayoutMaps = JSON.parse(localStorage.getItem("newLayoutMaps")) || allLayoutMaps;
 export const layoutMaps = writable(storedLayoutMaps);
 layoutMaps.subscribe(value => {

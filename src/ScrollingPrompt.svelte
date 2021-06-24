@@ -62,6 +62,11 @@
 
 <style>
   .fade {
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 0)
+    );
     -webkit-mask-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 1) 75%,
