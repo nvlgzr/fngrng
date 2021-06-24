@@ -2,7 +2,8 @@
   import { keyRemapping } from "./persistentStore.js";
 
   function toggleMapping(e) {
-    $keyRemapping = $keyRemapping
+    $keyRemapping = $keyRemapping;
+    e.target.blur();
   }
 </script>
 
