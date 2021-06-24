@@ -34,7 +34,6 @@ Big Picture Things to Finish
 # Known Bugs
 - Level change doesn't reset prompt until after next key pressed :(
 - Word Limit games should end without needing final spacebar
-- Animation not yet hooked up in LineByLinePrompt
 - Unused code needs removal
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
