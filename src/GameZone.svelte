@@ -36,7 +36,9 @@
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
     const targetString = $fullSentenceModeEnabled
       ? phrase
-      : shuffle(filterWordList(masterList, $lettersInLevel)).join(" ");
+      : shuffle(
+          filterWordList(masterList, $lettersInLevel + $punctuationToInclude)
+        ).join(" ");
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
   };

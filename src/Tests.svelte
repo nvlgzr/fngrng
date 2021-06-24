@@ -109,7 +109,7 @@
         ],
       ];
 
-      const fromBigList = filterWordList(masterList, "arstoien");
+      const fromBigList = filterWordList(masterList, "arstoien-.'");
       const bigSet = new Set(fromBigList);
       const bigList = [
         [
@@ -120,7 +120,13 @@
         ["and 'start',", bigSet.has("start")],
         ["but not 'heart',", !bigSet.has("heart")],
         ["'bent',", !bigSet.has("bent")],
-        ["or 'annotated',", !bigSet.has("annotated")],
+        ["or 'annotated'.", !bigSet.has("annotated")],
+        [
+          "If we include punctuation, we can get words like 'on-site'",
+          bigSet.has("on-site"),
+        ],
+        ["`it's`", bigSet.has("it's")],
+        ["or '.net'", bigSet.has(".net")],
       ];
 
       return [...empty, ...basic, ...bigList];
