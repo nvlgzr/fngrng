@@ -1,6 +1,11 @@
 import { derived, readable, writable } from "svelte/store";
 import { rowData } from "./levelMappings.js";
-import { letterSetsForCurrentLayout, levelDictionary, currentLevel, layoutMap, punctuationToInclude } from "./persistentStore.js"
+import {
+  letterSetsForCurrentLayout,
+  currentLevel,
+  layoutMap,
+  punctuationToInclude
+} from "./persistentStore.js"
 
 // Game begins when user starts typing in input
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵

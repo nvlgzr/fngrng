@@ -15,6 +15,8 @@
     maxWords,
     punctuationToInclude,
     prefsOpen,
+    keyRemapping,
+    layoutMap,
   } from "./persistentStore.js";
   import {
     gameState,
@@ -27,7 +29,7 @@
     gameover,
     initModel,
   } from "./modelTransformations.js";
-  import { filterWordList, shuffle } from "./pureFunctions";
+  import { filterWordList, shuffle, remap } from "./pureFunctions";
   import { masterList } from "./tenThousandWords";
 
   const freshModel = () => {
@@ -68,7 +70,8 @@
     if ($prefsOpen) return;
 
     if (detail.length === 1) {
-      model = addSymbol(model, detail);
+      const letter = $keyRemapping ? remap(detail, $layoutMap) : detail;
+      model = addSymbol(model, letter);
     } else {
       switch (detail) {
         case "Backspace":

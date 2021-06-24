@@ -7,9 +7,15 @@
     backspace,
     gameover,
   } from "./modelTransformations.js";
-  import { cutOrFill, filterWordList, lineify } from "./pureFunctions.js";
+  import {
+    cutOrFill,
+    filterWordList,
+    lineify,
+    remap,
+  } from "./pureFunctions.js";
   import gettysburg from "./gettysburg.js";
   import { masterList } from "./tenThousandWords.js";
+  import { allLayoutMaps } from "./levelMappings.js";
 
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
@@ -100,7 +106,6 @@
         [
           "filters out words with non-included letters",
           !wordSet.has("dab") && wordSet.has("cab") && wordSet.has("ab"),
-          wordSet,
         ],
       ];
 
@@ -116,10 +121,33 @@
         ["but not 'heart',", !bigSet.has("heart")],
         ["'bent',", !bigSet.has("bent")],
         ["or 'annotated',", !bigSet.has("annotated")],
-        // ["whateves", false, generateList("abc", "abc")],
       ];
 
       return [...empty, ...basic, bigList];
+    });
+
+    test("the 'remap' function", () => {
+      const miniMap = { a: "u", ",": ";" };
+      const colemak = allLayoutMaps["colemak"];
+      const dvorak = allLayoutMaps["dvorak"];
+
+      return [
+        [
+          "uses the provided map to return an alternate letter",
+          remap("a", miniMap) === "u",
+        ],
+        ["(or other character)", remap(",", miniMap) === ";"],
+        [
+          "returns the original character if no mapping found",
+          remap("†", miniMap) === "†",
+        ],
+        ["automatically handles uppercasing", remap("A", miniMap) === "U"],
+        ["attempts the Dvorak 'shiftLayer'", remap("Q", dvorak) === '"'],
+        [
+          "(just for good measure, here's a colemak remaping)",
+          remap("U", colemak) === "L",
+        ],
+      ];
     });
   });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑

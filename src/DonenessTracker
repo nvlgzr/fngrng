@@ -27,13 +27,15 @@ LEGEND
 🔜 Plan to work on next
 
 
-Big Picutre Things to Finish
-- Enable keyboard mapping
+Big Picture Things to Finish
+
 - Replace CustomInput UX with direct editing on CheatSheet
 - Randomize "Full Sentence Mode" inputs => gettysburg, dorian, maybe some Baldwin, Bronte, et al?
 
 # Known Bugs
+- Punctuation and Capital Letter prefs have no effect
 - In LineByLine mode, points are only awarded by line
+- Level change doesn't reset prompt until after next key pressed :(
 - Word Limit games should end without needing final spacebar
 - Animation not yet hooked up in LineByLinePrompt
 - Unused code needs removal
