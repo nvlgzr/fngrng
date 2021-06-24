@@ -3,7 +3,6 @@
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
-  import CustomInput from "./CustomInput.svelte";
   import Main from "./Main.svelte";
   import MappingToggle from "./MappingToggle.svelte";
   import Playground from "./Playground.svelte";
@@ -27,7 +26,6 @@
   <PrefsOverlay />
   <TopNav />
   <LevelSelect />
-  <CustomInput />
   <Main />
   <MappingToggle />
 {/if}
