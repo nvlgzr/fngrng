@@ -20,6 +20,7 @@
   const results = [];
   let scrollTarget; // Binds to first failed test which will get auto-scrolled!
 
+  // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ pureFunctions ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
   group("Utility functions in 'pureFunctions.js'", () => {
     test("The cutOrFill function", () => {
       const thirteenWords =
@@ -158,7 +159,6 @@
   });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ modelTransformations ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-
   group("Scrolling Mode", () => {
     test("When I initialize the model with 'Just three words.'", () => {
       const i = initForScrolling("Just three words.");
@@ -628,7 +628,7 @@
       ];
     });
   });
-
+  // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ modelTransformations ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
   function x() {

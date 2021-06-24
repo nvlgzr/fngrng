@@ -1,5 +1,7 @@
 <script>
   export let charSpec = { char: "", color: "" };
+
+  $: style = charSpec.color ? `color:${charSpec.color}` : "";
 </script>
 
-<span style="color:{charSpec.color}">{charSpec.char}</span>
+<span {style}>{charSpec.char}</span>
