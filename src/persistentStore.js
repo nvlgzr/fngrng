@@ -7,6 +7,12 @@ currentLayout.subscribe(value => {
   localStorage.setItem("currentLayout", value);
 });
 
+const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
+export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
+currentLevel.subscribe(value => {
+  localStorage.setItem("currentLevel", value)
+})
+
 const storedLevelMaps = JSON.parse(localStorage.getItem("levelMaps")) || levelLetterSets;
 export const levelMaps = writable(storedLevelMaps);
 levelMaps.subscribe(value => {
@@ -23,12 +29,6 @@ export const layoutMaps = writable(storedLayoutMaps);
 layoutMaps.subscribe(value => {
   localStorage.setItem("newLayoutMaps", JSON.stringify(value));
 });
-
-const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
-export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
-currentLevel.subscribe(value => {
-  localStorage.setItem("currentLevel", value)
-})
 
 export const layoutMap = derived(
   [layoutMaps, currentLayout],
