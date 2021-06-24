@@ -123,7 +123,7 @@
         ["or 'annotated',", !bigSet.has("annotated")],
       ];
 
-      return [...empty, ...basic, bigList];
+      return [...empty, ...basic, ...bigList];
     });
 
     test("the 'remap' function", () => {
