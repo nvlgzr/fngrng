@@ -1,4 +1,5 @@
 <script>
+  import { currentLayout } from "./persistentStore.js";
   import { configuredRows } from "./volatileStore.js";
 
   $: rows = $configuredRows;
@@ -18,3 +19,7 @@
     </div>
   {/each}
 </div>
+
+{#if $currentLayout === "custom"}
+  <p>Select a Level, then click any key to edit</p>
+{/if}

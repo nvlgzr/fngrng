@@ -1,6 +1,6 @@
 <script>
   import { currentLayout } from "./persistentStore.js";
-  import CheatSheet from "./CheatSheet.svelte";
+  import VisualKeyboard from "./VisualKeyboard.svelte";
   import GameZone from "./GameZone.svelte";
   import BottomText from "./BottomText.svelte";
 </script>
@@ -9,7 +9,7 @@
   <h1>{$currentLayout} Club</h1>
 
   <GameZone />
-  <CheatSheet />
+  <VisualKeyboard />
   <BottomText />
 </section>
 
