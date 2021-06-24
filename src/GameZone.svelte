@@ -5,7 +5,7 @@
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
   import UserInput from "./UserInput.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
-  import phrase from "./gettysburg.js";
+  import randomPassage from "./randomPassage.js";
   import {
     uppercaseAllowed,
     fullSentenceModeEnabled,
@@ -39,7 +39,7 @@
     }
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
     const targetString = $fullSentenceModeEnabled
-      ? phrase
+      ? randomPassage()
       : shuffle(filterWordList(masterList, allValidLetters)).join(" ");
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
