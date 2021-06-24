@@ -1,5 +1,5 @@
 import { derived, writable } from "svelte/store";
-import { levelLetterSets, allLayoutMaps } from "./levelMappings.js";
+import { levelLetterSets, allLayoutMaps, emptyCustomKeyMap } from "./levelMappings.js";
 
 const storedCurrentLayout = localStorage.getItem("currentLayout") || "colemak";
 export const currentLayout = writable(storedCurrentLayout);
@@ -24,10 +24,14 @@ export const letterSetsForCurrentLayout = derived(
   ([$levelMaps, $currentLayout]) => $levelMaps[$currentLayout]
 )
 
-const storedLayoutMaps = JSON.parse(localStorage.getItem("newLayoutMaps")) || allLayoutMaps;
-export const layoutMaps = writable(storedLayoutMaps);
-layoutMaps.subscribe(value => {
-  localStorage.setItem("newLayoutMaps", JSON.stringify(value));
+export const storedCustomKeyMap = JSON.parse(localStorage.getItem("customKeyMap")) || emptyCustomKeyMap;
+export const customKeyMap = writable(storedCustomKeyMap);
+customKeyMap.subscribe(value => {
+  localStorage.setItem("customKeyMap", JSON.stringify(value));
+});
+
+export const layoutMaps = derived(customKeyMap, ($customKeyMap) => {
+  return { ...allLayoutMaps, custom: $customKeyMap }
 });
 
 export const layoutMap = derived(
