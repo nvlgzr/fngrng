@@ -5,7 +5,8 @@
 
   export let model;
 
-  $: acceptedWords = [...model.hidden];
+  $: locked = model.locked ?? [];
+  $: acceptedWords = [...model.hidden, ...locked];
   $: totalKeyPresses = model.totalKeyPresses;
 </script>
 
