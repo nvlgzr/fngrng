@@ -30,6 +30,16 @@ LEGEND
 Big Picture Things to Finish
 
 - Replace CustomInput UX with direct editing on CheatSheet
+- Create keyboard shortcuts for rapid toggling/selection of prefs, keyboard mapping, and levels
+  - Shortcut for Word/Time limits should open the prefs pane with input selected
+    - and close on Return/Enter
+- Fix the weird interaction between the levels & Full Sentence Mode
+  - Make them mutually exclusive
+- Replace "club" with some other title
+- Provide option to swap in columnar layout
+- Use different color scheme & fonts to differentiate from colemak.academy
+- Persist average accuracy
+- Replace BottomText with other attributions & stuff
 
 # Known Bugs
 - Level change doesn't reset prompt until after next key pressed :(
