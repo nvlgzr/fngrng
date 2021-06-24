@@ -22,6 +22,7 @@
     gameState,
     secondsSinceStart,
     lettersInLevel,
+    isEditingCustomKeyMap,
   } from "./volatileStore.js";
   import {
     addSymbol,
@@ -31,6 +32,7 @@
   } from "./modelTransformations.js";
   import { filterWordList, shuffle, remap } from "./pureFunctions";
   import { masterList } from "./tenThousandWords";
+  import VisualKeyboard from "./VisualKeyboard.svelte";
 
   const freshModel = () => {
     let allValidLetters = $lettersInLevel + $punctuationToInclude;
@@ -94,7 +96,10 @@
   };
 </script>
 
-<Keydown on:key={handleKeydown} />
+<!-- Mutually exclusive to Keydown in VisualKeyboard -->
+{#if !$isEditingCustomKeyMap}
+  <Keydown on:key={handleKeydown} />
+{/if}
 
 <div>
   {#if model.gameState === "over"}

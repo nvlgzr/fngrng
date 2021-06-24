@@ -55,10 +55,10 @@ export const lineify = (phrase, maxWords = 70, maxLettersPerLine = 35) => {
   return lines
 }
 
-export function filterWordList(wordList, lettersToInclude) {
-  const leftMinusRight = (left, right) =>
-    [...(new Set(left))].filter(el => !(new Set(right).has(el)))
+export const leftMinusRight = (left, right) =>
+  [...(new Set(left))].filter(el => !(new Set(right).has(el)))
 
+export function filterWordList(wordList, lettersToInclude) {
   const allValidLetters = (l, r) => leftMinusRight(l, r).length === 0
 
   return wordList.filter((word) => allValidLetters(word, lettersToInclude))

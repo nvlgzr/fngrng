@@ -42,6 +42,8 @@ export const secondsSinceStart = derived(
   0
 );
 
+export const isEditingCustomKeyMap = writable(false)
+
 export const lettersInLevel = derived(
   [letterSetsForCurrentLayout, currentLevel],
   ([$letterSetsForCurrentLayout, $currentLevel]) => {
