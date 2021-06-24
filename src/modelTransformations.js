@@ -4,7 +4,7 @@ export const initModel = (sourceText, wordLimit, scrollingMode = true) => {
   if (scrollingMode) {
     return initForScrolling(cutOrFill(sourceText, wordLimit))
   } else {
-    return initForLineByLine(lineify(sourceText, wordLimit))
+    return initForLineByLine(lineify(sourceText, wordLimit, 40))
   }
 }
 
