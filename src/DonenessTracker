@@ -29,8 +29,6 @@ LEGEND
 
 Big Picture Things to Finish
 
-- Replace CustomInput UX with direct editing on VisualKeyboard
-  - Highlight key after click to show editing's live
 - Create keyboard shortcuts for rapid toggling/selection of prefs, keyboard mapping, and levels
   - Shortcut for Word/Time limits should open the prefs pane with input selected
     - and close on Return/Enter

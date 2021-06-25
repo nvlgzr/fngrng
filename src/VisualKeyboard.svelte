@@ -15,20 +15,40 @@
   let row;
   let col;
   let kId;
+  let ltr;
 
-  const beginEdit = ([rowIndex, keyIndex, keyId]) => {
+  const beginEdit = ([rowIndex, keyIndex, keyId, letter]) => {
     $isEditingCustomKeyMap = !$isEditingCustomKeyMap;
 
     if (!isEditingCustomKeyMap || !$currentLayout === "custom") return;
 
-    // TODO: Remove current key's letter from levelMaps
-
     row = rowIndex;
     col = keyIndex;
     kId = keyId;
+    ltr = letter;
+
+    // ↓ ⚠️ HACK: Force re-render to get that Editing glow
+    rows = rows;
   };
 
   const handleKeydown = ({ detail }) => {
+    const reset = () => {
+      $isEditingCustomKeyMap = false;
+      row = undefined;
+      col = undefined;
+      kId = undefined;
+      ltr = undefined;
+
+      // ↓ ⚠️ HACK: Force re-render to get that Editing glow
+      rows = rows;
+    };
+
+    if (detail === "Escape") {
+      $isEditingCustomKeyMap = false;
+      reset();
+      return;
+    }
+
     // 1. Update level maps
     const currentLevelIndex = $currentLevel - 1;
     let oldLevelMaps = $levelMaps;
@@ -37,9 +57,10 @@
     // Remove letter from all levels
     let newCustomLevels = [];
     for (let [i, level] of oldCustomLevels.entries()) {
-      // Remove letter from all levels to prevent dups
+      // Remove both letters from all levels to prevent dups
       if (i < 6) {
         newCustomLevels.push(leftMinusRight(level, detail).join(""));
+        newCustomLevels.push(leftMinusRight(level, ltr).join(""));
       } else {
         newCustomLevels.push(level);
       }
@@ -49,8 +70,15 @@
     $levelMaps = { ...$levelMaps, ...{ custom: newCustomLevels } };
 
     // 2. Update custom key map
+    // ⚠️ TODO: Remove letter from wherever it was on the level map
     $customKeyMap = { ...$customKeyMap, [kId]: detail };
-    $isEditingCustomKeyMap = false;
+
+    // 3. Reset
+    reset();
+  };
+
+  const editingClass = (rowIndex, keyIndex) => {
+    return rowIndex === row && keyIndex === col ? "editing" : "";
   };
 
   const homeRowClass = (rowIndex, keyIndex) => {
@@ -71,8 +99,11 @@
     <div class="row">
       {#each row as letterConf, ki}
         <div
-          on:click={() => beginEdit([ri, ki, letterConf.id])}
-          class={`key ${letterConf.class} ${homeRowClass(ri, ki)}`}
+          on:click={() => beginEdit([ri, ki, letterConf.id, letterConf.letter])}
+          class={`key ${letterConf.class} ${homeRowClass(
+            ri,
+            ki
+          )} ${editingClass(ri, ki)}`}
           id={letterConf.id}
         >
           <span class="letter">{letterConf.letter}</span>
@@ -89,5 +120,9 @@
 <style>
   .homeRow {
     box-shadow: 0 0 5px 2px hsl(0deg 0% 100% / 44%);
+  }
+
+  .editing {
+    box-shadow: 0 0 5px 4px hsl(0deg 0% 100% / 88%);
   }
 </style>
