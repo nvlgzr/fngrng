@@ -81,6 +81,39 @@
     }
   };
 
+  const handleCombo = ({ detail }) => {
+    // All keyboard shortcuts use Control-<key>
+    const regExResult = /^Control-(.)$/.exec(detail);
+    const controlKey = regExResult && regExResult[1];
+
+    switch (controlKey) {
+      case "c":
+        $uppercaseAllowed = !$uppercaseAllowed;
+        break;
+
+      case "p":
+        // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
+        //      PreferenceMenu, rather than properly refactoring.
+        $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
+        break;
+
+      case "f":
+        $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
+        break;
+
+      case "s":
+        $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
+        break;
+
+      case "k":
+        $keyRemapping = !$keyRemapping;
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const maybeReset = () => {
     if (model.gameState === "over") model = freshModel();
   };
@@ -90,6 +123,7 @@
 {#if !$isEditingCustomKeyMap}
   <Keydown
     on:key={handleKey}
+    on:combo={handleCombo}
     on:Enter={maybeReset}
     on:Backspace={() => (model = backspace(model))}
   />

@@ -50,6 +50,7 @@
       value: $uppercaseAllowed,
       handler: (e) => ($uppercaseAllowed = e.target.checked),
       class: "capitalLettersAllowed",
+      shortcut: "⌃C",
     },
     {
       display: "Punctuation Allowed",
@@ -59,18 +60,21 @@
         $punctuationToInclude = punct;
       },
       class: "punctuationModeButton",
+      shortcut: "⌃P",
     },
     {
       display: "Full Sentence Mode",
       value: $fullSentenceModeEnabled,
       handler: (e) => ($fullSentenceModeEnabled = e.target.checked),
       class: "fullSentenceMode",
+      shortcut: "⌃F",
     },
     {
       display: "Word Scrolling Mode",
       value: $wordScrollingModeEnabled,
       handler: (e) => ($wordScrollingModeEnabled = e.target.checked),
       class: "wordScrollingModeButton",
+      shortcut: "⌃S",
     },
   ];
 
@@ -99,6 +103,7 @@
           type="checkbox"
           autocomplete="off"
         />
+        <span style="color:gray;">{pref.shortcut}</span>
       </li>
     {/each}
     <li>
