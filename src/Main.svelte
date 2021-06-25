@@ -6,7 +6,7 @@
 </script>
 
 <section>
-  <h1>{$currentLayout} Club</h1>
+  <h1>{$currentLayout} fngrng</h1>
 
   <GameZone />
   <VisualKeyboard />
