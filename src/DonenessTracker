@@ -42,7 +42,6 @@ Big Picture Things to Finish
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 
 # Known Bugs
-- Word Limit games should end without needing final spacebar
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
   - Document every transition that uses .split/.join with either " " or "".

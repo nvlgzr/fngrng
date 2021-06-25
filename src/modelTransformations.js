@@ -100,9 +100,14 @@ export const initForLineByLine = (linesOrFunction = ["Check your code", "initFor
 export const addSymbol = (model, sym) => {
   if (model.gameState === "over") return model
 
+  const challengeImminent = model.userText + sym === model.challenge
+  const lastWord = model.restOfLine.length === 0
+
   const challengeAchieved = sym === " " && model.userText === model.challenge
 
-  if (challengeAchieved) {
+  const advanceCurrentWord = challengeAchieved || lastWord && challengeImminent
+
+  if (advanceCurrentWord) {
     return model.isLineByLineMode ?
       addSymbolLineByLine(model, sym, challengeAchieved)
       : addSymbolScrolling(model, sym, challengeAchieved)
@@ -111,7 +116,7 @@ export const addSymbol = (model, sym) => {
   }
 }
 
-export const addSymbolScrolling = (model, sym, challengeAchieved) => {
+export const addSymbolScrolling = (model) => {
   const [next, ...rest] = model.restOfLine
   const newChallenge = next ?? ""
 
@@ -119,16 +124,12 @@ export const addSymbolScrolling = (model, sym, challengeAchieved) => {
     ...model,
     totalKeyPresses: model.totalKeyPresses + 1,
     userText: "",
+    hidden: [...model.hidden, model.challenge],
     challenge: newChallenge,
     challengeView: evaluate(newChallenge, ""),
     restOfLine: rest
   }
-
-  updated = {
-    ...updated,
-    hidden: [...model.hidden, model.challenge]
-  }
-  return updated.challenge.length ? updated : gameover(model)
+  return updated.challenge.length ? updated : gameover(updated)
 }
 
 export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
@@ -179,7 +180,7 @@ export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
     remainingLines: remainingLines,
   }
 
-  return updated.challenge?.length ? updated : gameover(model)
+  return updated.challenge?.length ? updated : gameover(updated)
 }
 
 const addIncompleteSymbol = (model, sym) => {
@@ -230,7 +231,7 @@ export const gameover = model => {
     ? [...model.hidden, ...model.locked]
     : model.hidden
 
-  if (model.userText === model.challenge) {
+  if (model.userText && model.userText === model.challenge) {
     hidden = [...hidden, model.challenge]
   }
 

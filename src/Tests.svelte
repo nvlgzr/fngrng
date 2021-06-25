@@ -301,7 +301,6 @@
       for (const char of phrase) {
         m = addSymbol(m, char);
       }
-      m = addSymbol(m, " "); // Submits the last match
       return [
         ["the game's over", m.gameState === "over"],
         ["the userText is empty", m.userText === ""],
@@ -616,7 +615,6 @@
       for (const char of phrase) {
         m = addSymbol(m, char);
       }
-      m = addSymbol(m, " "); // Submits the last match
       return [
         ["the game's over", m.gameState === "over"],
         ["the userText is empty", m.userText === ""],
