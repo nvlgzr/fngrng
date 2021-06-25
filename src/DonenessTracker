@@ -30,13 +30,13 @@ LEGEND
 Big Picture Things to Finish
 
 - Create keyboard shortcuts for rapid toggling/selection of prefs, keyboard mapping, and levels
-  - Shortcut for Word/Time limits should open the prefs pane with input selected
+- Persist average accuracy
+- Shortcut for Word/Time limits should open the prefs pane with input selected
     - and close on Return/Enter
 - Fix the weird interaction between the levels & Full Sentence Mode
   - Make them mutually exclusive
 - Provide option to swap in columnar layout
 - Use different color scheme & fonts to differentiate from colemak.academy
-- Persist average accuracy
 - Replace BottomText with other attributions & stuff
 - Add 'fngrng prefix to persistent store keys to avoid 3rd party conflicts'
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
@@ -45,3 +45,4 @@ Big Picture Things to Finish
 - Word Limit games should end without needing final spacebar
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
+  - Document every transition that uses .split/.join with either " " or "".

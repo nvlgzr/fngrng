@@ -102,105 +102,105 @@ export const addSymbol = (model, sym) => {
 
   const challengeAchieved = sym === " " && model.userText === model.challenge
 
-  switch (model.isLineByLineMode) {
-    case true:
-      if (challengeAchieved) {
-        let updated = {
-          ...model,
-          totalKeyPresses: model.totalKeyPresses + 1,
-          userText: "",
-          locked: [...model.locked, model.challenge]
-        }
+  if (model.isLineByLineMode) {
+    return addSymbolLineByLine(model, sym, challengeAchieved)
+  } else {
+    return addSymbolScrolling(model, sym, challengeAchieved)
+  }
+}
 
-        let hidden = model.hidden;
-        let locked = model.locked
-        let challenge = model.challenge;
-        let restOfLine = model.restOfLine
-        let remainingLines = model.remainingLines
+export const addSymbolScrolling = (model, sym, challengeAchieved) => {
+  if (challengeAchieved) {
+    const [next, ...rest] = model.restOfLine
+    const newChallenge = next ?? ""
 
-        const endOfTheLine = restOfLine?.length === 0
+    let updated = {
+      ...model,
+      totalKeyPresses: model.totalKeyPresses + 1,
+      userText: "",
+      challenge: newChallenge,
+      challengeView: evaluate(newChallenge, ""),
+      restOfLine: rest
+    }
 
-        if (endOfTheLine) {
-          const [nextLine, ...otherLines] = remainingLines
-          restOfLine = nextLine
-          remainingLines = otherLines
-          hidden = [...hidden, ...locked, challenge]
-          locked = []
+    updated = {
+      ...updated,
+      hidden: [...model.hidden, model.challenge]
+    }
+    return updated.challenge.length ? updated : gameover(model)
 
-          if (restOfLine?.length) {
-            const [nextWord, ...otherWords] = restOfLine.split(" ")
-            challenge = nextWord
-            restOfLine = otherWords
-          } else {
-            challenge = ""
-          }
+  } else {
+    const userText = model.userText + sym
+    return {
+      ...model,
+      gameState: "on",
+      totalKeyPresses: model.totalKeyPresses + 1,
+      userText: userText,
+      challengeView: evaluate(model.challenge, userText)
+    }
+  }
+}
 
-        } else {
-          const [nextWord, ...otherWords] = restOfLine
-          locked = [...locked, challenge]
-          challenge = nextWord
-          restOfLine = otherWords
-        }
+export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
+  if (challengeAchieved) {
+    let updated = {
+      ...model,
+      totalKeyPresses: model.totalKeyPresses + 1,
+      userText: "",
+      locked: [...model.locked, model.challenge]
+    }
 
-        updated = {
-          ...updated,
-          hidden: hidden,
-          locked: locked,
-          challenge: challenge,
-          challengeView: evaluate(challenge ?? "", ""),
-          restOfLine: restOfLine,
-          remainingLines: remainingLines,
-        }
+    let hidden = model.hidden;
+    let locked = model.locked
+    let challenge = model.challenge;
+    let restOfLine = model.restOfLine
+    let remainingLines = model.remainingLines
 
-        return updated.challenge?.length ? updated : gameover(model)
+    const endOfTheLine = restOfLine?.length === 0
+
+    if (endOfTheLine) {
+      const [nextLine, ...otherLines] = remainingLines
+      restOfLine = nextLine
+      remainingLines = otherLines
+      hidden = [...hidden, ...locked, challenge]
+      locked = []
+
+      if (restOfLine?.length) {
+        const [nextWord, ...otherWords] = restOfLine.split(" ")
+        challenge = nextWord
+        restOfLine = otherWords
       } else {
-        const userText = model.userText + sym
-        const view = evaluate(model.challenge, userText)
-        return {
-          ...model,
-          gameState: "on",
-          totalKeyPresses: model.totalKeyPresses + 1,
-          userText: userText,
-          challengeView: view
-        }
+        challenge = ""
       }
-      break;
 
-    case false: // WordScrollingMode
-      if (challengeAchieved) {
-        const [next, ...rest] = model.restOfLine
-        const newChallenge = next ?? ""
+    } else {
+      const [nextWord, ...otherWords] = restOfLine
+      locked = [...locked, challenge]
+      challenge = nextWord
+      restOfLine = otherWords
+    }
 
-        let updated = {
-          ...model,
-          totalKeyPresses: model.totalKeyPresses + 1,
-          userText: "",
-          challenge: newChallenge,
-          challengeView: evaluate(newChallenge, ""),
-          restOfLine: rest
-        }
+    updated = {
+      ...updated,
+      hidden: hidden,
+      locked: locked,
+      challenge: challenge,
+      challengeView: evaluate(challenge ?? "", ""),
+      restOfLine: restOfLine,
+      remainingLines: remainingLines,
+    }
 
-        updated = {
-          ...updated,
-          hidden: [...model.hidden, model.challenge]
-        }
-        return updated.challenge.length ? updated : gameover(model)
-
-      } else {
-        const userText = model.userText + sym
-        return {
-          ...model,
-          gameState: "on",
-          totalKeyPresses: model.totalKeyPresses + 1,
-          userText: userText,
-          challengeView: evaluate(model.challenge, userText)
-        }
-      }
-      break;
-
-    default:
-      throw new Error("Impossible state found in $wordScrollingModeEnabled")
-      break
+    return updated.challenge?.length ? updated : gameover(model)
+  } else {
+    const userText = model.userText + sym
+    const view = evaluate(model.challenge, userText)
+    return {
+      ...model,
+      gameState: "on",
+      totalKeyPresses: model.totalKeyPresses + 1,
+      userText: userText,
+      challengeView: view
+    }
   }
 }
 
