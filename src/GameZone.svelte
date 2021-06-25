@@ -72,33 +72,27 @@
     model = gameover(model);
   }
 
-  const handleKeydown = ({ detail }) => {
+  const handleKey = ({ detail }) => {
     if ($prefsOpen) return;
 
     if (detail.length === 1) {
       const letter = $keyRemapping ? remap(detail, $layoutMap) : detail;
       model = addSymbol(model, letter);
-    } else {
-      switch (detail) {
-        case "Backspace":
-          model = backspace(model);
-          break;
-
-        case "Enter":
-          if (model.gameState === "over") model = freshModel();
-          break;
-
-        default:
-          // Just let the browser handle it
-          break;
-      }
     }
+  };
+
+  const maybeReset = () => {
+    if (model.gameState === "over") model = freshModel();
   };
 </script>
 
 <!-- Mutually exclusive to Keydown in VisualKeyboard -->
 {#if !$isEditingCustomKeyMap}
-  <Keydown on:key={handleKeydown} />
+  <Keydown
+    on:key={handleKey}
+    on:Enter={maybeReset}
+    on:Backspace={() => (model = backspace(model))}
+  />
 {/if}
 
 <div>
