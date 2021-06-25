@@ -17,6 +17,7 @@
     prefsOpen,
     keyRemapping,
     layoutMap,
+    currentLevel,
   } from "./persistentStore.js";
   import {
     gameState,
@@ -59,6 +60,7 @@
     $maxSeconds;
     $maxWords;
     $lettersInLevel;
+    $currentLevel;
     model = freshModel();
   }
 
@@ -110,7 +112,15 @@
         break;
 
       default:
+        maybeSwitchLevel(controlKey);
         break;
+    }
+  };
+
+  const maybeSwitchLevel = (controlKey) => {
+    const isLevel = /^[1-7]$/.test(controlKey);
+    if (isLevel) {
+      $currentLevel = parseInt(controlKey);
     }
   };
 
