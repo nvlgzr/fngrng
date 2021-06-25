@@ -102,91 +102,84 @@ export const addSymbol = (model, sym) => {
 
   const challengeAchieved = sym === " " && model.userText === model.challenge
 
-  if (model.isLineByLineMode) {
-    return addSymbolLineByLine(model, sym, challengeAchieved)
+  if (challengeAchieved) {
+    return model.isLineByLineMode ?
+      addSymbolLineByLine(model, sym, challengeAchieved)
+      : addSymbolScrolling(model, sym, challengeAchieved)
   } else {
-    return addSymbolScrolling(model, sym, challengeAchieved)
+    return addIncompleteSymbol(model, sym)
   }
 }
 
 export const addSymbolScrolling = (model, sym, challengeAchieved) => {
-  if (challengeAchieved) {
-    const [next, ...rest] = model.restOfLine
-    const newChallenge = next ?? ""
+  const [next, ...rest] = model.restOfLine
+  const newChallenge = next ?? ""
 
-    let updated = {
-      ...model,
-      totalKeyPresses: model.totalKeyPresses + 1,
-      userText: "",
-      challenge: newChallenge,
-      challengeView: evaluate(newChallenge, ""),
-      restOfLine: rest
-    }
-
-    updated = {
-      ...updated,
-      hidden: [...model.hidden, model.challenge]
-    }
-    return updated.challenge.length ? updated : gameover(model)
-
-  } else {
-    return addIncompleteSymbol(model, sym)
+  let updated = {
+    ...model,
+    totalKeyPresses: model.totalKeyPresses + 1,
+    userText: "",
+    challenge: newChallenge,
+    challengeView: evaluate(newChallenge, ""),
+    restOfLine: rest
   }
+
+  updated = {
+    ...updated,
+    hidden: [...model.hidden, model.challenge]
+  }
+  return updated.challenge.length ? updated : gameover(model)
 }
 
 export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
-  if (challengeAchieved) {
-    let updated = {
-      ...model,
-      totalKeyPresses: model.totalKeyPresses + 1,
-      userText: "",
-      locked: [...model.locked, model.challenge]
-    }
+  let updated = {
+    ...model,
+    totalKeyPresses: model.totalKeyPresses + 1,
+    userText: "",
+    locked: [...model.locked, model.challenge]
+  }
 
-    let hidden = model.hidden;
-    let locked = model.locked
-    let challenge = model.challenge;
-    let restOfLine = model.restOfLine
-    let remainingLines = model.remainingLines
+  let hidden = model.hidden;
+  let locked = model.locked
+  let challenge = model.challenge;
+  let restOfLine = model.restOfLine
+  let remainingLines = model.remainingLines
 
-    const endOfTheLine = restOfLine?.length === 0
+  const endOfTheLine = restOfLine?.length === 0
 
-    if (endOfTheLine) {
-      const [nextLine, ...otherLines] = remainingLines
-      restOfLine = nextLine
-      remainingLines = otherLines
-      hidden = [...hidden, ...locked, challenge]
-      locked = []
+  if (endOfTheLine) {
+    const [nextLine, ...otherLines] = remainingLines
+    restOfLine = nextLine
+    remainingLines = otherLines
+    hidden = [...hidden, ...locked, challenge]
+    locked = []
 
-      if (restOfLine?.length) {
-        const [nextWord, ...otherWords] = restOfLine.split(" ")
-        challenge = nextWord
-        restOfLine = otherWords
-      } else {
-        challenge = ""
-      }
-
-    } else {
-      const [nextWord, ...otherWords] = restOfLine
-      locked = [...locked, challenge]
+    if (restOfLine?.length) {
+      const [nextWord, ...otherWords] = restOfLine.split(" ")
       challenge = nextWord
       restOfLine = otherWords
+    } else {
+      challenge = ""
     }
 
-    updated = {
-      ...updated,
-      hidden: hidden,
-      locked: locked,
-      challenge: challenge,
-      challengeView: evaluate(challenge ?? "", ""),
-      restOfLine: restOfLine,
-      remainingLines: remainingLines,
-    }
-
-    return updated.challenge?.length ? updated : gameover(model)
   } else {
-    return addIncompleteSymbol(model, sym)
+    const [nextWord, ...otherWords] = restOfLine
+    locked = [...locked, challenge]
+    challenge = nextWord
+    restOfLine = otherWords
   }
+
+  updated = {
+    ...updated,
+    hidden: hidden,
+    locked: locked,
+    challenge: challenge,
+    challengeView: evaluate(challenge ?? "", ""),
+    restOfLine: restOfLine,
+    remainingLines: remainingLines,
+  }
+
+  return updated.challenge?.length ? updated : gameover(model)
 }
 
 const addIncompleteSymbol = (model, sym) => {
