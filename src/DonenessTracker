@@ -1,36 +1,5 @@
-App ✅
-  TopNav ✅
-    PreferenceMenu ✅
-  LevelSelect ✅
-  CustomInput
-    CustomLayout
-  Main ✅
-    GameZone ✅
-      ResetButton ✅
-      ScrollingPrompt ✅
-        SingleCharacter ✅
-        SingleWord ✅
-      LineByLinePrompt ✅
-      UserInput ✅
-      ScoreBoard ✅
-        WordScore ✅
-        Clock ✅
-        Results ✅
-    VisualKeyboard ✅
-      KeyboardDivs ✅
-    BottomText ✅
-  MappingToggle ✅
+# Things I Wanna Do Before Release
 
-LEGEND
-✅ Done-ish
-🟡 Work done this commit
-🔜 Plan to work on next
-
-
-Big Picture Things to Finish
-
-- Create keyboard shortcuts for rapid toggling/selection of prefs, keyboard mapping, and levels
-- Persist average accuracy
 - Shortcut for Word/Time limits should open the prefs pane with input selected
     - and close on Return/Enter
 - Fix the weird interaction between the levels & Full Sentence Mode
@@ -40,8 +9,65 @@ Big Picture Things to Finish
 - Replace BottomText with other attributions & stuff
 - Add 'fngrng prefix to persistent store keys to avoid 3rd party conflicts'
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+- Documentation
+- Publish to Netlify…maybe with custom domain
+- Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
+
+# Overview
+
+Here's a quick summary of the component hierarchy
+
+App
+  TopNav
+    PreferenceMenu
+  LevelSelect
+    LevelButton
+  Main
+    GameZone
+      ResetButton
+      ScrollingPrompt
+        SingleCharacter
+        SingleWord
+      LineByLinePrompt
+        SingleLine
+        (SingleCharacter)
+        (SingleWord)
+      UserInput
+      ScoreBoard
+        WordScore
+        Clock
+        Results
+    VisualKeyboard
+      KeyboardDivs
+    BottomText
+  MappingToggle
+
+# Playground & Tests
+
+There are also two components accessible only through the super-secret easter-egg keyboard shortcut: ⌥T, which toggles the hierarchy to look like this ↓.
+
+(App)
+  Playground
+  Tests
+
+The Playground is a place to mess with idividual components and other Svelty things without having to worry about accidentally checking in breaking changes.
+
+By contrast, Tests.svelte runs (and displays results for) a set of unit tests put together using a dead-simple pattern for tests that I came up with after deciding that I didn't have the patience to follow the multi-step instructions for Jest/Jasmine/Whatever integration since those things don't support ES6 out of the box. It's actually pretty fun to have the test results right in the browser.
+
+It's easy enough to see how the tests work just by looking at the existing ones. Basically, each test result is passed to the display as a 2-part array: [description, result].
+
+🥷 Pro tip: Add a 3rd element to the array to have JSON.stringified results appended below a given test. This is handy as a way to get a top-level view into a failing test (or a strangely-passing one) without having to console.log it. As with logging, I prefer not to check these things in, but if you do, at least they won't pollute the running app's console.
+
+🤞 Note: I'm on a Mac. Hopefully alt-T has the same toggling effect on whatever other machines folks are using.
 
 # Known Bugs
+-
+
+# Icebox
+- Persist average accuracy
+  - Surface in Results.svelte UX
+  - Should be per-layout, per level
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
   - Document every transition that uses .split/.join with either " " or "".
+

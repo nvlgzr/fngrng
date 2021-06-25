@@ -18,6 +18,7 @@
     keyRemapping,
     layoutMap,
     currentLevel,
+    currentLayout,
   } from "./persistentStore.js";
   import {
     gameState,
@@ -61,6 +62,7 @@
     $maxWords;
     $lettersInLevel;
     $currentLevel;
+    $currentLayout;
     model = freshModel();
   }
 
@@ -85,9 +87,18 @@
 
   const handleCombo = ({ detail }) => {
     // All keyboard shortcuts use Control-<key>
-    const regExResult = /^Control-(.)$/.exec(detail);
-    const controlKey = regExResult && regExResult[1];
+    const ctrlRegEx = /^Control-(.)$/.exec(detail);
+    if (ctrlRegEx) {
+      handleControlShortcut(ctrlRegEx[1]);
+    } else {
+      const shftCtrlRegEx = /^Shift-Control-(.)$/.exec(detail);
+      if (shftCtrlRegEx) {
+        handleShiftControlShortcut(shftCtrlRegEx[1]);
+      }
+    }
+  };
 
+  const handleControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "c":
         $uppercaseAllowed = !$uppercaseAllowed;
@@ -113,6 +124,52 @@
 
       default:
         maybeSwitchLevel(controlKey);
+        break;
+    }
+  };
+
+  const handleShiftControlShortcut = (controlKey) => {
+    switch (controlKey) {
+      case "1":
+        $currentLayout = "colemak";
+        break;
+
+      //    ↓ Weird inconsistency from Keydown
+      //      Not sure why the other digits
+      //      don't also get shifted
+      case "@":
+        $currentLayout = "colemakdh";
+        break;
+
+      case "A":
+        $currentLayout = "azerty";
+        break;
+
+      case "D":
+        $currentLayout = "dvorak";
+        break;
+
+      case "L":
+        $currentLayout = "lefthandeddvorak";
+        break;
+
+      case "Q":
+        $currentLayout = "qwerty";
+        break;
+
+      case "T":
+        $currentLayout = "tarmak";
+        break;
+
+      case "W":
+        $currentLayout = "workman";
+        break;
+
+      case "C":
+        $currentLayout = "custom";
+        break;
+
+      default:
         break;
     }
   };
