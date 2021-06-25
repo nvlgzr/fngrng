@@ -1,10 +1,11 @@
-# Things I Wanna Do Before Release
+# ✅ Things I Wanna Do Before Release
 
-- Add "notifications" to confirm changes to prefs made via keyboard
 - Shortcut for Word/Time limits should open the prefs pane with input selected
     - and close on Return/Enter
 - Fix the weird interaction between the levels & Full Sentence Mode
-  - Make them mutually exclusive
+  - Make them mutually exclusive…maybe like this? ↓
+    - Levels fly off left when Full Sentence mode's on, and fly back in when off
+    - Keyboard simulates Level 7 when on, reverts to $currentLevel when off
 - Provide option to swap in columnar layout
 - Use different color scheme & fonts to differentiate from colemak.academy
 - Replace BottomText with other attributions & stuff
@@ -13,6 +14,10 @@
 - Documentation
 - Publish to Netlify…maybe with custom domain
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
+
+# 🐞 Known Bugs
+- I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯ 
+- Encountered Capital "Sarah" when capitals not allowed (custom map)
 
 # Overview
 
@@ -60,9 +65,6 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 🥷 Pro tip: Add a 3rd element to the array to have JSON.stringified results appended below a given test. This is handy as a way to get a top-level view into a failing test (or a strangely-passing one) without having to console.log it. As with logging, I prefer not to check these things in, but if you do, at least they won't pollute the running app's console.
 
 🤞 Note: I'm on a Mac. Hopefully alt-T has the same toggling effect on whatever other machines folks are using.
-
-# Known Bugs
--
 
 # Icebox
 - Persist average accuracy

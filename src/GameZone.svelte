@@ -1,4 +1,5 @@
 <script>
+  import { getNotificationsContext } from "svelte-notifications";
   import Keydown from "svelte-keydown";
   import ResetButton from "./ResetButton.svelte";
   import ScrollingPrompt from "./ScrollingPrompt.svelte";
@@ -34,7 +35,6 @@
   } from "./modelTransformations.js";
   import { filterWordList, shuffle, remap } from "./pureFunctions";
   import { masterList } from "./tenThousandWords";
-  import VisualKeyboard from "./VisualKeyboard.svelte";
 
   const freshModel = () => {
     let allValidLetters = $lettersInLevel + $punctuationToInclude;
@@ -63,6 +63,7 @@
     $lettersInLevel;
     $currentLevel;
     $currentLayout;
+    $keyRemapping;
     model = freshModel();
   }
 
@@ -98,28 +99,56 @@
     }
   };
 
+  // Used to confirm keyboard shortcut results
+  const { addNotification } = getNotificationsContext();
+
   const handleControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "c":
         $uppercaseAllowed = !$uppercaseAllowed;
+        addNotification({
+          text: `Capitals ${$uppercaseAllowed ? "On" : "Off"}`,
+          position: "top-center",
+          removeAfter: 2500,
+        });
         break;
 
       case "p":
         // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
         //      PreferenceMenu, rather than properly refactoring.
         $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
+        addNotification({
+          text: `Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`,
+          position: "top-center",
+          removeAfter: 2500,
+        });
         break;
 
       case "f":
         $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
+        addNotification({
+          text: `Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`,
+          position: "top-center",
+          removeAfter: 2500,
+        });
         break;
 
       case "s":
         $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
+        addNotification({
+          text: `Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`,
+          position: "top-center",
+          removeAfter: 2500,
+        });
         break;
 
       case "k":
         $keyRemapping = !$keyRemapping;
+        addNotification({
+          text: `Keyboard Mapping ${$keyRemapping ? "On" : "Off"}`,
+          position: "top-center",
+          removeAfter: 2500,
+        });
         break;
 
       default:

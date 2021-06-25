@@ -18,20 +18,20 @@
 
 <Keydown on:key={toggleTests} />
 
-{#if $testModeEnabled}
-  <div>
-    <Notifications>
+<Notifications>
+  {#if $testModeEnabled}
+    <div>
       <Playground />
       <Tests />
-    </Notifications>
-  </div>
-{:else}
-  <PrefsOverlay />
-  <TopNav />
-  <LevelSelect />
-  <Main />
-  <MappingToggle />
-{/if}
+    </div>
+  {:else}
+    <PrefsOverlay />
+    <TopNav />
+    <LevelSelect />
+    <Main />
+    <MappingToggle />
+  {/if}
+</Notifications>
 
 <style>
   div {
