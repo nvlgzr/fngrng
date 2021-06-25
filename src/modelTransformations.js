@@ -130,14 +130,7 @@ export const addSymbolScrolling = (model, sym, challengeAchieved) => {
     return updated.challenge.length ? updated : gameover(model)
 
   } else {
-    const userText = model.userText + sym
-    return {
-      ...model,
-      gameState: "on",
-      totalKeyPresses: model.totalKeyPresses + 1,
-      userText: userText,
-      challengeView: evaluate(model.challenge, userText)
-    }
+    return addIncompleteSymbol(model, sym)
   }
 }
 
@@ -192,15 +185,19 @@ export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
 
     return updated.challenge?.length ? updated : gameover(model)
   } else {
-    const userText = model.userText + sym
-    const view = evaluate(model.challenge, userText)
-    return {
-      ...model,
-      gameState: "on",
-      totalKeyPresses: model.totalKeyPresses + 1,
-      userText: userText,
-      challengeView: view
-    }
+    return addIncompleteSymbol(model, sym)
+  }
+}
+
+const addIncompleteSymbol = (model, sym) => {
+  const userText = model.userText + sym
+  const view = evaluate(model.challenge, userText)
+  return {
+    ...model,
+    gameState: "on",
+    totalKeyPresses: model.totalKeyPresses + 1,
+    userText: userText,
+    challengeView: view
   }
 }
 
