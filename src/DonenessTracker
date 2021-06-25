@@ -1,5 +1,6 @@
 # Things I Wanna Do Before Release
 
+- Add "notifications" to confirm changes to prefs made via keyboard
 - Shortcut for Word/Time limits should open the prefs pane with input selected
     - and close on Return/Enter
 - Fix the weird interaction between the levels & Full Sentence Mode

@@ -19,6 +19,7 @@
     "svelte-keydown": "^0.3.0"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0"
+    "sirv-cli": "^1.0.0",
+    "svelte-notifications": "^0.9.91"
   }
 }

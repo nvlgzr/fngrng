@@ -1,4 +1,5 @@
 <script>
+  import Notifications from "svelte-notifications";
   import Keydown from "svelte-keydown";
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
@@ -19,8 +20,10 @@
 
 {#if $testModeEnabled}
   <div>
-    <Playground />
-    <Tests />
+    <Notifications>
+      <Playground />
+      <Tests />
+    </Notifications>
   </div>
 {:else}
   <PrefsOverlay />
