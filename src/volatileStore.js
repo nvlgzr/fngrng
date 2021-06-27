@@ -1,11 +1,12 @@
 import { derived, readable, writable } from "svelte/store";
-import { alphabet, rowData } from "./levelMappings.js";
+import { alphabet, columnarKeyboard, standardKeyboard } from "./levelMappings.js";
 import {
   letterSetsForCurrentLayout,
   currentLevel,
   layoutMap,
   punctuationToInclude,
-  fullSentenceModeEnabled
+  fullSentenceModeEnabled,
+  useColumnarLayout
 } from "./persistentStore.js"
 
 // Game begins when user starts typing in input
@@ -68,8 +69,8 @@ export const lettersInLevel = derived(
 )
 
 export const configuredRows = derived(
-  [currentLevel, layoutMap, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
-  ([$currentLevel, $layoutMap, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
+  [currentLevel, layoutMap, useColumnarLayout, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
+  ([$currentLevel, $layoutMap, $useColumnarLayout, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
 
     const activeCharacters = $fullSentenceModeEnabled ? alphabet + $punctuationToInclude : $lettersInLevel + $punctuationToInclude;
 
@@ -93,7 +94,8 @@ export const configuredRows = derived(
       return "active";
     }
 
-    const mapped = rowData.map(row => {
+    const baseLayout = $useColumnarLayout ? columnarKeyboard : standardKeyboard
+    const mapped = baseLayout.map(row => {
       // Ignore initial undefined state
       if (!$layoutMap)
         return row

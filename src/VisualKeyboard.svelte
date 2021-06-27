@@ -80,13 +80,6 @@
   const editingClass = (rowIndex, keyIndex) => {
     return rowIndex === row && keyIndex === col ? "editing" : "";
   };
-
-  const homeRowClass = (rowIndex, keyIndex) => {
-    const maybeHomeKey = [1, 2, 3, 4, 7, 8, 9, 10].includes(keyIndex);
-    const maybeEditing =
-      $isEditingCustomKeyMap && row === rowIndex && col === keyIndex;
-    return rowIndex === 2 && maybeHomeKey ? "homeRow" : "";
-  };
 </script>
 
 <!-- Mutually exclusive to Keydown in GameZone -->
@@ -100,10 +93,7 @@
       {#each row as letterConf, ki}
         <div
           on:click={() => beginEdit([ri, ki, letterConf.id, letterConf.letter])}
-          class={`key ${letterConf.class} ${homeRowClass(
-            ri,
-            ki
-          )} ${editingClass(ri, ki)}`}
+          class={`key ${letterConf.class} ${editingClass(ri, ki)}`}
           id={letterConf.id}
         >
           <span class="letter">{letterConf.letter}</span>
@@ -118,10 +108,6 @@
 {/if}
 
 <style>
-  .homeRow {
-    box-shadow: 0 0 5px 2px hsl(0deg 0% 100% / 44%);
-  }
-
   .editing {
     box-shadow: 0 0 5px 4px hsl(0deg 0% 100% / 88%);
   }

@@ -142,6 +142,15 @@ a:link {
   text-transform: uppercase;
 }
 
+.homeRow {
+  box-shadow: 0 0 5px 2px hsl(0deg 0% 100% / 44%);
+}
+
+.gap {
+  border: none;
+  background: none;
+}
+
 .twou {
   width: 11.75%;
 }

@@ -1,42 +1,62 @@
 <script>
-  import { keyRemapping } from "./persistentStore.js";
+  import {
+    currentLayout,
+    keyRemapping,
+    useColumnarLayout,
+  } from "./persistentStore.js";
 
   function toggleMapping(e) {
     $keyRemapping = $keyRemapping;
     e.target.blur();
   }
+
+  function toggleColumnar(e) {
+    $useColumnarLayout = $useColumnarLayout;
+    e.target.blur();
+  }
 </script>
 
-<div id="mappingToggle">
-  <h6>Keyboard Mapping: {$keyRemapping ? "on" : "off"}</h6>
-  <label class="switch">
+<div>
+  <h6>Map QWERTY to {$currentLayout.toLocaleUpperCase()}</h6>
+  <label>
     <input
       bind:checked={$keyRemapping}
       on:change={toggleMapping}
       type="checkbox"
       autocomplete="off"
     />
-    <span class="slider" />
+    <span />
+  </label>
+  <h6>Use Columnar Layout</h6>
+  <label>
+    <input
+      bind:checked={$useColumnarLayout}
+      on:change={toggleColumnar}
+      type="checkbox"
+      autocomplete="off"
+    />
+    <span />
   </label>
 </div>
 
 <style>
-  #mappingToggle {
+  div {
     position: absolute;
     bottom: 3vh;
     right: -6vh;
     width: 15vw;
+    margin-right: 0.5rem;
   }
 
-  #mappingToggle h6 {
+  div h6 {
     position: relative;
     left: -2.6vmin;
     font-size: 1vmin;
-    margin: 0 0 2vmin 0;
+    margin: 1rem 0 2vmin 0;
   }
 
   /* The switch - the box around the slider */
-  .switch {
+  label {
     position: relative;
     display: inline-block;
     width: 7.5vmin;
@@ -44,14 +64,14 @@
   }
 
   /* Hide default HTML checkbox */
-  .switch input {
+  label input {
     opacity: 0;
     width: 1;
     height: 0;
   }
 
   /* The slider */
-  .slider {
+  span {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -61,7 +81,7 @@
     background-color: #444;
   }
 
-  .slider:before {
+  span:before {
     position: absolute;
     content: "";
     height: 3vmin;
@@ -75,16 +95,16 @@
     transition: 0.2s;
   }
 
-  input:checked + .slider {
+  input:checked + span {
     background-color: var(--accent-color);
   }
 
-  input:focus + .slider {
+  input:focus + span {
     -webkit-box-shadow: 0 0 1px purple;
     box-shadow: 0 0 1px purple;
   }
 
-  input:checked + .slider:before {
+  input:checked + span:before {
     -webkit-transform: translateX(3vmin);
     -ms-transform: translateX(3vmin);
     transform: translateX(3vmin);

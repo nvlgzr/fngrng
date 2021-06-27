@@ -20,6 +20,7 @@
     layoutMap,
     currentLevel,
     currentLayout,
+    useColumnarLayout,
   } from "./persistentStore.js";
   import {
     gameState,
@@ -160,11 +161,12 @@
 
       case "k":
         $keyRemapping = !$keyRemapping;
-        maybeNotify({
-          text: `Keyboard Mapping ${$keyRemapping ? "On" : "Off"}`,
-          position: "top-center",
-          removeAfter: 2500,
-        });
+        // No notification needed because this toggle's always visible
+        break;
+
+      case "l":
+        $useColumnarLayout = !$useColumnarLayout;
+        // No notification needed because this toggle's always visible
         break;
 
       default:

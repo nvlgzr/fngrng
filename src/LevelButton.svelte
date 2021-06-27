@@ -32,14 +32,6 @@
     border-color: var(--accent-color);
   }
 
-  .lvl8 {
-    display: none;
-    font-size: 1.1vh;
-
-    color: orange;
-    border-color: orange;
-  }
-
   .selected {
     color: var(--accent-color);
     border-color: var(--accent-color);

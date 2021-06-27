@@ -1,8 +1,9 @@
 # ✅ Things I Wanna Do Before Release
 
-- Provide option to swap in columnar layout
+- Add legends for remaining keyboard shortcuts: level buttons, layout dropdown, keyboard toggles
 - Use different color scheme & fonts to differentiate from colemak.academy
 - Replace BottomText with other attributions & stuff
+- Get rid of global.css(?)
 - Add 'fngrng prefix to persistent store keys to avoid 3rd party conflicts'
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Documentation
@@ -10,7 +11,9 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
-- I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯ 
+- ☣️ LineByLinePrompt advances line without typing a space. Frankly, I think I'll switch it to requiring a carriage return. #realworldflair
+- Level keys should be clickable to the edge, not just on text
+- I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯
 - Encountered Capital "Sarah" when capitals not allowed (custom map)
 - Holding down a modifier key gets ignored by combo handler. Might need to fork `svelte-keydown` or switch it out for `mousetrap`
 

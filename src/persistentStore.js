@@ -47,6 +47,12 @@ keyRemapping.subscribe(value => {
   localStorage.setItem("keyRemapping", value)
 })
 
+const storedUseColumnarLayout = localStorage.getItem("useColumnarLayout");
+export const useColumnarLayout = writable(storedUseColumnarLayout === "true")
+useColumnarLayout.subscribe(value => {
+  localStorage.setItem("useColumnarLayout", value)
+})
+
 const storedPrefsOpen = localStorage.getItem("preferenceMenuOpen")
 export const prefsOpen = writable(storedPrefsOpen === "true")
 prefsOpen.subscribe(value => {
