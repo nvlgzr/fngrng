@@ -1,4 +1,4 @@
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
+export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 export const levelLetterSets = {
   azerty: ["qsdfjklm", "gh", "azer", "tycv", "uiop", "wxbn", alphabet,],

@@ -1,10 +1,11 @@
 import { derived, readable, writable } from "svelte/store";
-import { rowData } from "./levelMappings.js";
+import { alphabet, rowData } from "./levelMappings.js";
 import {
   letterSetsForCurrentLayout,
   currentLevel,
   layoutMap,
-  punctuationToInclude
+  punctuationToInclude,
+  fullSentenceModeEnabled
 } from "./persistentStore.js"
 
 // Game begins when user starts typing in input
@@ -67,10 +68,10 @@ export const lettersInLevel = derived(
 )
 
 export const configuredRows = derived(
-  [currentLevel, layoutMap, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel],
-  ([$currentLevel, $layoutMap, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel]) => {
+  [currentLevel, layoutMap, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
+  ([$currentLevel, $layoutMap, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
 
-    const activeCharacters = $lettersInLevel + $punctuationToInclude;
+    const activeCharacters = $fullSentenceModeEnabled ? alphabet + $punctuationToInclude : $lettersInLevel + $punctuationToInclude;
 
     function letterLevelIndex(letter) {
       const levels = $letterSetsForCurrentLayout;
@@ -88,7 +89,7 @@ export const configuredRows = derived(
       if (isIncludedPunctuation(letter)) return "punctuation";
 
       const levelIndex = letterLevelIndex(letter);
-      if (levelIndex == $currentLevel - 1) return "newInThisLevel";
+      if (!$fullSentenceModeEnabled && levelIndex === $currentLevel - 1) return "newInThisLevel";
       return "active";
     }
 

@@ -1,9 +1,5 @@
 # ✅ Things I Wanna Do Before Release
 
-- Fix the weird interaction between the levels & Full Sentence Mode
-  - Make them mutually exclusive…maybe like this? ↓
-    - Levels fly off left when Full Sentence mode's on, and fly back in when off
-    - Keyboard simulates Level 7 when on, reverts to $currentLevel when off
 - Provide option to swap in columnar layout
 - Use different color scheme & fonts to differentiate from colemak.academy
 - Replace BottomText with other attributions & stuff
