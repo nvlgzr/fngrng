@@ -102,11 +102,15 @@
   // Used to confirm keyboard shortcut results
   const { addNotification } = getNotificationsContext();
 
+  const maybeNotify = (notification) => {
+    if (!$prefsOpen) addNotification(notification);
+  };
+
   const handleControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "c":
         $uppercaseAllowed = !$uppercaseAllowed;
-        addNotification({
+        maybeNotify({
           text: `Capitals ${$uppercaseAllowed ? "On" : "Off"}`,
           position: "top-center",
           removeAfter: 2500,
@@ -117,7 +121,7 @@
         // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
         //      PreferenceMenu, rather than properly refactoring.
         $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
-        addNotification({
+        maybeNotify({
           text: `Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`,
           position: "top-center",
           removeAfter: 2500,
@@ -126,7 +130,7 @@
 
       case "f":
         $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
-        addNotification({
+        maybeNotify({
           text: `Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`,
           position: "top-center",
           removeAfter: 2500,
@@ -135,7 +139,7 @@
 
       case "s":
         $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
-        addNotification({
+        maybeNotify({
           text: `Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`,
           position: "top-center",
           removeAfter: 2500,
@@ -156,7 +160,7 @@
 
       case "k":
         $keyRemapping = !$keyRemapping;
-        addNotification({
+        maybeNotify({
           text: `Keyboard Mapping ${$keyRemapping ? "On" : "Off"}`,
           position: "top-center",
           removeAfter: 2500,
