@@ -30,8 +30,8 @@
     );
   }
 
-  function handleKeydown(event) {
-    if (event.keyCode === 27) {
+  function handleKeydown({ key }) {
+    if (key === "Escape" || key === "Enter") {
       closeMenu();
     }
   }
@@ -77,14 +77,6 @@
       shortcut: "⌃S",
     },
   ];
-
-  $: timeLimitModeButtonClicked = (e) => {
-    $timeLimitModeEnabled = true;
-  };
-
-  $: wordLimitModeButtonClicked = (e) => {
-    $timeLimitModeEnabled = false;
-  };
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -111,12 +103,12 @@
         <input bind:value={$maxSeconds} type="number" autocomplete="off" />
       {/if}
       Time Limit Mode<input
-        on:click={timeLimitModeButtonClicked}
-        checked={$timeLimitModeEnabled}
-        type="checkbox"
+        type="radio"
+        bind:group={$timeLimitModeEnabled}
+        value={true}
         autocomplete="off"
-        disabled={$timeLimitModeEnabled}
       />
+      <span style="color:gray;">⌃T</span>
     </li>
     <li>
       {#if !$timeLimitModeEnabled}
@@ -129,17 +121,36 @@
       {/if}
       Word Limit Mode
       <input
-        on:click={wordLimitModeButtonClicked}
-        checked={!$timeLimitModeEnabled}
-        type="checkbox"
+        type="radio"
+        bind:group={$timeLimitModeEnabled}
+        value={false}
         autocomplete="off"
-        disabled={!$timeLimitModeEnabled}
       />
+      <span style="color:gray;">⌃W</span>
     </li>
   </ul>
+  <div class="esc">Esc / Enter to close</div>
 </div>
 
 <style>
+  input {
+    width: 2vh;
+    height: 2vh;
+    margin-left: 2vh;
+  }
+  li input,
+  .esc {
+    font-size: 1.7vh;
+    width: 5vh;
+    height: 1.7vh;
+    margin: 0 auto;
+  }
+  .esc {
+    width: 100%;
+    color: gray;
+    text-align: center;
+    margin-top: 2rem;
+  }
   .preferenceButton {
     background-image: url("/settingsIcon.webp");
     background-size: cover;

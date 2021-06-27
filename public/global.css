@@ -47,19 +47,6 @@ select {
   background-color: var(--menu-background-color);
 }
 
-input[type="checkbox"] {
-  width: 2vh;
-  height: 2vh;
-  margin-left: 2vh;
-}
-
-li input {
-  font-size: 1.7vh;
-  width: 5vh;
-  height: 1.7vh;
-  margin: 0 1.5vh 0 auto;
-}
-
 h1 {
   font-size: 3.5vmax;
   text-transform: uppercase;

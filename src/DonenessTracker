@@ -1,7 +1,5 @@
 # ✅ Things I Wanna Do Before Release
 
-- Shortcut for Word/Time limits should open the prefs pane with input selected
-    - and close on Return/Enter
 - Fix the weird interaction between the levels & Full Sentence Mode
   - Make them mutually exclusive…maybe like this? ↓
     - Levels fly off left when Full Sentence mode's on, and fly back in when off
@@ -18,6 +16,7 @@
 # 🐞 Known Bugs
 - I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯ 
 - Encountered Capital "Sarah" when capitals not allowed (custom map)
+- Holding down a modifier key gets ignored by combo handler. Might need to fork `svelte-keydown` or switch it out for `mousetrap`
 
 # Overview
 
@@ -73,4 +72,4 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 - Reduce conversions between strings and arrays? (I just have a feeling
   that there's some unnecessary back-and-forth going on here.)
   - Document every transition that uses .split/.join with either " " or "".
-
+- Auto-select number input when using keyboard shortcuts for Word/Time limit modes

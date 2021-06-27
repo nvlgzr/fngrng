@@ -142,6 +142,18 @@
         });
         break;
 
+      case "t":
+        $timeLimitModeEnabled = true;
+        $prefsOpen = true;
+        // No notification needed because this flow opens the prefs
+        break;
+
+      case "w":
+        $timeLimitModeEnabled = false;
+        $prefsOpen = true;
+        // No notification needed because this flow opens the prefs
+        break;
+
       case "k":
         $keyRemapping = !$keyRemapping;
         addNotification({
