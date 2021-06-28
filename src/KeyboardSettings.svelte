@@ -25,7 +25,7 @@
       type="checkbox"
       autocomplete="off"
     />
-    <span />
+    <span keyboard-shortcut="⌃K" />
   </label>
   <h6>Use Columnar Layout</h6>
   <label>
@@ -35,7 +35,7 @@
       type="checkbox"
       autocomplete="off"
     />
-    <span />
+    <span keyboard-shortcut="⌃L" />
   </label>
 </div>
 
@@ -83,7 +83,8 @@
 
   span:before {
     position: absolute;
-    content: "";
+    content: attr(keyboard-shortcut);
+    color: var(--menu-background-color);
     height: 3vmin;
     width: 3vmin;
     left: 0.75vmin;
