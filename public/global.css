@@ -49,6 +49,7 @@ select {
   color: var(--text-color);
   background-color: var(--menu-background-color);
   border-radius: 0.25rem;
+  font-family: "Verdana", sans-serif;
 }
 
 h1 {

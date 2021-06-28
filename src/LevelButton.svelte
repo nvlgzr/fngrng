@@ -13,7 +13,12 @@
 </script>
 
 <button on:click={() => selectLevel(level)} class:selected>
-  <slot />
+  <p>
+    <slot />
+  </p>
+  <p class="shortcut">
+    ⌃{level}
+  </p>
 </button>
 
 <style>
@@ -23,7 +28,7 @@
     flex: 1 1 11vh;
     margin: 0.5vh auto;
     width: 11vh;
-    font-size: 1.5vh;
+    font-size: 1.3vh;
     color: var(--text-color);
     border-radius: 0.45rem;
   }
@@ -37,5 +42,13 @@
     color: var(--accent-color);
     border-color: var(--accent-color);
     font-weight: bold;
+  }
+
+  .shortcut {
+    position: absolute;
+    color: gray;
+    margin: 1vh auto;
+    font-family: "Verdana", sans-serif;
+    letter-spacing: -0.05rem;
   }
 </style>
