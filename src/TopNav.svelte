@@ -18,3 +18,18 @@
 </select>
 
 <PreferenceMenu />
+
+<style>
+  select {
+    position: absolute;
+    top: 2vmax;
+    right: 8vmax;
+    height: 3vmax;
+    font-size: 1vmax;
+    padding: 0 1vmin;
+    color: var(--text-color);
+    background-color: var(--menu-background-color);
+    border-radius: 0.25rem;
+    font-family: "Verdana", sans-serif;
+  }
+</style>

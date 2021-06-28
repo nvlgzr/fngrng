@@ -96,7 +96,7 @@
           class={`key ${letterConf.class} ${editingClass(ri, ki)}`}
           id={letterConf.id}
         >
-          <span class="letter">{letterConf.letter}</span>
+          <span>{letterConf.letter}</span>
         </div>
       {/each}
     </div>
@@ -108,7 +108,121 @@
 {/if}
 
 <style>
+  span {
+    display: block;
+    font-size: 2.2vh;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    height: 5vh;
+    width: 75vh;
+  }
+
   .editing {
     box-shadow: 0 0 5px 4px hsl(0deg 0% 100% / 88%);
+    animation: pulse 0.8s infinite;
+  }
+
+  .key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 0.2vh solid var(--accent-color);
+    height: 75%;
+    width: 5%;
+    opacity: 0.5;
+    border-radius: 0.45rem;
+    vertical-align: top;
+  }
+
+  .homeRow {
+    box-shadow: 0 0 5px 2px hsl(0deg 0% 100% / 44%);
+  }
+
+  .gap {
+    border: none;
+    background: none;
+  }
+
+  .twou {
+    /* standard keyboard delete */
+    width: 11.75%;
+  }
+
+  .onepointfiveu {
+    /* standard keyboard tab */
+    width: 8.8125%;
+  }
+
+  .onepointsevenfiveu {
+    /* standard keyboard caps lock */
+    width: 10.28125%;
+  }
+
+  .twopointtwofiveu {
+    /* standard keyboard return */
+    width: 13.21875%;
+  }
+
+  .twopointsevenfiveu {
+    /* standard keyboard shift */
+    width: 16.15625%;
+  }
+
+  .onepointtwofiveu {
+    /* standard keyboard modifier key */
+    width: 7.34375%;
+  }
+
+  .sixpointtwofiveu {
+    /* standard keyboard spacebar */
+    width: 36.71875%;
+  }
+
+  .inactive {
+    opacity: 0.6;
+    border-color: var(--accent-color);
+  }
+
+  .newInThisLevel {
+    border-color: var(--tertiary-accent-color);
+    color: var(--tertiary-accent-color);
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+
+  .restingPosition {
+    text-decoration: underline;
+  }
+
+  .active {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  .punctuation {
+    border-color: var(--text-color);
+    color: white;
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 </style>

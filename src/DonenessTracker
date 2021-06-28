@@ -1,8 +1,5 @@
 # ✅ Things I Wanna Do Before Release
 
-- Get rid of global.css(?)
-  - Do code-wide search of every selector.
-  - See what can be moved or deleted.
 - Add 'fngrng prefix to persistent store keys to avoid 3rd party conflicts'
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Use different color scheme & fonts to differentiate from colemak.academy
