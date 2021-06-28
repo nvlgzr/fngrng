@@ -40,8 +40,10 @@
     $prefsOpen = true;
   }
 
+  let inputToBlur;
   function closeMenu() {
     $prefsOpen = false;
+    inputToBlur.blur();
   }
 
   $: prefs = [
@@ -100,7 +102,12 @@
     {/each}
     <li>
       {#if $timeLimitModeEnabled}
-        <input bind:value={$maxSeconds} type="number" autocomplete="off" />
+        <input
+          bind:this={inputToBlur}
+          bind:value={$maxSeconds}
+          type="number"
+          autocomplete="off"
+        />
       {/if}
       Time Limit Mode<input
         type="radio"
@@ -113,6 +120,7 @@
     <li>
       {#if !$timeLimitModeEnabled}
         <input
+          bind:this={inputToBlur}
           bind:value={$maxWords}
           type="number"
           step="10"
@@ -138,6 +146,7 @@
     height: 2vh;
     margin-left: 2vh;
   }
+
   li input,
   .esc {
     font-size: 1.7vh;
@@ -145,12 +154,14 @@
     height: 1.7vh;
     margin: 0 auto;
   }
+
   .esc {
     width: 100%;
     color: gray;
     text-align: center;
     margin-top: 2rem;
   }
+
   .preferenceButton {
     background-image: url("/settingsIcon.webp");
     background-size: cover;
