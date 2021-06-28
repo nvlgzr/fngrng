@@ -25,6 +25,7 @@
     width: 11vh;
     font-size: 1.5vh;
     color: var(--text-color);
+    border-radius: 0.45rem;
   }
 
   button:hover {

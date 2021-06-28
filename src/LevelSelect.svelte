@@ -48,10 +48,11 @@
     margin-left: 4vmin;
   }
   section {
-    display: absolute;
-    font-size: 1rem;
+    display: inline-table;
+    font-size: 2vmax;
     font-weight: bold;
-    padding-left: 1.5rem;
+    padding: 0 1.5rem;
+    border: solid 1px var(--accent-color);
   }
   p {
     color: var(--accent-color);

@@ -43,8 +43,12 @@ select {
   position: absolute;
   top: 2vmax;
   right: 8vmax;
+  height: 3vmax;
+  font-size: 1vmax;
+  padding: 0 1vmin;
   color: var(--text-color);
   background-color: var(--menu-background-color);
+  border-radius: 0.25rem;
 }
 
 h1 {
@@ -92,13 +96,6 @@ button:focus {
   display: block;
 }
 
-input {
-  height: 6vmin;
-  font-size: 4vmin;
-  width: 80%;
-  margin: 2.5vh auto 3vh auto;
-}
-
 a:link {
   color: var(--accent-color);
 }
@@ -130,8 +127,7 @@ a:link {
   height: 75%;
   width: 5%;
   opacity: 0.5;
-  /*border-bottom-right-radius: 7%;
-	border-bottom-left-radius: 7%;*/
+  border-radius: 0.45rem;
   vertical-align: top;
 }
 

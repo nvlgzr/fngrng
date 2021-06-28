@@ -50,3 +50,13 @@
   {placeholder}
   spellcheck="false"
 />
+
+<style>
+  input {
+    height: 6vmin;
+    font-size: 4vmin;
+    width: 80%;
+    margin: 2.5vh auto 3vh auto;
+    border-radius: 0.45rem;
+  }
+</style>

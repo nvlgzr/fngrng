@@ -50,9 +50,9 @@
 
   div h6 {
     position: relative;
-    left: -2.6vmin;
-    font-size: 1vmin;
-    margin: 1rem 0 2vmin 0;
+    left: -3.6vmin;
+    font-size: 1.3vmin;
+    margin: 2rem 0 1.3vmin 0;
   }
 
   /* The switch - the box around the slider */
@@ -79,6 +79,7 @@
     right: 0;
     bottom: 0;
     background-color: #444;
+    border-radius: 0.45rem;
   }
 
   span:before {
@@ -90,6 +91,7 @@
     left: 0.75vmin;
     bottom: 0.75vmin;
     background-color: white;
+    border-radius: 0.25rem;
     -webkit-transition: 0.4s;
     -webkit-transition: 0.2s;
     -o-transition: 0.2s;
