@@ -12,7 +12,6 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
-- ☣️ LineByLinePrompt advances line without typing a space. Frankly, I think I'll switch it to requiring a carriage return. #realworldflair
 - Level keys should be clickable to the edge, not just on text
 - I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯
 - Encountered Capital "Sarah" when capitals not allowed (custom map)

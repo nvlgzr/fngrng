@@ -100,17 +100,18 @@ export const initForLineByLine = (linesOrFunction = ["Check your code", "initFor
 export const addSymbol = (model, sym) => {
   if (model.gameState === "over") return model
 
-  const challengeImminent = model.userText + sym === model.challenge
-  const lastWord = model.restOfLine.length === 0
-
+  // Except on the very last word, a space is needed to confirm each challenge
   const challengeAchieved = sym === " " && model.userText === model.challenge
+  const challengeImminent = model.userText + sym === model.challenge
+  const lastLine = model.isLineByLineMode ? !model.remainingLines?.length : true
+  const lastWord = model.restOfLine.length === 0 && lastLine
 
   const advanceCurrentWord = challengeAchieved || lastWord && challengeImminent
 
   if (advanceCurrentWord) {
     return model.isLineByLineMode ?
-      addSymbolLineByLine(model, sym, challengeAchieved)
-      : addSymbolScrolling(model, sym, challengeAchieved)
+      addSymbolLineByLine(model)
+      : addSymbolScrolling(model)
   } else {
     return addIncompleteSymbol(model, sym)
   }
@@ -132,7 +133,7 @@ export const addSymbolScrolling = (model) => {
   return updated.challenge.length ? updated : gameover(updated)
 }
 
-export const addSymbolLineByLine = (model, sym, challengeAchieved) => {
+export const addSymbolLineByLine = (model) => {
   let updated = {
     ...model,
     totalKeyPresses: model.totalKeyPresses + 1,

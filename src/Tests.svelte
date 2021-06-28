@@ -437,14 +437,23 @@
         ["and 'restOfLine' is empty.", m.restOfLine.length === 0],
       ];
 
-      for (const char of "one ") {
+      for (const char of "one") {
         m = addSymbol(m, char);
       }
       const endOfLine = [
         [
+          "Since it's not the end of the game, the challenge is incomplete.",
+          m.locked.join(" ") === "With 35 characters, here's line" &&
+            m.challenge === "one",
+        ],
+      ];
+      m = addSymbol(m, " ");
+      const nextLine = [
+        [
           "Upon line completion, 'locked' and 'challenge' move to 'hidden',",
           m.hidden.join(" ") === "With 35 characters, here's line one",
         ],
+
         ["(so 'locked' is empty),", m.locked.join(" ") === ""],
         [
           "the next line's first word is now the 'challenge',",
@@ -460,7 +469,7 @@
             m.remainingLines.length === 1,
         ],
       ];
-      return [...twoLeft, ...oneLeft, ...endOfLine];
+      return [...twoLeft, ...oneLeft, ...endOfLine, ...nextLine];
     });
 
     test("When the user types a correct character", () => {
