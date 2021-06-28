@@ -44,7 +44,7 @@ App
     VisualKeyboard
       KeyboardDivs
     BottomText
-  MappingToggle
+  KeyboardSettings
 
 # Playground & Tests
 

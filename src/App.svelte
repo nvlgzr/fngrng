@@ -5,7 +5,7 @@
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
   import Main from "./Main.svelte";
-  import MappingToggle from "./MappingToggle.svelte";
+  import KeyboardSettings from "./KeyboardSettings.svelte";
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
   import { testModeEnabled } from "./persistentStore";
@@ -29,7 +29,7 @@
     <TopNav />
     <LevelSelect />
     <Main />
-    <MappingToggle />
+    <KeyboardSettings />
   {/if}
 </Notifications>
 
