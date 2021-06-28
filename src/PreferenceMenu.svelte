@@ -165,7 +165,6 @@
   .preferenceButton {
     background-image: url("/settingsIcon.webp");
     background-size: cover;
-    -webkit-filter: invert(1);
     filter: invert(1);
     background-repeat: no-repeat;
     border: none;
@@ -181,8 +180,6 @@
   .preferenceButton:hover,
   .closePreferenceButton:hover {
     opacity: 1;
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
 
@@ -196,7 +193,6 @@
     background-repeat: no-repeat;
     height: 2vh;
     width: 2vh;
-    -webkit-filter: invert(1);
     filter: invert(1);
     border: none;
   }
@@ -209,8 +205,6 @@
     height: 100vh;
     width: 33vh;
     border-left: 0.1vh solid var(--text-color);
-    -webkit-transition: right 0.08s linear;
-    -o-transition: right 0.08s linear;
     transition: right 0.08s linear;
   }
 
@@ -219,19 +213,10 @@
   }
 
   .preferenceMenu ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -ms-flex-pack: distribute;
     justify-content: space-around;
-    -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
-    -webkit-box-align: end;
-    -ms-flex-align: end;
     align-items: flex-end;
     padding: 0 1vh 0 0;
     height: 55vh;

@@ -92,9 +92,6 @@
     bottom: 0.75vmin;
     background-color: white;
     border-radius: 0.25rem;
-    -webkit-transition: 0.4s;
-    -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
     transition: 0.2s;
   }
 
@@ -103,13 +100,10 @@
   }
 
   input:focus + span {
-    -webkit-box-shadow: 0 0 1px purple;
     box-shadow: 0 0 1px purple;
   }
 
   input:checked + span:before {
-    -webkit-transform: translateX(3vmin);
-    -ms-transform: translateX(3vmin);
     transform: translateX(3vmin);
   }
 </style>

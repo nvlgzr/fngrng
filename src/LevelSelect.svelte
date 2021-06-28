@@ -32,21 +32,15 @@
 
 <style>
   div {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     z-index: 1000; /* Prevents overlap from Main when window is narrow */
     width: 10vw;
     height: 84vh;
     margin-left: 4vmin;
   }
+
   section {
     display: inline-table;
     font-size: 2vmax;
@@ -54,6 +48,7 @@
     padding: 0 1.5rem;
     border: solid 1px var(--accent-color);
   }
+
   p {
     color: var(--accent-color);
     line-height: 50%;

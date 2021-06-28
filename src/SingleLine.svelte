@@ -15,9 +15,6 @@
 <style>
   .line {
     white-space: nowrap;
-    /* }
-
-  .paragraph .line { */
     margin-left: 1.6vmin;
     display: block;
   }

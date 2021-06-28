@@ -23,14 +23,20 @@
 
 <style>
   button {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 11vh;
     flex: 1 1 11vh;
+    background-color: transparent;
+    border: 0.2vmax solid var(--text-color);
+    color: var(--text-color);
+    cursor: pointer;
+    letter-spacing: 3px;
+    font-size: 1.3vh;
     margin: 0.5vh auto;
     width: 11vh;
-    font-size: 1.3vh;
-    color: var(--text-color);
     border-radius: 0.45rem;
+  }
+
+  button:focus {
+    outline: none;
   }
 
   button:hover {

@@ -38,8 +38,6 @@
   }
 
   .smoothScroll {
-    -webkit-transition: left 0.1s linear;
-    -o-transition: left 0.1s linear;
     transition: left 0.1s linear;
   }
 

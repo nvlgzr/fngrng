@@ -1,18 +1,14 @@
 :root {
-  --text-color: #fff;
+  --text-color: white;
   --background-color: black;
-  --menu-background-color: #111;
-  --accent-color: #8727b8;
+  --menu-background-color: hsl(0, 0%, 7%);
+  --accent-color: hsl(280, 65%, 44%);
   --secondary-accent-color: orange;
   --tertiary-accent-color: green;
 }
 
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -24,19 +20,6 @@ body {
 
 body * {
   font-family: "Lucida Console", Monaco, monospace;
-}
-
-* {
-  -webkit-transition: border-color 0.1s linear, opacity 0.15s linear,
-    -webkit-transform 0.07s linear;
-  transition: border-color 0.1s linear, opacity 0.15s linear,
-    -webkit-transform 0.07s linear;
-  -o-transition: border-color 0.1s linear, opacity 0.15s linear,
-    transform 0.07s linear;
-  transition: border-color 0.1s linear, opacity 0.15s linear,
-    transform 0.07s linear;
-  transition: border-color 0.1s linear, opacity 0.15s linear,
-    transform 0.07s linear, -webkit-transform 0.07s linear;
 }
 
 select {
@@ -52,61 +35,8 @@ select {
   font-family: "Verdana", sans-serif;
 }
 
-h1 {
-  font-size: 3.5vmax;
-  text-transform: uppercase;
-  letter-spacing: 1vw;
-}
-
-button {
-  letter-spacing: 3px;
-}
-
-button {
-  background-color: transparent;
-  border: 0.2vmax solid var(--text-color);
-  color: var(--text-color);
-  /*text-transform: capitalize;*/
-  cursor: pointer;
-}
-
-button:focus {
-  outline: none;
-}
-
-.smoothScroll {
-  -webkit-transition: left 0.1s linear;
-  -o-transition: left 0.1s linear;
-  transition: left 0.1s linear;
-}
-
-.paragraph {
-  color: grey;
-  word-wrap: break-word;
-  width: 103%;
-  font-size: 2.4vmin;
-  margin: 6.5vmin auto 0 auto;
-}
-
-.line {
-  white-space: nowrap;
-}
-
-.paragraph .line {
-  margin-left: 1.6vmin;
-  display: block;
-}
-
-a:link {
-  color: var(--accent-color);
-}
-
 .row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   height: 5vh;
   width: 75vh;
@@ -114,14 +44,8 @@ a:link {
 
 .key,
 .cKey {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: transparent;
   border: 0.2vh solid var(--accent-color);
@@ -185,7 +109,6 @@ a:link {
   border-color: var(--tertiary-accent-color);
   color: var(--tertiary-accent-color);
   opacity: 1;
-  -webkit-filter: brightness(1.2);
   filter: brightness(1.2);
 }
 
@@ -197,7 +120,6 @@ a:link {
   border-color: var(--accent-color);
   color: var(--accent-color);
   opacity: 1;
-  -webkit-filter: brightness(1.5);
   filter: brightness(1.5);
 }
 
@@ -205,7 +127,6 @@ a:link {
   border-color: var(--text-color);
   color: white;
   opacity: 1;
-  -webkit-filter: brightness(1.5);
   filter: brightness(1.5);
 }
 
@@ -234,7 +155,6 @@ a:link {
 }
 
 .pulse {
-  -webkit-animation: pulse 0.8s infinite;
   animation: pulse 0.8s infinite;
 }
 
@@ -258,47 +178,19 @@ a:link {
   opacity: 0;
 }
 
-/*.hide-me {
-	z-index: -100;
-  animation: hideme .5s linear forwards;
-}
-
-@keyframes hideme {
-  0% {
-  	left: 0;
-  }
-  100% {
-  }
-}*/
 /*___________________________ANIMATIONS________________________*/
 .slideLeft {
   position: relative;
   color: blue;
-  -webkit-animation: slideLeft 0.2s 1 linear;
   animation: slideLeft 0.2s 1 linear;
-  -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
 
 .slideOff {
   position: relative;
   color: blue;
-  -webkit-animation: slideOff 0.2s 1 linear;
   animation: slideOff 0.2s 1 linear;
-  -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 }
 
 @keyframes pulse {
