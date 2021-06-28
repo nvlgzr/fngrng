@@ -39,7 +39,12 @@
     userText = "";
   }
 
-  $: placeholder = $gameState === "over" ? "Press enter to reset" : "";
+  $: placeholder =
+    $gameState === "ready"
+      ? "Type to start the clock"
+      : $gameState === "over"
+      ? "Press enter to reset"
+      : "";
 </script>
 
 <input
@@ -54,9 +59,10 @@
 <style>
   input {
     height: 6vmin;
-    font-size: 4vmin;
+    font-size: 3.7vmin;
     width: 80%;
     margin: 2.5vh auto 3vh auto;
+    padding: 0 1vh;
     border-radius: 0.45rem;
   }
 </style>
