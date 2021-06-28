@@ -12,11 +12,12 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
-- Level keys should be clickable to the edge, not just on text
-- I encountered a weird issue with the Custom keyboard map, but it may have been a polluted-cache issue. ¯\_(ツ)_/¯
+- Keys should not highlight when clicked EXCEPT in Custom mode
+- Custom map does not properly clear prior setting from level maps (and maybe we don't need to store all of those in localStorage?)
+  - Custom map needs a bit of stress testing
+- Still seing >100% accuracy from time to time. 🙀
 - Encountered Capital "Sarah" when capitals not allowed (custom map)
 - Holding down a modifier key gets ignored by combo handler. Might need to fork `svelte-keydown` or switch it out for `mousetrap`
-- Still seing >100% accuracy from time to time. 🙀
 
 # Overview
 

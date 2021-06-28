@@ -42,7 +42,7 @@
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-
+    z-index: 1000; /* Prevents overlap from Main when window is narrow */
     width: 10vw;
     height: 84vh;
     margin-left: 4vmin;
