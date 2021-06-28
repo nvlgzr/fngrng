@@ -41,68 +41,68 @@ export const layoutMap = derived(
   }
 );
 
-const storedKeyRemapping = localStorage.getItem("keyRemapping");
+const storedKeyRemapping = localStorage.getItem("fngrng_keyRemapping");
 export const keyRemapping = writable(storedKeyRemapping === "true")
 keyRemapping.subscribe(value => {
-  localStorage.setItem("keyRemapping", value)
+  localStorage.setItem("fngrng_keyRemapping", value)
 })
 
-const storedUseColumnarLayout = localStorage.getItem("useColumnarLayout");
+const storedUseColumnarLayout = localStorage.getItem("fngrng_useColumnarLayout");
 export const useColumnarLayout = writable(storedUseColumnarLayout === "true")
 useColumnarLayout.subscribe(value => {
-  localStorage.setItem("useColumnarLayout", value)
+  localStorage.setItem("fngrng_useColumnarLayout", value)
 })
 
-const storedPrefsOpen = localStorage.getItem("preferenceMenuOpen")
+const storedPrefsOpen = localStorage.getItem("fngrng_preferenceMenuOpen")
 export const prefsOpen = writable(storedPrefsOpen === "true")
 prefsOpen.subscribe(value => {
-  localStorage.setItem("preferenceMenuOpen", value)
+  localStorage.setItem("fngrng_preferenceMenuOpen", value)
 })
 
-const storedUppercaseAllowed = localStorage.getItem("uppercaseAllowed") || "false";
+const storedUppercaseAllowed = localStorage.getItem("fngrng_uppercaseAllowed") || "false";
 export const uppercaseAllowed = writable(storedUppercaseAllowed === "true")
 uppercaseAllowed.subscribe(value => {
-  localStorage.setItem("uppercaseAllowed", value)
+  localStorage.setItem("fngrng_uppercaseAllowed", value)
 })
 
-const storedFullSentenceMode = localStorage.getItem("fullSentenceModeEnabled");
+const storedFullSentenceMode = localStorage.getItem("fngrng_fullSentenceModeEnabled");
 export const fullSentenceModeEnabled = writable(storedFullSentenceMode === "true")
 fullSentenceModeEnabled.subscribe(value => {
-  localStorage.setItem("fullSentenceModeEnabled", value)
+  localStorage.setItem("fngrng_fullSentenceModeEnabled", value)
 })
 
-const storedTimeLimitMode = localStorage.getItem("timeLimitMode");
+const storedTimeLimitMode = localStorage.getItem("fngrng_timeLimitMode");
 export const timeLimitModeEnabled = writable(storedTimeLimitMode === "true")
 timeLimitModeEnabled.subscribe(value => {
-  localStorage.setItem("timeLimitMode", value)
+  localStorage.setItem("fngrng_timeLimitMode", value)
 })
 
-const storedTimeLimit = localStorage.getItem('timeLimitInSeconds') || 60;
+const storedTimeLimit = localStorage.getItem('fngrng_timeLimitInSeconds') || 60;
 export const maxSeconds = writable(storedTimeLimit)
 maxSeconds.subscribe(value => {
-  localStorage.setItem("timeLimitInSeconds", value)
+  localStorage.setItem("fngrng_timeLimitInSeconds", value)
 })
 
-const storedWordLimit = localStorage.getItem('wordLimit') || 60;
+const storedWordLimit = localStorage.getItem('fngrng_wordLimit') || 60;
 export const maxWords = writable(storedWordLimit)
 maxWords.subscribe(value => {
-  localStorage.setItem("wordLimit", value)
+  localStorage.setItem("fngrng_wordLimit", value)
 })
 
-const storedWordScrollingMode = localStorage.getItem("wordScrollingMode") || "true";
+const storedWordScrollingMode = localStorage.getItem("fngrng_wordScrollingMode") || "true";
 export const wordScrollingModeEnabled = writable(storedWordScrollingMode === "true")
 wordScrollingModeEnabled.subscribe(value => {
-  localStorage.setItem("wordScrollingMode", value)
+  localStorage.setItem("fngrng_wordScrollingMode", value)
 })
 
-const storedPunctuation = localStorage.getItem("punctuation");
+const storedPunctuation = localStorage.getItem("fngrng_punctuation");
 export const punctuationToInclude = writable(storedPunctuation || "")
 punctuationToInclude.subscribe(value => {
-  localStorage.setItem("punctuation", value)
+  localStorage.setItem("fngrng_punctuation", value)
 })
 
-const storedTestMode = localStorage.getItem("testModeEnabled");
+const storedTestMode = localStorage.getItem("fngrng_testModeEnabled");
 export const testModeEnabled = writable(storedTestMode === "true")
 testModeEnabled.subscribe(value => {
-  localStorage.setItem("testModeEnabled", value)
+  localStorage.setItem("fngrng_testModeEnabled", value)
 })

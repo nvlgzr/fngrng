@@ -1,8 +1,8 @@
 # ✅ Things I Wanna Do Before Release
 
-- Add 'fngrng prefix to persistent store keys to avoid 3rd party conflicts'
-- Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Use different color scheme & fonts to differentiate from colemak.academy
+  - Play around in Figma
+- Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Replace BottomText with other attributions & stuff
 - Documentation
 - Publish to Netlify…maybe with custom domain
