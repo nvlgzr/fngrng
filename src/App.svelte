@@ -1,6 +1,11 @@
 <script>
   import Notifications from "svelte-notifications";
   import Keydown from "svelte-keydown";
+  import Nav from "./Nav.svelte";
+  import LayoutHeader from "./LayoutHeader.svelte";
+  import Prompt from "./Prompt.svelte";
+  import Input from "./Input.svelte";
+  import Keyboard from "./Keyboard.svelte";
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
@@ -27,6 +32,11 @@
       <Tests />
     </div>
   {:else if $fngrng}
+    <Nav />
+    <LayoutHeader />
+    <Prompt />
+    <Input />
+    <Keyboard />
     <img src="mockv1.png" alt="Mock from Figma" />
   {:else}
     <PrefsOverlay />
@@ -79,6 +89,9 @@
   }
 
   img {
+    position: absolute;
+    top: 0;
+    z-index: -1;
     width: 100%;
     max-height: 100vh;
   }
