@@ -37,7 +37,7 @@
     <Prompt />
     <Input />
     <Keyboard />
-    <img src="mockv1.png" alt="Mock from Figma" />
+    <img src="mockv2.png" alt="Mock from Figma" />
   {:else}
     <PrefsOverlay />
     <TopNav />
