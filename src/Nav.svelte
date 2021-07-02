@@ -1,11 +1,12 @@
 <script>
+  import Logo from "./Logo.svelte";
   import { showFrames } from "./persistentStore";
 
   $: wireframe = $showFrames;
 </script>
 
 <nav class:wireframe>
-  <div class="tracking-wide text-gray-700 logo">fngrng</div>
+  <Logo />
   <div class="col-span-6 flex justify-between">
     <div>level 1 <span class="text-white">arstneio</span></div>
     <div>0/60 0m 0s</div>
@@ -18,10 +19,6 @@
     @apply text-4xl text-gray-400;
     @apply py-7 px-10;
     @apply grid grid-cols-8 gap-4;
-  }
-  .logo {
-    /* I dunno why, but it feels anemic without a slight size boost */
-    font-size: 2.35rem;
   }
   .wireframe {
     outline: solid 1px blueviolet;

@@ -16,6 +16,7 @@
       - Input
     - GameOver
   - Keyboard
+- Update the Tailwind base colors to better match my Figma mocks
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Replace BottomText with other attributions & stuff
 - Documentation
