@@ -1,4 +1,5 @@
 <script>
+  import Tailwindcss from "./Tailwindcss.svelte";
   import Notifications from "svelte-notifications";
   import Keydown from "svelte-keydown";
   import Nav from "./Nav.svelte";
@@ -22,6 +23,8 @@
     if (detail === "©") $fngrng = !$fngrng;
   };
 </script>
+
+<Tailwindcss />
 
 <Keydown on:key={toggleTests} />
 
