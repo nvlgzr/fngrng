@@ -1,11 +1,16 @@
 <script>
+  // your script goes here
 </script>
 
-<div>Nav</div>
+<nav>
+  <div>Nav</div>
+  <div>Nav</div>
+  <div>Nav</div>
+  <div>Nav</div>
+</nav>
 
-<style>
-  div {
-    background-color: mediumorchid;
-    opacity: 0.5;
+<style lang="postcss">
+  nav {
+    @apply flex justify-between;
   }
 </style>
