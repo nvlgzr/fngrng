@@ -41,7 +41,7 @@
     <Game />
     <Keyboard />
     {#if $showFrames}
-      <img src="mockv2.png" alt="Mock from Figma" />
+      <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
     {/if}
   {:else}
     <PrefsOverlay />
