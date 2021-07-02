@@ -4,8 +4,6 @@
   import Keydown from "svelte-keydown";
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
-  import Prompt from "./Prompt.svelte";
-  import Input from "./Input.svelte";
   import Keyboard from "./Keyboard.svelte";
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
@@ -15,6 +13,7 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
   import { fngrng, testModeEnabled, showFrames } from "./persistentStore";
+  import Game from "./Game.svelte";
 
   const globalToggles = ({ detail }) => {
     // ⌥T ⇒ †
@@ -39,8 +38,7 @@
   {:else if $fngrng}
     <Nav />
     <LayoutHeader />
-    <Prompt />
-    <Input />
+    <Game />
     <Keyboard />
     {#if $showFrames}
       <img src="mockv2.png" alt="Mock from Figma" />

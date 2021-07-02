@@ -10,10 +10,10 @@
       - WordScore
     - Info
   - Layout Header
-  - GameZone
+  - Game
     - PlayTime
       - Prompt
-      - Input
+      - Input ✅
     - GameOver
   - Keyboard
 - Update the Tailwind base colors to better match my Figma mocks
