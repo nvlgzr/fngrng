@@ -1,11 +1,16 @@
 <script>
+  import { showFrames } from "./persistentStore";
+
+  $: wireframe = $showFrames;
 </script>
 
-<div>Keyboard</div>
+<div class:wireframe>Keyboard NYI</div>
 
-<style>
+<style lang="postcss">
   div {
-    background-color: lightseagreen;
-    opacity: 0.5;
+    @apply text-center p-32 text-9xl text-yellow-400;
+  }
+  .wireframe {
+    outline: solid 1px lightseagreen;
   }
 </style>

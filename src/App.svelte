@@ -42,7 +42,9 @@
     <Prompt />
     <Input />
     <Keyboard />
-    <img src="mockv2.png" alt="Mock from Figma" />
+    {#if $showFrames}
+      <img src="mockv2.png" alt="Mock from Figma" />
+    {/if}
   {:else}
     <PrefsOverlay />
     <TopNav />
