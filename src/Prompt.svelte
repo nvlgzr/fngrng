@@ -1,28 +1,21 @@
 <script>
-  import { showFrames } from "./persistentStore";
+  import Scroller from "./Scroller.svelte";
+  import MultiLine from "./MultiLine.svelte";
+  import { wordScrollingModeEnabled } from "./persistentStore";
 
-  $: wireframe = $showFrames;
+  export let model;
 </script>
 
-<section class:wireframe>
-  <div>stated stood routes recorded heat crash</div>
-  <div>hat horses assured statutory trash trees</div>
-  <div>hours started addressed tours houses</div>
-</section>
+<div>
+  {#if $wordScrollingModeEnabled}
+    <Scroller {model} />
+  {:else}
+    <MultiLine {model} />
+  {/if}
+</div>
 
-<style lang="postcss">
-  section {
-    @apply text-center;
-    @apply font-serif;
-    @apply text-5xl;
-    @apply p-6;
-    @apply grid grid-cols-8 gap-4;
-  }
+<style>
   div {
-    @apply col-start-3 col-span-6;
-    @apply text-left;
-  }
-  .wireframe {
-    outline: solid 1px goldenrod;
+    @apply h-56;
   }
 </style>

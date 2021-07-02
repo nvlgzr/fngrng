@@ -32,8 +32,6 @@
   import { filterWordList, shuffle, remap } from "./pureFunctions";
   import { masterList } from "./tenThousandWords";
 
-  export let model = freshModel();
-
   const freshModel = () => {
     let allValidLetters = $lettersInLevel + $punctuationToInclude;
     if ($uppercaseAllowed) {
@@ -46,6 +44,8 @@
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
   };
+
+  export let model = freshModel();
 
   $: {
     // Reset when any of these prefs change

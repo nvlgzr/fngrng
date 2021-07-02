@@ -11,5 +11,5 @@
     model.gameState === "ready" ? "start typing to play" : model.userText;
 </script>
 
-<Prompt />
+<Prompt {model} />
 <Input {redden} {text} />
