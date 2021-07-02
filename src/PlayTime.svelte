@@ -1,11 +1,15 @@
 <script>
   import Input from "./Input.svelte";
   import Prompt from "./Prompt.svelte";
-  import { gameState } from "./volatileStore";
+
+  export let model;
 
   $: redden =
-    $gameState !== "on" || model.challengeView.overallVerdict === "error";
+    model.gameState !== "on" || model.challengeView.overallVerdict === "error";
+
+  $: text =
+    model.gameState === "ready" ? "start typing to play" : model.userText;
 </script>
 
 <Prompt />
-<Input {redden}>start typing to play</Input>
+<Input {redden} {text} />

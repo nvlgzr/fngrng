@@ -3,10 +3,22 @@
 
   $: wireframe = $showFrames;
 
+  export let text = "";
   export let redden = false;
 </script>
 
-<div class:redden class:wireframe><slot /></div>
+<!--
+📝 Note: The &nbsp; prevents the div from flattening when <slot />
+         is an empty string "". Otherwise, content below this
+         component jumps up and down whenever a word's completed.
+-->
+<div class:redden class:wireframe>
+  {#if text}
+    {text}
+  {:else}
+    &nbsp;
+  {/if}
+</div>
 
 <style lang="postcss">
   div {

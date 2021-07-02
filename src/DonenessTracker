@@ -24,6 +24,12 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
+- "Over-matching" fails to turn input red
+  StR: Example line: "the hat that this"
+    - Type "thee"
+    Expected → Prompt has green "the" (because the error's on the space) & Input is red
+    Actual → Prompt has green "the" but Input stays black
+    Note: This is a model-level issue. Same bug in both old & new designs
 - Keys should not highlight when clicked EXCEPT in Custom mode
 - Custom map does not properly clear prior setting from level maps (and maybe we don't need to store all of those in localStorage?)
   - Custom map needs a bit of stress testing
