@@ -1,11 +1,19 @@
 <script>
+  import { showFrames } from "./persistentStore";
+
+  $: wireframe = $showFrames;
 </script>
 
-<div>LayoutHeader</div>
+<div class:wireframe>left-handed dvorak</div>
 
 <style>
   div {
-    background-color: salmon;
-    opacity: 0.5;
+    @apply text-center;
+    @apply text-6xl;
+    @apply p-6;
+    @apply text-gray-400;
+  }
+  .wireframe {
+    outline: solid 1px orange;
   }
 </style>

@@ -14,19 +14,21 @@
   import KeyboardSettings from "./KeyboardSettings.svelte";
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
-  import { fngrng, testModeEnabled } from "./persistentStore";
+  import { fngrng, testModeEnabled, showFrames } from "./persistentStore";
 
-  const toggleTests = ({ detail }) => {
+  const globalToggles = ({ detail }) => {
     // ⌥T ⇒ †
     if (detail === "†") $testModeEnabled = !$testModeEnabled;
     // ⌥G ⇒ ©
     if (detail === "©") $fngrng = !$fngrng;
+    // ⌥F ⇒ ƒ
+    if (detail === "ƒ") $showFrames = !$showFrames;
   };
 </script>
 
 <Tailwindcss />
 
-<Keydown on:key={toggleTests} />
+<Keydown on:key={globalToggles} />
 
 <Notifications>
   {#if $testModeEnabled}
@@ -80,7 +82,8 @@
   {:else}
     <style>
       html {
-        font-size: 14px;
+        @apply font-sans text-sm font-normal;
+        @apply bg-gray-200;
       }
     </style>
   {/if}
@@ -97,5 +100,6 @@
     z-index: -1;
     width: 100%;
     max-height: 100vh;
+    /* opacity: 0; */
   }
 </style>
