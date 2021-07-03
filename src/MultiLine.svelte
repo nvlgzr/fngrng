@@ -12,16 +12,19 @@
 
   console.log(model);
 
-  $: firstLine = model?.challenge.length
-    ? [
-        ...model.locked.map((w) => objectize(w, "green")),
-        model.challengeView.charSpecs,
-        ...model.restOfLine,
-      ]
-    : [];
-  $: lines = model?.remainingLines.length
-    ? [firstLine, ...model.remainingLines]
-    : [firstLine];
+  $: if (model?.locked) {
+    const firstLine = model?.challenge.length
+      ? [
+          ...model.locked.map((w) => objectize(w, "green")),
+          model.challengeView.charSpecs,
+          ...model.restOfLine,
+        ]
+      : [];
+
+    lines = model?.remainingLines.length
+      ? [firstLine, ...model.remainingLines]
+      : [firstLine];
+  }
 </script>
 
 <section class:wireframe class={deleteLatestWord ? "" : "smoothScroll"}>
