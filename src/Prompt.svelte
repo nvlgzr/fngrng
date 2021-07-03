@@ -4,9 +4,11 @@
   import { wordScrollingModeEnabled } from "./persistentStore";
 
   export let model;
+
+  $: aligndown = $wordScrollingModeEnabled;
 </script>
 
-<div>
+<div class:aligndown>
   {#if $wordScrollingModeEnabled}
     <Scroller {model} />
   {:else}
@@ -14,11 +16,15 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   div {
     @apply h-56;
     @apply font-serif;
     @apply text-5xl;
-    @apply flex items-end justify-center;
+    @apply flex justify-center;
+  }
+
+  .aligndown {
+    @apply items-end;
   }
 </style>

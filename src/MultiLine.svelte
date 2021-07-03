@@ -27,24 +27,32 @@
   }
 </script>
 
-<section class:wireframe class={deleteLatestWord ? "" : "smoothScroll"}>
+<section class:wireframe>
   {#if lines}
-    {#each lines.slice(0, 3) as line}
+    {#each lines.slice(0, 4) as line}
       <Line {line} />
     {/each}
   {/if}
 </section>
 
 <style lang="postcss">
-  .smoothScroll {
-    transition: left 0.1s linear;
-  }
   section {
     @apply text-center;
     @apply font-serif;
     @apply text-5xl;
     @apply p-6;
     @apply w-prompt;
+    @apply bg-white rounded;
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 0)
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 75%,
+      rgba(0, 0, 0, 0)
+    );
   }
   .wireframe {
     outline: solid 1px goldenrod;

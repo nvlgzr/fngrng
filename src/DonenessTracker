@@ -17,6 +17,7 @@
     - GameOver
   - Keyboard
 - Update the Tailwind base colors to better match my Figma mocks
+- Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Replace BottomText with other attributions & stuff
 - Documentation
@@ -24,6 +25,7 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
+- Smoot Scrolling no longer works 😩
 - "Over-matching" fails to turn input red
   StR: Example line: "the hat that this"
     - Type "thee"
