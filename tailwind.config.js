@@ -6,7 +6,11 @@ module.exports = {
       'sans': "Tauri, sans-serif",
       'serif': "Cochin, serif"
     },
-    extend: {},
+    extend: {
+      width: {
+        'prompt': '35ch',
+      }
+    },
   },
   variants: {
     extend: {},

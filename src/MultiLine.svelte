@@ -41,7 +41,7 @@
     @apply font-serif;
     @apply text-5xl;
     @apply p-6;
-    @apply grid grid-cols-8 gap-4;
+    @apply w-prompt;
   }
   .wireframe {
     outline: solid 1px goldenrod;

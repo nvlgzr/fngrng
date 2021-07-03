@@ -17,5 +17,8 @@
 <style>
   div {
     @apply h-56;
+    @apply font-serif;
+    @apply text-5xl;
+    @apply flex items-end justify-center;
   }
 </style>
