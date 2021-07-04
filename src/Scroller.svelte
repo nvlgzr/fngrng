@@ -28,11 +28,11 @@
       viewModel.challenge !== model.challenge;
 
     if (advance) {
-      transitioning = true;
+      scroll = true;
       firstWordOffset = (firstWordEl && firstWordEl.offsetWidth) || 0;
       setTimeout(() => {
         viewModel = model;
-        transitioning = false;
+        scroll = false;
         firstWordOffset = 0;
       }, 120); // 120ms is just slightly longer than 0.1s transition time.
     } else {
@@ -40,19 +40,17 @@
     }
   }
 
-  let transitioning = false;
+  let scroll = false;
+  $: console.log(scroll, firstWordOffset);
   let firstWordEl;
   let firstWordOffset = 0;
 </script>
 
 <section class:wireframe>
-  <div
-    class={`prompt ${transitioning ? "scroll" : ""}`}
-    style={`left: ${transitioning ? -firstWordOffset : 0}px`}
-  >
+  <div class:scroll style={`left: ${scroll ? -firstWordOffset : 0}px`}>
     {#each line as word, i (word)}
       {#if i === 0}
-        <span bind:this={firstWordEl} style={transitioning ? "opacity:0" : ""}>
+        <span bind:this={firstWordEl} style={scroll ? "opacity:0" : ""}>
           <SingleWord {word} />
         </span>
       {:else}
@@ -79,7 +77,14 @@
     );
   }
   div {
-    @apply whitespace-nowrap;
+    @apply whitespace-nowrap relative;
+  }
+  .scroll {
+    /*
+    ⚠️ Changing 0.1s? ↓
+    Make sure to also change 120ms in setTimeout! ↑
+    */
+    transition: left 0.1s linear;
   }
   .wireframe {
     outline: solid 1px fuchsia;

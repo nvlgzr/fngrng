@@ -11,8 +11,8 @@
     - Info
   - Layout Header
   - Game
-    - PlayTime
-      - Prompt
+    - PlayTime ✅
+      - Prompt ✅
       - Input ✅
     - GameOver
   - Keyboard
@@ -25,7 +25,6 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
-- Smoot Scrolling no longer works 😩
 - "Over-matching" fails to turn input red
   StR: Example line: "the hat that this"
     - Type "thee"
