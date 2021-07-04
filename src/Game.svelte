@@ -1,6 +1,6 @@
 <script>
   import GameEngine from "./GameEngine.svelte";
-  import Prompt from "./Prompt.svelte";
+  import Display from "./Display.svelte";
   import Input from "./Input.svelte";
   import { initModel } from "./modelTransformations";
   import { maxWords, wordScrollingModeEnabled } from "./persistentStore";
@@ -29,6 +29,6 @@
 {#if $gameState === "over"}
   Game Over NYI
 {:else if model}
-  <Prompt {model} />
+  <Display {model} />
 {/if}
 <Input {redden} {text} />
