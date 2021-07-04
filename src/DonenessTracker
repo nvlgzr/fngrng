@@ -2,13 +2,13 @@
 
 - fngrng Redesign
   - Nav
-    - Logo
+    - Logo ✅
     - CurrentLevel ✅
       - Dropdown
     - ScoreBoard
-      - Clock
+      - WordScore ✅
         - Dropdown
-      - WordScore
+      - Clock
         - Dropdown
     - ⌃I ✅
       - Slideout

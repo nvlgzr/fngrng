@@ -3,7 +3,7 @@
   import Display from "./Display.svelte";
   import Input from "./Input.svelte";
 
-  let model;
+  export let model;
   let redden = false;
   let text = "";
 
@@ -20,8 +20,6 @@
         : model.userText;
   }
 </script>
-
-<GameEngine bind:model />
 
 <Display {model} />
 <Input {redden} {text} />

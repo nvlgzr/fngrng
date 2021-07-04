@@ -2,6 +2,7 @@
   import Tailwindcss from "./Tailwindcss.svelte";
   import Notifications from "svelte-notifications";
   import Keydown from "svelte-keydown";
+  import GameEngine from "./GameEngine.svelte";
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
   import Keyboard from "./Keyboard.svelte";
@@ -12,8 +13,8 @@
   import KeyboardSettings from "./KeyboardSettings.svelte";
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
-  import { fngrng, testModeEnabled, showFrames } from "./persistentStore";
   import Game from "./Game.svelte";
+  import { fngrng, testModeEnabled, showFrames } from "./persistentStore";
 
   const globalToggles = ({ detail }) => {
     // ⌥T ⇒ †
@@ -23,6 +24,8 @@
     // ⌥F ⇒ ƒ
     if (detail === "ƒ") $showFrames = !$showFrames;
   };
+
+  let model;
 </script>
 
 <Tailwindcss />
@@ -36,9 +39,10 @@
       <Tests />
     </div>
   {:else if $fngrng}
-    <Nav />
+    <GameEngine bind:model />
+    <Nav {model} />
     <LayoutHeader />
-    <Game />
+    <Game {model} />
     <div class="k">
       <Keyboard />
     </div>

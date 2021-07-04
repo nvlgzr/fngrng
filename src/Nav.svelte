@@ -1,7 +1,10 @@
 <script>
   import Logo from "./Logo.svelte";
   import CurrentLevel from "./CurrentLevel.svelte";
+  import WordScore from "./WordScore.svelte";
   import { showFrames } from "./persistentStore";
+
+  export let model;
 
   $: wireframe = $showFrames;
 </script>
@@ -10,7 +13,7 @@
   <Logo />
   <div class="col-span-6 flex justify-between">
     <CurrentLevel />
-    <div>0/60 0m 0s</div>
+    <div><WordScore {model} /> 0m 0s</div>
   </div>
   <div class="text-right text-blue-500">⌃I</div>
 </nav>
