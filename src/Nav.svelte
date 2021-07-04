@@ -1,5 +1,6 @@
 <script>
   import Logo from "./Logo.svelte";
+  import CurrentLevel from "./CurrentLevel.svelte";
   import { showFrames } from "./persistentStore";
 
   $: wireframe = $showFrames;
@@ -8,7 +9,7 @@
 <nav class:wireframe>
   <Logo />
   <div class="col-span-6 flex justify-between">
-    <div>level 1 <span class="text-white">arstneio</span></div>
+    <CurrentLevel />
     <div>0/60 0m 0s</div>
   </div>
   <div class="text-right text-blue-500">⌃I</div>

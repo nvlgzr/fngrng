@@ -3,20 +3,25 @@
 - fngrng Redesign
   - Nav
     - Logo
-    - LevelControl
+    - CurrentLevel ✅
       - Dropdown
     - ScoreBoard
       - Clock
+        - Dropdown
       - WordScore
-    - Info
-  - Layout Header
+        - Dropdown
+    - ⌃I ✅
+      - Slideout
+  - Layout Header ✅
   - Game
     - PlayTime ✅
       - Display ✅
+        - Dropdown
       - Input ✅
+        - Dropdown
     - GameOver ✅ (but with future persistence of past scores planned, peer layout)
   - Keyboard ✅ (but with work needed on Custom UX & visual design)
-  - For all above: mouse compatibility
+    - Dropdown
 
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?

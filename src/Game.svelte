@@ -2,8 +2,6 @@
   import GameEngine from "./GameEngine.svelte";
   import Display from "./Display.svelte";
   import Input from "./Input.svelte";
-  import { initModel } from "./modelTransformations";
-  import { maxWords, wordScrollingModeEnabled } from "./persistentStore";
 
   let model;
   let redden = false;
