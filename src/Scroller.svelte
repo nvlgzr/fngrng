@@ -41,7 +41,6 @@
   }
 
   let scroll = false;
-  $: console.log(scroll, firstWordOffset);
   let firstWordEl;
   let firstWordOffset = 0;
 </script>

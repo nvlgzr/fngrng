@@ -10,8 +10,6 @@
   let deleteLatestWord = false;
   let lines = [];
 
-  console.log(model);
-
   $: if (model?.locked) {
     const firstLine = model?.challenge.length
       ? [
