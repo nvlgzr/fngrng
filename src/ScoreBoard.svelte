@@ -11,9 +11,7 @@
 </script>
 
 <div class="scoreAndClock">
-  <div style="font-family: 'Verdana', sans-serif;">
-    <WordScore {model} />
-  </div>
+  <WordScore {model} />
   <Clock />
 </div>
 

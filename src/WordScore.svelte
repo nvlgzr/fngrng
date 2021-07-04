@@ -15,5 +15,7 @@
 </script>
 
 {#if !$timeLimitModeEnabled}
-  <span class="scoreText">{score}/{maxScore}</span>
+  <div class="w-32">
+    <span class="float-right">{score}/{maxScore}</span>
+  </div>
 {/if}

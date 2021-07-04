@@ -3,6 +3,7 @@
   import CurrentLevel from "./CurrentLevel.svelte";
   import WordScore from "./WordScore.svelte";
   import { showFrames } from "./persistentStore";
+  import Clock from "./Clock.svelte";
 
   export let model;
 
@@ -13,7 +14,10 @@
   <Logo />
   <div class="col-span-6 flex justify-between">
     <CurrentLevel />
-    <div><WordScore {model} /> 0m 0s</div>
+    <div class="w-64 flex justify-between">
+      <div class="mx-4"><WordScore {model} /></div>
+      <div class="mx-4"><Clock /></div>
+    </div>
   </div>
   <div class="text-right text-blue-500">⌃I</div>
 </nav>

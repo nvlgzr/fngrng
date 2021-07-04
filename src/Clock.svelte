@@ -10,10 +10,6 @@
   $: seconds = secondsAdjustedForDirection % 60;
 </script>
 
-<span>{minutes}m {seconds}s</span>
-
-<style>
-  span {
-    font-family: "Verdana", sans-serif;
-  }
-</style>
+<div class="w-48 float-left">
+  {minutes}m {seconds}s
+</div>
