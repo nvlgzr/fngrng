@@ -39,7 +39,9 @@
     <Nav />
     <LayoutHeader />
     <Game />
-    <Keyboard />
+    <div class="k">
+      <Keyboard />
+    </div>
     {#if $showFrames}
       <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
     {/if}
@@ -92,6 +94,12 @@
 <style>
   div {
     display: grid;
+  }
+
+  .k {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   img {

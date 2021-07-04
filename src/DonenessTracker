@@ -14,8 +14,10 @@
     - PlayTime ✅
       - Display ✅
       - Input ✅
-    - GameOver 🔜
-  - Keyboard
+    - GameOver ✅ (but with future persistence of past scores planned, peer layout)
+  - Keyboard ✅ (but with work needed on Custom UX & visual design)
+  - For all above: mouse compatibility
+
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
