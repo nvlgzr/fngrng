@@ -1,10 +1,10 @@
 <script>
-  import { showFrames } from "./persistentStore";
+  import { currentLayout, showFrames } from "./persistentStore";
 
   $: wireframe = $showFrames;
 </script>
 
-<div class:wireframe>left-handed dvorak</div>
+<div class:wireframe>{$currentLayout}</div>
 
 <style>
   div {
