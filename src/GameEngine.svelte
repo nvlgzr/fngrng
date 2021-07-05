@@ -48,7 +48,7 @@
   export let model = freshModel();
 
   $: {
-    // Reset when any of these prefs change
+    // Reset when any of these settings change
     $uppercaseAllowed;
     $punctuationToInclude;
     $wordScrollingModeEnabled;

@@ -1,5 +1,4 @@
 <script>
-  import GameEngine from "./GameEngine.svelte";
   import Display from "./Display.svelte";
   import Input from "./Input.svelte";
 

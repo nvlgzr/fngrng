@@ -38,6 +38,7 @@
     Expected → Display has green "the" (because the error's on the space) & Input is red
     Actual → Display has green "the" but Input stays black
     Note: This is a model-level issue. Same bug in both old & new designs
+- Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty)
 - Keys should not highlight when clicked EXCEPT in Custom mode
 - Custom map does not properly clear prior setting from level maps (and maybe we don't need to store all of those in localStorage?)
   - Custom map needs a bit of stress testing
