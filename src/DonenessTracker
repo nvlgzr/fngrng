@@ -32,6 +32,40 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
+- Level letters not getting cleared on replace
+  StR:
+    - Set a ⇒ a
+    - Set a ⇒ b
+    Expected: "a" is no longer part of level set
+    Actual: it is, so prompt has "a as…" and the Level header shows "ab"
+  To solve:
+    - Define high level concepts
+      When I click a key, it goes into "Editing mode" ✅
+        → Visually, glows brighter and blinks ✅
+        → Logs row, column, "hard" letter, and replacement letter (row, col, kId, ltr) ❓
+        - If I now press Esc, "Editing mode" reverts ✅
+        - If I now press a letter, it maps onto the key & resets the game ✅
+          - If there was a previous mapping there, it's removed:
+            → The keymap no longer displays the previous letter ✅
+            → The levels no longer include the previous letter ❌
+        - If I now press Backspace, any existing mapping is removed and the game resets
+            → The keymap no longer displays the previous letter ✅
+            → The levels no longer include the previous letter ✅
+    - Heisenbug: sometimes keypress goes to game, not custom thingy
+      → Click on keyboard needs to reset game ❌
+- Weird keyboard blinking bug: set ARST, then click A ❌
+  Expected → A blinks and gets brighter
+  Actual → A blinks, but ARST all get brighter
+    - Mold the code to the concepts
+      Create(keyId, newLetter)
+      Replace(keyId, oldLetter, newLetter)
+      Delete(letter)
+    - Red/Green/Refactor
+
+- Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty)
+
+- Keys should not highlight when clicked EXCEPT in Custom mode
+
 - "Over-matching" fails to turn input red
   StR: Example line: "the hat that this"
     - Type "thee"
@@ -39,9 +73,6 @@
     Actual → Display has green "the" but Input stays black
     Note: This is a model-level issue. Same bug in both old & new designs
 - Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty)
-- Keys should not highlight when clicked EXCEPT in Custom mode
-- Custom map does not properly clear prior setting from level maps (and maybe we don't need to store all of those in localStorage?)
-  - Custom map needs a bit of stress testing
 - Still seing >100% accuracy from time to time. 🙀
 - Encountered Capital "Sarah" when capitals not allowed (custom map)
 - Holding down a modifier key gets ignored by combo handler. Might need to fork `svelte-keydown` or switch it out for `mousetrap`

@@ -6,7 +6,11 @@
     currentLevel,
     levelMaps,
   } from "./persistentStore.js";
-  import { leftMinusRight } from "./pureFunctions.js";
+  import {
+    clearLetterFromKeyMap,
+    clearLetterFromLevels,
+    leftMinusRight,
+  } from "./pureFunctions.js";
   import { configuredRows, isEditingCustomKeyMap } from "./volatileStore.js";
 
   $: rows = $configuredRows;
@@ -39,8 +43,8 @@
       kId = undefined;
       ltr = undefined;
 
-      // ↓ ⚠️ HACK: Force re-render to get that Editing glow
-      rows = rows;
+      // Re-render
+      rows = $configuredRows;
     };
 
     if (detail === "Escape") {
@@ -49,29 +53,35 @@
       return;
     }
 
+    if (detail === "Backspace") {
+      $levelMaps = {
+        ...$levelMaps,
+        ...{ custom: clearLetterFromLevels(ltr, $levelMaps.custom) },
+      };
+      $customKeyMap = clearLetterFromKeyMap(ltr, $customKeyMap);
+      reset();
+      return;
+    }
+
+    if (detail.length > 1) return;
+
     // 1. Update level maps
     const currentLevelIndex = $currentLevel - 1;
-    let oldLevelMaps = $levelMaps;
-    let oldCustomLevels = oldLevelMaps.custom;
+    let oldCustomLevels = $levelMaps.custom;
 
-    // Remove letter from all levels
-    let newCustomLevels = [];
-    for (let [i, level] of oldCustomLevels.entries()) {
-      // Remove both letters from all levels to prevent dups
-      if (i < 6) {
-        newCustomLevels.push(leftMinusRight(level, detail).join(""));
-        newCustomLevels.push(leftMinusRight(level, ltr).join(""));
-      } else {
-        newCustomLevels.push(level);
-      }
-    }
+    // Remove both old & new letters from all levels
+    let newCustomLevels = clearLetterFromLevels(ltr, oldCustomLevels);
+    newCustomLevels = clearLetterFromLevels(detail, oldCustomLevels);
+
     newCustomLevels[currentLevelIndex] =
       (newCustomLevels[currentLevelIndex] ?? "") + detail;
     $levelMaps = { ...$levelMaps, ...{ custom: newCustomLevels } };
 
     // 2. Update custom key map
-    // ⚠️ TODO: Remove letter from wherever it was on the level map
-    $customKeyMap = { ...$customKeyMap, [kId]: detail };
+    let newCustomKeyMap = clearLetterFromKeyMap(ltr, $customKeyMap);
+    newCustomKeyMap = clearLetterFromKeyMap(detail, $customKeyMap);
+    newCustomKeyMap[kId] = detail;
+    $customKeyMap = newCustomKeyMap;
 
     // 3. Reset
     reset();

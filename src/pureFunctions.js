@@ -94,3 +94,27 @@ export function remap(letter, mapping) {
 
   return mapped ?? letter
 }
+
+export function clearLetterFromLevels(letter, levels) {
+  let newCustomLevels = []
+  for (let [i, level] of levels.entries()) {
+    if (i < 6) {
+      newCustomLevels.push(leftMinusRight(level, letter).join(""));
+    } else {
+      newCustomLevels.push(level);
+    }
+  }
+  return newCustomLevels
+}
+
+export function clearLetterFromKeyMap(letter, keyMap) {
+  let newKeyMap = {}
+  for (let [k, v] of Object.entries(keyMap)) {
+    if (v === letter) {
+      newKeyMap[k] = ''
+    } else {
+      newKeyMap[k] = v
+    }
+  }
+  return newKeyMap
+}

@@ -8,6 +8,8 @@
     gameover,
   } from "./modelTransformations.js";
   import {
+    clearLetterFromLevels,
+    clearLetterFromKeyMap,
     cutOrFill,
     filterWordList,
     lineify,
@@ -155,6 +157,34 @@
           remap("U", colemak) === "L",
         ],
       ];
+    });
+
+    test("the 'clearLetterFromLevels' function", () => {
+      const firstResult = clearLetterFromLevels("g", [
+        "agc",
+        "efg",
+        "xyz",
+        "goq",
+      ]);
+      const firstTest = [
+        "removes the given letter from all elements",
+        JSON.stringify(firstResult) === '["ac","ef","xyz","oq"]',
+      ];
+      return [firstTest];
+    });
+
+    test("the 'clearLetterFromKeyMap' function", () => {
+      const firstResult = clearLetterFromKeyMap("a", {
+        a: "a",
+        b: "a",
+        c: "c",
+        d: "s",
+      });
+      const firstTest = [
+        "removes the given letter from all elements",
+        JSON.stringify(firstResult) === '{"a":"","b":"","c":"c","d":"s"}',
+      ];
+      return [firstTest];
     });
   });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ pureFunctions ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
