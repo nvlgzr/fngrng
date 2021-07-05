@@ -20,7 +20,7 @@
   const beginEdit = ([rowIndex, keyIndex, keyId, letter]) => {
     $isEditingCustomKeyMap = !$isEditingCustomKeyMap;
 
-    if (!isEditingCustomKeyMap || !$currentLayout === "custom") return;
+    if (!isEditingCustomKeyMap || $currentLayout !== "custom") return;
 
     row = rowIndex;
     col = keyIndex;
@@ -78,6 +78,7 @@
   };
 
   const editingClass = (rowIndex, keyIndex) => {
+    if ($currentLayout !== "custom") return;
     return rowIndex === row && keyIndex === col ? "editing" : "";
   };
 </script>
