@@ -52,7 +52,6 @@
             → The keymap no longer displays the previous letter ✅
             → The levels no longer include the previous letter ✅
     - Heisenbug: sometimes keypress goes to game, not custom thingy
-      → Click on keyboard needs to reset game ❌
 - Weird keyboard blinking bug: set ARST, then click A ❌
   Expected → A blinks and gets brighter
   Actual → A blinks, but ARST all get brighter

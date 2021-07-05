@@ -47,6 +47,10 @@
 
   export let model = freshModel();
 
+  $: if ($isEditingCustomKeyMap) {
+    model = freshModel();
+  }
+
   $: {
     // Reset when any of these settings change
     $uppercaseAllowed;
