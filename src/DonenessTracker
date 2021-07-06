@@ -47,7 +47,7 @@
         - If I now press a letter, it maps onto the key & resets the game ✅
           - If there was a previous mapping there, it's removed:
             → The keymap no longer displays the previous letter ✅
-            → The levels no longer include the previous letter ❌
+            → The levels no longer include the previous letter ✅
         - If I now press Backspace, any existing mapping is removed and the game resets
             → The keymap no longer displays the previous letter ✅
             → The levels no longer include the previous letter ✅

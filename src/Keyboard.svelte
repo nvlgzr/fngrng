@@ -71,7 +71,7 @@
 
     // Remove both old & new letters from all levels
     let newCustomLevels = clearLetterFromLevels(ltr, oldCustomLevels);
-    newCustomLevels = clearLetterFromLevels(detail, oldCustomLevels);
+    newCustomLevels = clearLetterFromLevels(detail, newCustomLevels);
 
     newCustomLevels[currentLevelIndex] =
       (newCustomLevels[currentLevelIndex] ?? "") + detail;
