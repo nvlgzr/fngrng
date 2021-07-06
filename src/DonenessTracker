@@ -5,24 +5,25 @@
     - Logo ✅
     - CurrentLevel ✅
       - Dropdown
-    - ScoreBoard ✅
-      - WordScore ✅
-        - Dropdown
-      - Clock ✅
-        - Dropdown
+    - WordScore ✅
+      - Dropdown
+    - Clock ✅
+      - Dropdown
     - ⌃I ✅
       - Slideout
   - Layout Header ✅
+    - Dropdown
   - Game
     - PlayTime ✅
       - Display ✅
-        - Dropdown
+        - Toggles
       - Input ✅
-        - Dropdown
-    - GameOver ✅ (but with future persistence of past scores planned, peer layout)
-  - Keyboard ✅ (but with work needed on Custom UX & visual design)
-    - Dropdown
+        - Toggles
+    - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
+  - Keyboard ✅
+    - Toggles
 
+- Implement Clickable bits, starting with the clickable toggles
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
