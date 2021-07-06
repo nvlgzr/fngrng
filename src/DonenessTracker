@@ -26,6 +26,7 @@
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+- Remove $wireframe thingies
 - Replace BottomText with other attributions & stuff
 - Documentation
 - Publish to Netlify…maybe with custom domain
@@ -36,10 +37,6 @@
 - Weird keyboard blinking bug: set ARST, then click A ❌
   Expected → A blinks and gets brighter
   Actual → A blinks, but ARST all get brighter
-
-- Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty)
-
-- Keys should not highlight when clicked EXCEPT in Custom mode
 
 - "Over-matching" fails to turn input red
   StR: Example line: "the hat that this"
@@ -107,5 +104,4 @@ It's easy enough to see how the tests work just by looking at the existing ones.
   that there's some unnecessary back-and-forth going on here.)
   - Document every transition that uses .split/.join with either " " or "".
 - Auto-select number input when using keyboard shortcuts for Word/Time limit modes
-- Custom Keyboard could use some helpful instructional text
 - The entire site has had zero a11y effort put in so far, in part because I haven't used the tech & thus don't understand the issues at play.

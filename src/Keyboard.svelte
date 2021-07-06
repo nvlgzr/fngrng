@@ -11,7 +11,11 @@
     clearLetterFromLevels,
     leftMinusRight,
   } from "./pureFunctions.js";
-  import { configuredRows, isEditingCustomKeyMap } from "./volatileStore.js";
+  import {
+    configuredRows,
+    isEditingCustomKeyMap,
+    lettersInLevel,
+  } from "./volatileStore.js";
 
   $: rows = $configuredRows;
 
@@ -20,6 +24,9 @@
   let col;
   let kId;
   let ltr;
+
+  $: custom = $currentLayout === "custom";
+  $: playable = $lettersInLevel.length > 0;
 
   const beginEdit = ([rowIndex, keyIndex, keyId, letter]) => {
     $isEditingCustomKeyMap = !$isEditingCustomKeyMap;
@@ -97,7 +104,7 @@
   <Keydown on:key={handleKeydown} />
 {/if}
 
-<div>
+<div class:custom class:playable>
   {#each rows as row, ri}
     <div class="row">
       {#each row as letterConf, ki}
@@ -113,15 +120,26 @@
   {/each}
 </div>
 
-{#if $currentLayout === "custom"}
-  <p>Select a Level, then click any key to edit</p>
+{#if custom && playable}
+  <p class="playable">
+    click + type to remap a key | click + backspace to delete | esc to cancel
+  </p>
+{:else if custom}
+  <p>…then click any key to edit</p>
 {/if}
 
-<style>
+<style lang="postcss">
   :root {
     --accent-color: hsl(280, 65%, 44%);
     --secondary-accent-color: orange;
     --tertiary-accent-color: green;
+  }
+
+  .custom {
+    border: 1.5px solid #eb5757;
+    box-sizing: border-box;
+    border-radius: 16px;
+    padding: 16px;
   }
 
   span {
@@ -129,6 +147,16 @@
     font-size: 2.2vh;
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  p {
+    @apply mt-10;
+    @apply text-red-400 text-2xl;
+  }
+
+  .playable {
+    @apply text-blue-400;
+    @apply border-blue-400;
   }
 
   .row {

@@ -12,7 +12,7 @@
 
 <nav class:wireframe>
   <Logo />
-  <div class="col-span-6 flex justify-between">
+  <div class="col-span-3 flex justify-between">
     <CurrentLevel />
     <div class="w-64 flex justify-between">
       <div class="mx-4"><WordScore {model} /></div>
@@ -26,7 +26,8 @@
   nav {
     @apply text-4xl text-gray-400;
     @apply py-7 px-10;
-    @apply grid grid-cols-8 gap-4;
+    @apply grid gap-4;
+    grid-template-columns: minmax(8rem, 15%) 25% 1fr 25% minmax(8rem, 15%);
   }
   .wireframe {
     outline: solid 1px blueviolet;

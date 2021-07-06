@@ -1,6 +1,7 @@
 <script>
   import Display from "./Display.svelte";
   import Input from "./Input.svelte";
+  import { lettersInLevel } from "./volatileStore";
 
   export let model;
   let redden = false;
@@ -12,7 +13,7 @@
       model.challengeView.overallVerdict === "error";
 
     text =
-      model.gameState === "ready"
+      model.gameState === "ready" && $lettersInLevel !== ""
         ? "start typing to play"
         : model.gameState === "over"
         ? "press enter to reset"
