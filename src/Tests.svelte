@@ -160,17 +160,27 @@
     });
 
     test("the 'clearLetterFromLevels' function", () => {
-      const firstResult = clearLetterFromLevels("g", [
-        "agc",
-        "efg",
-        "xyz",
-        "goq",
-      ]);
-      const firstTest = [
+      const levels = ["agc", "efg", "xyz", "goq"];
+      const withCharArg = clearLetterFromLevels("g", levels);
+      const char = [
         "removes the given letter from all elements",
-        JSON.stringify(firstResult) === '["ac","ef","xyz","oq"]',
+        JSON.stringify(withCharArg) === '["ac","ef","xyz","oq"]',
       ];
-      return [firstTest];
+
+      const withArrayArg = clearLetterFromLevels(["g", "q", "x"], levels);
+      const arr = [
+        "removes the given letters (plural) from all elements",
+        JSON.stringify(withArrayArg) === '["ac","ef","yz","o"]',
+      ];
+
+      const withStringArg = clearLetterFromLevels("gaf", levels);
+      const str = [
+        "removes the given letters (plural) from all elements",
+        JSON.stringify(withStringArg) === '["c","e","xyz","oq"]',
+        JSON.stringify(withStringArg),
+      ];
+
+      return [char, str, arr];
     });
 
     test("the 'clearLetterFromKeyMap' function", () => {

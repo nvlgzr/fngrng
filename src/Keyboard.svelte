@@ -70,8 +70,7 @@
     let oldCustomLevels = $levelMaps.custom;
 
     // Remove both old & new letters from all levels
-    let newCustomLevels = clearLetterFromLevels(ltr, oldCustomLevels);
-    newCustomLevels = clearLetterFromLevels(detail, newCustomLevels);
+    let newCustomLevels = clearLetterFromLevels([ltr, detail], oldCustomLevels);
 
     newCustomLevels[currentLevelIndex] =
       (newCustomLevels[currentLevelIndex] ?? "") + detail;
