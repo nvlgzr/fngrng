@@ -20,6 +20,8 @@
       viewModel.challengeView.charSpecs,
       ...objectize(viewModel.restOfLine),
     ];
+  } else {
+    line = [];
   }
 
   $: {
