@@ -2,30 +2,66 @@
   import Scroller from "./Scroller.svelte";
   import MultiLine from "./MultiLine.svelte";
   import EndGame from "./EndGame.svelte";
-  import { wordScrollingModeEnabled } from "./persistentStore";
+  import {
+    fullSentenceModeEnabled,
+    punctuationToInclude,
+    uppercaseAllowed,
+    wordScrollingModeEnabled,
+  } from "./persistentStore";
+  import Toggle from "./Toggle.svelte";
 
   export let model;
 
   $: aligndown = $wordScrollingModeEnabled;
 </script>
 
-{#if model}
-  {#if model.gameState === "over"}
-    <div class="aligncenter">
-      <EndGame {model} />
-    </div>
-  {:else if $wordScrollingModeEnabled}
-    <div class="aligndown">
-      <Scroller {model} />
-    </div>
-  {:else}
-    <div>
-      <MultiLine {model} />
-    </div>
-  {/if}
-{/if}
+<main>
+  <section>
+    {#if model}
+      {#if model.gameState === "over"}
+        <div class="aligncenter">
+          <EndGame {model} />
+        </div>
+      {:else if $wordScrollingModeEnabled}
+        <div class="aligndown">
+          <Scroller {model} />
+        </div>
+      {:else}
+        <div>
+          <MultiLine {model} />
+        </div>
+      {/if}
+    {/if}
+  </section>
+  <section class="controls">
+    <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    <Toggle bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle>
+    <Toggle
+      action={() =>
+        ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+      active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
+    >
+    <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+  </section>
+</main>
 
 <style lang="postcss">
+  main:hover {
+    @apply text-blue-600;
+  }
+
+  section {
+    @apply flex justify-center;
+  }
+
+  .controls {
+    @apply opacity-0 cursor-pointer;
+  }
+
+  main:hover .controls {
+    @apply opacity-100;
+  }
+
   div {
     @apply h-56;
     @apply font-serif;
