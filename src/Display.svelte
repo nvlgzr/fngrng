@@ -10,14 +10,15 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import { gameState } from "./volatileStore";
+  import Controls from "./Controls.svelte";
 
   export let model;
 
   $: aligndown = $wordScrollingModeEnabled;
 </script>
 
-<main>
-  <section>
+<Controls>
+  <span slot="anchor">
     {#if model}
       {#if model.gameState === "over"}
         <div class="aligncenter">
@@ -33,50 +34,23 @@
         </div>
       {/if}
     {/if}
-    <section class="controls">
-      {#if $gameState !== "over"}
-        <Toggle bind:active={$wordScrollingModeEnabled}
-          >Scrolling Mode ⌃S</Toggle
-        >
-        <Toggle
-          disabled={$fullSentenceModeEnabled}
-          bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle
-        >
-        <Toggle
-          disabled={$fullSentenceModeEnabled}
-          action={() =>
-            ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-          active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
-        >
-        <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle
-        >
-      {/if}
-    </section>
-  </section>
-</main>
+  </span>
+  <span slot="controls">
+    <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    <Toggle disabled={$fullSentenceModeEnabled} bind:active={$uppercaseAllowed}
+      >Capital Letters ⌃C</Toggle
+    >
+    <Toggle
+      disabled={$fullSentenceModeEnabled}
+      action={() =>
+        ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+      active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
+    >
+    <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+  </span>
+</Controls>
 
 <style lang="postcss">
-  main {
-    /* Works with section's `position: absolute` */
-    @apply relative;
-  }
-  main:hover {
-    @apply text-blue-600;
-  }
-
-  section {
-    @apply flex justify-center;
-  }
-
-  .controls {
-    @apply opacity-0 cursor-pointer;
-    @apply absolute -bottom-10;
-  }
-
-  main:hover .controls {
-    @apply opacity-100;
-  }
-
   div {
     @apply h-56;
     @apply font-serif;
