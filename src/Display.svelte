@@ -9,6 +9,7 @@
     wordScrollingModeEnabled,
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
+  import { gameState } from "./volatileStore";
 
   export let model;
 
@@ -34,17 +35,20 @@
     {/if}
   </section>
   <section class="controls">
-    <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
-    <Toggle disabled={$fullSentenceModeEnabled} bind:active={$uppercaseAllowed}
-      >Capital Letters ⌃C</Toggle
-    >
-    <Toggle
-      disabled={$fullSentenceModeEnabled}
-      action={() =>
-        ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-      active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
-    >
-    <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+    {#if $gameState !== "over"}
+      <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+      <Toggle
+        disabled={$fullSentenceModeEnabled}
+        bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle
+      >
+      <Toggle
+        disabled={$fullSentenceModeEnabled}
+        action={() =>
+          ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+        active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
+      >
+      <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+    {/if}
   </section>
 </main>
 

@@ -16,15 +16,13 @@
   - Game
     - PlayTime ✅
       - Display ✅
-        - Toggles
+        - Toggles ✅
       - Input ✅
-        - Toggles
     - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
   - Keyboard ✅
     - Toggles
 
 - Implement Clickable bits, starting with the clickable toggles
-  - Full Sentences mode needs more thinking
   - Auto-hide controls with setTimeout
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
