@@ -20,7 +20,7 @@
       - Input ✅
     - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
   - Keyboard ✅
-    - Toggles
+    - Toggles 🔜
 
 - Implement Clickable bits, starting with the clickable toggles
   - Auto-hide controls with setTimeout

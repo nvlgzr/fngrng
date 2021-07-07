@@ -33,26 +33,33 @@
         </div>
       {/if}
     {/if}
-  </section>
-  <section class="controls">
-    {#if $gameState !== "over"}
-      <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
-      <Toggle
-        disabled={$fullSentenceModeEnabled}
-        bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle
-      >
-      <Toggle
-        disabled={$fullSentenceModeEnabled}
-        action={() =>
-          ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-        active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
-      >
-      <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
-    {/if}
+    <section class="controls">
+      {#if $gameState !== "over"}
+        <Toggle bind:active={$wordScrollingModeEnabled}
+          >Scrolling Mode ⌃S</Toggle
+        >
+        <Toggle
+          disabled={$fullSentenceModeEnabled}
+          bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle
+        >
+        <Toggle
+          disabled={$fullSentenceModeEnabled}
+          action={() =>
+            ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+          active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
+        >
+        <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle
+        >
+      {/if}
+    </section>
   </section>
 </main>
 
 <style lang="postcss">
+  main {
+    /* Works with section's `position: absolute` */
+    @apply relative;
+  }
   main:hover {
     @apply text-blue-600;
   }
@@ -63,6 +70,7 @@
 
   .controls {
     @apply opacity-0 cursor-pointer;
+    @apply absolute -bottom-10;
   }
 
   main:hover .controls {
