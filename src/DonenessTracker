@@ -25,7 +25,7 @@
 
 - Implement Clickable bits, starting with the clickable toggles
   - Full Sentences mode needs more thinking
-  
+  - Auto-hide controls with setTimeout
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?

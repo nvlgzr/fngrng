@@ -35,8 +35,11 @@
   </section>
   <section class="controls">
     <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
-    <Toggle bind:active={$uppercaseAllowed}>Capital Letters ⌃C</Toggle>
+    <Toggle disabled={$fullSentenceModeEnabled} bind:active={$uppercaseAllowed}
+      >Capital Letters ⌃C</Toggle
+    >
     <Toggle
+      disabled={$fullSentenceModeEnabled}
       action={() =>
         ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
       active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
