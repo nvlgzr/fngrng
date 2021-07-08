@@ -130,9 +130,8 @@
 
 <style lang="postcss">
   :root {
-    --accent-color: hsl(280, 65%, 44%);
-    --secondary-accent-color: orange;
-    --tertiary-accent-color: green;
+    --primary: hsl(0, 0%, 20%);
+    --current-level: hsl(0, 0%, 20%);
   }
 
   .custom {
@@ -176,7 +175,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: 0.2vh solid var(--accent-color);
+    border: 0.2vh solid var(--primary);
     height: 75%;
     width: 5%;
     opacity: 0.5;
@@ -230,12 +229,12 @@
 
   .inactive {
     opacity: 0.6;
-    border-color: var(--accent-color);
+    border-color: var(--primary);
   }
 
   .newInThisLevel {
-    border-color: var(--tertiary-accent-color);
-    color: var(--tertiary-accent-color);
+    border-color: var(--current-level);
+    color: var(--current-level);
     opacity: 1;
     filter: brightness(1.2);
   }
@@ -245,8 +244,8 @@
   }
 
   .active {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    border-color: var(--primary);
+    color: var(--primary);
     opacity: 1;
     filter: brightness(1.5);
   }
