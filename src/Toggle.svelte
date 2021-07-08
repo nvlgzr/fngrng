@@ -1,5 +1,5 @@
 <script>
-  export let active;
+  export let on;
   export let disabled = false;
   export let action = null;
 
@@ -7,12 +7,12 @@
     if (action) {
       action();
     } else {
-      active = !active;
+      on = !on;
     }
   };
 </script>
 
-<button on:click={onClick} class:active {disabled}><slot /></button>
+<button on:click={onClick} class:on {disabled}><slot /></button>
 
 <style>
   button {
@@ -25,7 +25,7 @@
     color: gray;
     text-decoration: overline;
   }
-  .active {
+  .on {
     text-decoration: none;
   }
 </style>

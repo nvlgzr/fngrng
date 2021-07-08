@@ -36,17 +36,18 @@
     {/if}
   </span>
   <span slot="controls">
-    <Toggle bind:active={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
-    <Toggle disabled={$fullSentenceModeEnabled} bind:active={$uppercaseAllowed}
-      >Capital Letters ⌃C</Toggle
-    >
+    <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>
+      Capital Letters ⌃C
+    </Toggle>
     <Toggle
-      disabled={$fullSentenceModeEnabled}
       action={() =>
         ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-      active={$punctuationToInclude !== ""}>Punctuation ⌃P</Toggle
-    >
-    <Toggle bind:active={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+      on={$punctuationToInclude !== ""}
+      disabled={$fullSentenceModeEnabled}
+      >Punctuation ⌃P
+    </Toggle>
+    <Toggle bind:on={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
   </span>
 </Controls>
 

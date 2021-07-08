@@ -23,6 +23,11 @@
     - Toggles 🔜
 
 - Implement Clickable bits, starting with the clickable toggles
+  - Create Outline component for use with Controls
+    <Outline {color} />
+      Not totally satisfying. Color is such an easy low-level concept to slather around, but it's not as clear in code what the colors mean as it is in Figma.
+  - Wrap 6 components in Controls => Levels & Layout also use MenuOptions component
+  - 
   - Auto-hide controls with setTimeout
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?

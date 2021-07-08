@@ -23,7 +23,7 @@
 <style lang="postcss">
   div {
     @apply text-center text-6xl;
-    @apply p-10;
+    @apply p-16 mb-4;
   }
   .redden {
     @apply text-red-400;
