@@ -130,8 +130,10 @@
 
 <style lang="postcss">
   :root {
-    --primary: hsl(0, 0%, 20%);
-    --current-level: hsl(0, 0%, 20%);
+    --default-key-color: hsl(0, 0%, 51%);
+    --active-keys: hsl(0, 0%, 28%);
+    --new-in-this-level: hsl(161, 94%, 30%);
+    --editing-highlight: hsl(0deg 0% 100% / 88%);
   }
 
   .custom {
@@ -166,7 +168,7 @@
   }
 
   .editing {
-    box-shadow: 0 0 5px 4px hsl(0deg 0% 100% / 88%);
+    box-shadow: 0 0 5px 4px var(--editing-highlight);
     animation: pulse 0.8s infinite;
   }
 
@@ -175,7 +177,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: 0.2vh solid var(--primary);
+    border: 2px solid var(--default-key-color);
     height: 75%;
     width: 5%;
     opacity: 0.5;
@@ -229,12 +231,12 @@
 
   .inactive {
     opacity: 0.6;
-    border-color: var(--primary);
+    border-color: var(--default-key-color);
   }
 
   .newInThisLevel {
-    border-color: var(--current-level);
-    color: var(--current-level);
+    border-color: var(--new-in-this-level);
+    color: var(--new-in-this-level);
     opacity: 1;
     filter: brightness(1.2);
   }
@@ -244,8 +246,8 @@
   }
 
   .active {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--active-keys);
+    color: var(--active-keys);
     opacity: 1;
     filter: brightness(1.5);
   }
