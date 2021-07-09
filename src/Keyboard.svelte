@@ -1,5 +1,6 @@
 <script>
   import Keydown from "svelte-keydown";
+  import Outline from "./Outline.svelte";
   import {
     currentLayout,
     customKeyMap,
@@ -9,7 +10,6 @@
   import {
     clearLetterFromKeyMap,
     clearLetterFromLevels,
-    leftMinusRight,
   } from "./pureFunctions.js";
   import {
     configuredRows,
@@ -97,6 +97,13 @@
     if ($currentLayout !== "custom") return;
     return rowIndex === row && keyIndex === col ? "editing" : "";
   };
+
+  $: borderColor =
+    custom && playable
+      ? "hsl(213, 94%, 68%)"
+      : custom
+      ? "hsl(0, 79%, 63%)"
+      : "hsl(218, 11%, 65%)";
 </script>
 
 <!-- Mutually exclusive to Keydown in GameZone -->
@@ -104,7 +111,7 @@
   <Keydown on:key={handleKeydown} />
 {/if}
 
-<div class:custom class:playable>
+<Outline baseColor={borderColor} hoverColor={"hsl(255, 92%, 76%)"} let:hovering>
   {#each rows as row, ri}
     <div class="row">
       {#each row as letterConf, ki}
@@ -118,21 +125,22 @@
       {/each}
     </div>
   {/each}
-</div>
 
-{#if custom && playable}
-  <p class="playable">
-    click + type to remap a key | click + backspace to delete | esc to cancel
-  </p>
-{:else if custom}
-  <p>…then click any key to edit</p>
-{/if}
+  {#if custom && playable}
+    <p class="playable">
+      click + type to remap a key | click + backspace to delete | esc to cancel
+    </p>
+  {:else if custom}
+    <p>…then click any key to edit</p>
+  {/if}
+</Outline>
 
 <style lang="postcss">
   :root {
     --default-key-color: hsl(0, 0%, 51%);
     --active-keys: hsl(0, 0%, 28%);
     --new-in-this-level: hsl(161, 94%, 30%);
+    --hover: hsl(255, 92%, 76%);
     --editing-highlight: hsl(0deg 0% 100% / 88%);
   }
 
@@ -141,6 +149,14 @@
     box-sizing: border-box;
     border-radius: 16px;
     padding: 16px;
+  }
+
+  .hovering {
+    color: var(--hover);
+  }
+
+  .colorsync-text {
+    color: var(--border-color);
   }
 
   span {
