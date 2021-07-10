@@ -21,6 +21,8 @@
   let ltr;
 
   const beginEdit = ([rowIndex, keyIndex, keyId, letter]) => {
+    if ($currentLayout !== "custom") return;
+
     $isEditingCustomKeyMap = !$isEditingCustomKeyMap;
 
     if (!isEditingCustomKeyMap || $currentLayout !== "custom") return;
