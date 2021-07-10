@@ -39,6 +39,8 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
+- ☣️ Clicking on Toggle preserves focus causing spacebar to retriger it
+- ☣️ Capital O fails on Colemak-DH (types : instead of O)
 - Heisenbug: sometimes keypress goes to game, not custom thingy ❌
 - Weird keyboard blinking bug: set ARST, then click A ❌
   Expected → A blinks and gets brighter

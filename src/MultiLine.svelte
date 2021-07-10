@@ -36,10 +36,7 @@
 <style lang="postcss">
   section {
     @apply text-center;
-    @apply font-serif;
-    @apply text-5xl;
     @apply p-6;
-    @apply w-prompt;
     @apply bg-white rounded;
     mask-image: linear-gradient(
       to bottom,
