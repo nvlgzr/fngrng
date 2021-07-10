@@ -15,9 +15,11 @@
   export let model;
 
   $: aligndown = $wordScrollingModeEnabled;
+
+  let blue = "rgba(37, 99, 235)";
 </script>
 
-<HoverableControls>
+<HoverableControls hoverColor={blue}>
   <span slot="anchor">
     {#if model}
       {#if model.gameState === "over"}

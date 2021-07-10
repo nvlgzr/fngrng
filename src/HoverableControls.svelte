@@ -1,30 +1,35 @@
 <script>
+  import Hoverable from "./Hoverable.svelte";
   import { gameState } from "./volatileStore";
+
+  export let color = "inherit";
+  export let hoverColor = "inherit";
 </script>
 
-<main>
-  <section>
-    <slot name="anchor" />
-    {#if $gameState !== "over"}
-      <section class="controls">
-        <slot name="controls" />
-      </section>
-    {/if}
-  </section>
-</main>
+<Hoverable let:hovering>
+  <main style="--color: {hovering ? hoverColor : color}">
+    <section>
+      <slot name="anchor" {hovering} />
+      {#if $gameState !== "over"}
+        <section class="controls">
+          <slot name="controls" {hovering} />
+        </section>
+      {/if}
+    </section>
+  </main>
+</Hoverable>
 
 <style lang="postcss">
   main {
     /* Works with section's `position: absolute` */
     @apply relative;
-  }
-  main:hover {
-    @apply text-blue-600;
+    color: var(--color);
   }
 
   section {
     @apply flex justify-center;
   }
+
   .controls {
     @apply opacity-0 cursor-pointer;
     @apply absolute -bottom-10;
