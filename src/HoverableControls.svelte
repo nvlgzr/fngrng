@@ -50,7 +50,7 @@
 
   .controls {
     @apply opacity-0 cursor-pointer;
-    @apply absolute -bottom-10;
+    @apply absolute -bottom-14;
   }
 
   main:hover .controls {
