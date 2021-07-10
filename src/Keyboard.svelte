@@ -111,7 +111,7 @@
   <Keydown on:key={handleKeydown} />
 {/if}
 
-<Outline baseColor={borderColor} hoverColor={"hsl(255, 92%, 76%)"} let:hovering>
+<Outline color={borderColor}>
   {#each rows as row, ri}
     <div class="row">
       {#each row as letterConf, ki}
@@ -140,7 +140,6 @@
     --default-key-color: hsl(0, 0%, 51%);
     --active-keys: hsl(0, 0%, 28%);
     --new-in-this-level: hsl(161, 94%, 30%);
-    --hover: hsl(255, 92%, 76%);
     --editing-highlight: hsl(0deg 0% 100% / 88%);
   }
 
@@ -149,10 +148,6 @@
     box-sizing: border-box;
     border-radius: 16px;
     padding: 16px;
-  }
-
-  .hovering {
-    color: var(--hover);
   }
 
   .colorsync-text {
