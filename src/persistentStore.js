@@ -7,22 +7,30 @@ showFrames.subscribe(value => {
   localStorage.setItem("fngrng_showWireFrames", value)
 })
 
-const storedCurrentLayout = localStorage.getItem("currentLayout") || "colemak";
-export const currentLayout = writable(storedCurrentLayout);
-currentLayout.subscribe(value => {
-  localStorage.setItem("currentLayout", value);
+const storedCurrentLayout = localStorage.getItem("fngrng_currentLayout") || "colemakdh";
+export const currentFixedLayout = writable(storedCurrentLayout);
+currentFixedLayout.subscribe(value => {
+  localStorage.setItem("fngrng_currentLayout", value);
 });
 
-const storedCurrentLevel = localStorage.getItem("currentLevel") || 1
-export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
-currentLevel.subscribe(value => {
-  localStorage.setItem("currentLevel", value)
+const storedCustomLayout = localStorage.getItem("fngrng_customLayout");
+export const useCustomLayout = writable(storedCustomLayout === "true")
+useCustomLayout.subscribe(value => {
+  localStorage.setItem("fngrng_customLayout", value)
 })
 
-const storedLevelMaps = JSON.parse(localStorage.getItem("levelMaps")) || levelLetterSets;
+export const currentLayout = derived([currentFixedLayout, useCustomLayout], ([$currentFixedLayout, $useCustomLayout]) => $useCustomLayout ? "custom" : $currentFixedLayout);
+
+const storedCurrentLevel = localStorage.getItem("fngrng_currentLevel") || 1
+export const currentLevel = writable(Number.parseInt(storedCurrentLevel));
+currentLevel.subscribe(value => {
+  localStorage.setItem("fngrng_currentLevel", value)
+})
+
+const storedLevelMaps = JSON.parse(localStorage.getItem("fngrng_levelMaps")) || levelLetterSets;
 export const levelMaps = writable(storedLevelMaps);
 levelMaps.subscribe(value => {
-  localStorage.setItem("levelMaps", JSON.stringify(value));
+  localStorage.setItem("fngrng_levelMaps", JSON.stringify(value));
 });
 
 export const letterSetsForCurrentLayout = derived(
@@ -30,10 +38,10 @@ export const letterSetsForCurrentLayout = derived(
   ([$levelMaps, $currentLayout]) => $levelMaps[$currentLayout]
 )
 
-export const storedCustomKeyMap = JSON.parse(localStorage.getItem("customKeyMap")) || emptyCustomKeyMap;
+export const storedCustomKeyMap = JSON.parse(localStorage.getItem("fngrng_customKeyMap")) || emptyCustomKeyMap;
 export const customKeyMap = writable(storedCustomKeyMap);
 customKeyMap.subscribe(value => {
-  localStorage.setItem("customKeyMap", JSON.stringify(value));
+  localStorage.setItem("fngrng_customKeyMap", JSON.stringify(value));
 });
 
 export const layoutMaps = derived(customKeyMap, ($customKeyMap) => {

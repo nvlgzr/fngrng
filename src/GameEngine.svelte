@@ -16,6 +16,8 @@
     currentLevel,
     currentLayout,
     useColumnarLayout,
+    useCustomLayout,
+    currentFixedLayout,
   } from "./persistentStore.js";
   import {
     gameState,
@@ -177,42 +179,49 @@
   const handleShiftControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "1":
-        $currentLayout = "colemak";
+        $currentFixedLayout = "colemak";
         break;
 
       //    ↓ Weird inconsistency from Keydown
       //      Not sure why the other digits
       //      don't also get shifted
       case "@":
-        $currentLayout = "colemakdh";
+        $useCustomLayout = false;
+        $currentFixedLayout = "colemakdh";
         break;
 
       case "A":
-        $currentLayout = "azerty";
+        $useCustomLayout = false;
+        $currentFixedLayout = "azerty";
         break;
 
       case "D":
-        $currentLayout = "dvorak";
+        $useCustomLayout = false;
+        $currentFixedLayout = "dvorak";
         break;
 
       case "L":
-        $currentLayout = "lefthandeddvorak";
+        $useCustomLayout = false;
+        $currentFixedLayout = "lefthandeddvorak";
         break;
 
       case "Q":
-        $currentLayout = "qwerty";
+        $useCustomLayout = false;
+        $currentFixedLayout = "qwerty";
         break;
 
       case "T":
-        $currentLayout = "tarmak";
+        $useCustomLayout = false;
+        $currentFixedLayout = "tarmak";
         break;
 
       case "W":
-        $currentLayout = "workman";
+        $useCustomLayout = false;
+        $currentFixedLayout = "workman";
         break;
 
       case "C":
-        $currentLayout = "custom";
+        $useCustomLayout = !$useCustomLayout;
         break;
 
       default:

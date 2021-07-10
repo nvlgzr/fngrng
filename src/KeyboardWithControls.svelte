@@ -6,6 +6,7 @@
     currentLayout,
     keyRemapping,
     useColumnarLayout,
+    useCustomLayout,
   } from "./persistentStore";
   import { lettersInLevel } from "./volatileStore";
 
@@ -21,16 +22,8 @@
 
   let hoverColor = "hsl(255, 92%, 76%)"; // Purple
 
-  let nonCustomLayout = null;
-
   const toggleCustomLayout = () => {
-    if ($currentLayout === "custom") {
-      $currentLayout = nonCustomLayout;
-      nonCustomLayout = null;
-    } else {
-      nonCustomLayout = $currentLayout;
-      $currentLayout = "custom";
-    }
+    $useCustomLayout = !$useCustomLayout;
   };
 </script>
 

@@ -20,6 +20,7 @@
     layoutMap,
     currentLevel,
     currentLayout,
+    currentFixedLayout,
     useColumnarLayout,
   } from "./persistentStore.js";
   import {
@@ -178,42 +179,42 @@
   const handleShiftControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "1":
-        $currentLayout = "colemak";
+        $currentFixedLayout = "colemak";
         break;
 
       //    ↓ Weird inconsistency from Keydown
       //      Not sure why the other digits
       //      don't also get shifted
       case "@":
-        $currentLayout = "colemakdh";
+        $currentFixedLayout = "colemakdh";
         break;
 
       case "A":
-        $currentLayout = "azerty";
+        $currentFixedLayout = "azerty";
         break;
 
       case "D":
-        $currentLayout = "dvorak";
+        $currentFixedLayout = "dvorak";
         break;
 
       case "L":
-        $currentLayout = "lefthandeddvorak";
+        $currentFixedLayout = "lefthandeddvorak";
         break;
 
       case "Q":
-        $currentLayout = "qwerty";
+        $currentFixedLayout = "qwerty";
         break;
 
       case "T":
-        $currentLayout = "tarmak";
+        $currentFixedLayout = "tarmak";
         break;
 
       case "W":
-        $currentLayout = "workman";
+        $currentFixedLayout = "workman";
         break;
 
       case "C":
-        $currentLayout = "custom";
+        $currentFixedLayout = "custom";
         break;
 
       default:
