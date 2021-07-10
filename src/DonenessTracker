@@ -20,7 +20,7 @@
       - Input ✅
     - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
   - Keyboard ✅
-    - Toggles 🔜
+    - Toggles ⌛️
 
 - Implement Clickable bits, starting with the clickable toggles
   - Create Outline component for use with HoverableControls
@@ -29,6 +29,8 @@
   - Wrap 6 components in HoverableControls => Levels & Layout also use MenuOptions component
     - Integrate Outline in HoverableControls
   - Auto-hide controls with setTimeout
+- Convert Keyboard CSS to rems so entire UX can be manually resized if someone
+  REALLY wants a super-skinny window, or has a super-large screen
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?

@@ -5,7 +5,7 @@
   import GameEngine from "./GameEngine.svelte";
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
-  import Keyboard from "./Keyboard.svelte";
+  import KeyboardWithControls from "./KeyboardWithControls.svelte";
   import PrefsOverlay from "./PrefsOverlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
@@ -43,9 +43,7 @@
     <Nav {model} />
     <LayoutHeader />
     <Game {model} />
-    <div class="k">
-      <Keyboard />
-    </div>
+    <KeyboardWithControls />
     {#if $showFrames}
       <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
     {/if}
@@ -98,12 +96,6 @@
 <style>
   div {
     display: grid;
-  }
-
-  .k {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   img {

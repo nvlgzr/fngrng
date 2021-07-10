@@ -1,6 +1,5 @@
 <script>
   import Keydown from "svelte-keydown";
-  import Outline from "./Outline.svelte";
   import {
     currentLayout,
     customKeyMap,
@@ -11,11 +10,7 @@
     clearLetterFromKeyMap,
     clearLetterFromLevels,
   } from "./pureFunctions.js";
-  import {
-    configuredRows,
-    isEditingCustomKeyMap,
-    lettersInLevel,
-  } from "./volatileStore.js";
+  import { configuredRows, isEditingCustomKeyMap } from "./volatileStore.js";
 
   $: rows = $configuredRows;
 
@@ -24,9 +19,6 @@
   let col;
   let kId;
   let ltr;
-
-  $: custom = $currentLayout === "custom";
-  $: playable = $lettersInLevel.length > 0;
 
   const beginEdit = ([rowIndex, keyIndex, keyId, letter]) => {
     $isEditingCustomKeyMap = !$isEditingCustomKeyMap;
@@ -97,13 +89,6 @@
     if ($currentLayout !== "custom") return;
     return rowIndex === row && keyIndex === col ? "editing" : "";
   };
-
-  $: borderColor =
-    custom && playable
-      ? "hsl(213, 94%, 68%)"
-      : custom
-      ? "hsl(0, 79%, 63%)"
-      : "hsl(218, 11%, 65%)";
 </script>
 
 <!-- Mutually exclusive to Keydown in GameZone -->
@@ -111,29 +96,19 @@
   <Keydown on:key={handleKeydown} />
 {/if}
 
-<Outline color={borderColor}>
-  {#each rows as row, ri}
-    <div class="row">
-      {#each row as letterConf, ki}
-        <div
-          on:click={() => beginEdit([ri, ki, letterConf.id, letterConf.letter])}
-          class={`key ${letterConf.class} ${editingClass(ri, ki)}`}
-          id={letterConf.id}
-        >
-          <span>{letterConf.letter}</span>
-        </div>
-      {/each}
-    </div>
-  {/each}
-
-  {#if custom && playable}
-    <p class="playable">
-      click + type to remap a key | click + backspace to delete | esc to cancel
-    </p>
-  {:else if custom}
-    <p>…then click any key to edit</p>
-  {/if}
-</Outline>
+{#each rows as row, ri}
+  <div class="row">
+    {#each row as letterConf, ki}
+      <div
+        on:click={() => beginEdit([ri, ki, letterConf.id, letterConf.letter])}
+        class={`key ${letterConf.class} ${editingClass(ri, ki)}`}
+        id={letterConf.id}
+      >
+        <span>{letterConf.letter}</span>
+      </div>
+    {/each}
+  </div>
+{/each}
 
 <style lang="postcss">
   :root {
