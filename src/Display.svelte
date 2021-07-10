@@ -10,14 +10,14 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import { gameState } from "./volatileStore";
-  import Controls from "./Controls.svelte";
+  import HoverableControls from "./HoverableControls.svelte";
 
   export let model;
 
   $: aligndown = $wordScrollingModeEnabled;
 </script>
 
-<Controls>
+<HoverableControls>
   <span slot="anchor">
     {#if model}
       {#if model.gameState === "over"}
@@ -35,11 +35,14 @@
       {/if}
     {/if}
   </span>
+
   <span slot="controls">
     <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+
     <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>
       Capital Letters ⌃C
     </Toggle>
+
     <Toggle
       action={() =>
         ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
@@ -47,9 +50,10 @@
       disabled={$fullSentenceModeEnabled}
       >Punctuation ⌃P
     </Toggle>
+
     <Toggle bind:on={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
   </span>
-</Controls>
+</HoverableControls>
 
 <style lang="postcss">
   div {
