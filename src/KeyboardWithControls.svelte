@@ -1,5 +1,6 @@
 <script>
   import HoverableControls from "./HoverableControls.svelte";
+  import Outline from "./Outline.svelte";
   import Keyboard from "./Keyboard.svelte";
   import Toggle from "./Toggle.svelte";
   import {
@@ -27,17 +28,21 @@
   };
 </script>
 
-<HoverableControls {color} {hoverColor} outline="color-and-hover">
-  <span slot="anchor">
-    <Keyboard />
-    {#if custom && playable}
-      <p class="playable">
-        click + type to remap a key | click + backspace to delete | esc to
-        cancel
-      </p>
-    {:else if custom}
-      <p>…then click any key to edit</p>
-    {/if}
+<HoverableControls controlColor={hoverColor}>
+  <span slot="anchor" let:hovering>
+    <Outline color={hovering ? hoverColor : color}>
+      <div style={`--text-color: ${hovering ? hoverColor : color}`}>
+        <Keyboard />
+        {#if custom && playable}
+          <p class="playable">
+            click + type to remap a key | click + backspace to delete | esc to
+            cancel
+          </p>
+        {:else if custom}
+          <p>…then click any key to edit</p>
+        {/if}
+      </div>
+    </Outline>
   </span>
 
   <span slot="above">
@@ -50,3 +55,9 @@
     </Toggle>
   </span>
 </HoverableControls>
+
+<style>
+  div {
+    color: var(--text-color);
+  }
+</style>

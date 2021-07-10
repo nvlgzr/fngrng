@@ -1,15 +1,12 @@
 <script>
   import Hoverable from "./Hoverable.svelte";
-  import Outline from "./Outline.svelte";
   import { gameState } from "./volatileStore";
 
-  export let color = "inherit";
-  export let hoverColor = "inherit";
-  export let outline = "hover-only"; // color | color-and-hover | hover-only | none
+  export let controlColor = "";
 </script>
 
 <Hoverable let:hovering>
-  <main style="--color: {hovering ? hoverColor : color}">
+  <main style="--control-color:{controlColor}">
     <section>
       {#if $gameState !== "over"}
         <section class="above">
@@ -17,22 +14,7 @@
         </section>
       {/if}
 
-      {#if outline === "color"}
-        <Outline {color}>
-          {outline}
-          <slot name="anchor" {hovering} />
-        </Outline>
-      {:else if outline === "none"}
-        <slot name="anchor" {hovering} />
-      {:else if outline === "color-and-hover"}
-        <Outline color={hovering ? hoverColor : color}>
-          <slot name="anchor" {hovering} />
-        </Outline>
-      {:else}
-        <Outline color={hovering ? hoverColor : "transparent"}>
-          <slot name="anchor" {hovering} />
-        </Outline>
-      {/if}
+      <slot name="anchor" {hovering} />
 
       {#if $gameState !== "over"}
         <section class="below">
@@ -47,7 +29,7 @@
   main {
     /* Works with section's `position: absolute` */
     @apply relative;
-    color: var(--color);
+    color: var(--control-color);
   }
 
   section {
@@ -56,7 +38,7 @@
 
   .below {
     @apply opacity-0 cursor-pointer;
-    @apply absolute -bottom-14;
+    @apply absolute -bottom-12;
   }
 
   main:hover .below {
@@ -65,7 +47,7 @@
 
   .above {
     @apply opacity-0 cursor-pointer;
-    @apply absolute -top-14;
+    @apply absolute -top-12;
   }
 
   main:hover .above {

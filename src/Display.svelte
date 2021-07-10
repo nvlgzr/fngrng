@@ -9,33 +9,36 @@
     wordScrollingModeEnabled,
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
-  import { gameState } from "./volatileStore";
   import HoverableControls from "./HoverableControls.svelte";
+  import Outline from "./Outline.svelte";
 
   export let model;
 
-  $: aligndown = $wordScrollingModeEnabled;
-
+  let black = "hsl(0 0% 20%)";
   let blue = "rgba(37, 99, 235)";
 </script>
 
-<HoverableControls hoverColor={blue}>
-  <span slot="anchor">
-    {#if model}
-      {#if model.gameState === "over"}
-        <div class="aligncenter">
-          <EndGame {model} />
-        </div>
-      {:else if $wordScrollingModeEnabled}
-        <div class="aligndown">
-          <Scroller {model} />
-        </div>
-      {:else}
-        <div>
-          <MultiLine {model} />
-        </div>
-      {/if}
-    {/if}
+<HoverableControls controlColor={blue}>
+  <span slot="anchor" let:hovering>
+    <Outline color={hovering ? blue : "transparent"}>
+      <div style={`--text-color: ${hovering ? blue : black}`}>
+        {#if model}
+          {#if model.gameState === "over"}
+            <div class="aligncenter">
+              <EndGame {model} />
+            </div>
+          {:else if $wordScrollingModeEnabled}
+            <div class="aligndown">
+              <Scroller {model} />
+            </div>
+          {:else}
+            <div>
+              <MultiLine {model} />
+            </div>
+          {/if}
+        {/if}
+      </div>
+    </Outline>
   </span>
 
   <span slot="below">
@@ -63,6 +66,7 @@
     @apply font-serif;
     @apply text-5xl;
     @apply flex justify-center;
+    color: var(--text-color);
   }
 
   .aligncenter {

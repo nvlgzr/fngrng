@@ -1,5 +1,5 @@
 <script>
-  export let color = "transparent";
+  export let color = "";
 </script>
 
 <div style="--color:{color};">
