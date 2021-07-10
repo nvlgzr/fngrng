@@ -38,7 +38,7 @@
     {/if}
   </span>
 
-  <span slot="controls">
+  <span slot="below">
     <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
 
     <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>

@@ -11,6 +11,12 @@
 <Hoverable let:hovering>
   <main style="--color: {hovering ? hoverColor : color}">
     <section>
+      {#if $gameState !== "over"}
+        <section class="above">
+          <slot name="above" {hovering} />
+        </section>
+      {/if}
+
       {#if outline === "color"}
         <Outline {color}>
           {outline}
@@ -29,8 +35,8 @@
       {/if}
 
       {#if $gameState !== "over"}
-        <section class="controls">
-          <slot name="controls" {hovering} />
+        <section class="below">
+          <slot name="below" {hovering} />
         </section>
       {/if}
     </section>
@@ -48,12 +54,21 @@
     @apply flex justify-center;
   }
 
-  .controls {
+  .below {
     @apply opacity-0 cursor-pointer;
     @apply absolute -bottom-14;
   }
 
-  main:hover .controls {
+  main:hover .below {
+    @apply opacity-100;
+  }
+
+  .above {
+    @apply opacity-0 cursor-pointer;
+    @apply absolute -top-14;
+  }
+
+  main:hover .above {
     @apply opacity-100;
   }
 </style>

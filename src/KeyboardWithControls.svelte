@@ -40,7 +40,7 @@
     {/if}
   </span>
 
-  <span slot="controls">
+  <span slot="above">
     <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
 
     <Toggle bind:on={$useColumnarLayout}>Ortholiniear Layout ⌃O</Toggle>

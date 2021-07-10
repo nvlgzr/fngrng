@@ -12,7 +12,7 @@
     - ⌃I ✅
       - Slideout
   - Layout Header ✅
-    - Dropdown
+    - Dropdown 🔜
   - Game
     - PlayTime ✅
       - Display ✅
@@ -20,17 +20,15 @@
       - Input ✅
     - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
   - Keyboard ✅
-    - Toggles ⌛️
+    - Toggles ✅
 
 - Implement Clickable bits, starting with the clickable toggles
-  - Create Outline component for use with HoverableControls
-    <Outline {color} />
-      Not totally satisfying. Color is such an easy low-level concept to slather around, but it's not as clear in code what the colors mean as it is in Figma.
   - Wrap 6 components in HoverableControls => Levels & Layout also use MenuOptions component
-    - Integrate Outline in HoverableControls
-  - Auto-hide controls with setTimeout
+- Auto-hide controls with setTimeout on Keydown?
 - Convert Keyboard CSS to rems so entire UX can be manually resized if someone
   REALLY wants a super-skinny window, or has a super-large screen
+- Disable Full Sentence Mode when Custom layout hasn't got full alpha-punct
+  - Maybe add hover explanation for disabled controls?
 - Update the Tailwind base colors to better match my Figma mocks
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
