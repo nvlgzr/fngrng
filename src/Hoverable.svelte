@@ -4,7 +4,7 @@
 
   let hovering;
 
-  export function reset() {
+  function reset() {
     hovering = false;
   }
 
@@ -18,5 +18,5 @@
 </script>
 
 <div on:mouseenter={enter} on:mouseleave={leave}>
-  <slot {hovering} />
+  <slot {hovering} {reset} />
 </div>

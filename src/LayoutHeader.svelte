@@ -1,21 +1,11 @@
 <script>
-  import Hoverable from "./Hoverable.svelte";
+  import HoverableMenu from "./HoverableMenu.svelte";
   import MenuItem from "./MenuItem.svelte";
-  import ClickToClose from "./ClickToClose.svelte";
   import {
     currentFixedLayout,
     currentLayout,
     useCustomLayout,
   } from "./persistentStore";
-  import { gameState } from "./volatileStore";
-
-  let showMenu = false;
-  const handleClick = (e) => {
-    showMenu = !showMenu;
-  };
-
-  // Dismiss menu on game start
-  $: showMenu = $gameState !== "on" && showMenu;
 
   const layouts = [
     { id: "colemak", title: "Colemak", shortcut: "1" },
@@ -30,74 +20,56 @@
   ];
 
   $: title = layouts.filter((l) => l.id === $currentLayout)[0].title;
-
-  // The menu interferes with Hoverable's mouseleave detection.
-  // If there's a more robust way to implement Hoverable, or a
-  // more elegant overall design pattern I should be using, maybe
-  // I'll come back to this. Current candidate:
-  //   https://imfeld.dev/writing/nested_popups
-  let resetHoverHack;
 </script>
 
-<Hoverable let:hovering bind:reset={resetHoverHack}>
-  <section class:hovering on:click={handleClick}>
-    <div class="anchor" class:show-menu={showMenu}>
-      {title.toLowerCase()}
-      <span class:hovering>﹀</span>
-    </div>
-    {#if showMenu}
-      <div class="menu">
-        {#each layouts as layout}
-          <MenuItem
-            shortcut={`⇧⌃${layout.shortcut}`}
-            callback={() => {
-              if (layout.id === "custom") {
-                $useCustomLayout = true;
-              } else {
-                $useCustomLayout = false;
-                $currentFixedLayout = layout.id;
-              }
-              resetHoverHack();
-            }}
-            selected={layout.id === $currentLayout}
-          >
-            {layout.title}
-          </MenuItem>
-        {/each}
-      </div>
-    {/if}
-  </section>
-  <ClickToClose bind:falseToClose={showMenu} transparent={true} />
-</Hoverable>
+<HoverableMenu let:hovering>
+  <span class="title" class:hovering>{title.toLowerCase()}</span>
+
+  <span slot="menu-indicator">
+    <span class="chevron" class:hovering>﹀</span>
+  </span>
+
+  <span slot="menu" let:reset>
+    {#each layouts as layout}
+      <span class="menu-item">
+        <MenuItem
+          shortcut={`⇧⌃${layout.shortcut}`}
+          callback={() => {
+            if (layout.id === "custom") {
+              $useCustomLayout = true;
+            } else {
+              $useCustomLayout = false;
+              $currentFixedLayout = layout.id;
+            }
+            reset();
+          }}
+          selected={layout.id === $currentLayout}
+        >
+          {layout.title}
+        </MenuItem>
+      </span>
+    {/each}
+  </span>
+</HoverableMenu>
 
 <style lang="postcss">
-  section {
-    @apply relative flex justify-center;
-    @apply text-center;
+  .title,
+  .chevron {
     @apply text-6xl;
-    @apply p-6;
     @apply text-gray-400;
+    @apply pt-6 pb-6;
   }
 
-  .hovering {
-    @apply text-green-400 opacity-100;
-    @apply cursor-pointer;
-  }
-
-  .show-menu {
-    @apply filter brightness-90;
-  }
-
-  span {
+  .chevron {
     @apply text-4xl font-black;
-    @apply opacity-0 align-bottom;
   }
 
-  .menu {
-    @apply absolute z-50;
-    @apply p-6 rounded-b-sm shadow-lg;
-    @apply bg-gray-50;
+  .hovering,
+  .menu-item {
+    @apply text-green-400;
+  }
+
+  .menu-item {
     @apply text-3xl;
-    top: 6rem;
   }
 </style>
