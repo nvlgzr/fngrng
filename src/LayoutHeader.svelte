@@ -3,11 +3,15 @@
   import MenuItem from "./MenuItem.svelte";
   import ClickToClose from "./ClickToClose.svelte";
   import { currentLayout } from "./persistentStore";
+  import { gameState } from "./volatileStore";
 
   let showMenu = false;
   const handleClick = (e) => {
     showMenu = !showMenu;
   };
+
+  // Dismiss menu on game start
+  $: showMenu = $gameState !== "on" && showMenu;
 
   const layouts = [
     { title: "colemak", shortcut: "1" },
@@ -44,11 +48,11 @@
     @apply text-6xl;
     @apply p-6;
     @apply text-gray-400;
-    @apply cursor-pointer;
   }
 
   .hovering {
     @apply text-green-400 opacity-100;
+    @apply cursor-pointer;
   }
 
   .show-menu {

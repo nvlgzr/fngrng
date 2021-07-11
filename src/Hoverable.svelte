@@ -1,9 +1,11 @@
 <!-- Cribbed from: https://svelte.dev/tutorial/slot-props -->
 <script>
+  import { gameState } from "./volatileStore";
+
   let hovering;
 
   function enter() {
-    hovering = true;
+    hovering = $gameState !== "on";
   }
 
   function leave() {

@@ -8,7 +8,7 @@
 <Hoverable let:hovering>
   <main style="--control-color:{controlColor}">
     <section>
-      {#if $gameState !== "over"}
+      {#if $gameState !== "over" && hovering}
         <section class="above">
           <slot name="above" {hovering} />
         </section>
@@ -16,7 +16,7 @@
 
       <slot name="anchor" {hovering} />
 
-      {#if $gameState !== "over"}
+      {#if $gameState !== "over" && hovering}
         <section class="below">
           <slot name="below" {hovering} />
         </section>
