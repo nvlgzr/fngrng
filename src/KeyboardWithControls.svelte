@@ -9,7 +9,7 @@
     useColumnarLayout,
     useCustomLayout,
   } from "./persistentStore";
-  import { lettersInLevel } from "./volatileStore";
+  import { isEditingCustomKeyMap, lettersInLevel } from "./volatileStore";
 
   $: custom = $currentLayout === "custom";
   $: playable = $lettersInLevel.length > 0;
@@ -33,13 +33,20 @@
     <Outline color={hovering ? hoverColor : color}>
       <div style={`--text-color: ${hovering ? hoverColor : color}`}>
         <Keyboard />
-        {#if custom && playable}
-          <p class="playable">
-            click + type to remap a key | click + backspace to delete | esc to
-            cancel
-          </p>
-        {:else if custom}
-          <p>…then click any key to edit</p>
+        {#if custom}
+          {#if playable}
+            <p>
+              click + type to remap a key | click + backspace to delete | esc to
+              cancel ፠ supported punctuation: . ' -
+            </p>
+          {:else if $isEditingCustomKeyMap}
+            <p>
+              type a letter from a-to-z, or one of these punctuation marks: . '
+              -
+            </p>
+          {:else}
+            <p>…then click any key to edit</p>
+          {/if}
         {/if}
       </div>
     </Outline>
