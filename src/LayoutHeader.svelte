@@ -30,9 +30,16 @@
   ];
 
   $: title = layouts.filter((l) => l.id === $currentLayout)[0].title;
+
+  // The menu interferes with Hoverable's mouseleave detection.
+  // If there's a more robust way to implement Hoverable, or a
+  // more elegant overall design pattern I should be using, maybe
+  // I'll come back to this. Current candidate:
+  //   https://imfeld.dev/writing/nested_popups
+  let resetHoverHack;
 </script>
 
-<Hoverable let:hovering>
+<Hoverable let:hovering bind:reset={resetHoverHack}>
   <section class:hovering on:click={handleClick}>
     <div class="anchor" class:show-menu={showMenu}>
       {title.toLowerCase()}
@@ -50,6 +57,7 @@
                 $useCustomLayout = false;
                 $currentFixedLayout = layout.id;
               }
+              resetHoverHack();
             }}
             selected={layout.id === $currentLayout}
           >

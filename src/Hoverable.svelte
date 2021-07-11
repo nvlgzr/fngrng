@@ -4,6 +4,10 @@
 
   let hovering;
 
+  export function reset() {
+    hovering = false;
+  }
+
   function enter() {
     hovering = $gameState !== "on";
   }
