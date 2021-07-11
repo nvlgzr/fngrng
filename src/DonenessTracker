@@ -4,7 +4,7 @@
   - Nav ✅
     - Logo ✅
     - CurrentLevel ✅
-      - Dropdown
+      - Dropdown ✅
     - WordScore ✅
       - Dropdown
     - Clock ✅
@@ -22,6 +22,7 @@
   - Keyboard ✅
     - Toggles ✅
 
+- Add Reset (⌃X?) command + affordance so window reload isn't necessary to get clickable bits back.
 - Implement Clickable bits, starting with the clickable toggles
   - Wrap 6 components in HoverableControls => Levels & ~~Layout~~ also use MenuOptions component
 - Auto-hide controls with setTimeout on Keydown?
@@ -39,9 +40,10 @@
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # 🐞 Known Bugs
-- ☣️ Clicking on Toggle preserves focus causing spacebar to retriger it
+- ☣️ Clicking on Toggle preserves focus causing spacebar to retrigger it
 - ☣️ Capital O fails on Colemak-DH (types : instead of O)
 - Heisenbug: sometimes keypress goes to game, not custom thingy ❌
+- Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
 - Weird keyboard blinking bug: set ARST, then click A ❌
   Expected → A blinks and gets brighter
   Actual → A blinks, but ARST all get brighter
@@ -113,3 +115,4 @@ It's easy enough to see how the tests work just by looking at the existing ones.
   - Document every transition that uses .split/.join with either " " or "".
 - Auto-select number input when using keyboard shortcuts for Word/Time limit modes
 - The entire site has had zero a11y effort put in so far, in part because I haven't used the tech & thus don't understand the issues at play.
+- Toy with timeouts to make selecting a layout less distracting?

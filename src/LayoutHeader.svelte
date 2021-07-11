@@ -22,37 +22,47 @@
   $: title = layouts.filter((l) => l.id === $currentLayout)[0].title;
 </script>
 
-<HoverableMenu let:hovering>
-  <span class="title" class:hovering>{title.toLowerCase()}</span>
+<div>
+  <HoverableMenu let:hovering>
+    <span class="title" class:hovering>{title.toLowerCase()}</span>
 
-  <span slot="menu-indicator">
-    <span class="chevron" class:hovering>﹀</span>
-  </span>
+    <span slot="menu-indicator">
+      <span class="chevron" class:hovering>﹀</span>
+    </span>
 
-  <span slot="menu" let:reset>
-    {#each layouts as layout}
-      <span class="menu-item">
-        <MenuItem
-          shortcut={`⇧⌃${layout.shortcut}`}
-          callback={() => {
-            if (layout.id === "custom") {
-              $useCustomLayout = true;
-            } else {
-              $useCustomLayout = false;
-              $currentFixedLayout = layout.id;
-            }
-            reset();
-          }}
-          selected={layout.id === $currentLayout}
-        >
-          {layout.title}
-        </MenuItem>
-      </span>
-    {/each}
-  </span>
-</HoverableMenu>
+    <span slot="menu" let:reset>
+      {#each layouts as layout}
+        <span class="menu-item">
+          <MenuItem
+            shortcut={`⇧⌃${layout.shortcut}`}
+            callback={() => {
+              if (layout.id === "custom") {
+                $useCustomLayout = true;
+              } else {
+                $useCustomLayout = false;
+                $currentFixedLayout = layout.id;
+              }
+              reset();
+            }}
+            selected={layout.id === $currentLayout}
+          >
+            {layout.title}
+          </MenuItem>
+        </span>
+      {/each}
+    </span>
+  </HoverableMenu>
+</div>
 
 <style lang="postcss">
+  div {
+    @apply mx-auto;
+    @apply text-center;
+
+    /* Prevent "left-handed dvorak" from wrapping ↓ */
+    width: 37rem;
+  }
+
   .title,
   .chevron {
     @apply text-6xl;

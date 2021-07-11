@@ -40,8 +40,7 @@
 
 <style lang="postcss">
   section {
-    @apply relative flex justify-center;
-    @apply text-center;
+    @apply relative;
   }
 
   span {
@@ -60,6 +59,6 @@
     @apply absolute z-50;
     @apply p-6 rounded-b-sm shadow-lg;
     @apply bg-gray-50;
-    top: 6rem;
+    @apply top-16;
   }
 </style>
