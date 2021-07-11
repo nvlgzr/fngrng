@@ -1,10 +1,7 @@
 <script>
   import Hoverable from "./Hoverable.svelte";
   import MenuItem from "./MenuItem.svelte";
-  import { currentLayout, showFrames } from "./persistentStore";
-
-  $: wireframe = $showFrames;
-  // class:wireframe
+  import { currentLayout } from "./persistentStore";
 
   let showMenu = false;
   const handleClick = (e) => {
@@ -27,7 +24,7 @@
       <div class="menu">
         {#each layouts as layout}
           <MenuItem
-            shortcut={layout.shortcut}
+            shortcut={`⇧⌃${layout.shortcut}`}
             callback={() => {
               console.log(layout.title);
             }}>{layout.title}</MenuItem
@@ -67,9 +64,5 @@
     @apply bg-gray-50;
     @apply text-3xl;
     top: 6rem;
-  }
-
-  .wireframe {
-    outline: solid 1px orange;
   }
 </style>

@@ -36,14 +36,12 @@
         {#if custom}
           {#if playable}
             <p>
-              click + type to remap a key | click + backspace to delete | esc to
-              cancel ፠ supported punctuation: . ' -
+              click + type to remap ፠ click + backspace to clear
+              <br />
+              esc to cancel ፠ supported punctuation: . ' -
             </p>
           {:else if $isEditingCustomKeyMap}
-            <p>
-              type a letter from a-to-z, or one of these punctuation marks: . '
-              -
-            </p>
+            <p>type a letter from 'a' to 'z', or ".", "'", or "-"</p>
           {:else}
             <p>…then click any key to edit</p>
           {/if}
@@ -63,8 +61,13 @@
   </span>
 </HoverableControls>
 
-<style>
+<style lang="postcss">
   div {
     color: var(--text-color);
+    @apply grid;
+  }
+
+  p {
+    @apply mt-10 text-2xl;
   }
 </style>

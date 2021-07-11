@@ -5,7 +5,7 @@
 
 <div class="menu-item" on:click={callback}>
   <slot />
-  <div class="shortcut">&nbsp;&nbsp;&nbsp;⇧⌃{shortcut}</div>
+  <div class="shortcut">&nbsp;&nbsp;&nbsp;{shortcut}</div>
 </div>
 
 <style lang="postcss">

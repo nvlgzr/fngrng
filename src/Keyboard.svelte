@@ -138,16 +138,6 @@
     text-transform: uppercase;
   }
 
-  p {
-    @apply mt-10;
-    @apply text-red-400 text-2xl;
-  }
-
-  .playable {
-    @apply text-blue-400;
-    @apply border-blue-400;
-  }
-
   .row {
     display: flex;
     justify-content: space-between;
