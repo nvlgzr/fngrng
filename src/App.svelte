@@ -6,7 +6,7 @@
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
   import KeyboardWithControls from "./KeyboardWithControls.svelte";
-  import PrefsOverlay from "./PrefsOverlay.svelte";
+  import Overlay from "./Overlay.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
   import Main from "./Main.svelte";
@@ -14,7 +14,12 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
   import Game from "./Game.svelte";
-  import { fngrng, testModeEnabled, showFrames } from "./persistentStore";
+  import {
+    fngrng,
+    testModeEnabled,
+    showFrames,
+    prefsOpen,
+  } from "./persistentStore";
 
   const globalToggles = ({ detail }) => {
     // ⌥T ⇒ †
@@ -48,7 +53,7 @@
       <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
     {/if}
   {:else}
-    <PrefsOverlay />
+    <Overlay bind:falseToClose={$prefsOpen} />
     <TopNav />
     <LevelSelect />
     <Main />
