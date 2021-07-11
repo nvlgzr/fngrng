@@ -2,7 +2,11 @@
   import Hoverable from "./Hoverable.svelte";
   import MenuItem from "./MenuItem.svelte";
   import ClickToClose from "./ClickToClose.svelte";
-  import { currentLayout } from "./persistentStore";
+  import {
+    currentFixedLayout,
+    currentLayout,
+    useCustomLayout,
+  } from "./persistentStore";
   import { gameState } from "./volatileStore";
 
   let showMenu = false;
@@ -14,15 +18,24 @@
   $: showMenu = $gameState !== "on" && showMenu;
 
   const layouts = [
-    { title: "colemak", shortcut: "1" },
-    { title: "colemakdh", shortcut: "2" },
+    { id: "colemak", title: "Colemak", shortcut: "1" },
+    { id: "colemakdh", title: "Colemak-DH", shortcut: "2" },
+    { id: "azerty", title: "AZERTY", shortcut: "A" },
+    { id: "dvorak", title: "Dvorak", shortcut: "D" },
+    { id: "lefthandeddvorak", title: "Left-Handed Dvorak", shortcut: "L" },
+    { id: "qwerty", title: "QWERTY", shortcut: "Q" },
+    { id: "tarmak", title: "Tarmak", shortcut: "T" },
+    { id: "workman", title: "Workman", shortcut: "W" },
+    { id: "custom", title: "Custom", shortcut: "C" },
   ];
+
+  $: title = layouts.filter((l) => l.id === $currentLayout)[0].title;
 </script>
 
 <Hoverable let:hovering>
   <section class:hovering on:click={handleClick}>
     <div class="anchor" class:show-menu={showMenu}>
-      {$currentLayout}
+      {title.toLowerCase()}
       <span class:hovering>﹀</span>
     </div>
     {#if showMenu}
@@ -31,9 +44,17 @@
           <MenuItem
             shortcut={`⇧⌃${layout.shortcut}`}
             callback={() => {
-              console.log(layout.title);
-            }}>{layout.title}</MenuItem
+              if (layout.id === "custom") {
+                $useCustomLayout = true;
+              } else {
+                $useCustomLayout = false;
+                $currentFixedLayout = layout.id;
+              }
+            }}
+            selected={layout.id === $currentLayout}
           >
+            {layout.title}
+          </MenuItem>
         {/each}
       </div>
     {/if}
