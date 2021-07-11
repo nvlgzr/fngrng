@@ -1,6 +1,7 @@
 <script>
   import Hoverable from "./Hoverable.svelte";
   import MenuItem from "./MenuItem.svelte";
+  import ClickToClose from "./ClickToClose.svelte";
   import { currentLayout } from "./persistentStore";
 
   let showMenu = false;
@@ -33,6 +34,7 @@
       </div>
     {/if}
   </section>
+  <ClickToClose bind:falseToClose={showMenu} transparent={true} />
 </Hoverable>
 
 <style lang="postcss">

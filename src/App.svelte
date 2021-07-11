@@ -6,7 +6,7 @@
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
   import KeyboardWithControls from "./KeyboardWithControls.svelte";
-  import Overlay from "./Overlay.svelte";
+  import ClickToClose from "./ClickToClose.svelte";
   import TopNav from "./TopNav.svelte";
   import LevelSelect from "./LevelSelect.svelte";
   import Main from "./Main.svelte";
@@ -53,7 +53,7 @@
       <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
     {/if}
   {:else}
-    <Overlay bind:falseToClose={$prefsOpen} />
+    <ClickToClose bind:falseToClose={$prefsOpen} />
     <TopNav />
     <LevelSelect />
     <Main />
