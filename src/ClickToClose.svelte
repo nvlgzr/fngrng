@@ -1,10 +1,19 @@
 <script>
   export let falseToClose;
   export let transparent = false;
+  export let callback = () => {};
 </script>
 
 {#if falseToClose}
-  <div on:click={() => (falseToClose = false)} class:transparent>&nbsp;</div>
+  <div
+    on:click={() => {
+      falseToClose = false;
+      callback();
+    }}
+    class:transparent
+  >
+    &nbsp;
+  </div>
 {/if}
 
 <style lang="postcss">

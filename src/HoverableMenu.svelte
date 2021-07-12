@@ -35,7 +35,11 @@
       </div>
     {/if}
   </section>
-  <ClickToClose bind:falseToClose={showMenu} transparent={true} />
+  <ClickToClose
+    bind:falseToClose={showMenu}
+    callback={() => reset()}
+    transparent={true}
+  />
 </Hoverable>
 
 <style lang="postcss">
