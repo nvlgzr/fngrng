@@ -58,6 +58,7 @@
   div {
     @apply mx-auto;
     @apply text-center;
+    @apply pt-6 pb-6;
 
     /* Prevent "left-handed dvorak" from wrapping ↓ */
     width: 37rem;
@@ -67,7 +68,6 @@
   .chevron {
     @apply text-6xl;
     @apply text-gray-400;
-    @apply pt-6 pb-6;
   }
 
   .chevron {

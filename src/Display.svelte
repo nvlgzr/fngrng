@@ -10,7 +10,6 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import HoverableControls from "./HoverableControls.svelte";
-  import Outline from "./Outline.svelte";
 
   export let model;
 
@@ -20,25 +19,23 @@
 
 <HoverableControls controlColor={blue}>
   <span slot="anchor" let:hovering>
-    <Outline color={hovering ? blue : "transparent"}>
-      <div style={`--text-color: ${hovering ? blue : black}`}>
-        {#if model}
-          {#if model.gameState === "over"}
-            <div class="aligncenter">
-              <EndGame {model} />
-            </div>
-          {:else if $wordScrollingModeEnabled}
-            <div class="aligndown">
-              <Scroller {model} />
-            </div>
-          {:else}
-            <div>
-              <MultiLine {model} />
-            </div>
-          {/if}
+    <div style={`--text-color: ${hovering ? blue : black}`}>
+      {#if model}
+        {#if model.gameState === "over"}
+          <div class="aligncenter">
+            <EndGame {model} />
+          </div>
+        {:else if $wordScrollingModeEnabled}
+          <div class="aligndown">
+            <Scroller {model} />
+          </div>
+        {:else}
+          <div>
+            <MultiLine {model} />
+          </div>
         {/if}
-      </div>
-    </Outline>
+      {/if}
+    </div>
   </span>
 
   <span slot="below">
