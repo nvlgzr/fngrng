@@ -3,7 +3,7 @@
   import CurrentLevel from "./CurrentLevel.svelte";
   import HoverableWordScore from "./HoverableWordScore.svelte";
   import { showFrames } from "./persistentStore";
-  import Clock from "./Clock.svelte";
+  import HoverableClock from "./HoverableClock.svelte";
 
   export let model;
 
@@ -16,7 +16,7 @@
     <CurrentLevel />
     <div class="w-64 flex justify-between">
       <div class="mx-4"><HoverableWordScore {model} /></div>
-      <div class="mx-4"><Clock /></div>
+      <div class="mx-4"><HoverableClock /></div>
     </div>
   </div>
   <div class="text-right text-blue-500">⌃I</div>

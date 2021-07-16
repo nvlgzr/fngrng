@@ -24,6 +24,7 @@
     lettersInLevel,
     isEditingCustomKeyMap,
     isEditingWordLimit,
+    isEditingTimeLimit,
   } from "./volatileStore.js";
   import {
     addSymbol,
@@ -136,12 +137,15 @@
 
       case "t":
         $timeLimitModeEnabled = true;
+        $isEditingTimeLimit = true;
+        $isEditingWordLimit = false;
         post(`Time Limit Mode ${$timeLimitModeEnabled ? "On" : "Off"}`);
         break;
 
       case "w":
         $timeLimitModeEnabled = false;
         $isEditingWordLimit = true;
+        $isEditingTimeLimit = false;
         post(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
         break;
 
@@ -227,7 +231,7 @@
 </script>
 
 <!-- Mutually exclusive to other text entry -->
-{#if !$isEditingCustomKeyMap && !$isEditingWordLimit}
+{#if !$isEditingCustomKeyMap && !$isEditingWordLimit && !$isEditingTimeLimit}
   <Keydown
     on:key={handleKey}
     on:combo={handleCombo}
