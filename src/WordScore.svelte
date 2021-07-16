@@ -69,11 +69,11 @@
         transparent={true}
       />
     {:else}
-      <span class="float-right">{score}/{maxScore}w</span>
+      <span class="float-right">{score}/{maxScore}</span>
     {/if}
   </div>
 {:else}
-  <span class="float-right">{score}w</span>
+  <span class="float-right">{score}</span>
 {/if}
 
 <style lang="postcss">

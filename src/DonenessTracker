@@ -22,8 +22,21 @@
   - Keyboard ✅
     - Toggles ✅
 
+↓ ?
+Keyboard Border States
 
-- Make Word count gray if in Time Limit mode (w/no max displayed?)
+default: gray
+:hover: purple
+custom !playable: red
+custom playable: blue
+
+Level Colors
+default: gray
+:hover: yellow
+custom !playable: red
+custom playable: blue
+↑ ?
+
 - De-focus all controls on game start so that space doesn't do weird things
 - Add Reset (⌃X?) command + affordance so window reload isn't necessary to get clickable bits back.
 - Implement Clickable bits, starting with the clickable toggles
@@ -119,3 +132,4 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 - Auto-select number input when using keyboard shortcuts for Word/Time limit modes
 - The entire site has had zero a11y effort put in so far, in part because I haven't used the tech & thus don't understand the issues at play.
 - Toy with timeouts to make selecting a layout less distracting?
+- Add affordance to show when key remapping's on.

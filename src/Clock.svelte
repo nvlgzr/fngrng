@@ -48,12 +48,7 @@
   <Keydown on:key={keyListener} />
 
   <div class="flex">
-    <input
-      class="w-20 text-right mr-2"
-      bind:this={input}
-      value={$maxSeconds}
-      on:change={updateTimeLimit}
-    /> seconds
+    <input bind:this={input} value={$maxSeconds} on:change={updateTimeLimit} /> seconds
   </div>
   <ClickToClose
     bind:falseToClose={$isEditingTimeLimit}
@@ -65,3 +60,10 @@
     {minutes}m {seconds}s
   </div>
 {/if}
+
+<style lang="postcss">
+  input {
+    @apply w-20 mr-2;
+    @apply text-black text-right;
+  }
+</style>
