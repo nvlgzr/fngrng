@@ -10,6 +10,7 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import HoverableControls from "./HoverableControls.svelte";
+  import { gameState } from "./volatileStore";
 
   export let model;
 
@@ -19,7 +20,9 @@
 
 <HoverableControls controlColor={blue}>
   <span slot="anchor" let:hovering>
-    <div style={`--text-color: ${hovering ? blue : black}`}>
+    <div
+      style={`--text-color: ${hovering && $gameState !== "on" ? blue : black}`}
+    >
       {#if model}
         {#if model.gameState === "over"}
           <div class="aligncenter">
@@ -39,21 +42,23 @@
   </span>
 
   <span slot="below">
-    <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    {#if $gameState !== "on"}
+      <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
 
-    <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>
-      Capital Letters ⌃C
-    </Toggle>
+      <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>
+        Capital Letters ⌃C
+      </Toggle>
 
-    <Toggle
-      action={() =>
-        ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-      on={$punctuationToInclude !== ""}
-      disabled={$fullSentenceModeEnabled}
-      >Punctuation ⌃P
-    </Toggle>
+      <Toggle
+        action={() =>
+          ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+        on={$punctuationToInclude !== ""}
+        disabled={$fullSentenceModeEnabled}
+        >Punctuation ⌃P
+      </Toggle>
 
-    <Toggle bind:on={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+      <Toggle bind:on={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+    {/if}
   </span>
 </HoverableControls>
 

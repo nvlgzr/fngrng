@@ -9,7 +9,7 @@
   }
 
   function enter() {
-    hovering = $gameState !== "on";
+    hovering = true;
   }
 
   function leave() {

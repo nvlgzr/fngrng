@@ -37,11 +37,6 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
-- De-focus all controls on game start so that space doesn't do weird things
-- Add Reset (⌃X?) command + affordance so window reload isn't necessary to get clickable bits back.
-- Implement Clickable bits, starting with the clickable toggles
-  - Wrap 6 components in HoverableControls => Levels & ~~Layout~~ also use MenuOptions component
-- Auto-hide controls with setTimeout on Keydown?
 - Convert Keyboard CSS to rems so entire UX can be manually resized if someone
   REALLY wants a super-skinny window, or has a super-large screen
 - Disable Full Sentence Mode when Custom layout hasn't got full alpha-punct
