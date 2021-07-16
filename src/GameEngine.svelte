@@ -10,7 +10,6 @@
     maxSeconds,
     maxWords,
     punctuationToInclude,
-    prefsOpen,
     keyRemapping,
     layoutMap,
     currentLevel,
@@ -24,6 +23,7 @@
     secondsSinceStart,
     lettersInLevel,
     isEditingCustomKeyMap,
+    isEditingWordLimit,
   } from "./volatileStore.js";
   import {
     addSymbol,
@@ -80,8 +80,6 @@
   }
 
   const handleKey = ({ detail }) => {
-    if ($prefsOpen) return;
-
     if (detail.length === 1) {
       const letter = $keyRemapping ? remap(detail, $layoutMap) : detail;
       model = addSymbol(model, letter);
@@ -104,70 +102,56 @@
   // Used to confirm keyboard shortcut results
   const { addNotification } = getNotificationsContext();
 
-  const maybeNotify = (notification) => {
-    if (!$prefsOpen) addNotification(notification);
+  const post = (text) => {
+    addNotification({
+      text: text,
+      position: "top-center",
+      removeAfter: 2500,
+    });
   };
 
   const handleControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "c":
         $uppercaseAllowed = !$uppercaseAllowed;
-        maybeNotify({
-          text: `Capitals ${$uppercaseAllowed ? "On" : "Off"}`,
-          position: "top-center",
-          removeAfter: 2500,
-        });
+        post(`Capitals ${$uppercaseAllowed ? "On" : "Off"}`);
         break;
 
       case "p":
         // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
         //      PreferenceMenu, rather than properly refactoring.
         $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
-        maybeNotify({
-          text: `Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`,
-          position: "top-center",
-          removeAfter: 2500,
-        });
+        post(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
         break;
 
       case "f":
         $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
-        maybeNotify({
-          text: `Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`,
-          position: "top-center",
-          removeAfter: 2500,
-        });
+        post(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
         break;
 
       case "s":
         $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
-        maybeNotify({
-          text: `Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`,
-          position: "top-center",
-          removeAfter: 2500,
-        });
+        post(`Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`);
         break;
 
       case "t":
         $timeLimitModeEnabled = true;
-        $prefsOpen = true;
-        // No notification needed because this flow opens the prefs
+        post(`Time Limit Mode ${$timeLimitModeEnabled ? "On" : "Off"}`);
         break;
 
       case "w":
         $timeLimitModeEnabled = false;
-        $prefsOpen = true;
-        // No notification needed because this flow opens the prefs
+        post(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
         break;
 
       case "k":
         $keyRemapping = !$keyRemapping;
-        // No notification needed because this toggle's always visible
+        post(`Key Remapping ${$keyRemapping ? "On" : "Off"}`);
         break;
 
       case "l":
         $useColumnarLayout = !$useColumnarLayout;
-        // No notification needed because this toggle's always visible
+        // No notification needed…the effect's highly visible
         break;
 
       default:
@@ -241,8 +225,8 @@
   };
 </script>
 
-<!-- Mutually exclusive to Keydown in VisualKeyboard -->
-{#if !$isEditingCustomKeyMap}
+<!-- Mutually exclusive to other text entry -->
+{#if !$isEditingCustomKeyMap && !$isEditingWordLimit}
   <Keydown
     on:key={handleKey}
     on:combo={handleCombo}
