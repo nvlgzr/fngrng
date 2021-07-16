@@ -20,6 +20,7 @@
     showFrames,
     prefsOpen,
   } from "./persistentStore";
+  import { lettersInLevel } from "./volatileStore";
 
   const globalToggles = ({ detail }) => {
     // ⌥T ⇒ †
@@ -47,7 +48,9 @@
     <GameEngine bind:model />
     <Nav {model} />
     <LayoutHeader />
-    <Game {model} />
+    {#if $lettersInLevel.length}
+      <Game {model} />
+    {/if}
     <KeyboardWithControls />
     {#if $showFrames}
       <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />

@@ -37,7 +37,6 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
-- Hide Display (and maybe Input) when custom keyboard's empty
 - Disable Full Sentence Mode when Custom layout hasn't got full alpha-punct
   - Maybe add hover explanation for disabled controls?
 - Update the Tailwind base colors to better match my Figma mocks

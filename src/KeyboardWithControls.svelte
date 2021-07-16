@@ -51,13 +51,14 @@
   </span>
 
   <span slot="above">
-    <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
+    {#if $lettersInLevel.length}
+      <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
 
-    <Toggle bind:on={$useColumnarLayout}>Ortholiniear Layout ⌃O</Toggle>
-
-    <Toggle action={toggleCustomLayout} on={$currentLayout === "custom"}>
-      Custom Layout ⇧⌃C
-    </Toggle>
+      <Toggle bind:on={$useColumnarLayout}>Ortholiniear Layout ⌃O</Toggle>
+      <Toggle action={toggleCustomLayout} on={$currentLayout === "custom"}>
+        Custom Layout ⇧⌃C
+      </Toggle>
+    {/if}
   </span>
 </HoverableControls>
 
@@ -68,6 +69,6 @@
   }
 
   p {
-    @apply mt-10 text-2xl;
+    @apply text-xl text-center;
   }
 </style>
