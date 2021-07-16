@@ -14,7 +14,7 @@
 <!-- Pretty sure this 'reset' ↓ is cruft -->
 <Hoverable let:hovering let:reset>
   <div class:hovering>
-    <Clock edit={$isEditingTimeLimit} done={reset} />
+    <Clock done={reset} />
     {#if hovering}
       <span class="shortcut">
         <Toggle action={setTimeLimitMode} on={$timeLimitModeEnabled}>

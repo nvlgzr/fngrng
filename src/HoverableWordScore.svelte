@@ -16,7 +16,7 @@
 <!-- Pretty sure this 'reset' ↓ is cruft -->
 <Hoverable let:hovering let:reset>
   <div class:hovering>
-    <WordScore {model} edit={$isEditingWordLimit} done={reset} />
+    <WordScore {model} done={reset} />
     {#if hovering}
       <span class="shortcut">
         <Toggle action={setWordLimitMode} on={!$timeLimitModeEnabled}>

@@ -4,10 +4,7 @@
   import { isEditingTimeLimit, secondsSinceStart } from "./volatileStore.js";
   import { timeLimitModeEnabled, maxSeconds } from "./persistentStore.js";
 
-  export let edit;
   export let done = () => {};
-
-  $: $isEditingTimeLimit = edit;
 
   $: secondsAdjustedForDirection = $timeLimitModeEnabled
     ? Math.max($maxSeconds - $secondsSinceStart, 0)
@@ -26,7 +23,7 @@
 
   const keyListener = ({ detail }) => {
     function wrapUp() {
-      edit = false;
+      $isEditingTimeLimit = false;
       input.blur();
       if (done) done();
     }
@@ -41,7 +38,7 @@
   };
 
   let input;
-  $: if (edit && input) {
+  $: if ($isEditingTimeLimit && input) {
     input.focus();
     input.select();
   }
@@ -49,9 +46,7 @@
 
 {#if $isEditingTimeLimit}
   <Keydown on:key={keyListener} />
-{/if}
 
-{#if edit}
   <div class="flex">
     <input
       class="w-20 text-right mr-2"
@@ -61,7 +56,7 @@
     /> seconds
   </div>
   <ClickToClose
-    bind:falseToClose={edit}
+    bind:falseToClose={$isEditingTimeLimit}
     callback={() => done()}
     transparent={true}
   />

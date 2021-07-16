@@ -5,13 +5,10 @@
   import { isEditingWordLimit } from "./volatileStore";
 
   export let model;
-  export let edit;
   export let done = () => {};
 
   let score;
   let maxScore;
-
-  $: $isEditingWordLimit = edit;
 
   $: if (model) {
     const locked = model.locked ?? [];
@@ -30,7 +27,7 @@
 
   const keyListener = ({ detail }) => {
     function wrapUp() {
-      edit = false;
+      $isEditingWordLimit = false;
       input.blur();
       if (done) done();
     }
@@ -45,7 +42,7 @@
   };
 
   let input;
-  $: if (edit && input) {
+  $: if ($isEditingWordLimit && input) {
     input.focus();
     input.select();
   }
@@ -57,7 +54,7 @@
 
 {#if !$timeLimitModeEnabled}
   <div class="w-32">
-    {#if edit}
+    {#if $isEditingWordLimit}
       <span class="float-right"
         >{score}/<input
           on:click|stopPropagation
@@ -67,7 +64,7 @@
         /></span
       >
       <ClickToClose
-        bind:falseToClose={edit}
+        bind:falseToClose={$isEditingWordLimit}
         callback={() => done()}
         transparent={true}
       />
