@@ -45,6 +45,7 @@ export const secondsSinceStart = derived(
 );
 
 export const isEditingCustomKeyMap = writable(false)
+export const isEditingWordLimit = writable(false)
 
 export const lettersInLevel = derived(
   [letterSetsForCurrentLayout, currentLevel],

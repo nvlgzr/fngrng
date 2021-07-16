@@ -1,7 +1,7 @@
 <script>
   import Logo from "./Logo.svelte";
   import CurrentLevel from "./CurrentLevel.svelte";
-  import WordScore from "./WordScore.svelte";
+  import HoverableWordScore from "./HoverableWordScore.svelte";
   import { showFrames } from "./persistentStore";
   import Clock from "./Clock.svelte";
 
@@ -15,7 +15,7 @@
   <div class="col-span-3 flex justify-between">
     <CurrentLevel />
     <div class="w-64 flex justify-between">
-      <div class="mx-4"><WordScore {model} /></div>
+      <div class="mx-4"><HoverableWordScore {model} /></div>
       <div class="mx-4"><Clock /></div>
     </div>
   </div>

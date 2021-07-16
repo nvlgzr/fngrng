@@ -6,7 +6,7 @@
     - CurrentLevel ✅
       - Dropdown ✅
     - WordScore ✅
-      - Dropdown
+      - Dropdown ✅
     - Clock ✅
       - Dropdown
     - ⌃I ✅
@@ -23,6 +23,7 @@
     - Toggles ✅
 
 
+- Make Word count gray if in Time Limit mode (w/no max displayed?)
 - De-focus all controls on game start so that space doesn't do weird things
 - Add Reset (⌃X?) command + affordance so window reload isn't necessary to get clickable bits back.
 - Implement Clickable bits, starting with the clickable toggles

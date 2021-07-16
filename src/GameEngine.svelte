@@ -141,6 +141,7 @@
 
       case "w":
         $timeLimitModeEnabled = false;
+        $isEditingWordLimit = true;
         post(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
         break;
 
