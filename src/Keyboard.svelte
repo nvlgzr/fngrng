@@ -120,20 +120,13 @@
     --editing-highlight: hsl(0deg 0% 100% / 88%);
   }
 
-  .custom {
-    border: 1.5px solid #eb5757;
-    box-sizing: border-box;
-    border-radius: 16px;
-    padding: 16px;
-  }
-
   .colorsync-text {
     color: var(--border-color);
   }
 
   span {
     display: block;
-    font-size: 2.2vh;
+    font-size: 1.25rem;
     font-weight: bold;
     text-transform: uppercase;
   }
@@ -141,8 +134,8 @@
   .row {
     display: flex;
     justify-content: space-between;
-    height: 5vh;
-    width: 75vh;
+    height: 2.75rem;
+    width: 43rem;
   }
 
   .editing {
@@ -155,7 +148,7 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: 2px solid var(--default-key-color);
+    border: 0.1rem solid var(--default-key-color);
     height: 75%;
     width: 5%;
     opacity: 0.5;
