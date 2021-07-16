@@ -1,0 +1,9 @@
+#!/usr/local/bin/fish
+
+# I use this file to reduce startup friction whenever I return to a
+# project after a break (e.g., vacation, project pause). You can
+# safely ignore it.
+
+code .
+stree .
+npm run dev
