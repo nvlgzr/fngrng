@@ -3,6 +3,7 @@
   import MultiLine from "./MultiLine.svelte";
   import EndGame from "./EndGame.svelte";
   import {
+    currentLayout,
     fullSentenceModeEnabled,
     punctuationToInclude,
     uppercaseAllowed,
@@ -45,7 +46,11 @@
     {#if $gameState !== "on"}
       <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
 
-      <Toggle bind:on={$uppercaseAllowed} disabled={$fullSentenceModeEnabled}>
+      <Toggle
+        bind:on={$uppercaseAllowed}
+        disabled={$fullSentenceModeEnabled}
+        disabledTooltip={"Full sentence mode automatically includes Capital Letters"}
+      >
         Capital Letters ⌃C
       </Toggle>
 
@@ -53,11 +58,19 @@
         action={() =>
           ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
         on={$punctuationToInclude !== ""}
-        disabled={$fullSentenceModeEnabled}
+        disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
+        disabledTooltip={$fullSentenceModeEnabled
+          ? "Full sentence mode automatically includes Punctuation"
+          : "Not available in Custom layout mode"}
         >Punctuation ⌃P
       </Toggle>
 
-      <Toggle bind:on={$fullSentenceModeEnabled}>Full Sentences ⌃F</Toggle>
+      <Toggle
+        bind:on={$fullSentenceModeEnabled}
+        disabled={$currentLayout === "custom"}
+        disabledTooltip={"Not available in Custom layout mode"}
+        >Full Sentences ⌃F</Toggle
+      >
     {/if}
   </span>
 </HoverableControls>

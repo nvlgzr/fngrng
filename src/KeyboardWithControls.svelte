@@ -5,6 +5,7 @@
   import Toggle from "./Toggle.svelte";
   import {
     currentLayout,
+    fullSentenceModeEnabled,
     keyRemapping,
     useColumnarLayout,
     useCustomLayout,
@@ -36,9 +37,7 @@
         {#if custom}
           {#if playable}
             <p>
-              click + type to remap ፠ click + backspace to clear
-              <br />
-              esc to cancel ፠ supported punctuation: . ' -
+              click + type to remap ፠ click + backspace to clear ፠ esc to cancel
             </p>
           {:else if $isEditingCustomKeyMap}
             <p>type a letter from 'a' to 'z', or ".", "'", or "-"</p>
@@ -55,7 +54,12 @@
       <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
 
       <Toggle bind:on={$useColumnarLayout}>Ortholiniear Layout ⌃O</Toggle>
-      <Toggle action={toggleCustomLayout} on={$currentLayout === "custom"}>
+      <Toggle
+        action={toggleCustomLayout}
+        on={$currentLayout === "custom"}
+        disabled={$fullSentenceModeEnabled}
+        disabledTooltip={"Turn off Full Sentence mode to enable Custom layout"}
+      >
         Custom Layout ⇧⌃C
       </Toggle>
     {/if}
