@@ -119,15 +119,23 @@
         break;
 
       case "p":
-        // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
-        //      PreferenceMenu, rather than properly refactoring.
-        $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
-        post(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
+        if ($currentLayout !== "custom") {
+          // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
+          //      PreferenceMenu, rather than properly refactoring.
+          $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
+          post(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
+        } else {
+          post("Punctuation not available in Custom layout mode");
+        }
         break;
 
       case "f":
-        $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
-        post(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
+        if ($currentLayout !== "custom") {
+          $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
+          post(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
+        } else {
+          post("Full Sentences not available in Custom layout mode");
+        }
         break;
 
       case "s":
@@ -210,7 +218,11 @@
         break;
 
       case "C":
-        $useCustomLayout = !$useCustomLayout;
+        if ($fullSentenceModeEnabled) {
+          post("Turn off Full Sentence mode to enable Custom layout");
+        } else {
+          $useCustomLayout = !$useCustomLayout;
+        }
         break;
 
       default:

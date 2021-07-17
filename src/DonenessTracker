@@ -37,9 +37,9 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
-- Disable keyboard shortcuts under same circumstances as disabled Toggles.
-  - Is there a way to more tightly couple these constraints without over-coupling something else?
 - Improve key handling to ignore all combos (e.g., ⌃P should not start game!)
+- Implement ⌃I
+- Default to fngrng, not colemak.club
 - Fix coloring of punctuation (white-on-gray is near-invisible)
 - Update the Tailwind base colors to better match my Figma mocks
 - Adjust the layout to fit on anything from iPad to external monitor
