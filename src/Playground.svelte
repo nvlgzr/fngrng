@@ -1,13 +1,67 @@
 <script>
-  import { addSymbol, initModel } from "./modelTransformations.js";
-  import phrase from "./gettysburg.js";
-  import LineByLinePrompt from "./LineByLinePrompt.svelte";
+  import Keydown from "svelte-keydown";
+  import Keystroke from "./Keystroke.svelte";
 
-  let model = initModel(phrase, 15, false);
+  let keys = [];
+  let combos = [];
+  let toggle = "off";
 
-  for (let char of "Four score and seven years ago our") {
-    model = addSymbol(model, char);
-  }
+  let held = "";
+  let strokes = "";
+  let combo = "";
 </script>
 
-<LineByLinePrompt {model} />
+<Keydown
+  on:key={(e) => {
+    keys = [...keys, e.detail];
+  }}
+  on:combo={(e) => {
+    combos = [...combos, e.detail];
+  }}
+  on:Enter={(e) => {
+    // console.log(e)
+    toggle = toggle === "on" ? "off" : "on";
+  }}
+/>
+
+<Keystroke
+  on:heldKeys={({ detail }) => (held = Array.from(detail).join("+"))}
+  on:stroke={({ detail }) => (strokes = strokes + detail)}
+  on:combo={({ detail }) => (combo = detail)}
+/>
+
+<h1>Keydown</h1>
+<p>
+  Combos: {combos.join("")}
+</p>
+
+<hr />
+
+<p>
+  Keys: {keys.join("")}
+</p>
+
+<hr />
+
+<p>
+  Toggle {toggle} <span style="color:gray;">← Press Enter to toggle</span>
+</p>
+
+<hr />
+
+<h1>Keystroke</h1>
+<p>
+  Held Keys: {held}
+</p>
+<p>
+  Keys: {strokes}
+</p>
+<p>
+  Combo: {combo}
+</p>
+
+<style>
+  h1 {
+    @apply text-3xl py-2 mt-8;
+  }
+</style>
