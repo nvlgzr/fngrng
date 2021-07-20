@@ -62,7 +62,7 @@
 
 <style lang="postcss">
   section {
-    @apply w-prompt;
+    @apply w-prompt h-14;
     mask-image: linear-gradient(
       to right,
       rgba(0, 0, 0, 1) 75%,
