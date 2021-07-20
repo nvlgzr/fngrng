@@ -1,9 +1,6 @@
 <script>
-  import { showFrames } from "./persistentStore";
   import { objectize } from "./pureFunctions";
   import SingleWord from "./SingleWord.svelte";
-
-  $: wireframe = $showFrames;
 
   export let model;
 
@@ -47,7 +44,7 @@
   let firstWordOffset = 0;
 </script>
 
-<section class:wireframe>
+<section>
   <div class:scroll style={`left: ${scroll ? -firstWordOffset : 0}px`}>
     {#each line as word, i (word)}
       {#if i === 0}
@@ -86,8 +83,5 @@
     Make sure to also change 120ms in setTimeout! ↑
     */
     transition: left 0.1s linear;
-  }
-  .wireframe {
-    outline: solid 1px fuchsia;
   }
 </style>

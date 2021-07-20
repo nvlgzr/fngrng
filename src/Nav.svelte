@@ -2,15 +2,12 @@
   import Logo from "./Logo.svelte";
   import CurrentLevel from "./CurrentLevel.svelte";
   import HoverableWordScore from "./HoverableWordScore.svelte";
-  import { showFrames } from "./persistentStore";
   import HoverableClock from "./HoverableClock.svelte";
 
   export let model;
-
-  $: wireframe = $showFrames;
 </script>
 
-<nav class:wireframe>
+<nav>
   <Logo />
   <div class="col-span-3 flex justify-between">
     <CurrentLevel />
@@ -28,8 +25,5 @@
     @apply py-7 px-10;
     @apply grid gap-4;
     grid-template-columns: minmax(8rem, 15%) 25% 1fr 25% minmax(8rem, 15%);
-  }
-  .wireframe {
-    outline: solid 1px blueviolet;
   }
 </style>

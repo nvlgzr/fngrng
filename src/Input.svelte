@@ -1,8 +1,4 @@
 <script>
-  import { showFrames } from "./persistentStore";
-
-  $: wireframe = $showFrames;
-
   export let text = "";
   export let redden = false;
 </script>
@@ -12,7 +8,7 @@
          is an empty string "". Otherwise, content below this
          component jumps up and down whenever a word's completed.
 -->
-<div class:redden class:wireframe>
+<div class:redden>
   {#if text}
     {text}
   {:else}
@@ -27,8 +23,5 @@
   }
   .redden {
     @apply text-red-400;
-  }
-  .wireframe {
-    outline: solid 1px greenyellow;
   }
 </style>

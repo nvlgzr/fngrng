@@ -46,8 +46,9 @@ custom playable: blue
   - Clone current repo
   - Clear "src" from clone
   - Move files & cut/paste as needed to split this project in two
-- Remove $wireframe thingies
+- Add tooltips to all controls…not just disabled Toggles.
 - Replace BottomText with other attributions & stuff
+- Standardize CSS spacing (I _think_ I prefer it with no blank lines…?)
 - Documentation
 - Publish to Netlify…maybe with custom domain
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak

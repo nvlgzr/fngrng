@@ -1,9 +1,6 @@
 <script>
-  import { showFrames } from "./persistentStore";
   import { objectize } from "./pureFunctions";
   import Line from "./Line.svelte";
-
-  $: wireframe = $showFrames;
 
   export let model;
 
@@ -25,7 +22,7 @@
   }
 </script>
 
-<section class:wireframe>
+<section>
   {#if lines}
     {#each lines.slice(0, 4) as line}
       <Line {line} />
@@ -48,8 +45,5 @@
       rgba(0, 0, 0, 1) 75%,
       rgba(0, 0, 0, 0)
     );
-  }
-  .wireframe {
-    outline: solid 1px goldenrod;
   }
 </style>

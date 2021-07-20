@@ -1,12 +1,6 @@
 import { derived, writable } from "svelte/store";
 import { levelLetterSets, allLayoutMaps, emptyCustomKeyMap } from "./levelMappings.js";
 
-const storedShowFrames = localStorage.getItem("fngrng_showWireFrames");
-export const showFrames = writable(storedShowFrames === "true")
-showFrames.subscribe(value => {
-  localStorage.setItem("fngrng_showWireFrames", value)
-})
-
 const storedCurrentLayout = localStorage.getItem("fngrng_currentLayout") || "colemakdh";
 export const currentFixedLayout = writable(storedCurrentLayout);
 currentFixedLayout.subscribe(value => {

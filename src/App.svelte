@@ -14,12 +14,7 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
   import Game from "./Game.svelte";
-  import {
-    fngrng,
-    testModeEnabled,
-    showFrames,
-    prefsOpen,
-  } from "./persistentStore";
+  import { fngrng, testModeEnabled, prefsOpen } from "./persistentStore";
   import { lettersInLevel } from "./volatileStore";
 
   const globalToggles = ({ detail }) => {
@@ -27,8 +22,6 @@
     if (detail === "†") $testModeEnabled = !$testModeEnabled;
     // ⌥G ⇒ ©
     if (detail === "©") $fngrng = !$fngrng;
-    // ⌥F ⇒ ƒ
-    if (detail === "ƒ") $showFrames = !$showFrames;
   };
 
   let model;
@@ -52,9 +45,6 @@
       <Game {model} />
     {/if}
     <KeyboardWithControls />
-    {#if $showFrames}
-      <img src="comp-deleteme.png" alt="Dev-only Alignment Reference" />
-    {/if}
   {:else}
     <ClickToClose bind:falseToClose={$prefsOpen} />
     <TopNav />
