@@ -20,7 +20,7 @@
   div {
     @apply fixed h-screen w-screen left-0 top-0;
     @apply z-10;
-    background-color: hsl(0deg 0% 0% / 50%);
+    background-color: hsl(0deg 0% 0% / 30%);
   }
 
   .transparent {

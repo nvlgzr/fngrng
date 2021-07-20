@@ -1,12 +1,13 @@
 <script>
+  import ClickToClose from "./ClickToClose.svelte";
   import CornerInfo from "./CornerInfo.svelte";
   import Keystroke from "./Keystroke.svelte";
   import MainInfo from "./MainInfo.svelte";
 
-  let hide = true;
-  // hide = false; // Uncomment to make dev easier
+  let show = false;
+  // show = true; // Uncomment to make dev easier
 
-  const toggle = () => (hide = !hide);
+  const toggle = () => (show = !show);
 
   const onCombo = ({ detail }) => {
     if (detail === "Control+i") toggle();
@@ -17,7 +18,7 @@
 
 <span on:click={toggle} title="Click to reveal Info panel">⌃I</span>
 
-<section class:hide>
+<section class:show>
   <div class="central">
     <MainInfo />
   </div>
@@ -44,6 +45,8 @@
   </div>
 </section>
 
+<ClickToClose bind:falseToClose={show} transparent={false} />
+
 <style lang="postcss">
   span,
   .close {
@@ -56,7 +59,7 @@
     position: fixed;
     width: 90vw;
     height: 100vh;
-    left: 10vw;
+    left: 100vw;
     top: 24px;
     z-index: 50;
 
@@ -79,8 +82,8 @@
   a:hover {
     text-decoration: underline;
   }
-  .hide {
-    left: 100vw;
+  .show {
+    left: 10vw;
   }
   .close {
     @apply absolute left-8 top-8;
