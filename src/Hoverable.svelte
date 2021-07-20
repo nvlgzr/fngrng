@@ -4,12 +4,19 @@
 
   let hovering;
 
+  $: if (gameState !== "on") hovering = false;
+
   function reset() {
     hovering = false;
   }
 
-  function enter() {
+  let timeout;
+  function move() {
+    clearTimeout(timeout);
     hovering = true;
+    timeout = setTimeout(() => {
+      hovering = false;
+    }, 3000);
   }
 
   function leave() {
@@ -17,6 +24,6 @@
   }
 </script>
 
-<div on:mouseenter={enter} on:mouseleave={leave}>
+<div on:mousemove={move} on:mouseleave={leave}>
   <slot {hovering} {reset} />
 </div>
