@@ -1,8 +1,15 @@
-<div class="tracking-wide text-gray-700 logo">fngrng</div>
+<div class="tracking-wide text-gray-700 logo">
+  fngrng<span>™</span>
+</div>
 
-<style>
+<style lang="postcss">
   div {
-    /* I dunno why, but it feels anemic without a slight size boost */
-    font-size: 2.35rem;
+    font-size: 3rem;
+    font-style: italic;
+    @apply font-serif;
+    @apply relative -top-1; /* Get back in line, italic logo! */
+  }
+  span {
+    @apply text-sm align-top;
   }
 </style>

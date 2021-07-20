@@ -20,6 +20,7 @@ custom playable: blue
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Documentation / README
 - Publish to Netlify…maybe with custom domain
+- Rapid Beta smoke test: Get feedback from friends & fix any urgent issues reported
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 - Convert hsl's to hsla's where my color editor VS Code plugin fails.
