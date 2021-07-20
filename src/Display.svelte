@@ -11,7 +11,6 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import HoverableControls from "./HoverableControls.svelte";
-  import { gameState } from "./volatileStore";
 
   export let model;
 
@@ -23,7 +22,7 @@
   <span slot="anchor" let:hovering>
     <div
       style={`--text-color: ${
-        hovering && $gameState !== "on" ? blue : black
+        hovering ? blue : black
       }; --duration: ${transitionDuration}`}
     >
       {#if model}
@@ -45,35 +44,33 @@
   </span>
 
   <span slot="below">
-    {#if $gameState !== "on"}
-      <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
 
-      <Toggle
-        bind:on={$uppercaseAllowed}
-        disabled={$fullSentenceModeEnabled}
-        disabledTooltip={"Full sentence mode automatically includes Capital Letters"}
-      >
-        Capital Letters ⌃C
-      </Toggle>
+    <Toggle
+      bind:on={$uppercaseAllowed}
+      disabled={$fullSentenceModeEnabled}
+      disabledTooltip={"Full sentence mode automatically includes Capital Letters"}
+    >
+      Capital Letters ⌃C
+    </Toggle>
 
-      <Toggle
-        action={() =>
-          ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
-        on={$punctuationToInclude !== ""}
-        disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
-        disabledTooltip={$fullSentenceModeEnabled
-          ? "Full sentence mode automatically includes Punctuation"
-          : "Not available in Custom layout mode"}
-        >Punctuation ⌃P
-      </Toggle>
+    <Toggle
+      action={() =>
+        ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
+      on={$punctuationToInclude !== ""}
+      disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
+      disabledTooltip={$fullSentenceModeEnabled
+        ? "Full sentence mode automatically includes Punctuation"
+        : "Not available in Custom layout mode"}
+      >Punctuation ⌃P
+    </Toggle>
 
-      <Toggle
-        bind:on={$fullSentenceModeEnabled}
-        disabled={$currentLayout === "custom"}
-        disabledTooltip={"Not available in Custom layout mode"}
-        >Full Sentences ⌃F</Toggle
-      >
-    {/if}
+    <Toggle
+      bind:on={$fullSentenceModeEnabled}
+      disabled={$currentLayout === "custom"}
+      disabledTooltip={"Not available in Custom layout mode"}
+      >Full Sentences ⌃F</Toggle
+    >
   </span>
 </HoverableControls>
 

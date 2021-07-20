@@ -57,7 +57,7 @@
     {#if $lettersInLevel.length}
       <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
 
-      <Toggle bind:on={$useColumnarLayout}>Ortholiniear Layout ⌃L</Toggle>
+      <Toggle bind:on={$useColumnarLayout}>Ortholinear Layout ⌃L</Toggle>
       <Toggle
         action={toggleCustomLayout}
         on={$currentLayout === "custom"}

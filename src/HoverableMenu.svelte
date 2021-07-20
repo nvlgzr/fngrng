@@ -9,7 +9,7 @@
   };
 
   // Dismiss menu on game start
-  $: showMenu = $gameState !== "on" && showMenu;
+  $: if ($gameState === "on") showMenu = false;
 
   /* A Word About The "reset" Slot Prop */
   // The menu interferes with Hoverable's mouseleave detection.

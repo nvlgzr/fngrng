@@ -1,4 +1,6 @@
 <script>
+  import { gameState } from "./volatileStore";
+
   export let on;
   export let disabled = false;
   export let disabledTooltip = "";
@@ -11,9 +13,18 @@
       on = !on;
     }
   };
+
+  let button;
+  $: if ($gameState === "on") button.blur();
 </script>
 
-<button on:click={onClick} class:on {disabled} title={disabledTooltip}>
+<button
+  bind:this={button}
+  on:click={onClick}
+  class:on
+  {disabled}
+  title={disabledTooltip}
+>
   <slot />
 </button>
 

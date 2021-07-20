@@ -16,21 +16,14 @@ custom playable: blue
 ↑ ?
 
 - Update the Tailwind base colors to better match my Figma mocks
-- Adjust the layout to fit on anything from iPad to external monitor (maybe back to vh's?)
-- Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Add tooltips to all controls…not just disabled Toggles.
-- Replace BottomText with other attributions & stuff
-- Standardize CSS spacing (I _think_ I prefer it with no blank lines…?)
 - Documentation / README
 - Publish to Netlify…maybe with custom domain
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 
 # 🐞 Known Bugs
-- It's annoying not to be able to change layouts mid-game, esp. since hover still turns the LayoutHeader green.
-  - Undo whatever's preventing hover during game play
-- Heisenbug: sometimes keypress goes to game, not custom thingy ❌
 - Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
 - Weird keyboard blinking bug: set ARST, then click A ❌
   Expected → A blinks and gets brighter
@@ -84,6 +77,7 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 🤞 Note: I'm on a Mac. Hopefully alt-T has the same toggling effect on whatever other machines folks are using.
 
 # Icebox
+- Adjust the layout to fit on anything from iPad to external monitor (maybe back to vh's instead of rems?). (I'm not super motivated to do this right now because, well, audience of 1, always on my laptop, with SizeUp ensuring nice wide screen coverage…¯\_(ツ)_/¯.)
 - Persist average accuracy
   - Surface in Results.svelte UX
   - Should be per-layout, per level
@@ -96,3 +90,4 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 - Add affordance to show when key remapping's on.
 - Game over: persist past scores & display median
 - "reset ⌃R" command?
+- Add some fly-ins/outs? E.g., when collapsing the game area while Custom layout is empty.
