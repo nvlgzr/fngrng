@@ -19,10 +19,12 @@
   let blue = "rgba(37, 99, 235)";
 </script>
 
-<HoverableControls controlColor={blue}>
+<HoverableControls controlColor={blue} let:transitionDuration>
   <span slot="anchor" let:hovering>
     <div
-      style={`--text-color: ${hovering && $gameState !== "on" ? blue : black}`}
+      style={`--text-color: ${
+        hovering && $gameState !== "on" ? blue : black
+      }; --duration: ${transitionDuration}`}
     >
       {#if model}
         {#if model.gameState === "over"}
@@ -82,6 +84,7 @@
     @apply text-5xl;
     @apply flex justify-center;
     color: var(--text-color);
+    transition: all var(--duration);
   }
 
   .aligncenter {

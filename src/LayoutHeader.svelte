@@ -23,11 +23,21 @@
 </script>
 
 <div>
-  <HoverableMenu let:hovering>
-    <span class="title" class:hovering>{title.toLowerCase()}</span>
+  <HoverableMenu let:hovering let:transitionDuration>
+    <span
+      class="title"
+      class:hovering
+      style={`transition: all ${transitionDuration}`}
+    >
+      {title.toLowerCase()}
+    </span>
 
     <span slot="menu-indicator">
-      <span class="chevron" class:hovering>﹀</span>
+      <span
+        class="chevron"
+        class:hovering
+        style={`transition: all ${transitionDuration}`}>﹀</span
+      >
     </span>
 
     <span slot="menu" let:reset>

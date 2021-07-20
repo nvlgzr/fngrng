@@ -12,16 +12,19 @@
 </script>
 
 <!-- Pretty sure this 'reset' ↓ is cruft -->
-<Hoverable let:hovering let:reset>
-  <div class:hovering>
+<Hoverable let:hovering let:reset let:transitionDuration>
+  <div class:hovering style={`transition: all ${transitionDuration}`}>
     <Clock done={reset} />
-    {#if hovering}
-      <span class="shortcut">
-        <Toggle action={setTimeLimitMode} on={$timeLimitModeEnabled}>
-          Time Limit ⌃T
-        </Toggle>
-      </span>
-    {/if}
+    <span
+      class="shortcut"
+      style={`opacity: ${
+        hovering ? 1 : 0
+      }; transition: all ${transitionDuration}`}
+    >
+      <Toggle action={setTimeLimitMode} on={$timeLimitModeEnabled}>
+        Time Limit ⌃T
+      </Toggle>
+    </span>
   </div>
 </Hoverable>
 

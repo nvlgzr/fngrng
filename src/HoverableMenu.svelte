@@ -20,12 +20,12 @@
   //   https://imfeld.dev/writing/nested_popups
 </script>
 
-<Hoverable let:hovering let:reset>
+<Hoverable let:hovering let:reset let:transitionDuration>
   <section class:hovering on:click={handleClick}>
     <div class="anchor" class:show-menu={showMenu}>
-      <slot {hovering} />
+      <slot {hovering} {transitionDuration} />
 
-      <span class:hovering>
+      <span class:hovering style={`transition: all ${transitionDuration}`}>
         <slot name="menu-indicator" {hovering} />
       </span>
     </div>
@@ -46,19 +46,15 @@
   section {
     @apply relative;
   }
-
   span {
     @apply opacity-0 align-bottom;
   }
-
   .hovering {
     @apply cursor-pointer opacity-100;
   }
-
   .show-menu {
     @apply filter brightness-90;
   }
-
   .menu {
     @apply absolute z-50;
     @apply p-6 rounded-b-sm shadow-lg;

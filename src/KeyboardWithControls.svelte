@@ -29,8 +29,12 @@
   };
 </script>
 
-<HoverableControls controlColor={hoverColor}>
-  <span slot="anchor" let:hovering>
+<HoverableControls controlColor={hoverColor} let:transitionDuration>
+  <span
+    slot="anchor"
+    let:hovering
+    style={`transition: all ${transitionDuration}`}
+  >
     <Outline color={hovering ? hoverColor : color}>
       <div style={`--text-color: ${hovering ? hoverColor : color}`}>
         <Keyboard />

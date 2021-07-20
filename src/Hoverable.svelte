@@ -3,6 +3,9 @@
   import { gameState } from "./volatileStore";
 
   let hovering;
+  let transitionDuration = "0";
+  //  ↑ Allows clients to opt in to a gentle fade-out when hovering
+  //    expires from lack of mouse movement
 
   $: if (gameState !== "on") hovering = false;
 
@@ -14,8 +17,10 @@
   function move() {
     clearTimeout(timeout);
     hovering = true;
+    transitionDuration = "0";
     timeout = setTimeout(() => {
       hovering = false;
+      transitionDuration = "1s";
     }, 3000);
   }
 
@@ -25,5 +30,5 @@
 </script>
 
 <div on:mousemove={move} on:mouseleave={leave}>
-  <slot {hovering} {reset} />
+  <slot {hovering} {reset} {transitionDuration} />
 </div>

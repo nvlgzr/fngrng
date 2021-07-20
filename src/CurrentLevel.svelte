@@ -27,8 +27,12 @@
 </script>
 
 <div>
-  <HoverableMenu let:hovering>
-    <span class="title" class:hovering>
+  <HoverableMenu let:hovering let:transitionDuration>
+    <span
+      class="title"
+      class:hovering
+      style={`transition: all ${transitionDuration}`}
+    >
       {#if $fullSentenceModeEnabled}
         Full Sentences
       {:else}
@@ -49,7 +53,13 @@
     </span>
 
     <span slot="menu-indicator">
-      <span class="chevron" class:hovering>﹀</span>
+      <span
+        class="chevron"
+        class:hovering
+        style={`transition: all ${transitionDuration}`}
+      >
+        ﹀
+      </span>
     </span>
 
     <span slot="menu" let:reset>

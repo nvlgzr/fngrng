@@ -5,22 +5,28 @@
   export let controlColor = "";
 </script>
 
-<Hoverable let:hovering>
+<Hoverable let:hovering let:transitionDuration>
   <main style="--control-color:{controlColor}">
     <section>
-      {#if $gameState !== "over" && hovering}
-        <section class="above">
-          <slot name="above" {hovering} />
-        </section>
-      {/if}
+      <section
+        class="above"
+        style={`opacity: ${
+          $gameState !== "over" && hovering ? 1 : 0
+        }; transition: all ${transitionDuration}`}
+      >
+        <slot name="above" {hovering} />
+      </section>
 
-      <slot name="anchor" {hovering} />
+      <slot name="anchor" {hovering} {transitionDuration} />
 
-      {#if $gameState !== "over" && hovering}
-        <section class="below">
-          <slot name="below" {hovering} />
-        </section>
-      {/if}
+      <section
+        class="below"
+        style={`opacity: ${
+          $gameState !== "over" && hovering ? 1 : 0
+        }; transition: all ${transitionDuration}`}
+      >
+        <slot name="below" {hovering} />
+      </section>
     </section>
   </main>
 </Hoverable>

@@ -14,16 +14,19 @@
 </script>
 
 <!-- Pretty sure this 'reset' ↓ is cruft -->
-<Hoverable let:hovering let:reset>
-  <div class:hovering>
+<Hoverable let:hovering let:reset let:transitionDuration>
+  <div class:hovering style={`transition: all ${transitionDuration}`}>
     <WordScore {model} done={reset} />
-    {#if hovering}
-      <span class="shortcut">
-        <Toggle action={setWordLimitMode} on={!$timeLimitModeEnabled}>
-          Word Limit ⌃W
-        </Toggle>
-      </span>
-    {/if}
+    <span
+      class="shortcut"
+      style={`opacity: ${
+        hovering ? 1 : 0
+      }; transition: all ${transitionDuration}`}
+    >
+      <Toggle action={setWordLimitMode} on={!$timeLimitModeEnabled}>
+        Word Limit ⌃W
+      </Toggle>
+    </span>
   </div>
 </Hoverable>
 
