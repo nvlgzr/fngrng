@@ -8,8 +8,8 @@
   } from "./persistentStore";
 
   const layouts = [
-    { id: "colemak", title: "Colemak", shortcut: "1" },
-    { id: "colemakdh", title: "Colemak-DH", shortcut: "2" },
+    { id: "colemakdh", title: "Colemak-DH", shortcut: "1" },
+    { id: "colemak", title: "Colemak", shortcut: "2" },
     { id: "azerty", title: "AZERTY", shortcut: "A" },
     { id: "dvorak", title: "Dvorak", shortcut: "D" },
     { id: "lefthandeddvorak", title: "Left-Handed Dvorak", shortcut: "L" },

@@ -178,8 +178,8 @@
   const handleShiftControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "1":
-        $currentFixedLayout = "colemak";
         $useCustomLayout = false;
+        $currentFixedLayout = "colemakdh";
         break;
 
       //    ↓ Weird inconsistency from Keystroke
@@ -187,7 +187,7 @@
       //      don't also get shifted
       case "@":
         $useCustomLayout = false;
-        $currentFixedLayout = "colemakdh";
+        $currentFixedLayout = "colemak";
         break;
 
       case "A":
