@@ -3,6 +3,7 @@
   import CurrentLevel from "./CurrentLevel.svelte";
   import HoverableWordScore from "./HoverableWordScore.svelte";
   import HoverableClock from "./HoverableClock.svelte";
+  import Info from "./Info.svelte";
 
   export let model;
 </script>
@@ -16,7 +17,7 @@
       <div class="mx-4"><HoverableClock /></div>
     </div>
   </div>
-  <div class="text-right text-blue-500">⌃I</div>
+  <div class="text-right text-blue-500"><Info /></div>
 </nav>
 
 <style lang="postcss">
