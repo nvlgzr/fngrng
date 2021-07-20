@@ -25,9 +25,6 @@ custom playable: blue
 
 # 🐞 Known Bugs
 - Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
-- Weird keyboard blinking bug: set ARST, then click A ❌
-  Expected → A blinks and gets brighter
-  Actual → A blinks, but ARST all get brighter
 
 - "Over-matching" fails to turn input red
   StR: Example line: "the hat that this"

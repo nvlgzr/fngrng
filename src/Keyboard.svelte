@@ -117,7 +117,8 @@
     --default-key-color: hsl(0, 0%, 51%);
     --active-keys: hsl(0, 0%, 28%);
     --new-in-this-level: hsl(161, 94%, 30%);
-    --editing-highlight: hsl(0deg 0% 100% / 88%);
+    --editing-highlight: hsl(0, 0%, 100%, 0.9);
+    --homerow-highlight: hsla(221, 83%, 53%, 0.3);
     --punctuation: hsl(240, 94%, 40%);
   }
 
@@ -139,11 +140,6 @@
     width: 43rem;
   }
 
-  .editing {
-    box-shadow: 0 0 5px 4px var(--editing-highlight);
-    animation: pulse 0.8s infinite;
-  }
-
   .key {
     display: flex;
     justify-content: center;
@@ -158,7 +154,12 @@
   }
 
   .homeRow {
-    box-shadow: 0 0 5px 2px hsl(0deg 0% 100% / 44%);
+    box-shadow: 0 0 5px 2px var(--homerow-highlight);
+  }
+
+  .editing {
+    box-shadow: 0 0 5px 4px var(--editing-highlight);
+    animation: pulse 0.8s infinite;
   }
 
   .gap {
