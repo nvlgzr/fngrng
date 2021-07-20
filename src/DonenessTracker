@@ -15,6 +15,7 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
+- Make GameEngine easier to reason about by extracting Shortcuts component
 - Figure out why descenders are getting cut off in Scroller
 - Update the Tailwind base colors to better match my Figma mocks
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
@@ -26,7 +27,6 @@ custom playable: blue
 - Convert hsl's to hsla's where my color editor VS Code plugin fails.
 
 # 🐞 Known Bugs
-- Keyboard shortcuts disabled during game play
 - Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
 
 - "Over-matching" fails to turn input red

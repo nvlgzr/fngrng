@@ -245,12 +245,9 @@
   };
 </script>
 
-<!-- Mutually exclusive to other text entry -->
-{#if !$isEditingCustomKeyMap && !$isEditingWordLimit && !$isEditingTimeLimit}
-  <Keystroke
-    on:stroke={handleKey}
-    on:combo={handleCombo}
-    on:Enter={maybeReset}
-    on:Backspace={() => (model = backspace(model))}
-  />
-{/if}
+<Keystroke
+  on:stroke={handleKey}
+  on:combo={handleCombo}
+  on:Enter={maybeReset}
+  on:Backspace={() => (model = backspace(model))}
+/>
