@@ -15,7 +15,6 @@
   let heldKeys = new Set();
   let modifiers = new Set();
   let strokes = [];
-  let combos = [];
   let pausedForMeta = false; // See note below re: Meta
 
   $: hasShift = modifiers.has("Shift");

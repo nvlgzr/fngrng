@@ -1,6 +1,5 @@
 <script>
   import HoverableMenu from "./HoverableMenu.svelte";
-  import { alphabet } from "./levelMappings";
   import MenuItem from "./MenuItem.svelte";
 
   import {
@@ -9,8 +8,6 @@
     fullSentenceModeEnabled,
     letterSetsForCurrentLayout,
   } from "./persistentStore";
-  import { leftMinusRight } from "./pureFunctions";
-  import { lettersInLevel } from "./volatileStore";
 
   $: levelLetters =
     $currentLevel === 7

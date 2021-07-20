@@ -4,7 +4,6 @@
 
   export let model;
 
-  let deleteLatestWord = false;
   let lines = [];
 
   $: if (model?.locked) {

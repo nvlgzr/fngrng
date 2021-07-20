@@ -1,5 +1,3 @@
-import { masterList } from "./tenThousandWords.js";
-
 export const objectize = (wordOrWords, color = "") => {
   if (!wordOrWords) return wordOrWords
 
