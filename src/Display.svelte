@@ -15,7 +15,7 @@
   export let model;
 
   let black = "hsl(0 0% 20%)";
-  let blue = "rgba(37, 99, 235)";
+  let blue = "hsl(221, 83%, 53%)";
 </script>
 
 <HoverableControls controlColor={blue} let:transitionDuration>
@@ -44,12 +44,23 @@
   </span>
 
   <span slot="below">
-    <Toggle bind:on={$wordScrollingModeEnabled}>Scrolling Mode ⌃S</Toggle>
+    <Toggle
+      bind:on={$wordScrollingModeEnabled}
+      tooltip={$wordScrollingModeEnabled
+        ? "Click to solve one line at a time"
+        : "Click to solve one word at a time"}
+    >
+      Scrolling Mode ⌃S
+    </Toggle>
 
     <Toggle
       bind:on={$uppercaseAllowed}
       disabled={$fullSentenceModeEnabled}
-      disabledTooltip={"Full sentence mode automatically includes Capital Letters"}
+      tooltip={$fullSentenceModeEnabled
+        ? "Full sentence mode automatically includes Capital Letters"
+        : $uppercaseAllowed
+        ? "Click for only lowercase words"
+        : "Click to include Uppercase words"}
     >
       Capital Letters ⌃C
     </Toggle>
@@ -59,18 +70,25 @@
         ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
       on={$punctuationToInclude !== ""}
       disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
-      disabledTooltip={$fullSentenceModeEnabled
+      tooltip={$currentLayout === "custom"
+        ? "Not available in Custom layout mode"
+        : $fullSentenceModeEnabled
         ? "Full sentence mode automatically includes Punctuation"
-        : "Not available in Custom layout mode"}
+        : "Click to enable words with dots, dashes, and apostrophes"}
       >Punctuation ⌃P
     </Toggle>
 
     <Toggle
       bind:on={$fullSentenceModeEnabled}
       disabled={$currentLayout === "custom"}
-      disabledTooltip={"Not available in Custom layout mode"}
-      >Full Sentences ⌃F</Toggle
+      tooltip={$currentLayout === "custom"
+        ? "Not available in Custom layout mode"
+        : $fullSentenceModeEnabled
+        ? "Click to use Levels"
+        : "Click to type text from a passage of famous prose"}
     >
+      Full Sentences ⌃F
+    </Toggle>
   </span>
 </HoverableControls>
 

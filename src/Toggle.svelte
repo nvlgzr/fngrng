@@ -3,7 +3,7 @@
 
   export let on;
   export let disabled = false;
-  export let disabledTooltip = "";
+  export let tooltip = "";
   export let action = null;
 
   const onClick = () => {
@@ -23,7 +23,7 @@
   on:click={onClick}
   class:on
   {disabled}
-  title={disabledTooltip}
+  title={tooltip}
 >
   <slot />
 </button>

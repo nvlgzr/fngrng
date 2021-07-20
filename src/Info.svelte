@@ -15,13 +15,13 @@
 
 <Keystroke on:combo={onCombo} />
 
-<span on:click={toggle}>⌃I</span>
+<span on:click={toggle} title="Click to reveal Info panel">⌃I</span>
 
 <section class:hide>
   <div class="central">
     <MainInfo />
   </div>
-  <div class="close" on:click={toggle}>⌃I</div>
+  <div class="close" on:click={toggle} title="Click to hide Info panel">⌃I</div>
   <div class="colophon">
     <CornerInfo>
       colophon
@@ -85,7 +85,7 @@
   .close {
     @apply absolute left-8 top-8;
     @apply font-sans text-4xl;
-    color: hsl(0deg 79% 63% / 50%);
+    color: hsl(0deg 79% 63% / 70%);
   }
   .central {
     @apply mt-10;

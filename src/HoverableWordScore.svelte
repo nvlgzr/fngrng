@@ -23,7 +23,13 @@
         hovering ? 1 : 0
       }; transition: all ${transitionDuration}`}
     >
-      <Toggle action={setWordLimitMode} on={!$timeLimitModeEnabled}>
+      <Toggle
+        action={setWordLimitMode}
+        on={!$timeLimitModeEnabled}
+        tooltip={$timeLimitModeEnabled
+          ? "Click to play in Word Limit mode"
+          : "Click to edit word limit"}
+      >
         Word Limit ⌃W
       </Toggle>
     </span>

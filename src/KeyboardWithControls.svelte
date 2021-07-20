@@ -4,6 +4,7 @@
   import Keyboard from "./Keyboard.svelte";
   import Toggle from "./Toggle.svelte";
   import {
+    currentFixedLayout,
     currentLayout,
     fullSentenceModeEnabled,
     keyRemapping,
@@ -55,14 +56,33 @@
 
   <span slot="above">
     {#if $lettersInLevel.length}
-      <Toggle bind:on={$keyRemapping}>Keyboard Remapping ⌃K</Toggle>
+      <Toggle
+        bind:on={$keyRemapping}
+        tooltip={$keyRemapping
+          ? `Click to turn off key remapping`
+          : `Click to map from qwerty to ${$currentLayout}`}
+      >
+        Keyboard Remapping ⌃K
+      </Toggle>
 
-      <Toggle bind:on={$useColumnarLayout}>Ortholinear Layout ⌃L</Toggle>
+      <Toggle
+        bind:on={$useColumnarLayout}
+        tooltip={$useColumnarLayout
+          ? "Click to arrange keys in 'standard' diaglonal layout"
+          : "Click to arrange keys in split-hand grid layout"}
+      >
+        Ortholinear Layout ⌃L
+      </Toggle>
+
       <Toggle
         action={toggleCustomLayout}
         on={$currentLayout === "custom"}
         disabled={$fullSentenceModeEnabled}
-        disabledTooltip={"Turn off Full Sentence mode to enable Custom layout"}
+        tooltip={$fullSentenceModeEnabled
+          ? "Turn off Full Sentence mode to enable Custom layout"
+          : $currentLayout === "custom"
+          ? `Click to return to ${$currentFixedLayout} layout`
+          : "Click to create your own keyboard layout"}
       >
         Custom Layout ⇧⌃C
       </Toggle>

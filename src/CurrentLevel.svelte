@@ -32,6 +32,10 @@
       class="title"
       class:hovering
       style={`transition: all ${transitionDuration}`}
+      title={"Click to choose a level" +
+        ($fullSentenceModeEnabled
+          ? ". This will exit Full Sentences mode."
+          : "")}
     >
       {#if $fullSentenceModeEnabled}
         Full Sentences
@@ -69,6 +73,7 @@
             shortcut={`⌃${level.level}`}
             callback={() => {
               $currentLevel = level.level;
+              $fullSentenceModeEnabled = false;
               reset();
             }}
             selected={level.level === $currentLevel}

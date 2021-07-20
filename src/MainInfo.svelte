@@ -58,9 +58,9 @@
     @apply mt-2;
   }
   .control {
-    color: hsl(0deg 79% 13% / 50%);
+    color: hsla(0, 79%, 50%, 0.7);
   }
   .shift {
-    color: hsl(180deg 79% 13% / 50%);
+    color: hsla(221, 83%, 53%, 0.7);
   }
 </style>

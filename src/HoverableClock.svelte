@@ -21,7 +21,13 @@
         hovering ? 1 : 0
       }; transition: all ${transitionDuration}`}
     >
-      <Toggle action={setTimeLimitMode} on={$timeLimitModeEnabled}>
+      <Toggle
+        action={setTimeLimitMode}
+        on={$timeLimitModeEnabled}
+        tooltip={$timeLimitModeEnabled
+          ? "Click to edit time limit"
+          : "Click to play in Time Limit mode"}
+      >
         Time Limit ⌃T
       </Toggle>
     </span>

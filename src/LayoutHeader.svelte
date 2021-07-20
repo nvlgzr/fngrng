@@ -28,6 +28,7 @@
       class="title"
       class:hovering
       style={`transition: all ${transitionDuration}`}
+      title={"Click to choose a keyboard layout"}
     >
       {title.toLowerCase()}
     </span>
