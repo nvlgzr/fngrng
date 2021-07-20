@@ -38,9 +38,8 @@ custom playable: blue
 ↑ ?
 
 - Implement ⌃I
-- Fix coloring of punctuation (white-on-gray is near-invisible)
 - Update the Tailwind base colors to better match my Figma mocks
-- Adjust the layout to fit on anything from iPad to external monitor
+- Adjust the layout to fit on anything from iPad to external monitor (maybe back to vh's?)
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Pull colemak.club clone out into separate repo

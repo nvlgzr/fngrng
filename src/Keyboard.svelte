@@ -118,6 +118,7 @@
     --active-keys: hsl(0, 0%, 28%);
     --new-in-this-level: hsl(161, 94%, 30%);
     --editing-highlight: hsl(0deg 0% 100% / 88%);
+    --punctuation: hsl(240, 94%, 40%);
   }
 
   .colorsync-text {
@@ -224,10 +225,9 @@
   }
 
   .punctuation {
-    border-color: var(--text-color);
-    color: white;
+    border-color: var(--punctuation);
+    color: var(--punctuation);
     opacity: 1;
-    filter: brightness(1.5);
   }
 
   @keyframes pulse {
