@@ -38,12 +38,15 @@ custom playable: blue
 ↑ ?
 
 - Implement ⌃I
-- Default to fngrng, not colemak.club
 - Fix coloring of punctuation (white-on-gray is near-invisible)
 - Update the Tailwind base colors to better match my Figma mocks
 - Adjust the layout to fit on anything from iPad to external monitor
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+- Pull colemak.club clone out into separate repo
+  - Clone current repo
+  - Clear "src" from clone
+  - Move files & cut/paste as needed to split this project in two
 - Remove $wireframe thingies
 - Replace BottomText with other attributions & stuff
 - Documentation

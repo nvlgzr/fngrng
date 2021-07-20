@@ -121,7 +121,7 @@ testModeEnabled.subscribe(value => {
   localStorage.setItem("fngrng_testModeEnabled", value)
 })
 
-const storedFngrng = localStorage.getItem("fngrng_fngrng");
+const storedFngrng = localStorage.getItem("fngrng_fngrng") ?? "true";
 export const fngrng = writable(storedFngrng === "true")
 fngrng.subscribe(value => {
   localStorage.setItem("fngrng_fngrng", value)
