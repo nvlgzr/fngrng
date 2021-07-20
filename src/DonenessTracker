@@ -1,27 +1,5 @@
 # ✅ Things I Wanna Do Before Release
 
-- fngrng Redesign
-  - Nav ✅
-    - Logo ✅
-    - CurrentLevel ✅
-      - Dropdown ✅
-    - WordScore ✅
-      - Dropdown ✅
-    - Clock ✅
-      - Dropdown ✅
-    - ⌃I ✅
-      - Slideout
-  - Layout Header ✅
-    - Dropdown ✅
-  - Game
-    - PlayTime ✅
-      - Display ✅
-        - Toggles ✅
-      - Input ✅
-    - GameOver ✅ (but with future persistence of past scores planned, peer layout & accompanying "reset ⌃R" command?)
-  - Keyboard ✅
-    - Toggles ✅
-
 ↓ ?
 Keyboard Border States
 
@@ -42,14 +20,10 @@ custom playable: blue
 - Adjust the layout to fit on anything from iPad to external monitor (maybe back to vh's?)
 - Add some fly-ins/outs?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
-- Pull colemak.club clone out into separate repo
-  - Clone current repo
-  - Clear "src" from clone
-  - Move files & cut/paste as needed to split this project in two
 - Add tooltips to all controls…not just disabled Toggles.
 - Replace BottomText with other attributions & stuff
 - Standardize CSS spacing (I _think_ I prefer it with no blank lines…?)
-- Documentation
+- Documentation / README
 - Publish to Netlify…maybe with custom domain
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
@@ -75,30 +49,20 @@ custom playable: blue
 
 Here's a quick summary of the component hierarchy
 
-App
-  TopNav
-    PreferenceMenu
-  LevelSelect
-    LevelButton
-  Main
-    GameZone
-      ResetButton
-      ScrollingPrompt
-        SingleCharacter
-        SingleWord
-      LineByLinePrompt
-        SingleLine
-        (SingleCharacter)
-        (SingleWord)
-      UserInput
-      ScoreBoard
-        WordScore
-        Clock
-        Results
-    VisualKeyboard
-      KeyboardDivs
-    BottomText
-  KeyboardSettings
+- Nav
+  - Logo
+  - CurrentLevel
+  - WordScore
+  - Clock
+  - ⌃I (info slideout…NYI)
+- Layout Header
+- Game
+  - PlayTime
+    - Display
+    - Input
+  - GameOver
+- Keyboard
+  - Toggles
 
 # Playground & Tests
 
@@ -129,3 +93,5 @@ It's easy enough to see how the tests work just by looking at the existing ones.
 - The entire site has had zero a11y effort put in so far, in part because I haven't used the tech & thus don't understand the issues at play.
 - Toy with timeouts to make selecting a layout less distracting?
 - Add affordance to show when key remapping's on.
+- Game over: persist past scores & display median
+- "reset ⌃R" command?

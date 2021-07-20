@@ -61,12 +61,6 @@ useColumnarLayout.subscribe(value => {
   localStorage.setItem("fngrng_useColumnarLayout", value)
 })
 
-const storedPrefsOpen = localStorage.getItem("fngrng_preferenceMenuOpen")
-export const prefsOpen = writable(storedPrefsOpen === "true")
-prefsOpen.subscribe(value => {
-  localStorage.setItem("fngrng_preferenceMenuOpen", value)
-})
-
 const storedUppercaseAllowed = localStorage.getItem("fngrng_uppercaseAllowed") || "false";
 export const uppercaseAllowed = writable(storedUppercaseAllowed === "true")
 uppercaseAllowed.subscribe(value => {
@@ -113,10 +107,4 @@ const storedTestMode = localStorage.getItem("fngrng_testModeEnabled");
 export const testModeEnabled = writable(storedTestMode === "true")
 testModeEnabled.subscribe(value => {
   localStorage.setItem("fngrng_testModeEnabled", value)
-})
-
-const storedFngrng = localStorage.getItem("fngrng_fngrng") ?? "true";
-export const fngrng = writable(storedFngrng === "true")
-fngrng.subscribe(value => {
-  localStorage.setItem("fngrng_fngrng", value)
 })
