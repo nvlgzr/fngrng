@@ -179,6 +179,7 @@
     switch (controlKey) {
       case "1":
         $currentFixedLayout = "colemak";
+        $useCustomLayout = false;
         break;
 
       //    ↓ Weird inconsistency from Keystroke
