@@ -1,5 +1,5 @@
 <script>
-  import Keydown from "svelte-keydown";
+  import Keystroke from "./Keystroke.svelte";
   import ClickToClose from "./ClickToClose.svelte";
   import { timeLimitModeEnabled, maxWords } from "./persistentStore.js";
   import { isEditingWordLimit } from "./volatileStore";
@@ -25,20 +25,10 @@
     }
   };
 
-  const keyListener = ({ detail }) => {
-    function wrapUp() {
-      $isEditingWordLimit = false;
-      input.blur();
-      if (done) done();
-    }
-
-    if (detail === "Enter") {
-      wrapUp();
-    } else if (detail === "Escape") {
-      // TODO: Revert $maxWords on Escape
-      //       (Feels super non-urgent, so…might skip it)
-      wrapUp();
-    }
+  const wrapUp = ({ detail }) => {
+    $isEditingWordLimit = false;
+    input.blur();
+    if (done) done();
   };
 
   let input;
@@ -49,7 +39,7 @@
 </script>
 
 {#if $isEditingWordLimit}
-  <Keydown on:key={keyListener} />
+  <Keystroke on:Enter={wrapUp} on:Escape={wrapUp} />
 {/if}
 
 {#if !$timeLimitModeEnabled}

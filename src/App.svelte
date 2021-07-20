@@ -1,7 +1,7 @@
 <script>
   import Tailwindcss from "./Tailwindcss.svelte";
   import Notifications from "svelte-notifications";
-  import Keydown from "svelte-keydown";
+  import Keystroke from "./Keystroke.svelte";
   import GameEngine from "./GameEngine.svelte";
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
@@ -36,7 +36,7 @@
 
 <Tailwindcss />
 
-<Keydown on:key={globalToggles} />
+<Keystroke on:stroke={globalToggles} />
 
 <Notifications>
   {#if $testModeEnabled}

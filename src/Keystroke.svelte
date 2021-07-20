@@ -43,7 +43,7 @@
    * keypress accompanied by still-held modifiers.
    */
   const maybeDispatch = (key) => {
-    if (key.length !== 1 || pausedForMeta) return;
+    if (pausedForMeta) return;
 
     if (heldKeys.size > 1) {
       dispatch("heldKeys", heldKeys);
@@ -52,6 +52,7 @@
     if (shiftOnly || altOnly || !modifiers.size) {
       strokes.push(key);
       dispatch("stroke", key);
+      dispatch(key); // Allows bindings such as <Keystroke on:Enter={…} />
     }
 
     if (modifiers.size) {
@@ -66,7 +67,6 @@
 
   const keydown = (e) => {
     const key = e.key;
-    console.log("👇", e);
 
     if (key === "Meta") {
       pausedForMeta = true;
@@ -83,13 +83,11 @@
       modifiers = modifiers; // updates hasShift, et al
     }
 
-    // Ignore "Backspace", "Delete", "F1", "F2", et al
     maybeDispatch(key);
   };
 
   const keyup = (e) => {
     const key = e.key;
-    console.log("💥", e);
 
     if (key === "Meta") {
       pausedForMeta = false;

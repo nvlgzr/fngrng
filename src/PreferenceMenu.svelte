@@ -30,7 +30,7 @@
     );
   }
 
-  function handleKeydown({ key }) {
+  function handleKeystroke({ key }) {
     if (key === "Escape" || key === "Enter") {
       closeMenu();
     }
@@ -81,7 +81,7 @@
   ];
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeystroke} />
 
 <button on:click={openMenu} class="preferenceButton" />
 

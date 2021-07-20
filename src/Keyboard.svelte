@@ -1,5 +1,5 @@
 <script>
-  import Keydown from "svelte-keydown";
+  import Keystroke from "./Keystroke.svelte";
   import {
     currentLayout,
     customKeyMap,
@@ -36,7 +36,7 @@
     rows = rows;
   };
 
-  const handleKeydown = ({ detail }) => {
+  const handleKeystroke = ({ detail }) => {
     const reset = () => {
       $isEditingCustomKeyMap = false;
       row = undefined;
@@ -93,9 +93,9 @@
   };
 </script>
 
-<!-- Mutually exclusive to Keydown in GameZone -->
+<!-- Mutually exclusive to Keystroke in GameZone -->
 {#if $isEditingCustomKeyMap}
-  <Keydown on:key={handleKeydown} />
+  <Keystroke on:stroke={handleKeystroke} />
 {/if}
 
 {#each rows as row, ri}

@@ -1,6 +1,6 @@
 <script>
   import { getNotificationsContext } from "svelte-notifications";
-  import Keydown from "svelte-keydown";
+  import Keystroke from "./Keystroke.svelte";
   import ResetButton from "./ResetButton.svelte";
   import ScrollingPrompt from "./ScrollingPrompt.svelte";
   import LineByLinePrompt from "./LineByLinePrompt.svelte";
@@ -90,11 +90,11 @@
 
   const handleCombo = ({ detail }) => {
     // All keyboard shortcuts use Control-<key>
-    const ctrlRegEx = /^Control-(.)$/.exec(detail);
+    const ctrlRegEx = /^Control\+(.)$/.exec(detail);
     if (ctrlRegEx) {
       handleControlShortcut(ctrlRegEx[1]);
     } else {
-      const shftCtrlRegEx = /^Shift-Control-(.)$/.exec(detail);
+      const shftCtrlRegEx = /^Shift\+Control\+(.)$/.exec(detail);
       if (shftCtrlRegEx) {
         handleShiftControlShortcut(shftCtrlRegEx[1]);
       }
@@ -182,7 +182,7 @@
         $currentFixedLayout = "colemak";
         break;
 
-      //    ↓ Weird inconsistency from Keydown
+      //    ↓ Weird inconsistency from Keystroke
       //      Not sure why the other digits
       //      don't also get shifted
       case "@":
@@ -234,10 +234,10 @@
   };
 </script>
 
-<!-- Mutually exclusive to Keydown in VisualKeyboard -->
+<!-- Mutually exclusive to Keystroke in VisualKeyboard -->
 {#if !$isEditingCustomKeyMap}
-  <Keydown
-    on:key={handleKey}
+  <Keystroke
+    on:stroke={handleKey}
     on:combo={handleCombo}
     on:Enter={maybeReset}
     on:Backspace={() => (model = backspace(model))}
