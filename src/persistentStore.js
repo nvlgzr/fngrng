@@ -49,7 +49,7 @@ export const layoutMap = derived(
   }
 );
 
-const storedKeyRemapping = localStorage.getItem("fngrng_keyRemapping");
+const storedKeyRemapping = localStorage.getItem("fngrng_keyRemapping") || "true";
 export const keyRemapping = writable(storedKeyRemapping === "true")
 keyRemapping.subscribe(value => {
   localStorage.setItem("fngrng_keyRemapping", value)
