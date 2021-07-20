@@ -3,6 +3,7 @@
   import Notifications from "svelte-notifications";
   import Keystroke from "./Keystroke.svelte";
   import GameEngine from "./GameEngine.svelte";
+  import Shortcuts from "./Shortcuts.svelte";
   import Nav from "./Nav.svelte";
   import LayoutHeader from "./LayoutHeader.svelte";
   import KeyboardWithControls from "./KeyboardWithControls.svelte";
@@ -31,7 +32,11 @@
       <Tests />
     </div>
   {:else}
+    <!-- Headless Components-->
     <GameEngine bind:model />
+    <Shortcuts bind:model />
+
+    <!-- Visible UX -->
     <Nav {model} />
     <LayoutHeader />
     {#if $lettersInLevel.length}

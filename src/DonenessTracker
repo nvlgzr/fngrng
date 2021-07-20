@@ -15,7 +15,7 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
-- Make GameEngine easier to reason about by extracting Shortcuts component
+- Default to keyremapping ON
 - Figure out why descenders are getting cut off in Scroller
 - Update the Tailwind base colors to better match my Figma mocks
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
