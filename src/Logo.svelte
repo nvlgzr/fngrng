@@ -5,8 +5,7 @@
 <style lang="postcss">
   div {
     font-size: 3rem;
-    font-style: italic;
-    @apply font-serif;
+    @apply font-serif italic;
     @apply relative -top-1; /* Get back in line, italic logo! */
   }
   span {
