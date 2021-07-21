@@ -8,9 +8,9 @@
   <dd>defaults to colemak-dh</dd>
   <dt>keyboard-first UX</dt>
   <dd>
-    <em>legend:</em>
-    <span class="control">⌃ = control</span> |
-    <span class="shift">⇧ = shift</span>
+    shortcut symbols:
+    <span class="control">⌃ control</span>
+    <span class="shift">⇧ shift</span>
   </dd>
   <dt>columnar keyboard option</dt>
   <dd>for “ortholinear” keyboards</dd>

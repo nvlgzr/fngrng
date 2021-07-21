@@ -16,8 +16,13 @@ custom playable: blue
 ↑ ?
 
 - Update the Tailwind base colors to better match my Figma mocks
+  - First update CSS color cruft
+    - Move tailwind @apply's below all standard CSS color descriptors
+        Apparently they break the VS Code plugin that gives me in-editor color pickers
+    - Convert from Chrome's comma-free hsla format
+        Also not recognized by the plugin
+  - Bubble color defs up into :root vars
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
-- Convert hsl's to hsla's where my color editor VS Code plugin fails.
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Documentation / README
 - Publish to Netlify…maybe with custom domain
