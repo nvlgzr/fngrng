@@ -159,7 +159,7 @@
 
   .editing {
     box-shadow: 0 0 5px 4px var(--editing-highlight);
-    animation: pulse 0.8s infinite;
+    animation: pulse 1.2s infinite;
   }
 
   .gap {
