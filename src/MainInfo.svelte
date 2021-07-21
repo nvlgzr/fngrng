@@ -58,9 +58,11 @@
     @apply mt-2;
   }
   .control {
-    color: hsla(0, 79%, 50%, 0.7);
+    @apply text-red-500;
+    filter: blur(0.5px);
   }
   .shift {
-    color: hsla(221, 83%, 53%, 0.7);
+    @apply text-blue-400;
+    filter: blur(0.5px);
   }
 </style>

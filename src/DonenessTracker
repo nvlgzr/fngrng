@@ -20,6 +20,9 @@ custom playable: blue
     - Bubble color defs up into :root vars
       ~ and/or ~
     - Update tailwind defs
+- Info reveal polish:
+  - Fade overlay instead of brutally flipping it on and off
+  - Shift further off-right so drop-shadow isn't peeking in from the edge
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Documentation / README

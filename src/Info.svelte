@@ -87,7 +87,7 @@
     left: 10vw;
   }
   .close {
-    color: hsla(0, 79%, 63%, 0.7);
+    @apply text-red-400;
     @apply absolute left-8 top-8;
     @apply font-sans text-4xl;
   }
