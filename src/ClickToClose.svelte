@@ -18,9 +18,9 @@
 
 <style lang="postcss">
   div {
+    background-color: hsla(0, 0%, 0%, 0.3);
     @apply fixed h-screen w-screen left-0 top-0;
     @apply z-10;
-    background-color: hsl(0deg 0% 0% / 30%);
   }
 
   .transparent {

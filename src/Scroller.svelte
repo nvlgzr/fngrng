@@ -63,16 +63,8 @@
 <style lang="postcss">
   section {
     @apply w-prompt h-14;
-    mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 1) 75%,
-      rgba(0, 0, 0, 0)
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 1) 75%,
-      rgba(0, 0, 0, 0)
-    );
+    mask-image: linear-gradient(to right, black 75%, transparent);
+    -webkit-mask-image: linear-gradient(to right, black 75%, transparent);
   }
   div {
     @apply whitespace-nowrap relative;

@@ -14,7 +14,7 @@
 
   export let model;
 
-  let black = "hsl(0 0% 20%)";
+  let black = "hsl(0, 0%, 20%)";
   let blue = "hsl(221, 83%, 53%)";
 </script>
 

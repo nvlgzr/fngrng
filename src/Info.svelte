@@ -54,7 +54,6 @@
   }
   section {
     color: hsla(0, 0%, 20%, 0.7);
-    @apply font-serif text-3xl;
 
     position: fixed;
     width: 90vw;
@@ -63,15 +62,17 @@
     top: 24px;
     z-index: 50;
 
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    filter: drop-shadow(-4px 4px 8px rgba(0, 0, 0, 0.25));
+    border: 1px solid hsla(0, 0%, 100%, 0.5);
+    filter: drop-shadow(-4px 4px 8px hsla(0, 0%, 0%, 0.25));
     border-radius: 36px 0px 0px 0px;
 
     transition: left 0.25s linear;
 
-    background: url(/paper.jpg), #ffffff;
+    background: url(/paper.jpg), white;
     background-size: cover;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 15px hsla(0, 0%, 0%, 0.25);
+
+    @apply font-serif text-3xl;
   }
   p {
     @apply mt-2;
@@ -86,9 +87,9 @@
     left: 10vw;
   }
   .close {
+    color: hsla(0, 79%, 63%, 0.7);
     @apply absolute left-8 top-8;
     @apply font-sans text-4xl;
-    color: hsl(0deg 79% 63% / 70%);
   }
   .central {
     @apply mt-10;

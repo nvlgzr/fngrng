@@ -31,18 +31,10 @@
 
 <style lang="postcss">
   section {
+    mask-image: linear-gradient(to bottom, black 75%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent);
     @apply text-center;
     @apply p-6;
     @apply bg-white rounded;
-    mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 1) 75%,
-      rgba(0, 0, 0, 0)
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 1) 75%,
-      rgba(0, 0, 0, 0)
-    );
   }
 </style>
