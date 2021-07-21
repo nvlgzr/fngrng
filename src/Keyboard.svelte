@@ -211,7 +211,7 @@
     border-color: var(--new-in-this-level);
     color: var(--new-in-this-level);
     opacity: 1;
-    filter: brightness(1.2);
+    background-color: white;
   }
 
   .restingPosition {
@@ -222,7 +222,7 @@
     border-color: var(--active-keys);
     color: var(--active-keys);
     opacity: 1;
-    filter: brightness(1.5);
+    background-color: white;
   }
 
   .punctuation {
