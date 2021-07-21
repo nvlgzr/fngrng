@@ -747,7 +747,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    max-height: 30vh;
+    max-height: 100vh;
     color: black;
     background-color: floralwhite;
     padding: 1rem;

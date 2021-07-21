@@ -10,12 +10,18 @@
   import Playground from "./Playground.svelte";
   import Tests from "./Tests.svelte";
   import Game from "./Game.svelte";
-  import { testModeEnabled } from "./persistentStore";
+  import { escapeHatch } from "./persistentStore";
   import { lettersInLevel } from "./volatileStore";
 
+  let modeIndex = 0;
+  let modes = ["app", "playground", "tests"];
   const globalToggles = ({ detail }) => {
-    // ⌥T ⇒ †
-    if (detail === "†") $testModeEnabled = !$testModeEnabled;
+    // ⌥A ⇒ å (A for App Mode)
+    if (detail === "å") {
+      console.log("hi");
+      modeIndex = (modeIndex + 1) % modes.length;
+      $escapeHatch = modes[modeIndex];
+    }
   };
 
   let model;
@@ -26,12 +32,7 @@
 <Keystroke on:stroke={globalToggles} />
 
 <Notifications>
-  {#if $testModeEnabled}
-    <div>
-      <Playground />
-      <Tests />
-    </div>
-  {:else}
+  {#if $escapeHatch === "app"}
     <!-- Headless Components-->
     <GameEngine bind:model />
     <Shortcuts bind:model />
@@ -43,11 +44,17 @@
       <Game {model} />
     {/if}
     <KeyboardWithControls />
+  {:else if $escapeHatch === "tests"}
+    <div>
+      <Tests />
+    </div>
+  {:else}
+    <Playground />
   {/if}
 </Notifications>
 
 <svelte:head>
-  {#if !$testModeEnabled}
+  {#if $escapeHatch === "app"}
     <style>
       html {
         @apply font-sans text-sm font-normal;

@@ -103,8 +103,9 @@ punctuationToInclude.subscribe(value => {
   localStorage.setItem("fngrng_punctuation", value)
 })
 
-const storedTestMode = localStorage.getItem("fngrng_testModeEnabled");
-export const testModeEnabled = writable(storedTestMode === "true")
-testModeEnabled.subscribe(value => {
-  localStorage.setItem("fngrng_testModeEnabled", value)
+// "app" "tests" or "playground"
+const storedEscapeHatch = localStorage.getItem("fngrng_escapeHatch") || "app";
+export const escapeHatch = writable(storedEscapeHatch)
+escapeHatch.subscribe(value => {
+  localStorage.setItem("fngrng_escapeHatch", value)
 })
