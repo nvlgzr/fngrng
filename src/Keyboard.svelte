@@ -113,16 +113,6 @@
 {/each}
 
 <style lang="postcss">
-  :root {
-    --active-keys: hsl(0, 0%, 28%);
-    --editing-highlight: hsl(0, 0%, 100%, 0.9);
-    --homerow-highlight: hsla(221, 83%, 53%, 0.3);
-  }
-
-  .colorsync-text {
-    color: var(--border-color);
-  }
-
   span {
     display: block;
     font-size: 1.25rem;
@@ -152,11 +142,11 @@
   }
 
   .homeRow {
-    box-shadow: 0 0 5px 2px var(--homerow-highlight);
+    @apply ring-1 ring-red-400 ring-offset-2;
   }
 
   .editing {
-    box-shadow: 0 0 5px 4px var(--editing-highlight);
+    box-shadow: 0 0 4px 6px white;
     animation: pulse 1.2s infinite;
   }
 
@@ -216,8 +206,7 @@
   }
 
   .active {
-    border-color: var(--active-keys);
-    color: var(--active-keys);
+    @apply text-coolGray-900 border-coolGray-900;
     opacity: 1;
     background-color: white;
   }

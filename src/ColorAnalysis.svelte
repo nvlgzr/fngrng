@@ -39,7 +39,7 @@
     <div>Display: js var black</div>
   </details>
 
-  <details open>
+  <details class="done">
     <summary>Neutral Keyboard colors</summary>
     <div id="keyboardActive">Keyboard: --active-keys</div>
     <div id="keyboardHomerow">Keyboard: --homerow-highlight</div>
@@ -178,11 +178,13 @@
   <div class="close done">Info: ⌃I (to close)</div>
   <div class="text-red-400 done">Input: redden</div>
   <div id="keyboardDefault" class="done">Keyboard: --default-key-color</div>
-  <div id="keyboardActive">Keyboard: --active-keys</div>
+  <div id="keyboardActive" class="done">Keyboard: --active-keys</div>
   <div id="keyboardNew" class="done">Keyboard: --new-in-this-level</div>
-  <div id="keyboardEditing">Keyboard: --editing-highlight</div>
-  <div id="keyboardHomerow">Keyboard: --homerow-highlight</div>
-  <div id="keyboardHomerowEditing">Keyboard: homerow + editing</div>
+  <div id="keyboardEditing" class="done">Keyboard: --editing-highlight</div>
+  <div id="keyboardHomerow" class="done">Keyboard: --homerow-highlight</div>
+  <div id="keyboardHomerowEditing" class="done">
+    Keyboard: homerow + editing
+  </div>
   <div id="keyboardPunctuation" class="done">Keyboard: --punctuation</div>
   <div class="text-purple-400 done">Keyboard: outline/hover</div>
   <div class="text-gray-400 done">LayoutHeader: title</div>
@@ -211,7 +213,7 @@
     @apply bg-coolGray-200 h-screen;
   }
   .done {
-    display: none;
+    /* display: none; */
     text-decoration: line-through;
   }
   h1 {

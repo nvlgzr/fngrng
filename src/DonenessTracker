@@ -15,11 +15,6 @@ custom !playable: red
 custom playable: blue
 ↑ ?
 
-- Update the Tailwind base colors to better match my Figma mocks
-  - Reduce duplicates (in progress)
-    - Bubble color defs up into :root vars
-      ~ and/or ~
-    - Update tailwind defs
 - Display polish:
   - Try going back to 3 lines w/larger text & more line spacing
   - Better w/out white background?
