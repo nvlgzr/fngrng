@@ -54,6 +54,6 @@
 <style lang="postcss">
   input {
     @apply w-20 mr-2;
-    @apply text-black text-right;
+    @apply text-coolGray-900 text-right;
   }
 </style>

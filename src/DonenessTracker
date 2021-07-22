@@ -16,7 +16,7 @@ custom playable: blue
 ↑ ?
 
 - Update the Tailwind base colors to better match my Figma mocks
-  - Reduce duplicates
+  - Reduce duplicates (in progress)
     - Bubble color defs up into :root vars
       ~ and/or ~
     - Update tailwind defs

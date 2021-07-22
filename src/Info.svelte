@@ -53,7 +53,7 @@
     cursor: pointer;
   }
   section {
-    color: hsla(0, 0%, 20%, 0.7);
+    @apply text-coolGray-800 text-opacity-70;
 
     position: fixed;
     width: 90vw;
@@ -87,9 +87,10 @@
     left: 10vw;
   }
   .close {
-    @apply text-red-400;
+    @apply text-red-500 text-opacity-70;
     @apply absolute left-8 top-8;
     @apply font-sans text-4xl;
+    filter: blur(0.4px);
   }
   .central {
     @apply mt-10;

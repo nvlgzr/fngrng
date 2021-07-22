@@ -42,8 +42,7 @@
   }
 
   .hovering {
-    /* TBD: Eliminate duplicate magic number for purple (and others) */
-    color: hsl(0, 91%, 71%);
+    @apply text-red-500;
   }
 
   .shortcut {

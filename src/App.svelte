@@ -18,7 +18,6 @@
   const globalToggles = ({ detail }) => {
     // ⌥A ⇒ å (A for App Mode)
     if (detail === "å") {
-      console.log("hi");
       modeIndex = (modeIndex + 1) % modes.length;
       $escapeHatch = modes[modeIndex];
     }
@@ -58,7 +57,7 @@
     <style>
       html {
         @apply font-sans text-sm font-normal;
-        @apply bg-gray-200;
+        @apply bg-coolGray-200;
       }
     </style>
   {/if}

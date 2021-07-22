@@ -31,7 +31,7 @@
 
 <style lang="postcss">
   div {
-    @apply text-gray-400 font-sans text-4xl;
+    @apply text-coolGray-400 font-sans text-4xl;
   }
   span {
     @apply text-green-500 text-5xl;

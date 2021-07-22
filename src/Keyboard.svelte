@@ -114,12 +114,9 @@
 
 <style lang="postcss">
   :root {
-    --default-key-color: hsl(0, 0%, 51%);
     --active-keys: hsl(0, 0%, 28%);
-    --new-in-this-level: hsl(161, 94%, 30%);
     --editing-highlight: hsl(0, 0%, 100%, 0.9);
     --homerow-highlight: hsla(221, 83%, 53%, 0.3);
-    --punctuation: hsl(240, 94%, 40%);
   }
 
   .colorsync-text {
@@ -145,7 +142,8 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    border: 0.1rem solid var(--default-key-color);
+    border-width: 0.1rem;
+    border-style: solid;
     height: 75%;
     width: 5%;
     opacity: 0.5;
@@ -204,12 +202,11 @@
 
   .inactive {
     opacity: 0.6;
-    border-color: var(--default-key-color);
+    @apply border-coolGray-500;
   }
 
   .newInThisLevel {
-    border-color: var(--new-in-this-level);
-    color: var(--new-in-this-level);
+    @apply text-green-500 border-green-500;
     opacity: 1;
     background-color: white;
   }
@@ -226,8 +223,8 @@
   }
 
   .punctuation {
-    border-color: var(--punctuation);
-    color: var(--punctuation);
+    border-color: text-purple-800;
+    color: text-purple-800;
     opacity: 1;
   }
 

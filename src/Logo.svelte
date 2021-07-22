@@ -1,4 +1,4 @@
-<div class="tracking-wide text-gray-700 logo">
+<div class="tracking-wide text-coolGray-700 logo">
   fngrng<span>™</span>
 </div>
 

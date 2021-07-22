@@ -9,8 +9,8 @@
   <dt>keyboard-first UX</dt>
   <dd>
     shortcut symbols:
-    <span class="control">⌃ control</span>
-    <span class="shift">⇧ shift</span>
+    <span class="text-blue-400">⌃ control</span>
+    <span class="text-red-500">⇧ shift</span>
   </dd>
   <dt>columnar keyboard option</dt>
   <dd>for “ortholinear” keyboards</dd>
@@ -28,6 +28,7 @@
 
   h1,
   h2,
+  span,
   dl {
     filter: blur(0.4px); /* Just to soften it into the paper texture a bit. */
   }
@@ -56,13 +57,5 @@
 
   dd {
     @apply mt-2;
-  }
-  .control {
-    @apply text-red-500;
-    filter: blur(0.5px);
-  }
-  .shift {
-    @apply text-blue-400;
-    filter: blur(0.5px);
   }
 </style>

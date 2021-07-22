@@ -18,7 +18,7 @@
 
 <style lang="postcss">
   div {
-    background-color: hsla(0, 0%, 0%, 0.3);
+    @apply bg-coolGray-500 bg-opacity-50;
     @apply fixed h-screen w-screen left-0 top-0;
     @apply z-10;
   }

@@ -36,8 +36,8 @@
     border: none;
   }
   button:disabled {
-    color: gray;
     text-decoration: overline;
+    @apply text-coolGray-500;
   }
   .on {
     text-decoration: none;

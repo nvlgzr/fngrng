@@ -69,7 +69,7 @@
 <style lang="postcss">
   input {
     @apply w-14 p-1 border-r-2 relative z-50;
-    @apply text-black text-right;
+    @apply text-coolGray-900 text-right;
     margin: -0.25rem;
   }
 </style>

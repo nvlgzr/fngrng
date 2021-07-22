@@ -78,7 +78,7 @@
   .title,
   .chevron {
     @apply text-6xl;
-    @apply text-gray-400;
+    @apply text-coolGray-400;
   }
 
   .chevron {

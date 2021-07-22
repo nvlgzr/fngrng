@@ -22,7 +22,7 @@
 
 <style lang="postcss">
   nav {
-    @apply text-4xl text-gray-400;
+    @apply text-4xl text-coolGray-400;
     @apply py-7 px-10;
     @apply grid gap-4;
     grid-template-columns: minmax(8rem, 15%) 25% 1fr 25% minmax(8rem, 15%);

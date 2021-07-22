@@ -7,6 +7,15 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
+      coolGray: {
+        100: "hsl(220deg 14% 99%)",
+        200: "hsla(220, 13%, 91%, 0.5)",
+        400: colors.coolGray[400],
+        500: colors.coolGray[500],
+        700: colors.coolGray[700],
+        800: colors.coolGray[800],
+        900: colors.coolGray[900]
+      },
       blue: {
         300: "hsl(195, 86%, 64%)",
         400: "hsl(214, 84%, 56%)",
@@ -23,7 +32,7 @@ module.exports = {
         400: "hsl(284, 59%, 64%)",
         500: "hsl(271, 70%, 60%)",
         800: "hsl(240, 94%, 40%)"
-      }
+      },
     },
     fontFamily: {
       'sans': "Tauri, sans-serif",

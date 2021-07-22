@@ -58,7 +58,7 @@
   .menu {
     @apply absolute z-50;
     @apply p-6 rounded-b-sm shadow-lg;
-    @apply bg-gray-50;
+    @apply bg-coolGray-100;
     @apply top-16;
   }
 </style>
