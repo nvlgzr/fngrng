@@ -23,7 +23,7 @@
 
 <section>
   {#if lines}
-    {#each lines.slice(0, 4) as line}
+    {#each lines.slice(0, 3) as line}
       <Line {line} />
     {/each}
   {/if}
@@ -31,10 +31,9 @@
 
 <style lang="postcss">
   section {
-    mask-image: linear-gradient(to bottom, black 75%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent);
-    @apply text-center;
+    mask-image: linear-gradient(to bottom, black 25%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to bottom, black 25%, transparent 95%);
+    @apply text-center leading-snug;
     @apply p-6;
-    @apply bg-white rounded;
   }
 </style>
