@@ -1,4 +1,5 @@
 <script>
+  import { fade } from "svelte/transition";
   export let falseToClose;
   export let transparent = false;
   export let callback = () => {};
@@ -6,6 +7,7 @@
 
 {#if falseToClose}
   <div
+    transition:fade
     on:click={() => {
       falseToClose = false;
       callback();

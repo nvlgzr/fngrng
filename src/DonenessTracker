@@ -19,9 +19,6 @@ custom playable: blue
   - Try going back to 3 lines w/larger text & more line spacing
   - Better w/out white background?
   - Better w/clear white edges and just fading text?
-- Info reveal polish:
-  - Fade overlay instead of brutally flipping it on and off
-  - Shift further off-right so drop-shadow isn't peeking in from the edge
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 - Documentation / README
