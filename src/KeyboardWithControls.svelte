@@ -91,7 +91,7 @@
         on={$currentLayout === "custom"}
         disabled={$fullSentenceModeEnabled}
         tooltip={$fullSentenceModeEnabled
-          ? "Turn off Full Sentence mode to enable Custom layout"
+          ? "Turn off Full Sentence mode (⌃F) to enable Custom layout"
           : $currentLayout === "custom"
           ? `Click to return to ${$currentFixedLayout} layout`
           : "Click to create your own keyboard layout"}

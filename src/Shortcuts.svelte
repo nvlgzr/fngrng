@@ -43,7 +43,7 @@
           $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
           post(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
         } else {
-          post("Punctuation not available in Custom layout mode");
+          post("Turn off Custom layout (⇧⌃C) to enable Punctuation");
         }
         break;
 
@@ -52,7 +52,7 @@
           $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
           post(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
         } else {
-          post("Full Sentences not available in Custom layout mode");
+          post("Turn off Custom layout (⇧⌃C) to enable Full Sentences");
         }
         break;
 
@@ -138,7 +138,7 @@
 
       case "C":
         if ($fullSentenceModeEnabled) {
-          post("Turn off Full Sentence mode to enable Custom layout");
+          post("Turn off Full Sentence mode (⌃F) to enable Custom layout");
         } else {
           $useCustomLayout = !$useCustomLayout;
         }

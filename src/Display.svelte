@@ -66,7 +66,7 @@
       on={$punctuationToInclude !== ""}
       disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
       tooltip={$currentLayout === "custom"
-        ? "Not available in Custom layout mode"
+        ? "Turn off Custom layout (⇧⌃C) to enable Punctuation"
         : $fullSentenceModeEnabled
         ? "Full sentence mode automatically includes Punctuation"
         : "Click to enable words with dots, dashes, and apostrophes"}
@@ -77,7 +77,7 @@
       bind:on={$fullSentenceModeEnabled}
       disabled={$currentLayout === "custom"}
       tooltip={$currentLayout === "custom"
-        ? "Not available in Custom layout mode"
+        ? "Turn off Custom layout (⇧⌃C) to enable Full Sentences"
         : $fullSentenceModeEnabled
         ? "Click to use Levels"
         : "Click to type text from a passage of famous prose"}
