@@ -53,12 +53,13 @@
         {#if custom}
           {#if playable}
             <p>
-              click + type to remap ፠ click + backspace to clear ፠ esc to cancel
+              <em>click</em> + type to remap 𐏐 <em>click</em> + backspace to clear
+              𐏐 esc to cancel
             </p>
           {:else if $isEditingCustomKeyMap}
             <p>type a letter from 'a' to 'z', or ".", "'", or "-"</p>
           {:else}
-            <p>…then click any key to edit</p>
+            <p>…then <em>click</em> any key to edit</p>
           {/if}
         {/if}
       </div>
