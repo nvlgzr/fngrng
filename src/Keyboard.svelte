@@ -142,7 +142,7 @@
   }
 
   .homeRow {
-    @apply ring-1 ring-red-400 ring-offset-2;
+    @apply ring-1 ring-coolGray-400 ring-offset-2;
   }
 
   .editing {

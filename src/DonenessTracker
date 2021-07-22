@@ -1,20 +1,5 @@
 # ✅ Things I Wanna Do Before Release
 
-↓ ?
-Keyboard Border States
-
-default: gray
-:hover: purple
-custom !playable: red
-custom playable: blue
-
-Level Colors
-default: gray
-:hover: yellow
-custom !playable: red
-custom playable: blue
-↑ ?
-
 - Display polish:
   - Try going back to 3 lines w/larger text & more line spacing
   - Better w/out white background?
