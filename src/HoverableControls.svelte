@@ -2,11 +2,13 @@
   import Hoverable from "./Hoverable.svelte";
   import { gameState } from "./volatileStore";
 
-  export let controlColor = "";
+  // Class passing pattern discovered here: https://svelte.dev/repl/299bec14c8154ad89eb53f3d18ba2a37?version=3.24.0
+  export { className as class };
+  let className = "";
 </script>
 
 <Hoverable let:hovering let:transitionDuration>
-  <main style="--control-color:{controlColor}">
+  <main class={className}>
     <section>
       <section
         class="above"
@@ -35,7 +37,6 @@
   main {
     /* Works with section's `position: absolute` */
     @apply relative;
-    color: var(--control-color);
   }
 
   section {

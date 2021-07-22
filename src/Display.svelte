@@ -14,28 +14,23 @@
 
   export let model;
 
-  let black = "hsl(0, 0%, 20%)";
   let blue = "hsl(221, 83%, 53%)";
 </script>
 
-<HoverableControls controlColor={blue} let:transitionDuration>
+<HoverableControls class={"text-blue-300"} let:transitionDuration>
   <span slot="anchor" let:hovering>
-    <div
-      style={`--text-color: ${
-        hovering ? blue : black
-      }; --duration: ${transitionDuration}`}
-    >
+    <div style={`--duration: ${transitionDuration}`}>
       {#if model}
         {#if model.gameState === "over"}
-          <div class="aligncenter">
+          <div class:hovering class="aligncenter">
             <EndGame {model} />
           </div>
         {:else if $wordScrollingModeEnabled}
-          <div class="aligndown">
+          <div class:hovering class="aligndown">
             <Scroller {model} />
           </div>
         {:else}
-          <div>
+          <div class:hovering>
             <MultiLine {model} />
           </div>
         {/if}
@@ -96,9 +91,8 @@
   div {
     @apply h-56;
     @apply font-serif;
-    @apply text-5xl;
+    @apply text-5xl text-coolGray-900;
     @apply flex justify-center;
-    color: var(--text-color);
     transition: all var(--duration);
   }
 
@@ -108,5 +102,8 @@
 
   .aligndown {
     @apply items-end;
+  }
+  .hovering {
+    @apply text-blue-300;
   }
 </style>

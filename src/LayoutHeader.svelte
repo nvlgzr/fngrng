@@ -25,7 +25,9 @@
 <div>
   <HoverableMenu let:hovering let:transitionDuration>
     <span
-      class="title"
+      class={`title ${
+        $currentLayout === "custom" ? "text-blue-400" : "text-coolGray-400"
+      }`}
       class:hovering
       style={`transition: all ${transitionDuration}`}
       title={"Click to choose a keyboard layout"}
@@ -35,7 +37,7 @@
 
     <span slot="menu-indicator">
       <span
-        class="chevron"
+        class="chevron text-coolGray-400"
         class:hovering
         style={`transition: all ${transitionDuration}`}>﹀</span
       >
@@ -43,7 +45,11 @@
 
     <span slot="menu" let:reset>
       {#each layouts as layout}
-        <span class="menu-item">
+        <span
+          class={`menu-item ${
+            layout.id === "custom" ? "text-blue-400" : "text-green-400"
+          }`}
+        >
           <MenuItem
             shortcut={`⇧⌃${layout.shortcut}`}
             callback={() => {
@@ -78,16 +84,10 @@
   .title,
   .chevron {
     @apply text-6xl;
-    @apply text-coolGray-400;
   }
 
   .chevron {
     @apply text-4xl font-black;
-  }
-
-  .hovering,
-  .menu-item {
-    @apply text-green-400;
   }
 
   .menu-item {

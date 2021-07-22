@@ -1,16 +1,19 @@
 <script>
   export let color = "";
+
+  export { className as class };
+  let className = "";
 </script>
 
-<div style="--color:{color};">
+<div class={className} style="--color:{color};">
   <slot />
 </div>
 
-<style>
+<style lang="postcss">
   div {
     box-sizing: border-box;
     border-radius: 16px;
     padding: 16px;
-    border: 1.5px solid var(--color);
+    @apply border-2;
   }
 </style>

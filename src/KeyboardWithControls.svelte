@@ -16,28 +16,39 @@
   $: custom = $currentLayout === "custom";
   $: playable = $lettersInLevel.length > 0;
 
-  $: color =
-    custom && playable
-      ? "hsl(213, 94%, 68%)" // Blue
-      : custom
-      ? "hsl(0, 79%, 63%)" // Red
-      : "hsl(218, 11%, 65%)"; // Steel Gray
+  let unplayableColor = "red-400";
+  let customLayoutColor = "blue-400";
+  let standardHoverColor = "purple-400";
+  let standardColor = "coolGray-400";
 
-  let hoverColor = "hsl(255, 92%, 76%)"; // Purple
+  $: color = !playable
+    ? unplayableColor
+    : custom
+    ? customLayoutColor
+    : standardColor;
+  $: hoverColor = !playable
+    ? unplayableColor
+    : custom
+    ? customLayoutColor
+    : standardHoverColor;
+
+  $: textHoverClass = `text-${hoverColor}`;
+  $: borderClass = `border-${color}`;
+  $: borderHoverClass = `border-${hoverColor}`;
 
   const toggleCustomLayout = () => {
     $useCustomLayout = !$useCustomLayout;
   };
 </script>
 
-<HoverableControls controlColor={hoverColor} let:transitionDuration>
+<HoverableControls class={textHoverClass} let:transitionDuration>
   <span
     slot="anchor"
     let:hovering
     style={`transition: all ${transitionDuration}`}
   >
-    <Outline color={hovering ? hoverColor : color}>
-      <div style={`--text-color: ${hovering ? hoverColor : color}`}>
+    <Outline class={hovering ? borderHoverClass : borderClass}>
+      <div class={hovering ? borderHoverClass : borderClass}>
         <Keyboard />
         {#if custom}
           {#if playable}
@@ -92,7 +103,6 @@
 
 <style lang="postcss">
   div {
-    color: var(--text-color);
     @apply grid;
   }
 

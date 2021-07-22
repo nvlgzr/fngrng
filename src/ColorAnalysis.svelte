@@ -33,18 +33,14 @@
     <div>WordScore: input editing</div>
   </details>
 
-  <details open>
-    <summary>
-      new black? hsl(0, 0%, 20%) <span style="color:red">skip</span>
-    </summary>
+  <details class="text-coolGray-900 done">
+    <summary> new black? hsl(0, 0%, 20%) </summary>
     <div>Preferred ⇒ hsl(221, 39%, 11%) (coolGray-900)</div>
-    <div id="displayBlack">Display: js var black</div>
+    <div>Display: js var black</div>
   </details>
 
   <details open>
-    <summary
-      >Neutral Keyboard colors <span style="color:red">skip</span></summary
-    >
+    <summary>Neutral Keyboard colors</summary>
     <div id="keyboardActive">Keyboard: --active-keys</div>
     <div id="keyboardHomerow">Keyboard: --homerow-highlight</div>
     <div id="keyboardHomerowEditing">Keyboard: homerow + editing</div>
@@ -123,10 +119,10 @@
     <div id="wordScoreHovering">HoverableWordScore: hovering</div>
   </details>
 
-  <details class="text-purple-400" open>
-    <summary>text-purple-400 <span style="color:red">skip</span></summary>
+  <details class="text-purple-400 done">
+    <summary>text-purple-400</summary>
     <div>hsl(284, 59%, 64%) config & figma</div>
-    <div>Keyboard: hover (NYI)</div>
+    <div>Keyboard: outline/hover</div>
   </details>
 
   <details class="text-blue-400 done">
@@ -136,10 +132,10 @@
     <div id="mainInfoShift">MainInfo: shift</div>
   </details>
 
-  <details class="text-blue-300" open>
-    <summary>text-blue-300 <span style="color:red">skip</span></summary>
+  <details class="text-blue-300 done">
+    <summary>text-blue-300</summary>
     <div>hsl(195, 86%, 64%)</div>
-    <div id="displayBlue">Display: js var blue</div>
+    <div>Display: js var blue</div>
   </details>
 
   <details class="text-green-500 done">
@@ -171,8 +167,8 @@
   <div class="text-white done">CurrentLevel: levelLetters</div>
   <div class="text-red-400 done">CurrentLevel: messages</div>
   <div class="text-yellow-400 done">CurrentLevel: hover/menu-item</div>
-  <div id="displayBlack">Display: js var black</div>
-  <div id="displayBlue">Display: js var blue</div>
+  <div class="text-coolGray-900 done">Display: js var black</div>
+  <div class="text-blue-300 done">Display: js var blue</div>
   <div id="endGameDiv" class="done">EndGame: div</div>
   <div id="endGameSpan" class="done">EndGame: span</div>
   <div id="clockHovering" class="done">HoverableClock: hovering</div>
@@ -188,7 +184,7 @@
   <div id="keyboardHomerow">Keyboard: --homerow-highlight</div>
   <div id="keyboardHomerowEditing">Keyboard: homerow + editing</div>
   <div id="keyboardPunctuation" class="done">Keyboard: --punctuation</div>
-  <div class="text-purple-400">Keyboard: outline/hover (NYI)</div>
+  <div class="text-purple-400 done">Keyboard: outline/hover</div>
   <div class="text-gray-400 done">LayoutHeader: title</div>
   <div class="text-gray-400 font-black done">LayoutHeader: chevron</div>
   <div class="text-green-400 done">LayoutHeader: hovering</div>
@@ -207,7 +203,7 @@
 
 <style lang="postcss">
   details {
-    @apply m-2 border-l-2 border-trueGray-300 inline-block;
+    @apply m-2 border-l-2 border-trueGray-300 inline-block w-1/4;
   }
   :root {
     @apply bg-gray-200 h-screen;
@@ -230,26 +226,18 @@
   }
   section {
     @apply mx-8 pb-16;
+  }
+  section:last-of-type {
+    column-count: 4;
     column-gap: 3em;
-    column-rule: thin solid black;
-    columns: 2;
+    column-rule: dashed gray 0.2rem;
   }
   div,
   summary {
-    @apply p-4 relative;
+    @apply p-4 relative m-4;
   }
   summary {
     @apply underline uppercase;
-  }
-  #displayBlack {
-    color: hsl(0, 0%, 20%);
-    /* Maybe redefine this as site's most black black? */
-  }
-  #displayBlue {
-    color: hsl(221, 83%, 53%);
-    /* replace ↑ with ↓  */
-    color: hsl(195, 86%, 64%);
-    @apply text-blue-300;
   }
   #endGameDiv {
     @apply text-gray-400 font-sans;

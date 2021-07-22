@@ -8,6 +8,7 @@
     fullSentenceModeEnabled,
     letterSetsForCurrentLayout,
   } from "./persistentStore";
+  import { lettersInLevel } from "./volatileStore";
 
   $: levelLetters =
     $currentLevel === 7
@@ -21,13 +22,30 @@
       return { level: idx + 1, letters: el };
     }
   });
+
+  let unplayableColor = "text-red-400";
+  let customLayoutColor = "text-blue-400";
+  let standardHoverColor = "text-yellow-400";
+
+  $: custom = $currentLayout === "custom";
+  $: playable = $lettersInLevel.length > 0;
+
+  $: color = !playable
+    ? unplayableColor
+    : custom
+    ? customLayoutColor
+    : "inherit";
+  $: hoverColor = !playable
+    ? unplayableColor
+    : custom
+    ? customLayoutColor
+    : standardHoverColor;
 </script>
 
 <div>
   <HoverableMenu let:hovering let:transitionDuration>
     <span
-      class="title"
-      class:hovering
+      class={`title ${hovering ? hoverColor : color}`}
       style={`transition: all ${transitionDuration}`}
       title={"Click to choose a level" +
         ($fullSentenceModeEnabled
@@ -65,7 +83,7 @@
 
     <span slot="menu" let:reset>
       {#each allLevels as level}
-        <span class="menu-item">
+        <span class={`menu-item ${hoverColor}`}>
           <MenuItem
             shortcut={`⌃${level.level}`}
             callback={() => {
@@ -92,11 +110,6 @@
 
   .chevron {
     @apply text-3xl font-black;
-  }
-
-  .hovering,
-  .menu-item {
-    @apply text-yellow-400;
   }
 
   .menu-item {
