@@ -546,6 +546,26 @@
       ];
     });
 
+    test("When the user adds an incorrect character to an otherwise-matched word", () => {
+      let m = initForLineByLine(["An owl rode by on a pogo stick"]);
+      m = addSymbol(m, "A");
+      m = addSymbol(m, "n");
+      m = addSymbol(m, "n");
+      return [
+        [
+          "the whole display word is green",
+          // Or, at least the last character is. #feelinlazy
+          m.challengeView.charSpecs[m.challengeView.charSpecs.length - 1]
+            .color === "green",
+        ],
+        ["the userText reflects the incorrect character", m.userText === "Ann"],
+        [
+          "and the overallVerdict is 'error'",
+          m.challengeView.overallVerdict === "error",
+        ],
+      ];
+    });
+
     test("The user can correct mistakes with 'backspace'", () => {
       let m = initForLineByLine(["Oops!"]);
       m = addSymbol(m, "O");

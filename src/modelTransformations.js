@@ -311,5 +311,12 @@ const evaluate = (challenge, attempt) => {
     },
     { overallVerdict: "not yet attempted", charSpecs: [] }
   )
+
+  // Correct word with incorrect suffix
+  // E.g., challenge→"and", attempt→"andd"
+  if (attempt.length > challenge.length) {
+    result.overallVerdict = "error"
+  }
+
   return result
 }

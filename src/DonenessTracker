@@ -3,21 +3,25 @@
 # 🐞 Known Bugs
 - Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
 
-- "Over-matching" fails to turn input red
-  StR: Example line: "the hat that this"
-    - Type "thee"
-    Expected → Display has green "the" (because the error's on the space) & Input is red
-    Actual → Display has green "the" but Input stays black
-    Note: This is a model-level issue. Same bug in both old & new designs
 - Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty). Includes level 7.
+
 - Still seing >100% accuracy from time to time. 🙀
 
 # 🐝 Tasks/Ideas
+- Tighten up spacing
+  - Prevent text overlap (⌃I, Nav) in narrow views
+  - Tighten keyboard layout?
+  - Fit vertically on laptop…at LEAST my own. 🙄
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
+
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+
 - Documentation / README
+
 - Publish to Netlify…maybe with custom domain
+
 - Rapid Beta smoke test: Get feedback from friends & fix any urgent issues reported
+
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
 
 # Overview
