@@ -724,7 +724,7 @@
 
   onMount(() => {
     if (scrollTarget) {
-      scrollTarget.scrollIntoView();
+      scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
     }
   });
