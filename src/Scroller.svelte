@@ -67,7 +67,7 @@
     -webkit-mask-image: linear-gradient(to right, black 75%, transparent);
   }
   div {
-    @apply whitespace-nowrap relative;
+    @apply whitespace-nowrap relative overflow-hidden;
   }
   .scroll {
     /*
