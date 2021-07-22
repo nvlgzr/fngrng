@@ -20,6 +20,10 @@ custom playable: blue
     - Bubble color defs up into :root vars
       ~ and/or ~
     - Update tailwind defs
+- Display polish:
+  - Try going back to 3 lines w/larger text & more line spacing
+  - Better w/out white background?
+  - Better w/clear white edges and just fading text?
 - Info reveal polish:
   - Fade overlay instead of brutally flipping it on and off
   - Shift further off-right so drop-shadow isn't peeking in from the edge
