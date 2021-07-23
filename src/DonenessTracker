@@ -1,8 +1,6 @@
 # ✅ Things I Wanna Do Before Release
 
 # 🐞 Known Bugs
-- Custom mode: words should be filtered out if punctuation isn't in the current letter set. StR: Set to Custom w/Punctuation on. Some words become unplayable when their punctuation isn't mapped.
-
 - Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty). Includes level 7.
 
 - Still seing >100% accuracy from time to time. 🙀

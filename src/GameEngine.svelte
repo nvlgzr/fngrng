@@ -30,7 +30,9 @@
   import { masterList } from "./tenThousandWords";
 
   const freshModel = () => {
-    let allValidLetters = $lettersInLevel + $punctuationToInclude;
+    let allValidLetters =
+      $lettersInLevel +
+      ($currentLayout === "custom" ? "" : $punctuationToInclude);
     if ($uppercaseAllowed) {
       allValidLetters += $lettersInLevel.toUpperCase();
     }
