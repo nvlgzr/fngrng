@@ -1,9 +1,12 @@
 # ✅ Things I Wanna Do Before Release
 
 # 🐞 Known Bugs
-- Custom prompt should be empty if no keys are mapped! (i.e., if the levels are empty). Includes level 7.
-
-- Still seing >100% accuracy from time to time. 🙀
+- Still seing >100% accuracy in Time Limit mode.
+  I introduced this bug on accident when I switched from counting every keypress against every letter evaluated, switching instead to matching totalKeyPresses to total words matched. Oops. 🤦🏽‍♂️
+  _Possible solutions_
+  - Track keypresses separate from total until a word is locked in
+  - Keep an accurate cursor count through the word lists. (This sounds like more work by far. I'm gonna try the first option first.)
+  
 
 # 🐝 Tasks/Ideas
 - Tighten up spacing

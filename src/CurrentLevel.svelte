@@ -11,12 +11,12 @@
   import { lettersInLevel } from "./volatileStore";
 
   $: levelLetters =
-    $currentLevel === 7
+    $currentLevel === 7 && $currentLayout !== "custom"
       ? "all letters"
       : $letterSetsForCurrentLayout[$currentLevel - 1];
 
   $: allLevels = $letterSetsForCurrentLayout.map((el, idx) => {
-    if (idx === 6) {
+    if (idx === 6 && $currentLayout !== "custom") {
       return { level: 7, letters: "all letters" };
     } else {
       return { level: idx + 1, letters: el };

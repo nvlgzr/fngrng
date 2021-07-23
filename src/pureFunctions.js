@@ -96,11 +96,7 @@ export function remap(letter, mapping) {
 export function clearLetterFromLevels(letter, levels) {
   let newCustomLevels = []
   for (let [i, level] of levels.entries()) {
-    if (i < 6) {
-      newCustomLevels.push(leftMinusRight(level, letter).join(""));
-    } else {
-      newCustomLevels.push(level);
-    }
+    newCustomLevels.push(leftMinusRight(level, letter).join(""));
   }
   return newCustomLevels
 }

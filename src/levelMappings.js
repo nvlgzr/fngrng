@@ -9,7 +9,7 @@ export const levelLetterSets = {
   qwerty: ["asdfer", "jkliuo", "ghty", "qwzx", "nmp", "cvb", alphabet,],
   tarmak: ["arstneio", "dh", "gjvb", "qwfp", "luyz", "cxkm", alphabet,],
   workman: ["ashtneoi", "gy", "bjfu", "mcvk", "plzx", "qdrw", alphabet,],
-  custom: ["", "", "", "", "", "", alphabet,],
+  custom: ["", "", "", "", "", "", "",],
 };
 
 export const allLayoutMaps = {
