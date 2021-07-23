@@ -212,8 +212,7 @@
   }
 
   .punctuation {
-    border-color: text-purple-800;
-    color: text-purple-800;
+    @apply text-purple-800 border-purple-800;
     opacity: 1;
   }
 

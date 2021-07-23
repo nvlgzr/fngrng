@@ -82,14 +82,14 @@ export const configuredRows = derived(
       return foundIndex;
     }
 
-    function isIncludedPunctuation(letter) {
-      return letter ? $punctuationToInclude.includes(letter) : false;
+    function nonLetter(letter) {
+      return letter === "_" || /\W/.test(letter)
     }
 
     function activeClassFor(letter) {
       if (!letter || !activeCharacters.includes(letter)) return "inactive";
 
-      if (isIncludedPunctuation(letter)) return "punctuation";
+      if (nonLetter(letter)) return "punctuation";
 
       const levelIndex = letterLevelIndex(letter);
       if (!$fullSentenceModeEnabled && levelIndex === $currentLevel - 1) return "newInThisLevel";
