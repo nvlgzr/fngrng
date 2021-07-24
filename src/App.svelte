@@ -39,10 +39,7 @@
     <!-- Visible UX -->
     <Nav {model} />
     <LayoutHeader />
-    {#if $lettersInLevel.length}
-      <Game {model} />
-    {/if}
-
+    <Game {model} />
     <KeyboardWithControls />
   {:else if $escapeHatch === "tests"}
     <div>

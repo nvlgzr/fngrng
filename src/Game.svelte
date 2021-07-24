@@ -21,5 +21,7 @@
   }
 </script>
 
-<Display {model} />
-<Input {redden} {text} />
+<div class={$lettersInLevel.length ? "opacity-100" : "opacity-0"}>
+  <Display {model} />
+  <Input {redden} {text} />
+</div>
