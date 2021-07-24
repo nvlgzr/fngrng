@@ -27,4 +27,23 @@
     @apply grid gap-4;
     grid-template-columns: minmax(8rem, 15%) 25% 1fr 25% minmax(8rem, 15%);
   }
+
+  @media (max-width: 768px) {
+    nav {
+      @apply grid-cols-none;
+      @apply flex flex-col;
+    }
+    nav > div {
+      font-size: 4vw;
+    }
+
+    nav > div:nth-child(2) {
+      @apply bg-blue-400 bg-opacity-25;
+    }
+
+    nav > div:last-of-type {
+      @apply absolute right-0 top-0 py-7 px-10;
+      font-size: inherit;
+    }
+  }
 </style>

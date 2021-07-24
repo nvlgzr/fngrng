@@ -46,7 +46,7 @@
     transparent={true}
   />
 {:else}
-  <div class="w-48 float-left">
+  <div class="md:w-max float-left">
     {minutes}m {seconds}s
   </div>
 {/if}
