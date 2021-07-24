@@ -42,9 +42,6 @@
     {#if $lettersInLevel.length}
       <Game {model} />
     {/if}
-    current: {model?.currentKeyPresses} total: {model?.totalKeyPresses} needed: {model?.hidden?.join(
-      ""
-    ).length ?? 0 + model?.locked.join("").length}
 
     <KeyboardWithControls />
   {:else if $escapeHatch === "tests"}

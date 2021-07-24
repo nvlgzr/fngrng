@@ -1,12 +1,9 @@
 # ✅ Things I Wanna Do Before Release
 
 # 🐞 Known Bugs
-- Still seing >100% accuracy in Time Limit mode.
-  I introduced this bug on accident when I switched from counting every keypress against every letter evaluated, switching instead to matching totalKeyPresses to total words matched. Oops. 🤦🏽‍♂️
-  _Possible solutions_
-  - Track keypresses separate from total until a word is locked in
-  - Keep an accurate cursor count through the word lists. (This sounds like more work by far. I'm gonna try the first option first.)
-  
+- If timeout occurs before any words are scored, display custom string (instead of NaN%) 
+- Word score is getting doubled right at the end, but only in LineByLine
+- Keyboard shifting up and down is distracting
 
 # 🐝 Tasks/Ideas
 - Tighten up spacing

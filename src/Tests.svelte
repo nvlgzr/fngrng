@@ -421,7 +421,6 @@
       const done3 = [
         "and this applies even if the game was ended on a timeout",
         x.totalKeyPresses === 2,
-        x
       ];
 
       return [
@@ -816,7 +815,6 @@
       const done3 = [
         "and this applies even if the game was ended on a timeout",
         x.totalKeyPresses === 2,
-        x,
       ];
 
       return [
