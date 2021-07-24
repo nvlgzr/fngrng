@@ -6,12 +6,14 @@
 
 # 🐝 Tasks/Ideas
 - Tighten up spacing
-  - Prevent text overlap (⌃I, Nav) in narrow views
   - Tighten keyboard layout?
   - Fit vertically on laptop…at LEAST my own. 🙄
+
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+
+- Do a pass to address all NYI and/or TODO in code
 
 - Documentation / README
 

@@ -12,6 +12,7 @@
   import Game from "./Game.svelte";
   import { escapeHatch } from "./persistentStore";
   import { lettersInLevel } from "./volatileStore";
+  import MobileApology from "./MobileApology.svelte";
 
   let modeIndex = 0;
   let modes = ["app", "playground", "tests"];
@@ -37,14 +38,17 @@
     <Shortcuts bind:model />
 
     <!-- Visible UX -->
-    <Nav {model} />
-    <LayoutHeader />
-    <Game {model} />
-    <KeyboardWithControls />
-  {:else if $escapeHatch === "tests"}
     <div>
-      <Tests />
+      <Nav {model} />
+      <LayoutHeader />
+      <Game {model} />
+      <KeyboardWithControls />
     </div>
+
+    <!-- Mobile Punt -->
+    <MobileApology />
+  {:else if $escapeHatch === "tests"}
+    <Tests />
   {:else}
     <Playground />
   {/if}
@@ -62,7 +66,14 @@
 </svelte:head>
 
 <style>
-  div {
-    display: grid;
+  @media (max-width: 768px) {
+    div {
+      @apply hidden;
+    }
+  }
+  @media (min-width: 768px) {
+    div {
+      display: grid;
+    }
   }
 </style>
