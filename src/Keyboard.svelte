@@ -123,8 +123,8 @@
   .row {
     display: flex;
     justify-content: space-between;
-    height: 2.75rem;
-    width: 43rem;
+    height: 4.5vh;
+    width: 70vh;
   }
 
   .key {
@@ -134,8 +134,8 @@
     background-color: transparent;
     border-width: 0.1rem;
     border-style: solid;
-    height: 75%;
-    width: 5%;
+    height: 80%;
+    width: 6%;
     opacity: 0.5;
     border-radius: 0.45rem;
     vertical-align: top;

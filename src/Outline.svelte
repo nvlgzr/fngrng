@@ -13,7 +13,7 @@
   div {
     box-sizing: border-box;
     border-radius: 16px;
-    padding: 16px;
+    padding: 8px;
     @apply border-2;
   }
 </style>

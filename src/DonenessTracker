@@ -5,10 +5,6 @@
 > 🎉
 
 # 🐝 Tasks/Ideas
-- Tighten up spacing
-  - Tighten keyboard layout?
-  - Fit vertically on laptop…at LEAST my own. 🙄
-
 - Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
 
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
