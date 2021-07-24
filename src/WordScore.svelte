@@ -11,9 +11,7 @@
   let maxScore;
 
   $: if (model) {
-    const locked = model.locked ?? [];
-    const acceptedWords = [...model.hidden, ...locked];
-    score = acceptedWords.length;
+    score = model.hidden.length;
     maxScore = $maxWords;
   }
 
