@@ -31,6 +31,7 @@ export const initForScrolling = (targetStringOrFunction, repeats = 1) => {
     isLineByLineMode: false,
     target: "",
     gameState: "ready",
+    currentKeyPresses: 0,
     totalKeyPresses: 0,
     userText: "",
     hidden: [],
@@ -66,6 +67,7 @@ export const initForLineByLine = (linesOrFunction = ["Check your code", "initFor
     isLineByLineMode: true,
     target: "",
     gameState: "ready",
+    currentKeyPresses: 0,
     totalKeyPresses: 0,
     userText: "",
     hidden: [],
@@ -102,13 +104,20 @@ export const addSymbol = (model, sym) => {
 
   // Except on the very last word, a space is needed to confirm each challenge
   const challengeAchieved = sym === " " && model.userText === model.challenge
-  const challengeImminent = model.userText + sym === model.challenge
+  const achievementImminent = model.userText + sym === model.challenge
   const lastLine = model.isLineByLineMode ? !model.remainingLines?.length : true
   const lastWord = model.restOfLine.length === 0 && lastLine
 
-  const advanceCurrentWord = challengeAchieved || lastWord && challengeImminent
+  const advanceCurrentWord = challengeAchieved || lastWord && achievementImminent
 
   if (advanceCurrentWord) {
+    const lastWordKeyPress = achievementImminent ? 1 : 0;
+    model = {
+      ...model,
+      totalKeyPresses: model.totalKeyPresses + model.currentKeyPresses + lastWordKeyPress,
+      currentKeyPresses: 0
+    }
+
     return model.isLineByLineMode ?
       addSymbolLineByLine(model)
       : addSymbolScrolling(model)
@@ -123,7 +132,6 @@ export const addSymbolScrolling = (model) => {
 
   let updated = {
     ...model,
-    totalKeyPresses: model.totalKeyPresses + 1,
     userText: "",
     hidden: [...model.hidden, model.challenge],
     challenge: newChallenge,
@@ -136,7 +144,6 @@ export const addSymbolScrolling = (model) => {
 export const addSymbolLineByLine = (model) => {
   let updated = {
     ...model,
-    totalKeyPresses: model.totalKeyPresses + 1,
     userText: "",
     locked: [...model.locked, model.challenge]
   }
@@ -190,7 +197,7 @@ const addIncompleteSymbol = (model, sym) => {
   return {
     ...model,
     gameState: "on",
-    totalKeyPresses: model.totalKeyPresses + 1,
+    currentKeyPresses: model.currentKeyPresses + 1,
     userText: userText,
     challengeView: view
   }
@@ -218,7 +225,7 @@ export const backspace = (model) => {
   }
   return {
     ...model,
-    totalKeyPresses: model.totalKeyPresses + 1,
+    currentKeyPresses: model.currentKeyPresses + 1,
     userText: userText,
     challengeView: {
       overallVerdict: updatedVerdict,
@@ -232,13 +239,17 @@ export const gameover = model => {
     ? [...model.hidden, ...model.locked]
     : model.hidden
 
-  if (model.userText && model.userText === model.challenge) {
+  const lastWordAchieved = model.userText && model.userText === model.challenge
+  if (lastWordAchieved) {
     hidden = [...hidden, model.challenge]
   }
+
+  let finalTotal = model.totalKeyPresses + (lastWordAchieved ? model.currentKeyPresses : 0)
 
   return {
     ...model,
     gameState: "over",
+    totalKeyPresses: finalTotal,
     userText: "",
     hidden: hidden,
     challenge: "",

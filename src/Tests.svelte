@@ -177,7 +177,6 @@
       const str = [
         "removes the given letters (plural) from all elements",
         JSON.stringify(withStringArg) === '["c","e","xyz","oq"]',
-        JSON.stringify(withStringArg),
       ];
 
       return [char, str, arr];
@@ -352,39 +351,91 @@
       ];
     });
 
-    test("The game tracks 'totalKeyPresses'", () => {
-      let m = initForScrolling("123 4");
-      const init = ["which starts at 0", m.totalKeyPresses === 0];
+    test("The game tracks 'currentKeyPresses' & 'totalKeyPresses'", () => {
+      let m = initForScrolling("12 34 56");
+      const init = [
+        "which both start at 0.",
+        m.totalKeyPresses === 0 && m.currentKeyPresses === 0,
+      ];
+
+      m = addSymbol(m, "1");
+      const firstChallenge1 = [
+        "During a challenge, 'currentKeyPresses' tracks each 'attempt'",
+        m.currentKeyPresses === 1,
+      ];
+
+      m = addSymbol(m, "2");
+      const firstChallenge2 = [
+        "while 'totalKeyPresses remains inert",
+        m.totalKeyPresses === 0 && m.currentKeyPresses === 2,
+      ];
+
       m = addSymbol(m, " ");
-      const sym = ["is incremented by spaces", m.totalKeyPresses === 1];
-      // *I decided to count backspaces in order to emphasize accuracy
-      //  over speed.
+      const firstChallengeDone = [
+        "When the challenge is complete, the count gets moved to 'totalKeyPresses'",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 0,
+      ];
+
+      m = addSymbol(m, " ");
+      const space = [
+        "Spaces get counted when they don't complete a challenge",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 1,
+      ];
+
       m = backspace(m);
-      const bckspc1 = ["as well as backspaces", m.totalKeyPresses === 2];
+      const bckspc1 = [
+        "as well as backspaces",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 2,
+      ];
+
       m = backspace(m);
       const bckspc2 = [
-        "unless there's nothing left to delete",
-        m.totalKeyPresses === 2,
+        "unless there's nothing left to delete.",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 2,
       ];
-      m = addSymbol(m, "1");
-      m = addSymbol(m, "2");
+
       m = addSymbol(m, "3");
-      const syms = [
-        "and by every regular symbol typed.",
-        m.totalKeyPresses === 5,
-      ];
-      m = addSymbol(m, " ");
-      const matching = [
-        "Spaces that trigger a word match count toward the total",
-        m.totalKeyPresses === 6,
-      ];
       m = addSymbol(m, "4");
       m = addSymbol(m, " ");
-      const gameover = [
-        "except for the game-ending space.",
-        m.totalKeyPresses === 7,
+      m = addSymbol(m, "5");
+
+      const done1 = [
+        "If the game ends mid-challenge, those keypresses aren't counted",
+        // total = 1234 + space + backspace ⇒ 6
+        m.totalKeyPresses === 6 && m.currentKeyPresses === 1,
       ];
-      return [init, sym, bckspc1, bckspc2, syms, matching, gameover];
+
+      m = addSymbol(m, "6");
+
+      const done2 = [
+        "But if the last word has been completed (without a terminal space) currentKeyPresses gets counted",
+        // total = 1234 + space + backspace ⇒ 6
+        m.totalKeyPresses === 8 && m.currentKeyPresses === 0,
+      ];
+
+      let x = initForScrolling("11 22");
+      x = addSymbol(x, "1");
+      x = addSymbol(x, "1");
+      x = gameover(x);
+
+      const done3 = [
+        "and this applies even if the game was ended on a timeout",
+        x.totalKeyPresses === 2,
+        x
+      ];
+
+      return [
+        init,
+        firstChallenge1,
+        firstChallenge2,
+        firstChallengeDone,
+        space,
+        bckspc1,
+        bckspc2,
+        done1,
+        done2,
+        done3,
+      ];
     });
 
     test("When the game is ended midstream (by, say, hitting the time limit)", () => {
@@ -694,6 +745,93 @@
         ],
       ];
     });
+
+    test("The game tracks 'currentKeyPresses' & 'totalKeyPresses'", () => {
+      let m = initForLineByLine(["12 34 56"]);
+      const init = [
+        "which both start at 0.",
+        m.totalKeyPresses === 0 && m.currentKeyPresses === 0,
+      ];
+
+      m = addSymbol(m, "1");
+      const firstChallenge1 = [
+        "During a challenge, 'currentKeyPresses' tracks each 'attempt'",
+        m.currentKeyPresses === 1,
+      ];
+
+      m = addSymbol(m, "2");
+      const firstChallenge2 = [
+        "while 'totalKeyPresses remains inert",
+        m.totalKeyPresses === 0 && m.currentKeyPresses === 2,
+      ];
+
+      m = addSymbol(m, " ");
+      const firstChallengeDone = [
+        "When the challenge is complete, the count gets moved to 'totalKeyPresses'",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 0,
+      ];
+
+      m = addSymbol(m, " ");
+      const space = [
+        "Spaces get counted when they don't complete a challenge",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 1,
+      ];
+
+      m = backspace(m);
+      const bckspc1 = [
+        "as well as backspaces",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 2,
+      ];
+
+      m = backspace(m);
+      const bckspc2 = [
+        "unless there's nothing left to delete.",
+        m.totalKeyPresses === 2 && m.currentKeyPresses === 2,
+      ];
+
+      m = addSymbol(m, "3");
+      m = addSymbol(m, "4");
+      m = addSymbol(m, " ");
+      m = addSymbol(m, "5");
+
+      const done1 = [
+        "If the game ends mid-challenge, those keypresses aren't counted",
+        // total = 1234 + space + backspace ⇒ 6
+        m.totalKeyPresses === 6 && m.currentKeyPresses === 1,
+      ];
+
+      m = addSymbol(m, "6");
+
+      const done2 = [
+        "But if the last word has been completed (without a terminal space) currentKeyPresses gets counted",
+        // total = 1234 + space + backspace ⇒ 6
+        m.totalKeyPresses === 8 && m.currentKeyPresses === 0,
+      ];
+
+      let x = initForLineByLine(["11 22"]);
+      x = addSymbol(x, "1");
+      x = addSymbol(x, "1");
+      x = gameover(x);
+
+      const done3 = [
+        "and this applies even if the game was ended on a timeout",
+        x.totalKeyPresses === 2,
+        x,
+      ];
+
+      return [
+        init,
+        firstChallenge1,
+        firstChallenge2,
+        firstChallengeDone,
+        space,
+        bckspc1,
+        bckspc2,
+        done1,
+        done2,
+        done3,
+      ];
+    });
   });
   // ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ modelTransformations ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
   //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ Your Tests Here ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
@@ -744,7 +882,7 @@
 
   onMount(() => {
     if (scrollTarget) {
-      scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollTarget.scrollIntoView({ behavior: "smooth", block: "center" });
     } else {
     }
   });
