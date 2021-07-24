@@ -11,7 +11,6 @@
   import Tests from "./Tests.svelte";
   import Game from "./Game.svelte";
   import { escapeHatch } from "./persistentStore";
-  import { lettersInLevel } from "./volatileStore";
   import MobileApology from "./MobileApology.svelte";
 
   let modeIndex = 0;
