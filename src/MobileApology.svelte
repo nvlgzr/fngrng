@@ -41,6 +41,8 @@
 
     div {
       @apply m-auto my-10;
+      color: #fff;
+      filter: drop-shadow(1px 2px 4px hsla(0, 0%, 0%, 0.3));
     }
 
     a {

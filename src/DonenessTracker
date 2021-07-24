@@ -5,19 +5,23 @@
 > 🎉
 
 # 🐝 Tasks/Ideas
-- Experiment: try replacing all arrow functions with `function`. Does anything break? Is it better? Worse? How?
+- Replace Notifications with https://github.com/zerodevx/svelte-toast
 
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 
-- Do a pass to address all NYI and/or TODO in code
+- Plan integration with navelgazer.club
 
 - Documentation / README
+  - Clean up (trash?) this doc
+  - Write README
 
-- Publish to Netlify…maybe with custom domain
+- Publish to Netlify…maybe with custom domain…maybe part of navelgazer.club?
+  - Add link to README.md
 
 - Rapid Beta smoke test: Get feedback from friends & fix any urgent issues reported
 
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
+  - Add link to post on ⌃I before publishing
 
 # Overview
 
