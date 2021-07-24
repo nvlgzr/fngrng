@@ -19,7 +19,9 @@
 </script>
 
 {#if $gameState === "over"}
-  {#if accuracy === "Perfect Accuracy!"}
+  {#if accurateKeyPresses === 0}
+    <div class="text-red-500">No words matched 🤭</div>
+  {:else if accuracy === "Perfect Accuracy!"}
     <div><span>Perfect Accuracy!</span></div>
   {:else}
     <div>accuracy this run <span>{accuracy}</span></div>

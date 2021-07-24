@@ -1,7 +1,6 @@
 # ✅ Things I Wanna Do Before Release
 
 # 🐞 Known Bugs
-- If timeout occurs before any words are scored, display custom string (instead of NaN%) 
 - Word score is getting doubled right at the end, but only in LineByLine
 - Keyboard shifting up and down is distracting
 
