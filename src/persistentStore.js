@@ -38,14 +38,14 @@ customKeyMap.subscribe(value => {
   localStorage.setItem("fngrng_customKeyMap", JSON.stringify(value));
 });
 
-export const layoutMaps = derived(customKeyMap, ($customKeyMap) => {
+export const keyMaps = derived(customKeyMap, ($customKeyMap) => {
   return { ...allLayoutMaps, custom: $customKeyMap }
 });
 
-export const layoutMap = derived(
-  [layoutMaps, currentLayout],
-  ([$layoutMaps, $currentLayout]) => {
-    return $layoutMaps[$currentLayout]
+export const keyMap = derived(
+  [keyMaps, currentLayout],
+  ([$keyMaps, $currentLayout]) => {
+    return $keyMaps[$currentLayout]
   }
 );
 

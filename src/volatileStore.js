@@ -3,7 +3,7 @@ import { alphabet, columnarKeyboard, standardKeyboard } from "./levelMappings.js
 import {
   letterSetsForCurrentLayout,
   currentLevel,
-  layoutMap,
+  keyMap,
   punctuationToInclude,
   fullSentenceModeEnabled,
   useColumnarLayout
@@ -71,8 +71,8 @@ export const lettersInLevel = derived(
 )
 
 export const configuredRows = derived(
-  [currentLevel, layoutMap, useColumnarLayout, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
-  ([$currentLevel, $layoutMap, $useColumnarLayout, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
+  [currentLevel, keyMap, useColumnarLayout, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
+  ([$currentLevel, $keyMap, $useColumnarLayout, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
 
     const activeCharacters = $fullSentenceModeEnabled ? alphabet + $punctuationToInclude : $lettersInLevel + $punctuationToInclude;
 
@@ -99,12 +99,12 @@ export const configuredRows = derived(
     const baseLayout = $useColumnarLayout ? columnarKeyboard : standardKeyboard
     const mapped = baseLayout.map(row => {
       // Ignore initial undefined state
-      if (!$layoutMap)
+      if (!$keyMap)
         return row
 
       // https://stackoverflow.com/a/37616104
       const activeMap = Object.fromEntries(
-        Object.entries($layoutMap).filter(
+        Object.entries($keyMap).filter(
           keyConfig => {
             const letter = keyConfig[1]
             return letter && activeCharacters.includes(letter)

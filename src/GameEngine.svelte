@@ -10,7 +10,7 @@
     maxWords,
     punctuationToInclude,
     keyRemapping,
-    layoutMap,
+    keyMap,
     currentLevel,
     currentLayout,
   } from "./persistentStore.js";
@@ -84,7 +84,7 @@
     }
 
     if (detail.length === 1) {
-      const letter = $keyRemapping ? remap(detail, $layoutMap) : detail;
+      const letter = $keyRemapping ? remap(detail, $keyMap) : detail;
       model = addSymbol(model, letter);
     }
   };

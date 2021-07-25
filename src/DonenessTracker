@@ -5,7 +5,10 @@
 > 🥳
 
 # 🐝 Tasks/Ideas
+
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
+
+- Design / impl. affordance to show mapping status
 
 - Plan integration with navelgazer.club
 

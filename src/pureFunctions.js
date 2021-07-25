@@ -101,9 +101,9 @@ export function clearLetterFromLevels(letter, levels) {
   return newCustomLevels
 }
 
-export function clearLetterFromKeyMap(letter, keyMap) {
+export function clearLetterFromKeyMap(letter, map) {
   let newKeyMap = {}
-  for (let [k, v] of Object.entries(keyMap)) {
+  for (let [k, v] of Object.entries(map)) {
     if (v === letter) {
       newKeyMap[k] = ''
     } else {
