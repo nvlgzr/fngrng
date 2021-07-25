@@ -1,5 +1,8 @@
+<script context="module">
+  import { success, warning } from "./Toasts.svelte";
+</script>
+
 <script>
-  import { getNotificationsContext } from "svelte-notifications";
   import Keystroke from "./Keystroke.svelte";
   import {
     uppercaseAllowed,
@@ -33,7 +36,7 @@
     switch (controlKey) {
       case "c":
         $uppercaseAllowed = !$uppercaseAllowed;
-        post(`Capitals ${$uppercaseAllowed ? "On" : "Off"}`);
+        success(`Capitals ${$uppercaseAllowed ? "On" : "Off"}`);
         break;
 
       case "p":
@@ -41,43 +44,47 @@
           // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
           //      PreferenceMenu, rather than properly refactoring.
           $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
-          post(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
+          success(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
         } else {
-          post("Turn off Custom layout (⇧⌃C) to enable Punctuation");
+          warning(
+            'Turn off Custom layout (<pre style="display:inline;">⇧⌃C</pre>) to enable Punctuation'
+          );
         }
         break;
 
       case "f":
         if ($currentLayout !== "custom") {
           $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
-          post(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
+          success(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
         } else {
-          post("Turn off Custom layout (⇧⌃C) to enable Full Sentences");
+          warning(
+            'Turn off Custom layout (<pre style="display:inline;">⇧⌃C</pre>) to enable Full Sentences'
+          );
         }
         break;
 
       case "s":
         $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
-        post(`Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`);
+        success(`Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`);
         break;
 
       case "t":
         $timeLimitModeEnabled = true;
         $isEditingTimeLimit = true;
         $isEditingWordLimit = false;
-        post(`Time Limit Mode ${$timeLimitModeEnabled ? "On" : "Off"}`);
+        success(`Time Limit Mode ${$timeLimitModeEnabled ? "On" : "Off"}`);
         break;
 
       case "w":
         $timeLimitModeEnabled = false;
         $isEditingWordLimit = true;
         $isEditingTimeLimit = false;
-        post(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
+        success(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
         break;
 
       case "k":
         $keyRemapping = !$keyRemapping;
-        post(`Key Remapping ${$keyRemapping ? "On" : "Off"}`);
+        success(`Key Remapping ${$keyRemapping ? "On" : "Off"}`);
         break;
 
       case "l":
@@ -138,7 +145,9 @@
 
       case "C":
         if ($fullSentenceModeEnabled) {
-          post("Turn off Full Sentence mode (⌃F) to enable Custom layout");
+          warning(
+            'Turn off Full Sentence mode (<pre style="display:inline;">⌃F</pre>) to enable Custom layout'
+          );
         } else {
           $useCustomLayout = !$useCustomLayout;
         }
@@ -147,17 +156,6 @@
       default:
         break;
     }
-  };
-
-  // Used to confirm keyboard shortcut results
-  const { addNotification } = getNotificationsContext();
-
-  const post = (text) => {
-    addNotification({
-      text: text,
-      position: "top-center",
-      removeAfter: 2500,
-    });
   };
 
   const maybeSwitchLevel = (controlKey) => {

@@ -27,7 +27,6 @@
     "tailwindcss": "^2.2.4"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0",
-    "svelte-notifications": "^0.9.91"
+    "sirv-cli": "^1.0.0"
   }
 }

@@ -1,6 +1,6 @@
 <script>
   import Tailwindcss from "./Tailwindcss.svelte";
-  import Notifications from "svelte-notifications";
+  import Toasts from "./Toasts.svelte";
   import Keystroke from "./Keystroke.svelte";
   import GameEngine from "./GameEngine.svelte";
   import Shortcuts from "./Shortcuts.svelte";
@@ -27,31 +27,30 @@
 </script>
 
 <Tailwindcss />
+<Toasts />
 
 <Keystroke on:stroke={globalToggles} />
 
-<Notifications>
-  {#if $escapeHatch === "app"}
-    <!-- Headless Components-->
-    <GameEngine bind:model />
-    <Shortcuts bind:model />
+{#if $escapeHatch === "app"}
+  <!-- Headless Components-->
+  <GameEngine bind:model />
+  <Shortcuts bind:model />
 
-    <!-- Visible UX -->
-    <div>
-      <Nav {model} />
-      <LayoutHeader />
-      <Game {model} />
-      <KeyboardWithControls />
-    </div>
+  <!-- Visible UX -->
+  <div>
+    <Nav {model} />
+    <LayoutHeader />
+    <Game {model} />
+    <KeyboardWithControls />
+  </div>
 
-    <!-- Mobile Punt -->
-    <MobileApology />
-  {:else if $escapeHatch === "tests"}
-    <Tests />
-  {:else}
-    <Playground />
-  {/if}
-</Notifications>
+  <!-- Mobile Punt -->
+  <MobileApology />
+{:else if $escapeHatch === "tests"}
+  <Tests />
+{:else}
+  <Playground />
+{/if}
 
 <svelte:head>
   {#if $escapeHatch === "app"}

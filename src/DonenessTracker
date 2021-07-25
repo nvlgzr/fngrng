@@ -5,8 +5,6 @@
 > 🎉
 
 # 🐝 Tasks/Ideas
-- Replace Notifications with https://github.com/zerodevx/svelte-toast
-
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
 
 - Plan integration with navelgazer.club
