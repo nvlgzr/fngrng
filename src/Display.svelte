@@ -66,7 +66,7 @@
       on={$punctuationToInclude !== ""}
       disabled={$fullSentenceModeEnabled || $currentLayout === "custom"}
       tooltip={$currentLayout === "custom"
-        ? "Turn off Custom layout (⇧⌃C) to enable Punctuation"
+        ? `Add punctuation to your Custom layout to practice words like "yrs.", "shan't", and "good-looking".\n\nCurrently supported punctuation:  period (.) apostrophe (') and hypen (-)`
         : $fullSentenceModeEnabled
         ? "Full sentence mode automatically includes Punctuation"
         : "Click to enable words with dots, dashes, and apostrophes"}

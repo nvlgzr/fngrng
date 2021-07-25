@@ -2,8 +2,9 @@
   import { toast } from "@zerodevx/svelte-toast";
   import { SvelteToast } from "@zerodevx/svelte-toast";
 
-  export const success = (m) =>
+  export const success = (m, opts) =>
     toast.push(m, {
+      ...opts,
       theme: {
         "--toastBackground": "hsl(145, 50%, 96%)",
         "--toastColor": "hsl(161, 40%, 55%)",
@@ -11,8 +12,9 @@
       },
     });
 
-  export const warning = (m) =>
+  export const warning = (m, opts) =>
     toast.push(m, {
+      ...opts,
       theme: {
         // Based on tailwind orange
         "--toastBackground": "hsl(34, 100%, 96%)",
@@ -21,8 +23,9 @@
       },
     });
 
-  export const failure = (m) =>
+  export const failure = (m, opts) =>
     toast.push(m, {
+      ...opts,
       theme: {
         "--toastBackground": "hsl(360, 50%, 96%)",
         "--toastColor": "hsl(360, 50%, 65%)",
@@ -35,7 +38,7 @@
   <SvelteToast
     options={{
       // duration: 50000, // Uncomment to keep onscreen during dev
-      intro: { y: -64 },
+      intro: { y: 64 },
       theme: {
         "--toastBorderRadius": "0.45rem", // #hackalert. This matches magic number in Keyboard.svelte
         "--toastMsgPadding": "1.5rem",
@@ -48,7 +51,13 @@
 <style lang="postcss">
   div {
     --toastBorderRadius: 0.45rem;
-    --toastContainerTop: 2rem;
+    /* --toastContainerTop: 2rem; */
+
+    --toastContainerTop: auto;
+    --toastContainerRight: 2rem;
+    --toastContainerBottom: 1.25rem;
+    --toastContainerLeft: 2rem;
+
     --toastWidth: 28ch;
     @apply font-sans text-2xl;
   }

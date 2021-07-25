@@ -2,7 +2,7 @@
 
 # 🐞 Known Bugs
 
-> 🎉
+- Duplicate Word Score and Clock appear briefly after submitting an updated input value
 
 # 🐝 Tasks/Ideas
 - Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?

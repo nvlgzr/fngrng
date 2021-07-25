@@ -1,5 +1,5 @@
 <script context="module">
-  import { success, warning } from "./Toasts.svelte";
+  import { success, warning, failure } from "./Toasts.svelte";
 </script>
 
 <script>
@@ -35,27 +35,39 @@
   const handleControlShortcut = (controlKey) => {
     switch (controlKey) {
       case "c":
-        $uppercaseAllowed = !$uppercaseAllowed;
-        success(`Capitals ${$uppercaseAllowed ? "On" : "Off"}`);
+        if (!$fullSentenceModeEnabled) {
+          $uppercaseAllowed = !$uppercaseAllowed;
+          if ($uppercaseAllowed) success("Capitals On");
+          else failure("Capitals Off");
+        } else {
+          warning(
+            'Turn off Full Sentences (<pre style="display:inline;">⌃F</pre>) to toggle Capital Letters'
+          );
+        }
         break;
 
       case "p":
-        if ($currentLayout !== "custom") {
+        if ($fullSentenceModeEnabled || $currentLayout === "custom") {
+          warning(
+            $fullSentenceModeEnabled
+              ? 'Turn off Full Sentences (<pre style="display:inline;">⌃F</pre>) to toggle Punctuation'
+              : `Add punctuation to your Custom layout to practice words like "yrs.", "shan't", and "good-looking".<br /><br />Currently supported punctuation: period (.) apostrophe (') and hypen (-)`,
+            { duration: $fullSentenceModeEnabled ? 5000 : 10000 }
+          );
+        } else {
           // ↓ ⚠️ Hack alert! This lazily duplicates toggle in
           //      PreferenceMenu, rather than properly refactoring.
           $punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "";
-          success(`Punctuation ${$punctuationToInclude === "" ? "Off" : "On"}`);
-        } else {
-          warning(
-            'Turn off Custom layout (<pre style="display:inline;">⇧⌃C</pre>) to enable Punctuation'
-          );
+          if ($punctuationToInclude === "") failure("Punctuation Off");
+          else success("Punctuation On");
         }
         break;
 
       case "f":
         if ($currentLayout !== "custom") {
           $fullSentenceModeEnabled = !$fullSentenceModeEnabled;
-          success(`Full Sentences ${$fullSentenceModeEnabled ? "On" : "Off"}`);
+          if ($fullSentenceModeEnabled) success("Full Sentences On");
+          else failure("Full Sentences Off");
         } else {
           warning(
             'Turn off Custom layout (<pre style="display:inline;">⇧⌃C</pre>) to enable Full Sentences'
@@ -65,26 +77,30 @@
 
       case "s":
         $wordScrollingModeEnabled = !$wordScrollingModeEnabled;
-        success(`Word Scrolling ${$wordScrollingModeEnabled ? "On" : "Off"}`);
+        if ($wordScrollingModeEnabled) success("Word Scrolling On");
+        else failure("Word Scrolling Off");
         break;
 
       case "t":
         $timeLimitModeEnabled = true;
         $isEditingTimeLimit = true;
         $isEditingWordLimit = false;
-        success(`Time Limit Mode ${$timeLimitModeEnabled ? "On" : "Off"}`);
+        if ($timeLimitModeEnabled) success("Time Limit Mode On");
+        else failure("Time Limit Mode Off");
         break;
 
       case "w":
         $timeLimitModeEnabled = false;
         $isEditingWordLimit = true;
         $isEditingTimeLimit = false;
-        success(`Word Limit Mode ${$timeLimitModeEnabled ? "Off" : "On"}`);
+        if (!$timeLimitModeEnabled) success("Word Limit Mode On");
+        else failure("Word Limit Mode Off");
         break;
 
       case "k":
         $keyRemapping = !$keyRemapping;
-        success(`Key Remapping ${$keyRemapping ? "On" : "Off"}`);
+        if ($keyRemapping) success("Key Remapping On");
+        else failure("Key Remapping Off");
         break;
 
       case "l":
