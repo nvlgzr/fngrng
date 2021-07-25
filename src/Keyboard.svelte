@@ -135,7 +135,7 @@
     border-width: 0.1rem;
     border-style: solid;
     height: 80%;
-    width: 6%;
+    width: 5.5%;
     opacity: 0.5;
     border-radius: 0.45rem;
     vertical-align: top;

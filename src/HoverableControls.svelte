@@ -1,6 +1,5 @@
 <script>
   import Hoverable from "./Hoverable.svelte";
-  import { gameState } from "./volatileStore";
 
   // Class passing pattern discovered here: https://svelte.dev/repl/299bec14c8154ad89eb53f3d18ba2a37?version=3.24.0
   export { className as class };
@@ -13,7 +12,7 @@
       <section
         class="above"
         style={`opacity: ${
-          $gameState !== "over" && hovering ? 1 : 0
+          hovering ? 1 : 0
         }; transition: all ${transitionDuration}`}
       >
         <slot name="above" {hovering} />
@@ -24,7 +23,7 @@
       <section
         class="below"
         style={`opacity: ${
-          $gameState !== "over" && hovering ? 1 : 0
+          hovering ? 1 : 0
         }; transition: all ${transitionDuration}`}
       >
         <slot name="below" {hovering} />
