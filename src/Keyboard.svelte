@@ -190,6 +190,10 @@
     width: 36.71875%;
   }
 
+  #mapping-status > span {
+    @apply normal-case text-purple-400 text-sm;
+  }
+
   .inactive {
     opacity: 0.6;
     @apply border-coolGray-500;

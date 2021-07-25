@@ -6,7 +6,9 @@ import {
   keyMap,
   punctuationToInclude,
   fullSentenceModeEnabled,
-  useColumnarLayout
+  useColumnarLayout,
+  keyRemapping,
+  currentLayout
 } from "./persistentStore.js"
 
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
@@ -70,8 +72,8 @@ export const lettersInLevel = derived(
 )
 
 export const configuredRows = derived(
-  [currentLevel, keyMap, useColumnarLayout, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled],
-  ([$currentLevel, $keyMap, $useColumnarLayout, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled]) => {
+  [currentLevel, currentLayout, keyMap, useColumnarLayout, punctuationToInclude, letterSetsForCurrentLayout, lettersInLevel, fullSentenceModeEnabled, keyRemapping],
+  ([$currentLevel, $currentLayout, $keyMap, $useColumnarLayout, $punctuationToInclude, $letterSetsForCurrentLayout, $lettersInLevel, $fullSentenceModeEnabled, $keyRemapping]) => {
 
     const activeCharacters = $fullSentenceModeEnabled ? alphabet + $punctuationToInclude : $lettersInLevel + $punctuationToInclude;
 
@@ -116,7 +118,13 @@ export const configuredRows = derived(
       )
 
       return row.map(letterConfig => {
-        if (!letterConfig.id || !activeMap[letterConfig.id])
+        if (letterConfig.id === "mapping-status" && !$keyRemapping)
+          return {
+            ...letterConfig,
+            letter: $currentLayout !== "custom" ? `Layout Imitation Off` : ""
+          }
+        else if (!letterConfig.id || !activeMap[letterConfig.id])
+
           return {
             ...letterConfig,
             letter: ""

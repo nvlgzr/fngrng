@@ -6,9 +6,8 @@
 
 # 🐝 Tasks/Ideas
 
-- Design / impl. affordance to show mapping status
-
 - Extract Reusable/Shareable components
+  - Try this: https://betterprogramming.pub/creating-a-package-for-svelte-f44fccbc886b
 
 - Plan integration with navelgazer.club
 

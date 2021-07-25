@@ -70,9 +70,10 @@
     {#if $lettersInLevel.length}
       <Toggle
         bind:on={$keyRemapping}
-        tooltip={$keyRemapping
-          ? `Click to use your keyboard's layout`
-          : `Click to map from qwerty to ${$currentLayout}`}
+        disabled={$currentLayout === "custom"}
+        tooltip={$currentLayout === "custom"
+          ? "Layout Imitation cannot be turned off in Custom layout mode"
+          : $keyRemapping}
       >
         Imitate Layout ⌃I
       </Toggle>
