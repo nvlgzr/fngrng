@@ -6,8 +6,6 @@
 
 # 🐝 Tasks/Ideas
 
-- Do a 'naming pass' for consistency. E.g., is it "layoutMap" or "keyMap" or…something clearer?
-
 - Design / impl. affordance to show mapping status
 
 - Extract Reusable/Shareable components
@@ -24,7 +22,7 @@
 - Rapid Beta smoke test: Get feedback from friends & fix any urgent issues reported
 
 - Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
-  - Add link to post on ⌃I before publishing
+  - Add link to post on ⌃? before publishing
 
 # Overview
 
@@ -35,7 +33,7 @@ Here's a quick summary of the component hierarchy
   - CurrentLevel
   - WordScore
   - Clock
-  - ⌃I (info slideout…NYI)
+  - ⌃? (info slideout…NYI)
 - Layout Header
 - Game
   - PlayTime

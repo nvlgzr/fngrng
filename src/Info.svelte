@@ -10,19 +10,19 @@
   const toggle = () => (show = !show);
 
   const onCombo = ({ detail }) => {
-    if (detail === "Control+i") toggle();
+    if (detail === "Control+/") toggle();
   };
 </script>
 
 <Keystroke on:combo={onCombo} />
 
-<span on:click={toggle} title="Click to reveal Info panel">⌃I</span>
+<span on:click={toggle} title="Click to reveal Info panel">⌃?</span>
 
 <section class:show>
   <div class="central">
     <MainInfo />
   </div>
-  <div class="close" on:click={toggle} title="Click to hide Info panel">⌃I</div>
+  <div class="close" on:click={toggle} title="Click to hide Info panel">⌃?</div>
   <div class="colophon">
     <CornerInfo>
       colophon

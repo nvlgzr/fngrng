@@ -86,7 +86,7 @@
     <summary>text-red-500 text-opacity-70</summary>
     <div>hsla(0, 79%, 63%, 0.7) filter: blur(0.4px)</div>
     <div id="mainInfoControl">MainInfo: control</div>
-    <div class="close">Info: ⌃I (to close)</div>
+    <div class="close">Info: ⌃? (to close)</div>
   </details>
 
   <details class="text-red-500 done">
@@ -175,7 +175,7 @@
   <div class="bg-coolGray-100 text-yellow-400 done">HoverableMenu: menu</div>
   <div id="wordScoreHovering" class="done">HoverableWordScore: hovering</div>
   <div id="infoSection" class="done">Info: section</div>
-  <div class="close done">Info: ⌃I (to close)</div>
+  <div class="close done">Info: ⌃? (to close)</div>
   <div class="text-red-400 done">Input: redden</div>
   <div id="keyboardDefault" class="done">Keyboard: --default-key-color</div>
   <div id="keyboardActive" class="done">Keyboard: --active-keys</div>

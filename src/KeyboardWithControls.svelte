@@ -71,10 +71,10 @@
       <Toggle
         bind:on={$keyRemapping}
         tooltip={$keyRemapping
-          ? `Click to turn off key remapping`
+          ? `Click to use your keyboard's layout`
           : `Click to map from qwerty to ${$currentLayout}`}
       >
-        Keyboard Remapping ⌃K
+        Imitate Layout ⌃I
       </Toggle>
 
       <Toggle
@@ -83,7 +83,7 @@
           ? "Click to arrange keys in 'standard' diaglonal layout"
           : "Click to arrange keys in split-hand grid layout"}
       >
-        Ortholinear Layout ⌃L
+        Keys in Columns ⌃K
       </Toggle>
 
       <Toggle

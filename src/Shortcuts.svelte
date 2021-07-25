@@ -97,13 +97,13 @@
         else failure("Word Limit Mode Off");
         break;
 
-      case "k":
+      case "i":
         $keyRemapping = !$keyRemapping;
-        if ($keyRemapping) success("Key Remapping On");
-        else failure("Key Remapping Off");
+        if ($keyRemapping) success("Imitate Layout On");
+        else failure("Imitate Layout Off");
         break;
 
-      case "l":
+      case "k":
         $useColumnarLayout = !$useColumnarLayout;
         // No notification needed…the effect's highly visible
         break;
