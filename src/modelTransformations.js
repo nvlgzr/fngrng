@@ -196,7 +196,7 @@ const addIncompleteSymbol = (model, sym) => {
   const view = evaluate(model.challenge, userText)
   return {
     ...model,
-    gameState: "on",
+    gameState: "on", // Game begins when user starts typing in input
     currentKeyPresses: model.currentKeyPresses + 1,
     userText: userText,
     challengeView: view

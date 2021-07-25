@@ -9,7 +9,6 @@ import {
   useColumnarLayout
 } from "./persistentStore.js"
 
-// Game begins when user starts typing in input
 export const gameState = writable('ready'); // 'ready' → 'on' → 'over' ↵
 
 const time = readable(new Date(), function start(set) {
@@ -87,12 +86,16 @@ export const configuredRows = derived(
     }
 
     function activeClassFor(letter) {
-      if (!letter || !activeCharacters.includes(letter)) return "inactive";
+      if (!letter || !activeCharacters.includes(letter))
+        return "inactive";
 
-      if (nonLetter(letter)) return "punctuation";
+      if (nonLetter(letter))
+        return "punctuation";
 
       const levelIndex = letterLevelIndex(letter);
-      if (!$fullSentenceModeEnabled && levelIndex === $currentLevel - 1) return "newInThisLevel";
+      if (!$fullSentenceModeEnabled && levelIndex === $currentLevel - 1)
+        return "newInThisLevel";
+
       return "active";
     }
 
