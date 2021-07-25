@@ -10,6 +10,7 @@ module.exports = {
       coolGray: {
         100: "hsl(220deg 14% 99%)",
         200: "hsla(220, 13%, 91%, 0.5)",
+        300: "hsl(220, 13%, 80%)",
         400: colors.coolGray[400],
         500: colors.coolGray[500],
         700: colors.coolGray[700],

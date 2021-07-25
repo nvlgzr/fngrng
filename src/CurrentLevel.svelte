@@ -93,8 +93,8 @@
             }}
             selected={level.level === $currentLevel}
           >
-            {level.level}
-            {level.letters}
+            Level {level.level}
+            <span class="text-coolGray-300 contents">{level.letters}</span>
           </MenuItem>
         </span>
       {/each}
@@ -105,7 +105,7 @@
 <style lang="postcss">
   div {
     /* Min. needed to prevent "all letters" menu from wrapping ↓ */
-    min-width: 19rem;
+    min-width: 25rem;
   }
 
   .chevron {
