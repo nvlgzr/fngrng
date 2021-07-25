@@ -19,6 +19,8 @@
     secondsSinceStart,
     lettersInLevel,
     isEditingCustomKeyMap,
+    isEditingTimeLimit,
+    isEditingWordLimit,
   } from "./volatileStore.js";
   import {
     addSymbol,
@@ -77,6 +79,10 @@
   }
 
   const handleKey = ({ detail }) => {
+    if ($isEditingCustomKeyMap || $isEditingWordLimit || $isEditingTimeLimit) {
+      return;
+    }
+
     if (detail.length === 1) {
       const letter = $keyRemapping ? remap(detail, $layoutMap) : detail;
       model = addSymbol(model, letter);

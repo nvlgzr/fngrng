@@ -2,8 +2,6 @@
 
 # 🐞 Known Bugs
 
-- Typing in inputs should be ignored by game
-
 - Don't hide controls on keyboard on game over
 
 - Duplicate Word Score and Clock appear briefly after submitting an updated input value
