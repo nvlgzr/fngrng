@@ -1,5 +1,5 @@
 <script>
-  import Keystroke from "./Keystroke.svelte";
+  import Keystroke from "svelte-keystroke";
   import randomPassage from "./randomPassage.js";
   import {
     uppercaseAllowed,

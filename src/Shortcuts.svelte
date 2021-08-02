@@ -3,7 +3,7 @@
 </script>
 
 <script>
-  import Keystroke from "./Keystroke.svelte";
+  import Keystroke from "svelte-keystroke";
   import {
     uppercaseAllowed,
     fullSentenceModeEnabled,

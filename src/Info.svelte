@@ -1,7 +1,7 @@
 <script>
   import ClickToClose from "./ClickToClose.svelte";
   import CornerInfo from "./CornerInfo.svelte";
-  import Keystroke from "./Keystroke.svelte";
+  import Keystroke from "svelte-keystroke";
   import MainInfo from "./MainInfo.svelte";
 
   let show = false;

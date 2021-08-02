@@ -1,5 +1,5 @@
 <script>
-  import Keystroke from "./Keystroke.svelte";
+  import Keystroke from "svelte-keystroke";
   import ClickToClose from "./ClickToClose.svelte";
   import { isEditingTimeLimit, secondsSinceStart } from "./volatileStore.js";
   import { timeLimitModeEnabled, maxSeconds } from "./persistentStore.js";

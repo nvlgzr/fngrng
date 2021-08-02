@@ -1,7 +1,7 @@
 <script>
   import Tailwindcss from "./Tailwindcss.svelte";
   import Toasts from "./Toasts.svelte";
-  import Keystroke from "./Keystroke.svelte";
+  import Keystroke from "svelte-keystroke";
   import GameEngine from "./GameEngine.svelte";
   import Shortcuts from "./Shortcuts.svelte";
   import Nav from "./Nav.svelte";
