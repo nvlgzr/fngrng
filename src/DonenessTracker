@@ -1,13 +1,8 @@
 # ✅ Things I Wanna Do Before Release
 
-# 🐞 Known Bugs
-
-> 🥳
-
 # 🐝 Tasks/Ideas
 
-- Extract Reusable/Shareable components
-  - Try this: https://betterprogramming.pub/creating-a-package-for-svelte-f44fccbc886b
+- Extract Keystroke ⇒ npm
 
 - Plan integration with navelgazer.club
 
