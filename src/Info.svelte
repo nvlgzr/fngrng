@@ -29,7 +29,9 @@
       <span slot="content">
         <p>built with <a href="https://svelte.dev">svelte</a></p>
         <p>inspired by <a href="http://colemak.academy">colemak.academy</a></p>
-        <p>fonts: tauri + cochin</p>
+        <p>
+          fonts: <a href="https://fonts.google.com/specimen/Tauri">tauri</a> + cochin
+        </p>
       </span>
     </CornerInfo>
   </div>
@@ -37,8 +39,12 @@
     <CornerInfo>
       community
       <span slot="content">
-        <p>fngrng <a href="NYI">feedback</a></p>
-        <p>and contributes on <a href="NYI">github</a></p>
+        <p>
+          fngrng <a href="https://github.com/nvlgzr/fngrng/issues/new/choose"
+            >feedback</a
+          >
+        </p>
+        <p>contribute <a href="https://github.com/nvlgzr/fngrng">code</a></p>
         <p>introductory <a href="NYI">blog post</a></p>
       </span>
     </CornerInfo>
