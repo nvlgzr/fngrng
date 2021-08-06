@@ -23,7 +23,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
     "svelte": "^3.0.0",
-    "svelte-keystroke": "file:../../../../../../usr/local/lib/node_modules/svelte-keystroke",
+    "svelte-keystroke": "^1.0.3",
     "svelte-preprocess": "^4.7.3",
     "tailwindcss": "^2.2.4"
   },
