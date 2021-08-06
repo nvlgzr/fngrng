@@ -49,7 +49,7 @@
 </div>
 
 <style lang="postcss">
-  div {
+  :root {
     --toastBorderRadius: 0.45rem;
     /* --toastContainerTop: 2rem; */
 
@@ -59,6 +59,8 @@
     --toastContainerLeft: 2rem;
 
     --toastWidth: 28ch;
+  }
+  div {
     @apply font-sans text-2xl;
   }
 </style>
