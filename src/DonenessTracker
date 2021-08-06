@@ -1,46 +1,20 @@
 # ✅ Things I Wanna Do Before Release
 
-# 🐞 Known Bugs
-
-> 🥳
-
 # 🐝 Tasks/Ideas
 
-- Extract Reusable/Shareable components
-  - Try this: https://betterprogramming.pub/creating-a-package-for-svelte-f44fccbc886b
-
-- Plan integration with navelgazer.club
-
-- Documentation / README
-  - Clean up (trash?) this doc
-  - Write README
-
-- Publish to Netlify…maybe with custom domain…maybe part of navelgazer.club?
-  - Add link to README.md
+- Add links to ^?
+  - feedback ==> Github issues
+  - github ==> Github main
+  - blog post ==> Notion ==> dev.to / Medium
 
 - Rapid Beta smoke test: Get feedback from friends & fix any urgent issues reported
 
-- Write dev.to post, & post to Reddits for ergodoz/moonlander/colemak
+- Spread the word
+  - Post to twitter & dev.to & ergodoz/moonlander/colemak reddits
+    - Create @nvlgzr accounts on Twitter, dev.to & reddit
+
+- Write dev.to post, & post to Reddits for 
   - Add link to post on ⌃? before publishing
-
-# Overview
-
-Here's a quick summary of the component hierarchy
-
-- Nav
-  - Logo
-  - CurrentLevel
-  - WordScore
-  - Clock
-  - ⌃? (info slideout…NYI)
-- Layout Header
-- Game
-  - PlayTime
-    - Display
-    - Input
-  - GameOver
-- Keyboard
-  - Toggles
 
 # Playground & Tests
 
