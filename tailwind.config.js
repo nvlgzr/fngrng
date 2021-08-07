@@ -38,7 +38,7 @@ module.exports = {
     },
     fontFamily: {
       'sans': "Tauri, sans-serif",
-      'serif': "Cochin, serif"
+      'serif': "'Libre Baskerville', serif"
     },
     extend: {
       width: {

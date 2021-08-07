@@ -91,9 +91,10 @@
   div {
     @apply h-56;
     @apply font-serif;
-    @apply text-5xl text-coolGray-900;
+    @apply text-coolGray-900;
     @apply flex justify-center;
     transition: all var(--duration);
+    font-size: 2.75rem;
   }
 
   .aligncenter {

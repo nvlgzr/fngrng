@@ -30,7 +30,10 @@
         <p>built with <a href="https://svelte.dev">svelte</a></p>
         <p>inspired by <a href="http://colemak.academy">colemak.academy</a></p>
         <p>
-          fonts: <a href="https://fonts.google.com/specimen/Tauri">tauri</a> + cochin
+          fonts: <a href="https://fonts.google.com/specimen/Tauri">tauri</a> +
+          <a href="https://fonts.google.com/specimen/Libre+Baskerville"
+            >libre baskerville</a
+          >
         </p>
       </span>
     </CornerInfo>
