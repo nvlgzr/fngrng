@@ -47,23 +47,27 @@
     let:hovering
     style={`transition: all ${transitionDuration}`}
   >
-    <Outline class={hovering ? borderHoverClass : borderClass}>
-      <div class={hovering ? borderHoverClass : borderClass}>
-        <Keyboard />
-        {#if custom}
-          {#if playable}
-            <p>
-              <em>click</em> + type to remap 𐏐 <em>click</em> + backspace to clear
-              𐏐 esc to cancel
-            </p>
-          {:else if $isEditingCustomKeyMap}
-            <p>type a letter from 'a' to 'z', or ".", "'", or "-"</p>
-          {:else}
-            <p>…then <em>click</em> any key to edit</p>
+    {#if $keyRemapping}
+      <Outline class={hovering ? borderHoverClass : borderClass}>
+        <div class={hovering ? borderHoverClass : borderClass}>
+          <Keyboard />
+          {#if custom}
+            {#if playable}
+              <p>
+                <em>click</em> + type to remap 𐏐 <em>click</em> + backspace to clear
+                𐏐 esc to cancel
+              </p>
+            {:else if $isEditingCustomKeyMap}
+              <p>type a letter from 'a' to 'z', or ".", "'", or "-"</p>
+            {:else}
+              <p>…then <em>click</em> any key to edit</p>
+            {/if}
           {/if}
-        {/if}
-      </div>
-    </Outline>
+        </div>
+      </Outline>
+    {:else}
+      <div class="remapping-off">Layout Imitation Off</div>
+    {/if}
   </span>
 
   <span slot="above">
@@ -110,5 +114,14 @@
 
   p {
     @apply text-xl text-center;
+  }
+
+  .remapping-off {
+    @apply text-5xl text-red-300;
+    display: flex;
+    height: 20vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
   }
 </style>
