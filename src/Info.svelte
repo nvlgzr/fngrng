@@ -16,7 +16,8 @@
 
 <Keystroke on:combo={onCombo} />
 
-<span on:click={toggle} title="Click to reveal Info panel">⌃?</span>
+<span class="open" on:click={toggle} title="Click to reveal Info panel">⌃?</span
+>
 
 <section class:show>
   <div class="central">
@@ -57,7 +58,7 @@
 <ClickToClose bind:falseToClose={show} transparent={false} />
 
 <style lang="postcss">
-  span,
+  .open,
   .close {
     cursor: pointer;
   }
