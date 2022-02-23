@@ -6,7 +6,7 @@
       > is useless without a hardware keyboard, so I haven't bothered making it mobile-friendly.
       Sorry 'bout that!
     </div>
-    <div>Learn more <a href="NYI">here</a>.</div>
+    <div>Learn more <a href="https://github.com/nvlgzr/fngrng">here</a>.</div>
   </div>
 </section>
 
