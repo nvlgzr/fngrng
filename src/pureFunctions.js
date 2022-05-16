@@ -1,74 +1,79 @@
 export const objectize = (wordOrWords, color = "") => {
-  if (!wordOrWords) return wordOrWords
+  if (!wordOrWords) return wordOrWords;
 
   if (typeof wordOrWords === "string")
-    return wordOrWords.split("").map((char => {
-      return color ? { char: char, color: color } : { char: char }
-    })
-    )
+    return wordOrWords.split("").map((char) => {
+      return color ? { char: char, color: color } : { char: char };
+    });
 
-  return wordOrWords.map(w => {
+  return wordOrWords.map((w) => {
     return [...w].map((char) => {
-      return color ? { char: char, color: color } : { char: char }
-    })
-  })
-}
+      return color ? { char: char, color: color } : { char: char };
+    });
+  });
+};
 
 export const cutOrFill = (phrase, targetNumber) => {
-  let sliced = phrase.split(" ")
-  while (sliced.length < targetNumber)
-    sliced = [...sliced, ...sliced]
-  return sliced.slice(0, targetNumber).join(' ')
-}
+  let sliced = phrase.split(" ");
+  while (sliced.length < targetNumber) sliced = [...sliced, ...sliced];
+  return sliced.slice(0, targetNumber).join(" ");
+};
 
 export const lineify = (phrase, maxWords = 70, maxLettersPerLine = 35) => {
-  const resized = cutOrFill(phrase, maxWords)
+  const resized = cutOrFill(phrase, maxWords);
 
-  const adjustedMax = maxLettersPerLine + 1 // + 1 grabs trailing " "
-  const phraseWithTerminalSpace = resized + " "
-  let i = 0
-  let j = i + adjustedMax
-  let candidate = ""
-  let lines = []
-  let wordCount = 0
+  const adjustedMax = maxLettersPerLine + 1; // + 1 grabs trailing " "
+  const phraseWithTerminalSpace = resized + " ";
+  let i = 0;
+  let j = i + adjustedMax;
+  let candidate = "";
+  let lines = [];
+  let wordCount = 0;
 
-  while ((candidate = phraseWithTerminalSpace.slice(i, j)) && wordCount <= maxWords) {
-    const lastSpaceInCandidate = candidate.lastIndexOf(" ")
-    j = i + lastSpaceInCandidate + 1 // + 1 discards trailing " "
+  while (
+    (candidate = phraseWithTerminalSpace.slice(i, j)) &&
+    wordCount <= maxWords
+  ) {
+    const lastSpaceInCandidate = candidate.lastIndexOf(" ");
+    j = i + lastSpaceInCandidate + 1; // + 1 discards trailing " "
 
-    let words = resized.slice(i, j).split(" ").filter(w => w.length)
+    let words = resized
+      .slice(i, j)
+      .split(" ")
+      .filter((w) => w.length);
 
-    wordCount += words.length
+    wordCount += words.length;
 
     if (wordCount > maxWords) {
-      const overage = wordCount - maxWords
-      words = words.slice(0, words.length - overage)
+      const overage = wordCount - maxWords;
+      words = words.slice(0, words.length - overage);
     }
 
-    i = j
-    j = i + adjustedMax
+    i = j;
+    j = i + adjustedMax;
 
-    lines.push(words.join(" "))
+    lines.push(words.join(" "));
   }
-  return lines
-}
+  return lines;
+};
 
 export const leftMinusRight = (left, right) =>
-  [...(new Set(left))].filter(el => !(new Set(right).has(el)))
+  [...new Set(left)].filter((el) => !new Set(right).has(el));
 
 export function filterWordList(wordList, lettersToInclude) {
-  const allValidLetters = (l, r) => leftMinusRight(l, r).length === 0
+  const allValidLetters = (l, r) => leftMinusRight(l, r).length === 0;
 
-  return wordList.filter((word) => allValidLetters(word, lettersToInclude))
+  return wordList.filter((word) => allValidLetters(word, lettersToInclude));
 }
 
 // Fisher-Yates shuffle: https://bost.ocks.org/mike/shuffle/
 export function shuffle(array) {
-  var m = array.length, t, i;
+  var m = array.length,
+    t,
+    i;
 
   // While there remain elements to shuffle…
   while (m) {
-
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
 
@@ -82,33 +87,32 @@ export function shuffle(array) {
 }
 
 export function remap(letter, mapping) {
-  let mapped = mapping[letter]
+  let mapped = mapping[letter];
 
-  if (!mapped && mapping.shiftLayer)
-    mapped = mapping.shiftLayer[letter]
+  if (!mapped && mapping.shiftLayer) mapped = mapping.shiftLayer[letter];
 
   if (!mapped && /[A-Z]/.test(letter))
-    mapped = mapping[letter.toLowerCase()].toUpperCase()
+    mapped = mapping[letter.toLowerCase()].toUpperCase();
 
-  return mapped ?? letter
+  return mapped ?? letter;
 }
 
 export function clearLetterFromLevels(letter, levels) {
-  let newCustomLevels = []
+  let newCustomLevels = [];
   for (let [i, level] of levels.entries()) {
     newCustomLevels.push(leftMinusRight(level, letter).join(""));
   }
-  return newCustomLevels
+  return newCustomLevels;
 }
 
 export function clearLetterFromKeyMap(letter, map) {
-  let newKeyMap = {}
+  let newKeyMap = {};
   for (let [k, v] of Object.entries(map)) {
     if (v === letter) {
-      newKeyMap[k] = ''
+      newKeyMap[k] = "";
     } else {
-      newKeyMap[k] = v
+      newKeyMap[k] = v;
     }
   }
-  return newKeyMap
+  return newKeyMap;
 }
