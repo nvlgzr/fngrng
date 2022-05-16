@@ -16,6 +16,7 @@
     useColumnarLayout,
     useCustomLayout,
     currentFixedLayout,
+    rotePracticeOn,
   } from "./persistentStore.js";
   import { isEditingWordLimit, isEditingTimeLimit } from "./volatileStore.js";
 
@@ -42,6 +43,20 @@
         } else {
           warning(
             'Turn off Full Sentences (<pre style="display:inline;">⌃F</pre>) to toggle Capital Letters'
+          );
+        }
+        break;
+
+      case "r":
+        if (!($fullSentenceModeEnabled || $currentLayout === "custom")) {
+          $rotePracticeOn = !$rotePracticeOn;
+          if ($rotePracticeOn) success("Rote Practice On");
+          else failure("Rote Practice Off");
+        } else {
+          warning(
+            $fullSentenceModeEnabled
+              ? 'Turn off Full Sentences (<pre style="display:inline;">⌃F</pre>) to toggle Capital Letters'
+              : 'Turn off Custom Layout (<pre style="display:inline;">⌃C</pre>) to toggle Rote Practice'
           );
         }
         break;

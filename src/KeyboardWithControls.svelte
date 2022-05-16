@@ -6,6 +6,7 @@
   import {
     currentFixedLayout,
     currentLayout,
+    rotePracticeOn,
     fullSentenceModeEnabled,
     keyRemapping,
     useColumnarLayout,
@@ -94,9 +95,11 @@
       <Toggle
         action={toggleCustomLayout}
         on={$currentLayout === "custom"}
-        disabled={$fullSentenceModeEnabled}
+        disabled={$fullSentenceModeEnabled || $rotePracticeOn}
         tooltip={$fullSentenceModeEnabled
           ? "Turn off Full Sentence mode (⌃F) to enable Custom layout"
+          : $rotePracticeOn
+          ? "Turn off Rote Practice mode (⌃R) to enable Custom layout"
           : $currentLayout === "custom"
           ? `Click to return to ${$currentFixedLayout} layout`
           : "Click to create your own keyboard layout"}

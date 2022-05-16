@@ -9,6 +9,7 @@ import {
   currentLevel,
   keyMap,
   punctuationToInclude,
+  rotePracticeOn,
   fullSentenceModeEnabled,
   useColumnarLayout,
   keyRemapping,
@@ -97,12 +98,14 @@ export const configuredRows = derived(
     $punctuationToInclude,
     $letterSetsForCurrentLayout,
     $lettersInLevel,
+    $rotePracticeOn,
     $fullSentenceModeEnabled,
     $keyRemapping,
   ]) => {
-    const activeCharacters = $fullSentenceModeEnabled
-      ? alphabet + $punctuationToInclude
-      : $lettersInLevel + $punctuationToInclude;
+    const activeCharacters =
+      $fullSentenceModeEnabled || $rotePracticeOn
+        ? alphabet + $punctuationToInclude
+        : $lettersInLevel + $punctuationToInclude;
 
     function letterLevelIndex(letter) {
       const levels = $letterSetsForCurrentLayout;

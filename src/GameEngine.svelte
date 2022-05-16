@@ -1,8 +1,10 @@
 <script>
   import Keystroke from "./Keystroke.svelte";
   import randomPassage from "./randomPassage.js";
+  import common from "./oneHundredCommonEnglishWords.js";
   import {
     uppercaseAllowed,
+    rotePracticeOn,
     fullSentenceModeEnabled,
     wordScrollingModeEnabled,
     timeLimitModeEnabled,
@@ -41,6 +43,8 @@
     const wordLimit = $timeLimitModeEnabled ? $maxSeconds * 4 : $maxWords;
     const targetString = $fullSentenceModeEnabled
       ? randomPassage()
+      : $rotePracticeOn
+      ? common($uppercaseAllowed, 7)
       : shuffle(filterWordList(masterList, allValidLetters)).join(" ");
 
     return initModel(targetString, wordLimit, $wordScrollingModeEnabled);
@@ -55,6 +59,7 @@
   $: {
     // Reset when any of these settings change
     $uppercaseAllowed;
+    $rotePracticeOn;
     $punctuationToInclude;
     $wordScrollingModeEnabled;
     $fullSentenceModeEnabled;

@@ -5,6 +5,7 @@
   import {
     currentLayout,
     currentLevel,
+    rotePracticeOn,
     fullSentenceModeEnabled,
     letterSetsForCurrentLayout,
   } from "./persistentStore";
@@ -54,6 +55,8 @@
     >
       {#if $fullSentenceModeEnabled}
         Full Sentences
+      {:else if $rotePracticeOn}
+        Common English Words
       {:else}
         level {$currentLevel}
         <span class="text-white">{levelLetters}</span>

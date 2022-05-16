@@ -82,6 +82,13 @@ uppercaseAllowed.subscribe((value) => {
   localStorage.setItem("fngrng_uppercaseAllowed", value);
 });
 
+const storedRotePracticeOn =
+  localStorage.getItem("fngrng_rotePracticeOn") || "false";
+export const rotePracticeOn = writable(storedRotePracticeOn === "true");
+rotePracticeOn.subscribe((value) => {
+  localStorage.setItem("fngrng_rotePracticeOn", value);
+});
+
 const storedFullSentenceMode = localStorage.getItem(
   "fngrng_fullSentenceModeEnabled"
 );

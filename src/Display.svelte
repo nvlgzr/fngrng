@@ -7,6 +7,7 @@
     fullSentenceModeEnabled,
     punctuationToInclude,
     uppercaseAllowed,
+    rotePracticeOn,
     wordScrollingModeEnabled,
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
@@ -58,6 +59,18 @@
         : "Click to include Uppercase words"}
     >
       Capital Letters ⌃C
+    </Toggle>
+
+    <Toggle
+      bind:on={$rotePracticeOn}
+      disabled={$fullSentenceModeEnabled}
+      tooltip={$fullSentenceModeEnabled
+        ? "Rote practice is for practicing frequent sequences in concentrated bursts, and is therefore incompatible with whole sentences."
+        : $rotePracticeOn
+        ? "Click to return to a more diverse practice."
+        : "Click to practice frequently-used English words"}
+    >
+      Rote Practice ⌃R
     </Toggle>
 
     <Toggle
