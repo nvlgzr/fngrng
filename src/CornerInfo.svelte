@@ -6,5 +6,7 @@
 <style lang="postcss">
   div {
     @apply text-center;
+    font-size: 2.5vh;
+    line-height: 3vh;
   }
 </style>

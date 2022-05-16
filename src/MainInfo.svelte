@@ -1,7 +1,12 @@
-<img src="fingers.png" alt="line drawing of fingers on keyboard" />
-<h1>fngrng</h1>
+<figure>
+  <img
+    style:height="15vh"
+    src="fngrng-logo.svg"
+    alt="line drawing of fingers on keyboard"
+  />
+</figure>
 
-<h2>simple typing practice</h2>
+<h1>simple typing practice</h1>
 
 <dl>
   <dt>8 popular layouts</dt>
@@ -21,41 +26,35 @@
 <style lang="postcss">
   img,
   h1,
-  h2,
   dl {
-    @apply text-3xl mx-auto text-center;
+    @apply mx-auto text-center;
+    font-size: 2.25vh;
   }
 
   h1,
-  h2,
   span,
   dl {
     filter: blur(0.4px); /* Just to soften it into the paper texture a bit. */
   }
 
-  h1 {
-    @apply text-8xl -mt-10;
-    font-style: italic;
-  }
-
-  h2 {
-    @apply mt-4;
-  }
-
   dl {
-    @apply mt-16;
+    margin-top: 6.5vh;
   }
 
-  h2,
+  h1,
   dt {
-    @apply text-5xl mt-6;
+    margin-top: 2vh;
+    font-size: 3vh;
   }
-  dt:before {
-    content: "⚘ ";
-    @apply text-3xl;
+  dt:before,
+  dt:after {
+    /* Match hand color in logo SVG */
+    color: hsl(0, 5%, 64%);
+    content: " ⚘ ";
+    font-size: 4vh;
   }
 
   dd {
-    @apply mt-2;
+    margin-top: 1vh;
   }
 </style>

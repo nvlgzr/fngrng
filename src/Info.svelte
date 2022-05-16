@@ -63,7 +63,9 @@
     cursor: pointer;
   }
   section {
-    @apply text-coolGray-800 text-opacity-70;
+    @apply text-coolGray-800 text-opacity-70 font-serif;
+
+    line-height: 3vh;
 
     position: fixed;
     width: 90vw;
@@ -81,11 +83,10 @@
     background: url(/paper.jpg), white;
     background-size: cover;
     box-shadow: 0px 4px 15px hsla(0, 0%, 0%, 0.25);
-
-    @apply font-serif text-3xl;
   }
   p {
     @apply mt-2;
+    font-size: 1.75vh;
   }
   a:after {
     content: "º";
