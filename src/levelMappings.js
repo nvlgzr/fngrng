@@ -47,6 +47,7 @@ export const allLayoutMaps = {
     k: "k",
     l: "l",
     ";": "m",
+    ñ: "m", // Support for Latin American keyboards
     ":": "M",
     "'": "ù",
     z: "<",
@@ -86,6 +87,7 @@ export const allLayoutMaps = {
     k: "t",
     l: "n",
     ";": "s",
+    ñ: "s", // Support for Latin American keyboards
     "'": "-",
     z: ";",
     x: "q",
@@ -162,6 +164,7 @@ export const allLayoutMaps = {
     k: "e",
     l: "i",
     ";": "o",
+    ñ: "o", // Support for Latin American keyboards
     ":": "O",
     "'": "'",
     z: "z",
@@ -201,6 +204,7 @@ export const allLayoutMaps = {
     k: "e",
     l: "i",
     ";": "o",
+    ñ: "o", // Support for Latin American keyboards
     ":": "O",
     "'": "'",
     z: "z",
@@ -250,6 +254,7 @@ export const allLayoutMaps = {
     k: "a",
     l: "z",
     ";": "8",
+    ñ: "8", // Support for Latin American keyboards
     "'": "7",
     z: "'",
     x: "x",
@@ -288,6 +293,7 @@ export const allLayoutMaps = {
     k: "e",
     l: "i",
     ";": "o",
+    ñ: "o", // Support for Latin American keyboards
     "'": "'",
     z: "z",
     x: "x",
@@ -326,6 +332,7 @@ export const allLayoutMaps = {
     k: "k",
     l: "l",
     ";": ";",
+    ñ: ";", // Support for Latin American keyboards
     "'": "'",
     z: "z",
     x: "x",
@@ -364,6 +371,7 @@ export const allLayoutMaps = {
     k: "e",
     l: "o",
     ";": "i",
+    ñ: "i", // Support for Latin American keyboards
     "'": "'",
     z: "z",
     x: "x",
@@ -404,6 +412,7 @@ export const emptyCustomKeyMap = {
   k: " ",
   l: " ",
   ";": " ",
+  ñ: " ", // Support for Latin American keyboards
   "'": " ",
   z: " ",
   x: " ",
