@@ -46,7 +46,7 @@
 
 <section>
   <div class:scroll style={`left: ${scroll ? -firstWordOffset : 0}px`}>
-    {#each line as word, i (word)}
+    {#each line.slice(0, 13) as word, i (word)}
       {#if i === 0}
         <span bind:this={firstWordEl} style={scroll ? "opacity:0" : ""}>
           <SingleWord {word} />
