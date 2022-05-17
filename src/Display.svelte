@@ -12,6 +12,7 @@
   } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
   import HoverableControls from "./HoverableControls.svelte";
+  import { displayAllGameControls } from "./volatileStore";
 
   export let model;
 
@@ -23,15 +24,21 @@
     <div style={`--duration: ${transitionDuration}`}>
       {#if model}
         {#if model.gameState === "over"}
-          <div class:hovering class="aligncenter">
+          <div
+            class:hovering={hovering || $displayAllGameControls}
+            class="aligncenter"
+          >
             <EndGame {model} />
           </div>
         {:else if $wordScrollingModeEnabled}
-          <div class:hovering class="aligndown">
+          <div
+            class:hovering={hovering || $displayAllGameControls}
+            class="aligndown"
+          >
             <Scroller {model} />
           </div>
         {:else}
-          <div class:hovering>
+          <div class:hovering={hovering || $displayAllGameControls}>
             <MultiLine {model} />
           </div>
         {/if}

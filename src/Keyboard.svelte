@@ -6,6 +6,7 @@
     currentLevel,
     levelMaps,
   } from "./persistentStore.js";
+  import { displayAllGameControls } from "./volatileStore.js";
   import {
     clearLetterFromKeyMap,
     clearLetterFromLevels,
@@ -50,6 +51,7 @@
 
     if (detail === "Escape") {
       $isEditingCustomKeyMap = false;
+      $displayAllGameControls = false;
       reset();
       return;
     }

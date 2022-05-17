@@ -2,7 +2,7 @@
   import Hoverable from "./Hoverable.svelte";
   import { timeLimitModeEnabled } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
-  import { isEditingTimeLimit } from "./volatileStore";
+  import { displayAllGameControls, isEditingTimeLimit } from "./volatileStore";
   import Clock from "./Clock.svelte";
 
   const setTimeLimitMode = () => {
@@ -13,12 +13,15 @@
 
 <!-- Pretty sure this 'reset' ↓ is cruft -->
 <Hoverable let:hovering let:reset let:transitionDuration>
-  <div class:hovering style={`transition: all ${transitionDuration}`}>
+  <div
+    class:hovering={hovering || $displayAllGameControls}
+    style={`transition: all ${transitionDuration}`}
+  >
     <Clock done={reset} />
     <span
       class="shortcut"
       style={`opacity: ${
-        hovering ? 1 : 0
+        hovering || $displayAllGameControls ? 1 : 0
       }; transition: all ${transitionDuration}`}
     >
       <Toggle

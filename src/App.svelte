@@ -11,6 +11,7 @@
   import Tests from "./Tests.svelte";
   import Game from "./Game.svelte";
   import { escapeHatch } from "./persistentStore";
+  import { displayAllGameControls } from "./volatileStore";
   import MobileApology from "./MobileApology.svelte";
 
   let modeIndex = 0;
@@ -20,6 +21,8 @@
     if (detail === "å") {
       modeIndex = (modeIndex + 1) % modes.length;
       $escapeHatch = modes[modeIndex];
+    } else if (detail === "Shift+Control+/") {
+      $displayAllGameControls = !$displayAllGameControls;
     }
   };
 
@@ -29,7 +32,7 @@
 <Tailwindcss />
 <Toasts />
 
-<Keystroke on:stroke={globalToggles} />
+<Keystroke on:stroke={globalToggles} on:combo={globalToggles} />
 
 {#if $escapeHatch === "app"}
   <!-- Headless Components-->
@@ -42,6 +45,7 @@
     <LayoutHeader />
     <Game {model} />
     <KeyboardWithControls />
+    <p>[Pro tip: Toggle Primary Controls ⇧^?]</p>
   </div>
 
   <!-- Mobile Punt -->
@@ -73,5 +77,9 @@
     div {
       display: grid;
     }
+  }
+  p {
+    @apply my-0 mx-auto p-4;
+    @apply text-coolGray-700;
   }
 </style>

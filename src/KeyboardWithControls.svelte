@@ -12,7 +12,11 @@
     useColumnarLayout,
     useCustomLayout,
   } from "./persistentStore";
-  import { isEditingCustomKeyMap, lettersInLevel } from "./volatileStore";
+  import {
+    isEditingCustomKeyMap,
+    lettersInLevel,
+    displayAllGameControls,
+  } from "./volatileStore";
 
   $: custom = $currentLayout === "custom";
   $: playable = $lettersInLevel.length > 0;
@@ -49,8 +53,16 @@
     style={`transition: all ${transitionDuration}`}
   >
     {#if $keyRemapping}
-      <Outline class={hovering ? borderHoverClass : borderClass}>
-        <div class={hovering ? borderHoverClass : borderClass}>
+      <Outline
+        class={hovering || $displayAllGameControls
+          ? borderHoverClass
+          : borderClass}
+      >
+        <div
+          class={hovering || $displayAllGameControls
+            ? borderHoverClass
+            : borderClass}
+        >
           <Keyboard />
           {#if custom}
             {#if playable}

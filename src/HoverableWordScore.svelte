@@ -2,7 +2,7 @@
   import Hoverable from "./Hoverable.svelte";
   import { timeLimitModeEnabled } from "./persistentStore";
   import Toggle from "./Toggle.svelte";
-  import { isEditingWordLimit } from "./volatileStore";
+  import { displayAllGameControls, isEditingWordLimit } from "./volatileStore";
   import WordScore from "./WordScore.svelte";
 
   export let model;
@@ -15,12 +15,15 @@
 
 <!-- Pretty sure this 'reset' ↓ is cruft -->
 <Hoverable let:hovering let:reset let:transitionDuration>
-  <div class:hovering style={`transition: all ${transitionDuration}`}>
+  <div
+    class:hovering={hovering || $displayAllGameControls}
+    style={`transition: all ${transitionDuration}`}
+  >
     <WordScore {model} done={reset} />
     <span
       class="shortcut"
       style={`opacity: ${
-        hovering ? 1 : 0
+        hovering || $displayAllGameControls ? 1 : 0
       }; transition: all ${transitionDuration}`}
     >
       <Toggle
@@ -48,7 +51,7 @@
   }
 
   .shortcut {
-    @apply absolute w-max top-10 -left-4;
+    @apply absolute w-max top-10 -right-1;
     @apply text-2xl;
   }
 </style>
