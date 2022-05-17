@@ -149,7 +149,8 @@ export const configuredRows = derived(
         if (letterConfig.id === "mapping-status" && !$keyRemapping)
           return {
             ...letterConfig,
-            letter: $currentLayout !== "custom" ? `Layout Imitation Off` : "",
+            letter:
+              $currentLayout === "custom" ? "Custom" : "Layout Imitation On",
           };
         else if (!letterConfig.id || !activeMap[letterConfig.id])
           return {
