@@ -12,6 +12,7 @@
     } else {
       on = !on;
     }
+    button.blur();
   };
 
   let button;
