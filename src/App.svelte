@@ -13,6 +13,7 @@
   import { escapeHatch } from "./persistentStore";
   import { displayAllGameControls } from "./volatileStore";
   import MobileApology from "./MobileApology.svelte";
+  import LogRocket from "logrocket";
 
   let modeIndex = 0;
   let modes = ["app", "playground", "tests"];
@@ -27,7 +28,40 @@
   };
 
   let model;
+
+  // Unlike SvelteKit, Svelte doesn't have a prod/dev distinction built in.
+  //
+  // https://stackoverflow.com/a/69307936/16569780
+  //
+  // I like this solution because it relies on the environment, rather than
+  // the bundler, to define the, well…the environment.
+  const isProduction = (function () {
+    // Check if is client side
+    if (typeof window !== "undefined" && window.document !== undefined) {
+      // check production hostname
+      if (
+        window?.location.hostname !== undefined &&
+        window.location.hostname === "fngrng.navegazer.club"
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  })();
+
+  if (isProduction) {
+    LogRocket.init("zzmryh/fngrng");
+  }
 </script>
+
+<span
+  style:position="absolute"
+  style:font-size="2rem"
+  style:margin="0.5rem 0.25rem">{isProduction ? "" : "🤖"}</span
+>
 
 <Tailwindcss />
 <Toasts />
