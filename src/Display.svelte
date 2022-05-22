@@ -69,18 +69,6 @@
     </Toggle>
 
     <Toggle
-      bind:on={$rotePracticeOn}
-      disabled={$fullSentenceModeEnabled}
-      tooltip={$fullSentenceModeEnabled
-        ? "Rote practice is for practicing frequent sequences in concentrated bursts, and is therefore incompatible with whole sentences."
-        : $rotePracticeOn
-        ? "Click to return to a more diverse practice."
-        : "Click to practice frequently-used English words"}
-    >
-      Rote Practice ⌃R
-    </Toggle>
-
-    <Toggle
       action={() =>
         ($punctuationToInclude = $punctuationToInclude === "" ? "'.-" : "")}
       on={$punctuationToInclude !== ""}
@@ -91,6 +79,18 @@
         ? "Full sentence mode automatically includes Punctuation"
         : "Click to enable words with dots, dashes, and apostrophes"}
       >Punctuation ⌃P
+    </Toggle>
+
+    <Toggle
+      bind:on={$rotePracticeOn}
+      disabled={$fullSentenceModeEnabled}
+      tooltip={$fullSentenceModeEnabled
+        ? "Rote practice is for practicing frequent sequences in concentrated bursts, and is therefore incompatible with whole sentences."
+        : $rotePracticeOn
+        ? "Click to return to a more diverse practice."
+        : "Click to practice frequently-used English words"}
+    >
+      Rote Practice ⌃R
     </Toggle>
 
     <Toggle
