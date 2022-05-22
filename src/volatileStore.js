@@ -88,6 +88,7 @@ export const configuredRows = derived(
     punctuationToInclude,
     letterSetsForCurrentLayout,
     lettersInLevel,
+    rotePracticeOn,
     fullSentenceModeEnabled,
     keyRemapping,
   ],
