@@ -34,14 +34,16 @@
   // https://stackoverflow.com/a/69307936/16569780
   //
   // I like this solution because it relies on the environment, rather than
-  // the bundler, to define the, well…the environment.
+  // the bundler, to define the, well…the environment. At some point, I'll
+  // probably add SvelteKit to the mix, at which point Vite + `import.meta.env.PROD` should make this whole function obsolete.
   const isProduction = (function () {
     // Check if is client side
     if (typeof window !== "undefined" && window.document !== undefined) {
+      console.log("🔴 window?.location.hostname", window?.location.hostname);
       // check production hostname
       if (
         window?.location.hostname !== undefined &&
-        window.location.hostname === "fngrng.navegazer.club"
+        window.location.hostname === "fngrng.navelgazer.club"
       ) {
         return true;
       } else {
@@ -53,6 +55,7 @@
   })();
 
   if (isProduction) {
+    cosnole.log("Enabling LogRocket");
     LogRocket.init("zzmryh/fngrng");
   }
 </script>
@@ -60,7 +63,8 @@
 <span
   style:position="absolute"
   style:font-size="2rem"
-  style:margin="0.5rem 0.25rem">{isProduction ? "" : "🤖"}</span
+  style:margin="0.5rem 0.25rem"
+  >{isProduction ? "" : "🤖"} {window.location.hostname}</span
 >
 
 <Tailwindcss />
