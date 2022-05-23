@@ -55,7 +55,7 @@
   })();
 
   if (isProduction) {
-    cosnole.log("Enabling LogRocket");
+    console.log("Enabling LogRocket");
     LogRocket.init("zzmryh/fngrng");
   }
 </script>
