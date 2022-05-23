@@ -63,8 +63,7 @@
 <span
   style:position="absolute"
   style:font-size="2rem"
-  style:margin="0.5rem 0.25rem"
-  >{isProduction ? "" : "🤖"} {window.location.hostname}</span
+  style:margin="0.5rem 0.25rem">{isProduction ? "" : "🤖"}</span
 >
 
 <Tailwindcss />
