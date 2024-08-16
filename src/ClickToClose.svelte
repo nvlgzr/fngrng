@@ -7,7 +7,7 @@
 
 {#if falseToClose}
   <div
-    transition:fade|local
+    transition:fade
     on:click={() => {
       falseToClose = false;
       callback();
