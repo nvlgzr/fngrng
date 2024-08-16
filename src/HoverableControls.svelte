@@ -3,11 +3,13 @@
   import { displayAllGameControls } from "./volatileStore";
 
   // Class passing pattern discovered here: https://svelte.dev/repl/299bec14c8154ad89eb53f3d18ba2a37?version=3.24.0
-  export { className as class };
   let className = "";
+  export { className as class };
+  let hovering;
+  let transitionDuration;
 </script>
 
-<Hoverable let:hovering let:transitionDuration>
+<Hoverable bind:hovering bind:transitionDuration>
   <main class={className}>
     <section>
       <section

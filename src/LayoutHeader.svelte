@@ -23,8 +23,10 @@
 </script>
 
 <div>
-  <HoverableMenu let:hovering let:transitionDuration>
+  <HoverableMenu>
     <span
+      let:transitionDuration
+      let:hovering
       class={`title ${
         $currentLayout === "custom" ? "text-blue-400" : "text-coolGray-400"
       }`}
@@ -37,6 +39,8 @@
 
     <span slot="menu-indicator">
       <span
+        let:transitionDuration
+        let:hovering
         class="chevron text-coolGray-400"
         class:hovering
         style={`transition: all ${transitionDuration}`}>﹀</span

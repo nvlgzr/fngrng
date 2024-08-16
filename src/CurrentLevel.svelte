@@ -44,8 +44,10 @@
 </script>
 
 <div>
-  <HoverableMenu let:hovering let:transitionDuration>
+  <HoverableMenu>
     <span
+      let:transitionDuration
+      let:hovering
       class={`title ${hovering ? hoverColor : color}`}
       style={`transition: all ${transitionDuration}`}
       title={"Click to choose a level" +
@@ -76,6 +78,8 @@
 
     <span slot="menu-indicator">
       <span
+        let:transitionDuration
+        let:hovering
         class="chevron"
         class:hovering
         style={`transition: all ${transitionDuration}`}

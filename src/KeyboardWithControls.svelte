@@ -46,10 +46,11 @@
   };
 </script>
 
-<HoverableControls class={textHoverClass} let:transitionDuration>
+<HoverableControls class={textHoverClass}>
   <span
     slot="anchor"
     let:hovering
+    let:transitionDuration
     style={`transition: all ${transitionDuration}`}
   >
     {#if $keyRemapping}

@@ -4,6 +4,9 @@
   import { gameState } from "./volatileStore";
 
   let showMenu = false;
+  let hovering;
+  let transitionDuration;
+
   const handleClick = (e) => {
     showMenu = !showMenu;
   };
@@ -20,7 +23,7 @@
   //   https://imfeld.dev/writing/nested_popups
 </script>
 
-<Hoverable let:hovering let:reset let:transitionDuration>
+<Hoverable let:reset bind:hovering bind:transitionDuration>
   <section class:hovering on:click={handleClick}>
     <div class="anchor" class:show-menu={showMenu}>
       <slot {hovering} {transitionDuration} />

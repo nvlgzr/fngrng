@@ -20,7 +20,7 @@
 </script>
 
 <HoverableControls class={"text-blue-300"} let:transitionDuration>
-  <span slot="anchor" let:hovering>
+  <span slot="anchor" let:hovering let:transitionDuration>
     <div style={`--duration: ${transitionDuration}`}>
       {#if model}
         {#if model.gameState === "over"}

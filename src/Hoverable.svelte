@@ -2,8 +2,8 @@
 <script>
   import { gameState } from "./volatileStore";
 
-  let hovering;
-  let transitionDuration = "0";
+  export let hovering = false;
+  export let transitionDuration = "0";
   //  ↑ Allows clients to opt in to a gentle fade-out when hovering
   //    expires from lack of mouse movement
 
