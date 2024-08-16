@@ -11,4 +11,4 @@
     <SingleCharacter {charSpec} />
   {/if}
 {/each}
-<span comment="creates gap between words" />
+<span comment="creates gap between words"></span>

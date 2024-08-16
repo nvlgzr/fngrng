@@ -103,13 +103,13 @@
 {#each rows as row, ri}
   <div class="row">
     {#each row as letterConf, ki}
-      <div
+      <button
         on:click={() => beginEdit([ri, ki, letterConf.id, letterConf.letter])}
         class={`key ${letterConf.class} ${editingClass(ri, ki)}`}
         id={letterConf.id}
       >
         <span>{letterConf.letter}</span>
-      </div>
+      </button>
     {/each}
   </div>
 {/each}

@@ -24,7 +24,7 @@
 </script>
 
 <Hoverable let:reset bind:hovering bind:transitionDuration>
-  <section class:hovering on:click={handleClick}>
+  <button class:hovering on:click={handleClick}>
     <div class="anchor" class:show-menu={showMenu}>
       <slot {hovering} {transitionDuration} />
 
@@ -37,7 +37,7 @@
         <slot name="menu" {reset} />
       </div>
     {/if}
-  </section>
+  </button>
   <ClickToClose
     bind:falseToClose={showMenu}
     callback={() => reset()}
@@ -46,7 +46,7 @@
 </Hoverable>
 
 <style lang="postcss">
-  section {
+  button {
     @apply relative;
   }
   span {

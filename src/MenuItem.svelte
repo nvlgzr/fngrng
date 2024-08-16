@@ -4,10 +4,10 @@
   export let selected = false;
 </script>
 
-<div class="menu-item" class:selected on:click={callback}>
+<button class="menu-item" class:selected on:click={callback}>
   <slot />
   <div class="shortcut">&nbsp;&nbsp;&nbsp;{shortcut}</div>
-</div>
+</button>
 
 <style lang="postcss">
   .menu-item {

@@ -16,14 +16,14 @@
 
 <Keystroke on:combo={onCombo} />
 
-<span class="open" on:click={toggle} title="Click to reveal Info panel">⌃?</span
+<button class="open" on:click={toggle} title="Click to reveal Info panel">⌃?</button
 >
 
 <section class:show>
   <div class="central">
     <MainInfo />
   </div>
-  <div class="close" on:click={toggle} title="Click to hide Info panel">⌃?</div>
+  <button class="close" on:click={toggle} title="Click to hide Info panel">⌃?</button>
   <div class="colophon">
     <CornerInfo>
       colophon

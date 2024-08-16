@@ -29,6 +29,6 @@
   }
 </script>
 
-<div on:mousemove={move} on:mouseleave={leave}>
+<div role="none" on:mousemove={move} on:mouseleave={leave}>
   <slot {hovering} {reset} {transitionDuration} />
 </div>

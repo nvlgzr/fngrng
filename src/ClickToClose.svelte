@@ -6,7 +6,7 @@
 </script>
 
 {#if falseToClose}
-  <div
+  <button
     transition:fade
     on:click={() => {
       falseToClose = false;
@@ -15,11 +15,11 @@
     class:transparent
   >
     &nbsp;
-  </div>
+  </button>
 {/if}
 
 <style lang="postcss">
-  div {
+  button {
     @apply bg-coolGray-500 bg-opacity-50;
     @apply fixed h-screen w-screen left-0 top-0;
     @apply z-10;
