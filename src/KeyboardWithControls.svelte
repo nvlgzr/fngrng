@@ -98,7 +98,7 @@
       <Toggle
         bind:on={$useColumnarLayout}
         tooltip={$useColumnarLayout
-          ? "Click to arrange keys in 'standard' diaglonal layout"
+          ? "Click to arrange keys in 'standard' diagonal layout"
           : "Click to arrange keys in split-hand grid layout"}
       >
         Keys in Columns ⌃K
