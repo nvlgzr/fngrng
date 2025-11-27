@@ -1,21 +1,23 @@
-const { purple } = require('tailwindcss/colors')
-const colors = require('tailwindcss/colors')
+import colors from 'tailwindcss/colors';
 
-module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+// Remove deprecated color names to silence warnings
+const { lightBlue, warmGray, trueGray, coolGray: _coolGray, blueGray, ...safeColors } = colors;
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{svelte,js,ts}'],
   theme: {
     colors: {
-      ...colors,
+      ...safeColors,
       coolGray: {
         100: "hsl(220deg 14% 99%)",
         200: "hsla(220, 13%, 91%, 0.5)",
         300: "hsl(220, 13%, 80%)",
-        400: colors.coolGray[400],
-        500: colors.coolGray[500],
-        700: colors.coolGray[700],
-        800: colors.coolGray[800],
-        900: colors.coolGray[900]
+        400: colors.gray[400],
+        500: colors.gray[500],
+        700: colors.gray[700],
+        800: colors.gray[800],
+        900: colors.gray[900]
       },
       blue: {
         300: "hsl(195, 86%, 64%)",
@@ -45,9 +47,6 @@ module.exports = {
         'prompt': '35ch',
       }
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }

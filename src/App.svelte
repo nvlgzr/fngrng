@@ -1,5 +1,4 @@
 <script>
-  import Tailwindcss from "./Tailwindcss.svelte";
   import Toasts from "./Toasts.svelte";
   import Keystroke from "./Keystroke.svelte";
   import GameEngine from "./GameEngine.svelte";
@@ -66,7 +65,6 @@
   style:margin="0.5rem 0.25rem">{isProduction ? "" : "🤖"}</span
 >
 
-<Tailwindcss />
 <Toasts />
 
 <Keystroke on:stroke={globalToggles} on:combo={globalToggles} />
